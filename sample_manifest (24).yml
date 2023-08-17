@@ -1,0 +1,123 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'cws-order-test1'
+  namespace: 'cws-test'
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/affinity: cookie
+    nginx.ingress.kubernetes.io/session-cookie-name: JSESSIONID
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  labels:
+    project: 'cws-order'
+    commit: 'a64b22a'
+    role: java
+    environment: test1
+spec:
+  rules:
+    - host: 'cws-order-test1.kubemdc-test.corp.intranet'
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: 'cws-order-test1'
+              servicePort: 8080
+  tls:
+    - hosts:
+      - 'cws-order-test1.kubemdc-test.corp.intranet'
+      secretName: managed-tls-secret
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'cws-order-test1'
+  namespace: 'cws-test'
+  labels:
+    project: 'cws-order'
+    commit: 'a64b22a'
+    role: java
+    environment: test1
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    project: 'cws-order'
+    commit: 'a64b22a'
+    role: java
+    environment: test1
+  type: ClusterIP
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'cws-order-test1'
+  labels:
+    project: 'cws-order'
+    commit: 'a64b22a'
+    role: java
+    environment: test1
+spec:
+  selector:
+    matchLabels:
+      project: 'cws-order'
+      role: java
+      environment: test1
+  replicas: 1
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'cws-order'
+        commit: 'a64b22a'
+        role: java
+        environment: test1
+    spec:
+      containers:
+        - name: java
+          image: 'nexusprod.corp.intranet:4567/cws/cws-order:february-2022'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+            - containerPort: 5000
+              protocol: TCP
+          resources:
+            limits:
+              memory: 2Gi
+              cpu: 250m
+            requests:
+              memory: 1Gi
+              cpu: 100m
+          env:
+            - name: JAVA_OPTS
+              value: -Xms1024m -Xmx1024m -Duser.timezone=CST -Dappdynamics.agent.nodeName=host_name -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:NativeMemoryTracking='summary' -XX:+PrintNMTStatistics -javaagent:/opt/appdynamics/javaagent.jar
+            - name : CATALINA_OPTS
+              value: -Xms512m -Xmx2048m
+            - name: SPRING_PROFILES_ACTIVE
+              value: cloud-test1
+            - name: APPDYNAMICS_CONTROLLER_HOST_NAME
+              value: 'centurylink-nonprod.saas.appdynamics.com'
+            - name: APPDYNAMICS_CONTROLLER_PORT
+              value: '443'
+            - name: APPDYNAMICS_CONTROLLER_SSL_ENABLED
+              value: 'true'
+            - name: APPDYNAMICS_AGENT_APPLICATION_NAME
+              value: 'CWS-CenturyLink Web Services (TEST1) - SYSGEN0787341651'
+            - name: APPDYNAMICS_AGENT_TIER_NAME
+              value: 'cws-order'
+            - name: APPDYNAMICS_AGENT_ACCOUNT_NAME
+              value: 'centurylink-nonprod'
+            - name: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: appdynamic-secret
+                  key: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+      imagePullSecrets:
+        - name: cws-order-february-2022
+---
+---

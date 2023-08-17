@@ -1,0 +1,64 @@
+2021-11-02T14:09:10.608766572+00:00 stdout F 
+2021-11-02T14:09:10.608766572+00:00 stdout F > @centurylinkfederal/eis-apis@1.2.1 start
+2021-11-02T14:09:10.608766572+00:00 stdout F > node --preserve-symlinks dist/main.js
+2021-11-02T14:09:10.608766572+00:00 stdout F 
+2021-11-02T14:09:10.690651721+00:00 stdout F Loading config from: /app/config/podman/test2/snapi.yaml
+2021-11-02T14:09:10.765839196+00:00 stdout F 14:09:10.738 [info] Creating global snapi cache
+2021-11-02T14:09:11.237762800+00:00 stdout F 14:09:11.237 [info] Creating global snapiSqlDb
+2021-11-02T14:09:11.995651500+00:00 stdout F 14:09:11.992 [info] Node Version: v16.10.0
+2021-11-02T14:09:11.995651500+00:00 stdout F 14:09:11.993 [info] CWD: /app
+2021-11-02T14:09:11.995651500+00:00 stdout F 14:09:11.994 [info] Linking APIs: 
+2021-11-02T14:09:11.995651500+00:00 stdout F   - snapi v1.0.40
+2021-11-02T14:09:11.995651500+00:00 stdout F   - eis-accounts v1.2.2
+2021-11-02T14:09:11.995651500+00:00 stdout F   - eis-orders v1.2.11
+2021-11-02T14:09:11.995651500+00:00 stdout F   - eis-products v1.2.7
+2021-11-02T14:09:14.334657551+00:00 stdout F 14:09:14.334 [info] api endpoint base path: api/v1/node
+2021-11-02T14:09:14.335831400+00:00 stdout F 14:09:14.334 [info] Found @rest endpoint: /api/v1/node/versions => src/apis.ts#Apis
+2021-11-02T14:09:14.414417948+00:00 stdout F 14:09:14.413 [info] Found @rest endpoint: /api/v1/node/auth => eis-accounts/src/auth/auth-wrapper.ts#AuthWrapper
+2021-11-02T14:09:14.442262925+00:00 stdout F 14:09:14.441 [info] Found @rest endpoint: /api/v1/node/auth/graphql => eis-accounts/src/auth/auth-wrapper.ts#AuthWrapperGraphQL
+2021-11-02T14:09:14.442262925+00:00 stdout F 14:09:14.441 [info] Found @rest endpoint: /api/v1/node/auth/refresh => eis-accounts/src/auth/auth-wrapper.ts#AuthWrapperRefresh
+2021-11-02T14:09:14.442262925+00:00 stdout F 14:09:14.441 [info] Found @rest endpoint: /api/v1/node/accounts/{accountNumber?} => eis-accounts/src/api/accounts.ts#Accounts
+2021-11-02T14:09:14.599505638+00:00 stdout F 14:09:14.598 [info] Found @rest endpoint: /api/v1/node/agencies/{name?} => eis-accounts/src/api/agencies.ts#Accounts
+2021-11-02T14:09:14.627328869+00:00 stdout F 14:09:14.621 [info] Found @rest endpoint: /api/v1/node/menus => eis-accounts/src/api/menus.ts#Menus
+2021-11-02T14:09:14.729188186+00:00 stdout F 14:09:14.728 [info] Found @rest endpoint: /api/v1/node/task-orders => eis-accounts/src/api/task-orders.ts#TaskOrderSummaries
+2021-11-02T14:09:14.750884973+00:00 stdout F 14:09:14.750 [info] Found @rest endpoint: /api/v1/node/task-orders/{taskOrderNumber} => eis-accounts/src/api/task-orders.ts#TaskOrders
+2021-11-02T14:09:14.750884973+00:00 stdout F 14:09:14.750 [info] Found @rest endpoint: /api/v1/node/users/{username?} => eis-accounts/src/api/users.ts#Users
+2021-11-02T14:09:14.760290889+00:00 stdout F 14:09:14.759 [info] Found @rest endpoint: /api/v1/node/orders/{orderId}/products/{product}/attributes/{name?} => eis-orders/src/api/attributes.ts#ProductAttributes
+2021-11-02T14:09:15.272272633+00:00 stdout F 14:09:15.271 [info] Found @rest endpoint: /api/v1/node/backoffice => eis-orders/src/api/backoffice.ts#Backoffice
+2021-11-02T14:09:15.338661298+00:00 stdout F 14:09:15.332 [info] Found @rest endpoint: /api/v1/node/cookies => eis-orders/src/api/cookies.ts#Cookies
+2021-11-02T14:09:15.340464294+00:00 stdout F 14:09:15.339 [info] Found @rest endpoint: /api/v1/node/orders/{orderId}/contacts => eis-orders/src/api/order-contacts.ts#OrderContacts
+2021-11-02T14:09:15.359026603+00:00 stdout F 14:09:15.358 [info] Found @rest endpoint: /api/v1/node/orders/{orderId}/notifications/{version?} => eis-orders/src/api/order-notifications.ts#OrderProducts
+2021-11-02T14:09:15.366796324+00:00 stdout F 14:09:15.366 [info] Found @rest endpoint: /api/v1/node/orders/{orderId}/products/{product?}/{clins?} => eis-orders/src/api/order-products.ts#OrderProducts
+2021-11-02T14:09:15.376930348+00:00 stdout F 14:09:15.376 [info] Found @rest endpoint: /api/v1/node/orders/{orderId}/history => eis-orders/src/api/order-versions.ts#OrderVersionSummary
+2021-11-02T14:09:15.385780990+00:00 stdout F 14:09:15.385 [info] Found @rest endpoint: /api/v1/node/orders/{orderId}/versions/{version?} => eis-orders/src/api/order-versions.ts#OrderVersions
+2021-11-02T14:09:15.385780990+00:00 stdout F 14:09:15.385 [info] Found @rest endpoint: /api/v1/node/orders/{orderId}/submission => eis-orders/src/api/orders.ts#OrderSubmit
+2021-11-02T14:09:15.679394076+00:00 stdout F 14:09:15.678 [info] Found @rest endpoint: /api/v1/node/orders/{orderId?} => eis-orders/src/api/orders.ts#Orders
+2021-11-02T14:09:15.679394076+00:00 stdout F 14:09:15.678 [info] Found @rest endpoint: /api/v1/node/orders/backoffice => eis-orders/src/api/orders.ts#BackOffice
+2021-11-02T14:09:15.679394076+00:00 stdout F 14:09:15.679 [info] Found @rest endpoint: /api/v1/node/pricing => eis-orders/src/api/quote-price.ts#QuotePrice
+2021-11-02T14:09:15.686647230+00:00 stdout F 14:09:15.686 [info] Found @rest endpoint: /api/v1/node/catalog/search => eis-products/src/api/catalogs.ts#Catalogs
+2021-11-02T14:09:15.723797785+00:00 stdout F 14:09:15.723 [info] Found @rest endpoint: /api/v1/node/clin-groups/{name?} => eis-products/src/api/clin-groups.ts#ClinGroups
+2021-11-02T14:09:15.905580156+00:00 stdout F 14:09:15.904 [info] Found @rest endpoint: /api/v1/node/clin-groups/{name}/search => eis-products/src/api/clin-groups.ts#ClinGroupSearch
+2021-11-02T14:09:15.905580156+00:00 stdout F 14:09:15.905 [info] Found @rest endpoint: /api/v1/node/clins/{clin?} => eis-products/src/api/clins.ts#Clins
+2021-11-02T14:09:15.921262204+00:00 stdout F 14:09:15.920 [info] Found @rest endpoint: /api/v1/node/clins/search => eis-products/src/api/clins.ts#ClinSearch
+2021-11-02T14:09:15.921262204+00:00 stdout F 14:09:15.920 [info] Found @rest endpoint: /api/v1/node/clins/{clin}/attributes => eis-products/src/api/clins.ts#ClinAttributes
+2021-11-02T14:09:15.921262204+00:00 stdout F 14:09:15.920 [info] Found @rest endpoint: /api/v1/node/products2/clins => eis-products/src/api/clins2.ts#Clins2
+2021-11-02T14:09:15.928156978+00:00 stdout F 14:09:15.927 [info] Found @rest endpoint: /api/v1/node/products2/clin-groups => eis-products/src/api/clins2.ts#ClinGroups2
+2021-11-02T14:09:15.928156978+00:00 stdout F 14:09:15.927 [info] Found @rest endpoint: /api/v1/node/nscs => eis-products/src/api/nscs.ts#Nscs
+2021-11-02T14:09:15.937397614+00:00 stdout F 14:09:15.936 [info] Found @rest endpoint: /api/v1/node/nsccodes => eis-products/src/api/nscs.ts#NscCodes
+2021-11-02T14:09:15.937397614+00:00 stdout F 14:09:15.937 [info] Found @rest endpoint: /api/v1/node/products/{product}/clin-groups/{group?} => eis-products/src/api/product-clins.ts#ProductClinGroups
+2021-11-02T14:09:15.964639323+00:00 stdout F 14:09:15.963 [info] Found @rest endpoint: /api/v1/node/products/{product}/clins/{clin?} => eis-products/src/api/product-clins.ts#ProductClins
+2021-11-02T14:09:15.964639323+00:00 stdout F 14:09:15.964 [info] Found @rest endpoint: /api/v1/node/products/{product}/clins/{clin}/attributes => eis-products/src/api/product-clins.ts#ProductClinAttributes
+2021-11-02T14:09:15.964639323+00:00 stdout F 14:09:15.964 [info] Found @rest endpoint: /api/v1/node/products/{product}/configs => eis-products/src/api/product-configs.ts#ProductConfigs
+2021-11-02T14:09:15.974622299+00:00 stdout P 14:09:15.974 [info] Found @rest endpoint: /api/v1/node/products/{product}/related-products-configs => eis-products/src/api/product-configs.ts#RelatedProductConfigs
+2021-11-02T14:09:15.975026919+00:00 stdout F 
+2021-11-02T14:09:15.975026919+00:00 stdout F 14:09:15.974 [info] Found @rest endpoint: /api/v1/node/product-groups/{name?} => eis-products/src/api/product-groups.ts#ProductGroups
+2021-11-02T14:09:15.998308586+00:00 stdout F 14:09:15.997 [info] Found @rest endpoint: /api/v1/node/products/{name?} => eis-products/src/api/products.ts#Products
+2021-11-02T14:09:16.006754082+00:00 stdout F 14:09:16.006 [info] Found @rest endpoint: /api/v1/node/products/{name}/related-products => eis-products/src/api/products.ts#RelatedProducts
+2021-11-02T14:09:16.006754082+00:00 stdout F 14:09:16.006 [info] Found @rest endpoint: /api/v1/node/reference-values/{code} => eis-products/src/api/reference-values.ts#ReferenceCountries
+2021-11-02T14:09:16.033154106+00:00 stdout F 14:09:16.032 [info] Found @rest endpoint: /api/v1/node/catalog/sre => eis-products/src/api/sre.ts#ServiceRelatedEquipment
+2021-11-02T14:09:16.047284314+00:00 stdout F 14:09:16.046 [info] Found @attach endpoint: /api/v1/node/orders/{orderId}/attachments/{productInstId?}/{filename?} => eis-orders/src/api/order-attachments.ts#Attachments
+2021-11-02T14:09:16.108078956+00:00 stdout F 14:09:16.105 [info] Adding /user endpoint
+2021-11-02T14:09:16.108078956+00:00 stdout F 14:09:16.105 [info] Adding /system endpoint
+2021-11-02T14:09:16.108078956+00:00 stdout F 14:09:16.105 [info] Registering Prometheus client
+2021-11-02T14:09:16.112642500+00:00 stdout F 14:09:16.109 [info] Initializing oracledb database
+2021-11-02T14:09:16.116163083+00:00 stdout F 14:09:16.114 [info] Snapi server listening at http://localhost:8080

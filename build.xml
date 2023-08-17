@@ -1,0 +1,1423 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="fcamedmsservices" default="">
+
+	<property name="clarifyDal.dev" value="2023.5" />
+	<property name="clarifyEjb.dev" value="2023.5" />
+	<property name="opsConsole.dev" value="2022.8" />
+	<property environment="env" />
+
+	<import file="${basedir}/xmls/properties.xml" />
+	<import file="${basedir}/xmls/path_refs.xml" />
+	<import file="${basedir}/xmls/commonTargets.xml" />
+	<import file="${basedir}/xmls/taskdefs.xml" />
+	<import file="${basedir}/xmls/targets.xml" />
+
+	<property name="nexus.url" value="http://l3nexus/nexus/content/repositories/level3" />
+	<property name="nexus.Enterprise.url" value="http://l3nexus/nexus/content/repositories/Enterprise_Software" />
+	<property name="nexus.snapshot.url" value="http://l3nexus/nexus/content/repositories/level3-snapshot" />
+	<property name="nexus.redirect.url" value="https://nexusprod.corp.intranet:8443/repository/maven-public/" />
+
+	<!-- ======================================================= -->
+	<!-- Compiler options                                        -->
+	<!-- ======================================================= -->
+	<patternset id="compiler.resources">
+		<include name="**/?*.properties" />
+		<include name="**/?*.xml" />
+		<include name="**/?*.gif" />
+		<include name="**/?*.png" />
+		<include name="**/?*.jpeg" />
+		<include name="**/?*.jpg" />
+		<include name="**/?*.bmp" />
+		<include name="**/?*.html" />
+		<include name="**/?*.dtd" />
+		<include name="**/?*.tld" />
+	</patternset>
+
+
+	<!-- ======================================================= -->
+	<!-- Show usage.                                             -->
+	<!-- ======================================================= -->
+	<target name="help">
+		<echo message="This troubleticketing ant script has the following targets:" />
+		<echo message="help" />
+		<echo message="showProperties - dumps key variables" />
+		<echo message="all - builds the production ready components" />
+		<echo message="dev_all - builds everything with a tokenized resource.jar" />
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- Displays all properties used by ant                     -->
+	<!-- ======================================================= -->
+	<target name="showProperties" description="Displays all ant properties.">
+		<echoproperties />
+		<echo message="basedir is: ${basedir}" />
+		<echo message="clarify.dir is: ${clarify.dir} " />
+		<!-- echo message="dal.dir is ${dal.dir}" /> -->
+	</target>
+
+	<!-- ====================================================== -->
+	<!-- JavaDocs -->
+	<!-- ====================================================== -->
+	<target name="docs" depends="docs-clean, docs-init" description="Generate JavaDocs.">
+		<javadoc destdir="${docs.dir}" author="true" version="true" use="true" windowtitle="${ant.project.name}" classpathref="project.classpath" verbose="false">
+			<doctitle>
+				<!--[CDATA[<h1>Ticketing Services</h1>]] -->
+			</doctitle>
+			<bottom>
+				<!--[CDATA[<i>Copyright Level 3 Communications; 2005 All Rights Reserved.</i>]] -->
+			</bottom>
+			<tag name="todo" scope="all" description="To do:" />
+			<fileset dir="${src.dir}">
+				<include name="level3/clarify/fcamedms/common/dataobjects" />
+			</fileset>
+			<packageset dir="${src.dir}">
+				<include name="level3/clarify/fcamedms/common/dataobjects" />
+				<include name="level3/clarify/fcamedms/common/utilities" />
+				<include name="level3/clarify/fcamedms/api/autoticketing" />
+				<include name="level3/clarify/fcamedms/api/cms" />
+				<include name="level3/clarify/fcamedms/api/edms" />
+				<include name="level3/clarify/fcamedms/api/fcam" />
+				<include name="level3/clarify/fcamedms/api/tollfree" />
+				<include name="level3/clarify/fcamedms/dataobjects" />
+				<include name="level3/clarify/fcamedms/dataobjects/autoticketing" />
+				<include name="level3/clarify/fcamedms/dataobjects/cmms" />
+				<include name="level3/clarify/fcamedms/dataobjects/cms" />
+				<include name="level3/clarify/fcamedms/dataobjects/constraints" />
+				<include name="level3/clarify/fcamedms/dataobjects/ebonding" />
+				<include name="level3/clarify/fcamedms/dataobjects/edms" />
+				<include name="level3/clarify/fcamedms/dataobjects/fcam" />
+				<include name="level3/clarify/fcamedms/dataobjects/gcr" />
+				<include name="level3/clarify/fcamedms/dataobjects/oncall" />
+				<include name="level3/clarify/fcamedms/dataobjects/portalDashboard" />
+				<include name="level3/clarify/fcamedms/dataobjects/propertysupport" />
+				<include name="level3/clarify/fcamedms/dataobjects/ticketing" />
+				<include name="level3/clarify/fcamedms/ejb/session" />
+				<include name="level3/clarify/fcamedms/exceptions" />
+				<include name="level3/clarify/fcamedms/managers" />
+				<include name="level3/clarify/fcamedms/oncallconsole" />
+				<include name="level3/clarify/fcamedms/question/domain" />
+				<include name="level3/clarify/fcamedms/requestobjects" />
+				<include name="level3/clarify/fcamedms/ticketingconsole" />
+				<include name="level3/clarify/fcamedms/utilities" />
+				<include name="level3/clarify/fcamedmsservlet/servlet" />
+				<include name="level3/clarify/fcamedms/webservice" />
+				<include name="level3/clarify/fcamedms/webserviceclients" />
+				<include name="level3/service_management/ticketing/contact_service" />
+				<include name="level3/clarify/common/dataobjects" />
+				<include name="level3/clarify/ticketingservices/common/utilities" />
+				<include name="level3/clarify/ticketingservices/api/autoticketing" />
+				<include name="level3/clarify/ticketingservices/api/cms" />
+				<include name="level3/clarify/ticketingservices/api/edms" />
+				<include name="level3/clarify/ticketingservices/api/fcam" />
+				<include name="level3/clarify/ticketingservices/api/tollfree" />
+				<include name="level3/clarify/ticketingservices/dataobjects" />
+				<include name="level3/clarify/ticketingservices/dataobjects/autoticketing" />
+				<include name="level3/clarify/ticketingservices/dataobjects/cmms" />
+				<include name="level3/clarify/ticketingservices/dataobjects/cms" />
+				<include name="level3/clarify/ticketingservices/dataobjects/constraints" />
+				<include name="level3/clarify/ticketingservices/dataobjects/ebonding" />
+				<include name="level3/clarify/ticketingservices/dataobjects/edms" />
+				<include name="level3/clarify/ticketingservices/dataobjects/fcam" />
+				<include name="level3/clarify/ticketingservices/dataobjects/gcr" />
+				<include name="level3/clarify/ticketingservices/dataobjects/oncall" />
+				<include name="level3/clarify/ticketingservices/dataobjects/portalDashboard" />
+				<include name="level3/clarify/ticketingservices/dataobjects/propertysupport" />
+				<include name="level3/clarify/ticketingservices/dataobjects/ticketing" />
+				<include name="level3/clarify/ticketingservices/ejb/session" />
+				<include name="level3/clarify/ticketingservices/exceptions" />
+				<include name="level3/clarify/ticketingservices/managers" />
+				<include name="level3/clarify/ticketingservices/oncallconsole" />
+				<include name="level3/clarify/ticketingservices/question/domain" />
+				<include name="level3/clarify/ticketingservices/requestobjects" />
+				<include name="level3/clarify/ticketingservices/ticketingconsole" />
+				<include name="level3/clarify/ticketingservices/utilities" />
+				<include name="level3/clarify/ticketingservlet/servlet" />
+				<include name="level3/clarify/ticketingservices/webservice" />
+				<include name="level3/clarify/ticketingservices/webserviceclients" />
+				<include name="level3/service_management/ticketing/contact_service" />
+			</packageset>
+		</javadoc>
+	</target>
+
+	<target name="docs-init">
+		<mkdir dir="${docs.dir}" />
+	</target>
+	<target name="docs-clean">
+		<delete dir="${docs.dir}" quiet="true" />
+	</target>
+
+	<!--target name="javadocs" depends="build"-->
+	<target name="javadocs" description="generates javadoc and also UML Diagram">
+		<mkdir dir="S:\Clarify\Documentation\TicketingServices/javadoc" />
+		<javadoc sourcepath="${src.dir}" packagenames="level3.clarify.fcamedms.common.dataobjects,
+                level3.clarify.fcamedms.dataobjects.*, level3.clarify.fcamedms.api.*" destdir="S:\Clarify\Documentation\TicketingServices/javadoc" classpathref="project.classpath" private="true">
+			<doctitle>
+				<!--[CDATA[<h1>Ticketing Services</h1>]] -->
+			</doctitle>
+			<bottom>
+				<!--[CDATA[<i>Copyright Level 3 Communications; 2005 All Rights Reserved.</i>]] -->
+			</bottom>
+			<doclet name="org.umlgraph.doclet.UmlGraphDoc" path="extlibs/UMLGraph.jar">
+				<param name="-attributes" />
+				<param name="-operations" />
+				<param name="-qualify" />
+				<param name="-types" />
+				<param name="-visibility" />
+			</doclet>
+		</javadoc>
+		<apply executable="C:\Program Files\Graphviz 2.28\bin\dot.exe" dest="S:\Clarify\Documentation\TicketingServices" parallel="false">
+			<arg value="-Tpng" />
+			<arg value="-o" />
+			<targetfile />
+			<srcfile />
+			<fileset dir="S:\Clarify\Documentation\TicketingServices" includes="*.dot" />
+			<mapper type="glob" from="*.dot" to="*.png" />
+		</apply>
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- create common resources                                 -->
+	<!-- ======================================================= -->
+	<target name="create_common">
+		<echo message="folder is = ${classes.dir}/level3/clarify/fcamedmsservlet" />
+		<copy file="${src.dir}/level3/clarify/fcamedmsservlet/ClarifyMapping.xml" todir="${classes.dir}/level3/clarify/fcamedmsservlet" />
+	</target>
+
+	<target name="echo.project.classpath">
+		<echo message="project.classpath is..." />
+		<pathconvert pathsep="${line.separator}|   |-- " property="echo.path.compile" refid="project.classpath">
+		</pathconvert>
+		<echo message="|   |-- ${echo.path.compile}" />
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- Compile EJB                                             -->
+	<!-- ======================================================= -->
+	<target name="compile_fcamedmsservices_ejb" description="create ticketingservices_ejb">
+		<echo message="Compiling ticketing services ejb classes..." />
+		<!--antcall target="echo.project.classpath" /-->
+		<javac encoding="UTF-8" destdir="${classes.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" fork="true" source="1.6" target="1.6" memoryinitialsize="256m" memorymaximumsize="512m">
+			<compilerarg line="${compiler.args}" />
+			<classpath>
+				<path refid="project.classpath" />
+			</classpath>
+			<src refid="ticketingservices_ejb.sourcepath" />
+		</javac>
+		<antcall target="compile_fcamedmsservices_tests" />
+	</target>
+
+	<target name="compile_fcamedmsservices_tests">
+		<echo message="Compiling ticketing services test classes..." />
+		<mkdir dir="${test.classes.dir}" />
+		<javac encoding="UTF-8" srcdir="${test-src.dir}" destdir="${test.classes.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" fork="true" memoryinitialsize="256m" memorymaximumsize="512m">
+			<compilerarg line="${compiler.args}" />
+			<classpath>
+				<path refid="project.classpath" />
+			</classpath>
+		</javac>
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- Build EJB jar                                           -->
+	<!-- ======================================================= -->
+	<target name="build_ejb_jar">
+		<echo message="Creating fcamedms services ejb jar...${libs.dir}/${fcamedmsservices_ejb.jar}" />
+		<jar destfile="${libs.dir}/${fcamedmsservices_ejb.jar}" duplicate="preserve">
+			<manifest>
+				<attribute name="Class-Path" value="" />
+				<attribute name="Created-By" value="IntelliJ IDEA" />
+				<attribute name="Manifest-Version" value="1.0" />
+			</manifest>
+			<zipfileset dir="${classes.dir}" prefix="" includes="**/fcamedms/ejb/session/**" />
+			<zipfileset dir="${classes.dir}" prefix="" includes="**/fcamedms/ejb/message/**" />
+			<zipfileset file="${descriptor.dir}/ejb/META-INF/weblogic-cmp-rdbms-jar.xml" prefix="META-INF" />
+
+			<zipfileset file="${descriptor.dir}/ejb/META-INF/ejb-jar.xml" prefix="META-INF" />
+			<zipfileset file="${descriptor.dir}/ejb/META-INF/weblogic-ejb-jar.xml" prefix="META-INF" />
+		</jar>
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- Build the core FCAM/EDMS Business Logic jar     -->
+	<!-- ======================================================= -->
+	<target name="build_jar">
+		<echo message="Creating common fcamedms services jar...${libs.dir}/${fcamedmsservices.jar}" />
+		<mkdir dir="${libs.dir}" />
+		<jar destfile="${libs.dir}/${fcamedmsservices.jar}" duplicate="preserve">
+			<zipfileset dir="${src.dir}" prefix="" includes="**/jaxb.properties" />
+			<zipfileset dir="${classes.dir}" prefix="" />
+		</jar>
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- Compile servlet classes                                 -->
+	<!-- ======================================================= -->
+	<target name="compile_fcamedms" depends="compile_fcamedmsservices_ejb" description="create ticketing classes">
+		<echo message="Compiling fcamedms servlet classes..." />
+		<mkdir dir="${classes.dir}" />
+		<javac encoding="UTF-8" destdir="${classes.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}">
+			<compilerarg line="${compiler.args}" />
+			<classpath refid="project.classpath" />
+			<src refid="ticketing.sourcepath" />
+		</javac>
+		<copy todir="${classes.dir}/level3/clarify/fcamedmsservlet">
+			<fileset dir="${src.dir}/level3/clarify/fcamedmsservlet">
+				<patternset refid="compiler.resources" />
+				<type type="file" />
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- Build servlet war file                                  -->
+	<!-- ======================================================= -->
+	<target name="build_war">
+		<mkdir dir="${libs.dir}" />
+		<jar destfile="${libs.dir}/fcamedms.war" duplicate="preserve">
+			<manifest>
+				<attribute name="Created-By" value="IntelliJ IDEA" />
+				<attribute name="Manifest-Version" value="1.0" />
+			</manifest>
+			<zipfileset dir="${classes.dir}" prefix="WEB-INF/classes" includes="**/fcamedmsservlet/**" />
+			<zipfileset file="${descriptor.dir}/WEB-INF/web.xml" prefix="WEB-INF" />
+			<zipfileset file="${descriptor.dir}/WEB-INF/weblogic.xml" prefix="WEB-INF" />
+			<zipfileset dir="${src.dir}" prefix="WEB-INF/classes" includes="**/jaxb.properties" />
+			<zipfileset dir="${src.dir}" prefix="" includes="**/fcamedmsservlet/**/*.jsp" />
+		</jar>
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- Jar the Trouble Ticketing ear                           -->
+	<!-- ======================================================= -->
+	<target name="build_ear" depends="contact_webservice_war, build_FcamEdmsEjbjar">
+		<delete file="${fcamedmsservices.path.ear}" quiet="true" />
+		<jar destfile="${fcamedmsservices.path.ear}" duplicate="preserve">
+			<manifest>
+				<attribute name="Created-By" value="IntelliJ IDEA" />
+				<attribute name="Manifest-Version" value="1.0" />
+			</manifest>
+
+			<!-- Wars and Ejb jars -->
+			<zipfileset file="${libs.dir}/fcamedms.war" prefix="" />
+			<zipfileset file="${libs.dir}/${fcamedmsservices_ejb.jar}" prefix="" />
+			<!-- Descriptors -->
+			<zipfileset file="${descriptor.dir}/META-INF/application.xml" prefix="META-INF" />
+			<zipfileset file="${descriptor.dir}/META-INF/weblogic-application.xml" prefix="META-INF" />
+			<zipfileset file="${config.dir}/services.xml" prefix="APP-INF/classes" />
+
+			<!-- APP-INF/lib jars -->
+			<!-- Service Management Application jars -->
+			<zipfileset file="${libs.dir}/${fcamedmsservices.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${clarifyEJB.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${libs.dir}/resources.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${CommonRestUtilities.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${tibco-jms.jar}" prefix="APP-INF/lib" />
+			<!-- Extlibs jars -->
+			<zipfileset file="${extlibs.dir}/OCSCUtil.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${extlibs.dir}/glm-client.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${extlibs.dir}/messaging-consumer-1.3.0.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${extlibs.dir}/msg-model-1.3.0.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${extlibs.dir}/castor0939.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${extlibs.dir}/xerces.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${extlibs.dir}/backport-util-concurrent.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/jdom/jdom-1.0.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${extlibs.dir}/scape.jar" prefix="APP-INF/lib" />
+			<!-- JAXB jars - match files included in .classpath -->
+			<zipfileset file="${jaxb1-impl.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${jaxb-api_2.0.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${jaxb-impl_2.0.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${jaxb-libs.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${relaxngDatatype.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${xsdlib.jar}" prefix="APP-INF/lib" />
+
+			<zipfileset file="${jaxp-api.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${namespace.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${httpclient.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${jettison.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${httpclient-contrib.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${commons-codec.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${commons-logging.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${java-getopt.jar}" prefix="APP-INF/lib" />
+			<!-- gpscommon/level3 jars -->
+			<zipfileset file="${wisor.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${wisor_webservice.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${wisor_ep_webservice.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${extlibs.dir}/edo.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${level3.dir}/adt/soaphandler/soaphandler.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${level3.dir}/edo/b2bdataobjects.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${level3.dir}/uddi_registry/registryclient-1.1.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${osarch.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${level3.dir}/siebel/siebeltypes.jar" prefix="APP-INF/lib" />
+			<!-- gpscommon/thirdparty jars -->
+			<zipfileset file="${axis.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${axis-ant.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${classes12.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/oscache/oscache-2.1.1.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/stax/stax-api-1.0.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/stax/stax-utils-snapshot-20040917.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/wsdl4j/wsdl4j-1.4.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${wlfullclient.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/weblogic/wlthint3client.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/woodstox/wstx-asl-2.9.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/xmlbeans/xbean-2.3.0.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/xfire/xfire-all-1.0.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/jakarta_commons/commons-lang-2.4.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/jakarta_commons/commons-lang3-3.1.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${extlibs.dir}/clarifyDal.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/log4j/log4j-1.2.16.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/j2ee/validation-api-1.0.0.GA.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/log4j/slf4j-log4j12-1.0.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/spring/spring.1.2.6.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/aopalliance/aopalliance-1.0.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/hibernate/hibernate-2.1.7.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/dom4j/dom4j-1.4.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/joda/joda-time-1.6.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/odmg/odmg-1.0.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/cglib_asm/cglib-full-2.1.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/jakarta/solr-solrj-1.4.1.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/jakarta_commons/commons-logging-1.2.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/jakarta_commons/commons-collections-3.1.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/jakarta_commons/commons-dbcp-1.2.1.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/jakarta_commons/commons-pool-1.1.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/jakarta_commons/commons-beanutils-core-1.8.3.jar" prefix="APP-INF/lib" />
+			<!--
+
+            <zipfileset file="${thirdparty.dir}/jakarta_commons/commons-validator-1.1.4.jar"
+                        prefix="APP-INF/lib" />
+            <zipfileset file="${thirdparty.dir}/jakarta_commons/commons-digester-1.5.jar"
+                        prefix="APP-INF/lib" />
+                -->
+
+			<zipfileset file="${thirdparty.dir}/jakarta_commons/commons-fileupload-1.0.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${commons-discovery.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/hibernate/hibernate-tools-2.1.3.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/ehcache/ehcache-0.7.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/junit/junit-3.8.1.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/junit/junitperf-1.9.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/quartz/quartz-all-2.1.0.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${extlibs.dir}/c3p0-0.9.1.2.jar" prefix="APP-INF/lib" />
+			<!--
+            <zipfileset file="${thirdparty.dir}/struts/struts-1.1.jar" prefix="APP-INF/lib" />
+            -->
+			<zipfileset file="${thirdparty.dir}/mysql/mysql-connector-java-3.1.10-bin.jar" prefix="APP-INF/lib" />
+			<!--zipfileset file="${org.eclipse.equinox.preferences.jar}" prefix="APP-INF/lib" /-->
+			<zipfileset file="${commons-cli.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${jaxp-api.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${jaxrpc.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${saaj.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${xalan.jar}" prefix="APP-INF/lib" />
+			<!-- check xalan down version if ebonding doesn't work -->
+			<!-- deploy to dev1
+                 java.lang.VerifyError: (class: org/apache/xerces/jaxp/DocumentBuilderImpl, method: parse signature: (Lorg/xml/sax/InputSource;)Lorg/w3c/dom/Document;) Incompatible object argument for function call
+        at org.apache.xerces.jaxp.DocumentBuilderFactoryImpl.newDocumentBuilder(Unknown Source)
+
+            <zipfileset file="${xercesimpl.jar}" prefix="APP-INF/lib" />
+            -->
+			<!--  -->
+			<zipfileset file="${oro.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${stc.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${stf.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${stj.jar}" prefix="APP-INF/lib" />
+			<!-- xstream jars -->
+			<zipfileset file="${thirdparty.dir}/xpp/xpp3-1.1.3.4-RC3.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/xstream/xstream-1.3.1.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/xstream/jettison-1.0.1.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/xstream/stax-1.2.0.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/xstream/stax-api-1.0.1.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${wlsqlserver.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${mailapi.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${dsn.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${imap.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${smtp.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${pop3.jar}" prefix="APP-INF/lib" />
+
+			<!-- jersey jars -->
+			<zipfileset file="${TicketingRestServices-client.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${aopalliance-repackaged.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${asm-debug-all.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${hk2-api.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${hk2-locator.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${hk2-utils.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${jackson-core-asl.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${jackson-mapper-asl.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${jackson-xc.jar}" prefix="APP-INF/lib" />
+            <zipfileset file="${jackson-fasterxml.jar}" prefix="APP-INF/lib" />
+            <zipfileset file="${jackson-fasterxml-databind.jar}" prefix="APP-INF/lib" />
+            <zipfileset file="${jackson-fasterxml-annotations.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${javassist.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${javax.annotation.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${javax.inject.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${javax.servlet-api.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${javax.ws.rs-api.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${jaxb-api.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${jersey-client.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${jersey-common.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${jersey-container-servlet.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${jersey-container-servlet-core.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${jersey-guava.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${jersey-server.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${jettison.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${jackson-fasterxml.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${org.osgi.core.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${osgi-resource-locator.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${persistence-api.jar}" prefix="APP-INF/lib" />
+
+			<!-- opsconsole services jars -->
+			<zipfileset file="${opsconsoleservices.jar}" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/cajo/cajo-1.112.jar" prefix="APP-INF/lib" />
+			<zipfileset file="${thirdparty.dir}/vertica/vertica_3.5_jdk_5.jar" prefix="APP-INF/lib" />
+		</jar>
+	</target>
+
+
+	<!-- ======================================================= -->
+	<!-- Compile classes for application                         -->
+	<!-- ======================================================= -->
+	<target name="create_fcamedmsservices" depends="compile_fcamedms, build_ejb_jar, build_jar, build_war" description="Build configured J2EE directories and archives for 'fcamedmsservices'">
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- build client jar file                                   -->
+	<!-- ======================================================= -->
+
+	<target name="build_tempEJBjar">
+		<echo message="Creating tempEJB.jar file..." />
+		<jar jarfile="${build.dir}/tempEJB.jar" basedir="${classes.dir}" includes="**/fcamedms/ejb/session/*.class,
+                      **/fcamedms/businessobjects/*.class,
+                      **/fcamedms/ejb/message/*.class,
+                      **/fcamedms/managers/*.class,
+                      **/fcamedms/api/*.class,
+                      **/fcamedms/api/autoticketing/*.class,
+                      **/fcamedms/api/cms/*.class,
+                      **/fcamedms/api/edms/*.class,
+                      **/fcamedms/api/fcam/*.class,
+                      **/fcamedms/api/ddlhelpers/*.class,
+                      **/fcamedms/api/helpers/*.class,
+                      **/fcamedms/api/notification/*.class,
+                      **/fcamedms/api/fieldmobile/*.class,
+                      **/fcamedms/dataobjects/*.class,
+                      **/fcamedms/dataobjects/autoticketing/*.class
+                      **/fcamedms/dataobjects/cmms/*.class,
+                      **/fcamedms/dataobjects/cms/*.class,
+                      **/fcamedms/dataobjects/constraints/*.class,
+                      **/fcamedms/dataobjects/oncall/*.class,
+                      **/fcamedms/dataobjects/edms/*.class,
+                      **/fcamedms/dataobjects/fcam/*.class,
+                      **/fcamedms/dataobjects/gcr/*.class,
+                      **/fcamedms/dataobjects/ebonding/*.class,
+                      **/fcamedms/dataobjects/notification/*.class,
+                      **/fcamedms/dataobjects/portalDashboard/*.class,
+                      **/fcamedms/dataobjects/propertysupport/*.class,
+                      **/fcamedms/dataobjects/ticketing/*.class,
+                      **/fcamedms/dataobjects/rest/*.class,
+                      **/fcamedms/dataobjects/fieldmobile/*.class,
+                      **/fcamedms/dataobjects/sbc/*.class,
+                      **/fcamedms/dataobjects/sla/*.class,
+					  **/fcamedms/sla/SLACalculator.class,
+                      **/fcamedms/exceptions/*.class,
+                      **/fcamedms/utilities/*.class,
+                      **/fcamedms/utilities/ranking/*.class,
+                      **/fcamedms/question/domain/*.class,
+                      **/fcamedms/requestobjects/*.class,
+                      **/fcamedms/ticketingconsole/*.class,
+                      **/fcamedms/oncallconsole/*.class,
+                      **/fcamedms/question/domain/*.class,
+                      **/common/dataobjects/*.class,
+                      **/common/utilities/*.class,
+                      **/fcamedms/webserviceclients/helpdesk/generated/dataobjects/*.class,
+                      **/fcamedms/webserviceclients/helpdesk/generated/*.xml">
+			<zipfileset file="${descriptor.dir}/ejb/META-INF/ejb-jar.xml" prefix="META-INF" />
+			<zipfileset file="${descriptor.dir}/ejb/META-INF/weblogic-ejb-jar.xml" prefix="META-INF" />
+			<zipfileset file="${descriptor.dir}/ejb/META-INF/services.xml" prefix="META-INF" />
+		</jar>
+		<echo message="Done creating tempEJB.jar" />
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- build stubs                                             -->
+	<!-- ======================================================= -->
+
+	<target name="build_FcamEdmsEjbjar" depends="build_tempEJBjar">
+		<echo message="Copy tempEJB.jar to FcamEdmsEjb.jar" />
+		<copy file="${build.dir}/tempEJB.jar" tofile="${libs.dir}/FcamEdmsEjb.jar" />
+
+		<condition property="build.version.major.set">
+			<isset property="build.version.major" />
+		</condition>
+		<echo message="build.version.major=${build.version.major}, build.version.major=${build.version.major}" />
+		<fail unless="build.version.major.set" message="You need to provide the build.version.major property when running the build_FcamEdmsEjbjar target" />
+
+		<condition property="build.version.minor.set">
+			<isset property="build.version.minor" />
+		</condition>
+		<echo message="build.version.minor.set=${build.version.minor.set}, build.version.minor=${build.version.minor}" />
+		<fail unless="build.version.minor.set" message="You need to provide the build.version.minor property when running the build_FcamEdmsEjbjar target" />
+
+		<condition property="build.number.set">
+			<isset property="build.number" />
+		</condition>
+		<echo message="build.number.set=${build.number.set}, build.number=${build.number}" />
+		<fail unless="build.number.set" message="You need to provide the build.number property when running the build_FcamEdmsEjbjar target" />
+
+		<property name="FcamEdmsEjb-Bundle-Version" value="${build.version.major}.${build.version.minor}.${build.number}" />
+		<echo message="Update the FcamEdmsEjb.jar to create the appropriate OSGi MANIFEST.MF file with FcamEdmsEjb-Bundle-Version=${FcamEdmsEjb-Bundle-Version}" />
+		<jar destfile="${libs.dir}/FcamEdmsEjb.jar" update="true">
+			<!-- log4j.properties in FcamEdmsEjb.jar makes logging work in plug-ins. -->
+			<fileset dir="${properties.dir}">
+				<include name="log4j.properties" />
+				<include name="log4j.xml" />
+			</fileset>
+			<exclude name="level3/clarify/common" />
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Manifest-Version" value="1.0" />
+				<attribute name="Bundle-ManifestVersion" value="2" />
+				<attribute name="Bundle-Name" value="FcamEdms Plug-in" />
+				<attribute name="Bundle-SymbolicName" value="com.level3.fcamedmsEjb" />
+				<attribute name="Bundle-Version" value="${FcamEdmsEjb-Bundle-Version}" />
+				<attribute name="Bundle-ClassPath" value="." />
+				<attribute name="Bundle-Vendor" value="Level 3 Communications" />
+				<attribute name="Bundle-Localization" value="plugin" />
+				<attribute name="Eclipse-BuddyPolicy" value="registered" />
+				<attribute name="Require-Bundle" value="com.level3.thirdparty.log4j.log4j" />
+				<attribute name="Export-Package" value=".,
+                 level3.clarify.fcamedms.common.dataobjects,
+                 level3.clarify.fcamedms.common.utilities,
+                 level3.clarify.fcamedms.api,
+                 level3.clarify.fcamedms.api.ddlhelpers,
+                 level3.clarify.fcamedms.api.edms,
+                 level3.clarify.fcamedms.api.fcam,
+                 level3.clarify.fcamedms.api.helpers,
+                 level3.clarify.fcamedms.api.notification,
+                 level3.clarify.fcamedms.dataobjects,
+                 level3.clarify.fcamedms.dataobjects.cmms,
+                 level3.clarify.fcamedms.dataobjects.cms,
+                 level3.clarify.fcamedms.dataobjects.ebonding,
+                 level3.clarify.fcamedms.dataobjects.edms,
+                 level3.clarify.fcamedms.dataobjects.fcam,
+                 level3.clarify.fcamedms.dataobjects.gcr,
+                 level3.clarify.fcamedms.dataobjects.notification,
+                 level3.clarify.fcamedms.dataobjects.oncall,
+                 level3.clarify.fcamedms.dataobjects.propertysupport,
+                 level3.clarify.fcamedms.dataobjects.ticketing,
+                 level3.clarify.fcamedms.dataobjects.sla,
+			  	 level3.clarify.fcamedms.sla,
+                 level3.clarify.fcamedms.dataobjects.rest,
+                 level3.clarify.fcamedms.ejb.message,
+                 level3.clarify.fcamedms.ejb.session,
+                 level3.clarify.fcamedms.exceptions,
+                 level3.clarify.fcamedms.managers,
+                 level3.clarify.fcamedms.question.domain,
+                 level3.clarify.fcamedms.requestobjects,
+                 level3.clarify.fcamedms.utilities,
+                 level3.clarify.fcamedms.utilities.ranking,
+                 level3.clarify.fcamedms.webserviceclients.helpdesk.generated.dataobjects,
+                 webservice.level3.clarify.fcamedms.utilities" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- build webservices                                                                                  -->
+	<!-- ======================================================= -->
+	<target name="gen_webservices" depends="contact_webservice_gen">
+		<echo message="gen_webservices complete" />
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- Post Compile web service builds.  (Services built from classes within TS.)                                                                              -->
+	<!-- ======================================================= -->
+	<target name="gen_pc_webservices" depends="cms_webservice_war_depends">
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- Generate client code from remote wsdl                   -->
+	<!-- ======================================================= -->
+	<target name="gen_webserviceclients" depends="gen_helpdesk_webserviceclient, gen_rfm_webserviceclient, compile_webserviceclient_classes">
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- ContactService webservice generation                                                -->
+	<!-- ======================================================= -->
+	<target name="contact_webservice_gen" depends="autotype_v1_1,genContactSvcFromWsdl_v1_1,compile_gen_classes">
+		<echo message="contact_webservice_gen complete" />
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- Generate types from wsdl                                 -->
+	<!-- ======================================================= -->
+	<target name="autotype_v1_0">
+		<autotype wsdl="wsdl/ContactService_v1_0.wsdl" targetNamespace="http://level3/fcam/service_management/ticketing/contact_service/v1_0" packageName="level3.clarify.fcamedms.webservice.v1_0.generated" destDir="${src.dir}/generated" keepGenerated="True">
+			<classpath refid="project.classpath" />
+		</autotype>
+	</target>
+	<target name="autotype_v1_1">
+		<autotype wsdl="wsdl/ContactService_v1_1.wsdl" targetNamespace="http://level3/fcam/service_management/ticketing/contact_service/v1_1" packageName="level3.clarify.fcamedms.webservice.v1_1.generated" destDir="${src.dir}/generated" keepGenerated="True">
+			<classpath refid="project.classpath" />
+		</autotype>
+		<echo message="autotype_v1_1 complete" />
+	</target>
+
+
+	<!-- ======================================================= -->
+	<!-- Generate code from wsdl                                 -->
+	<!-- ======================================================= -->
+	<target name="genContactSvcFromWsdl_v1_0">
+		<wsdl2service wsdl="wsdl/ContactService_v1_0.wsdl" destDir="${src.dir}/generated" typeMappingFile="${src.dir}/generated/types.xml" packageName="level3.clarify.fcamedms.webservice.v1_0.generated" generateImpl="False" keepGenerated="True">
+		</wsdl2service>
+		<echo message="Fix up web-services.xml to set correct impl for contact web service" />
+		<replaceregexp match="level3.clarify.fcamedms.webservice.v1_0.generated.ContactServiceImpl" replace="level3.clarify.fcamedms.webservice.ContactServiceImpl" byline="true">
+			<fileset dir="${src.dir}/generated">
+				<include name="**/web-services.xml" />
+			</fileset>
+		</replaceregexp>
+	</target>
+	<target name="genContactSvcFromWsdl_v1_1">
+		<wsdl2service wsdl="wsdl/ContactService_v1_1.wsdl" destDir="${src.dir}/generated" typeMappingFile="${src.dir}/generated/types.xml" packageName="level3.clarify.fcamedms.webservice.v1_1.generated" generateImpl="False" keepGenerated="True">
+		</wsdl2service>
+		<echo message="Fix up web-services.xml to set correct impl for contact web service" />
+		<replaceregexp match="level3.clarify.fcamedms.webservice.v1_1.generated.ContactServiceImpl" replace="level3.clarify.fcamedms.webservice.ContactServiceImpl_v1_1" byline="true">
+			<fileset dir="${src.dir}/generated">
+				<include name="**/web-services.xml" />
+			</fileset>
+		</replaceregexp>
+		<echo message="genContactSvcFromWsdl_v1_1 complete" />
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- Package up Contact webservice                                                            -->
+	<!-- ======================================================= -->
+
+	<target name="contact_webservice_war">
+		<mkdir dir="${build.dir}/webservice/descriptor" />
+		<copy file="${src.dir}/generated/web-services.xml" todir="${build.dir}/webservice/descriptor" />
+		<copy file="${descriptor.dir}/webservices/WEB-INF/weblogic.xml" todir="${build.dir}/webservice/descriptor" />
+		<echo message="Copy service implementation to webservice packaging directory" />
+		<copy todir="${classes.dir}/webservice">
+			<fileset dir="${classes.dir}">
+				<include name="level3/**/webservice/*.*" />
+				<include name="level3/**/utilities/ResponseFactory.*" />
+				<include name="level3/**/mapper/SubscriptionDataMapper*.*" />
+			</fileset>
+		</copy>
+		<war destfile="${libs.dir}/contact-webservice.war" webxml="${descriptor.dir}/webservices/WEB-INF/web.xml">
+			<webinf dir="${build.dir}/webservice/descriptor" />
+			<classes dir="${classes.dir}/webservice" />
+		</war>
+	</target>
+
+	<!-- ================================================================== -->
+	<!-- Compile all generated classes with debug to the generated dir      -->
+	<!-- ================================================================== -->
+	<target name="compile_gen_classes" depends="">
+		<mkdir dir="${classes.dir}/webservice" />
+		<javac encoding="UTF-8" srcdir="${src.dir}/generated/level3" destdir="${classes.dir}/webservice" depend="no" target="1.7" includes="**/clarify/fcamedms/webservice/**,**/service_management/**">
+			<classpath refid="project.classpath" />
+		</javac>
+		<copy file="${src.dir}/generated/types.xml" todir="${classes.dir}/webservice" />
+		<echo message="compile_gen_classes complete" />
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- Generate types for CMS web service                      -->
+	<!-- ======================================================= -->
+	<target name="gen_cms_webservice_autotype_depends" depends="compile_fcamedms, gen_cms_webservice_autotype">
+	</target>
+
+	<target name="gen_cms_webservice_autotype">
+		<!--    <autotype javaComponents="level3.clarify.fcamedms.webservice.cms.CmsService,"
+                  targetNamespace="http://level3/service_management/contact_management"
+                  packageName="level3.clarify.fcamedms.webservices.cms.types"
+                  destDir="${build.dir}/contact-webservice"
+                  keepGenerated="True">
+            <classpath refid="project.classpath" />
+        </autotype> -->
+
+		<autotype javaTypes="level3.clarify.fcamedms.common.dataobjects.BusOrgDO,
+        	                level3.clarify.fcamedms.dataobjects.BillingAccountDO,
+                            level3.clarify.fcamedms.dataobjects.MailTicketingMessagePartsDO,
+                            level3.clarify.fcamedms.dataobjects.cms.CmAccountDO,
+        	                level3.clarify.fcamedms.dataobjects.cms.CmBanRequestDO,
+                            level3.clarify.fcamedms.dataobjects.cms.CmBatchUploadDetailDO,
+                            level3.clarify.fcamedms.dataobjects.cms.CmBatchUploadDO,
+                            level3.clarify.fcamedms.dataobjects.cms.CmBatchUploadSearchDO,
+                            level3.clarify.fcamedms.dataobjects.cms.CmBusOrgSearchDO,
+                            level3.clarify.fcamedms.dataobjects.cms.CmContactDO,
+                            level3.clarify.fcamedms.dataobjects.cms.CmGCRSubscriptionResultDO,
+                            level3.clarify.fcamedms.dataobjects.cms.CmServiceLocationDO,
+                            level3.clarify.fcamedms.dataobjects.cms.CmServiceLocationRequestDO,
+                            level3.clarify.fcamedms.dataobjects.cms.CmSidInfo,
+                            level3.clarify.fcamedms.dataobjects.cms.CmSidsValidationDO,
+                            level3.clarify.fcamedms.dataobjects.cms.CmSiteDO,
+                            level3.clarify.fcamedms.dataobjects.cms.CmSubscriptionDO,
+                            level3.clarify.fcamedms.dataobjects.cms.CmSubscriptionSearchCriteriaDO,
+                            level3.clarify.fcamedms.dataobjects.cms.CmSubscriptionSearchResultDO,
+                            level3.clarify.fcamedms.dataobjects.cms.CmValidSidBusOrgDO" targetNamespace="http://level3/fcam/service_management/contact_management" packageName="level3.clarify.fcamedms.webservices.cms.types" destDir="${build.dir}/contact-webservice" keepGenerated="True">
+			<classpath refid="project.classpath" />
+		</autotype>
+
+		<!--
+        <echo message="Clean up some of the package names and move some extra holder classes around." />
+        <replaceregexp match="level3.clarify.fcamedms.dataobjects.cms.holders"
+                       replace="level3.clarify.fcamedms.webservices.cms.holders"
+                       byline="false">
+            <fileset dir="${build.dir}/contact-webservice/level3/clarify/fcamedms/dataobjects/cms/holders">
+                <include name="*.java" />
+            </fileset>
+        </replaceregexp>
+
+        <move todir="${src.dir}/generated/level3/clarify/fcamedms/webservices/cms/holders">
+            <fileset dir="${build.dir}/contact-webservice/level3/clarify/fcamedms/dataobjects/cms/holders">
+                <include name="**/*.java" />
+            </fileset>
+        </move>
+
+        <move todir="${src.dir}/generated/level3/clarify/fcamedms/webservices/cms/types">
+            <fileset dir="${build.dir}/contact-webservice/level3/clarify/fcamedms/webservices/cms/types">
+                <include name="**/*.java" />
+            </fileset>
+        </move>
+
+        <copy file="${build.dir}/contact-webservice/types.xml"
+              todir="${src.dir}/generated/level3/clarify/fcamedms/webservices/cms/" /> -->
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- Compile CMS Generated AutoTypes                         -->
+	<!-- ======================================================= -->
+	<target name="compile_cms_webservice_autotypes_depends" depends="gen_cms_webservice_autotype_depends, compile_cms_webservice_autotypes">
+	</target>
+
+	<target name="compile_cms_webservice_autotypes">
+		<echo message="Compiling CMS Web Service Types" />
+		<javac encoding="UTF-8" srcdir="${build.dir}/contact-webservice/level3/clarify/fcamedms/webservices/cms" destdir="${classes.dir}" depend="no" target="1.7">
+			<classpath refid="project.classpath" />
+		</javac>
+
+		<copy file="${build.dir}/contact-webservice/types.xml" todir="${classes.dir}/level3/clarify/fcamedms/webservices/cms" />
+
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- Package up CMS webservice                                                            -->
+	<!-- ======================================================= -->
+	<target name="cms_webservice_war_depends" depends="compile_cms_webservice_autotypes_depends, cms_webservice_war">
+	</target>
+
+	<target name="cms_webservice_war">
+		<delete dir="${build.dir}/cms-webservice" quiet="true" />
+		<servicegen destEar="${build.dir}/cms-webservice" contextURI="cms-webservice" warName="cms-webservice.war" keepgenerated="true">
+			<service encoding="UTF-8" javaClassComponents="level3.clarify.fcamedms.webservice.cms.CmsService" targetNamespace="http://level3/fcam/service_management/contact_management" serviceName="cms-webservice" serviceURI="/cms-webservice" typeMappingFile="${build.dir}/contact-webservice/types.xml" generateTypes="True" expandMethods="True">
+			</service>
+			<classpath>
+				<pathelement location="${clarify_dat.jar}" />
+			</classpath>
+			<classpath refid="project.classpath" />
+		</servicegen>
+
+		<copy file="${build.dir}/cms-webservice/cms-webservice.war" todir="${libs.dir}" />
+
+	</target>
+
+	<target name="echo.project.classpath1">
+		<echo message="project.classpath is..." />
+		<pathconvert pathsep="${line.separator}|   |-- " property="echo.path.compile" refid="project.classpath">
+		</pathconvert>
+		<echo message="|   |-- ${echo.path.compile}" />
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- Generate helpdesk client code from remote wsdl          -->
+	<!-- ======================================================= -->
+	<target name="gen_helpdesk_webserviceclient">
+		<echo message="Generate client stubs for the Remedy Helpdesk web service." />
+		<echo message="echoing this" />
+		<!--antcall target="echo.project.classpath1" /-->
+		<clientgen wsdl="wsdl/helpdesk.wsdl" packageName="level3.clarify.fcamedms.webserviceclients.helpdesk.generated" typePackageName="level3.clarify.fcamedms.webserviceclients.helpdesk.generated.dataobjects" clientJar="${src.dir}/tmp/" keepGenerated="True">
+			<classpath refid="project.classpath" />
+		</clientgen>
+
+		<echo message="Clean up some of the package names and move some extra holder classes around." />
+		<replaceregexp match="package L3.HelpDesk.holders;" replace="package level3.clarify.fcamedms.webserviceclients.helpdesk.generated.dataobjects.holders;" byline="true">
+			<fileset dir="${src.dir}/tmp/L3/HelpDesk/holders/">
+				<include name="*.*" />
+			</fileset>
+		</replaceregexp>
+
+		<move todir="${src.dir}/tmp/level3/clarify/fcamedms/webserviceclients/helpdesk/generated/dataobjects/holders">
+			<fileset dir="${src.dir}/tmp/L3/HelpDesk/holders">
+				<include name="**/*.java" />
+				<include name="**/*.class" />
+			</fileset>
+
+		</move>
+
+		<mkdir dir="${src.dir}/generated/level3/clarify/fcamedms/webserviceclients/helpdesk" />
+
+		<move todir="${src.dir}/generated/level3/clarify/fcamedms/webserviceclients/helpdesk">
+			<fileset dir="${src.dir}/tmp/level3/clarify/fcamedms/webserviceclients/helpdesk" />
+		</move>
+
+		<delete dir="${src.dir}/tmp" quiet="true" />
+
+		<copy file="${src.dir}/generated/level3/clarify/fcamedms/webserviceclients/helpdesk/generated/HelpDesk.xml" todir="${classes.dir}/level3/clarify/fcamedms/webserviceclients/helpdesk/generated" />
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- Generate Rfm Maintenance client code from wsdl          -->
+	<!-- ======================================================= -->
+	<target name="gen_rfm_webserviceclient">
+		<echo message="Generate client stubs for the Rfm maintenance web service." />
+		<clientgen wsdl="wsdl/maintenance.wsdl" packageName="level3.clarify.fcamedms.webserviceclients.rfm.generated" typePackageName="level3.clarify.fcamedms.webserviceclients.rfm.generated.dataobjects" clientJar="${src.dir}/tmp/" keepGenerated="True">
+			<classpath refid="project.classpath" />
+		</clientgen>
+
+		<mkdir dir="${src.dir}/generated/level3/clarify/fcamedms/webserviceclients/rfm" />
+		<move todir="${src.dir}/generated/level3/clarify/fcamedms/webserviceclients/rfm">
+			<fileset dir="${src.dir}/tmp/level3/clarify/fcamedms/webserviceclients/rfm" />
+		</move>
+		<delete dir="${src.dir}/tmp" quiet="true" />
+		<!-- Since this service uses a local WSDL, we need to include it in the deploy. -->
+		<copy todir="${classes.dir}/level3/clarify/fcamedms/webserviceclients/rfm/generated">
+			<fileset dir="${src.dir}/generated/level3/clarify/fcamedms/webserviceclients/rfm/generated">
+				<include name="MaintenanceService.xml" />
+				<include name="MaintenanceService.wsdl" />
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- ================================================================== -->
+	<!-- Compile all generated web service client classes                   -->
+	<!-- ================================================================== -->
+	<target name="compile_webserviceclient_classes" depends="">
+		<javac encoding="UTF-8" srcdir="${src.dir}/generated/level3/clarify/fcamedms/webserviceclients" destdir="${classes.dir}" depend="no" target="1.7" includes="**">
+			<classpath refid="project.classpath" />
+		</javac>
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- Clean classes                                           -->
+	<!-- ======================================================= -->
+
+	<target name="clean.fcamedms" description="cleanup servlet classes">
+		<delete dir="${classes.dir}" quiet="true" />
+		<mkdir dir="${classes.dir}" />
+		<delete dir="${test.classes.dir}" quiet="true" />
+		<mkdir dir="${test.classes.dir}" />
+		<delete dir="${build.dir}/level3" quiet="true" />
+	</target>
+
+	<target name="clean.webservice" description="cleanup webservice artifacts">
+		<delete dir="${build.dir}/webservice" quiet="true" />
+		<delete dir="${build.dir}/cms-webservice" quiet="true" />
+		<delete dir="${build.dir}/contact-webservice" quiet="true" />
+	</target>
+
+	<target name="clean.libs" description="cleanup lib directory">
+		<delete dir="${libs.dir}" quiet="true" />
+		<mkdir dir="${libs.dir}" />
+	</target>
+
+	<target name="clean.generated" description="Cleanup generated source code">
+		<delete includeEmptyDirs="true" failonerror="false">
+			<fileset dir="${src.dir}/generated" includes="**/*" />
+		</delete>
+	</target>
+
+	<target name="cleanup_all" depends="clean.fcamedms, clean.webservice,clean.libs, clean.generated" description="cleanup all" />
+
+	<target name="get_clarify_dal_jar" description="Get the Clarify DAL jar from nexus">
+		<!-- Reference: http://stackoverflow.com/questions/4275466/how-do-you-deal-with-maven-3-timestamped-snapshots-efficiently -->
+		<get src="https://nexusprod.corp.intranet:8443/repository/maven-releases/TicketingServices/clarifyDal/2023.1/clarifyDal-2023.1.jar" dest="${extlibs.dir}/clarifyDal.jar" verbose="true" username="Kf4Ozx36" password="EfI7dJ4ij9hv3WhoEq6JuXnUK102bjdhfdZKxYZUn2nj" />
+	</target>
+
+	<target name="get_clarify_ejb_jar" description="Get the Clarify EJB jar from nexus">
+		<!-- Reference: http://stackoverflow.com/questions/4275466/how-do-you-deal-with-maven-3-timestamped-snapshots-efficiently -->
+		<get src="https://nexusprod.corp.intranet:8443/repository/maven-releases/TicketingServices/ClarifyEjb/2023.1/ClarifyEjb-2023.1.jar" dest="${clarifyEJB.jar}" verbose="true" username="Kf4Ozx36" password="EfI7dJ4ij9hv3WhoEq6JuXnUK102bjdhfdZKxYZUn2nj" />
+	</target>
+	<target name="get_opsConServices" description="Gets the opsconsoleservices.jar from Nexus">
+		<get src="https://nexusprod.corp.intranet:8443/repository/maven-releases/TicketingServices/opsconsoleservices/2022.8/opsconsoleservices-2022.8.jar" dest="${opsconsoleservices.jar}" verbose="true" username="Kf4Ozx36" password="EfI7dJ4ij9hv3WhoEq6JuXnUK102bjdhfdZKxYZUn2nj" />
+	</target>
+
+	<target name="get_CommonRestUtilities_jar" description="Get the CommonRestUtilities jar from nexus">
+			<!-- Reference: http://stackoverflow.com/questions/4275466/how-do-you-deal-with-maven-3-timestamped-snapshots-efficiently -->
+			<get src="https://nexusprod.corp.intranet:8443/repository/maven-releases/TicketingServices/CommonRestUtilities/2.1.2/CommonRestUtilities-2.1.2.jar" dest="${CommonRestUtilities.jar}" verbose="true" username="Kf4Ozx36" password="EfI7dJ4ij9hv3WhoEq6JuXnUK102bjdhfdZKxYZUn2nj" />
+	</target>
+
+	<target name="get_glm_client_jar" description="Get the glm-client jar from nexus">
+
+			<get src="https://nexusprod.corp.intranet:8443/repository/maven-releases/TicketingServices/glm-client/1.3/glm-client-1.3.jar" dest="${glm-client.jar}" verbose="true" username="Kf4Ozx36" password="EfI7dJ4ij9hv3WhoEq6JuXnUK102bjdhfdZKxYZUn2nj" />
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- Build the resources.jar                                 -->
+	<!-- ======================================================= -->
+	<target name="jarResources" depends="copy_tokens">
+		<jar destfile="${libs.dir}/resources.jar" basedir="${deploy_config.dir}">
+			<fileset dir="${level3.dir}/adt/soaphandler" includes="soaphandler.properties" />
+			<fileset dir="${thirdparty.dir}/tibco" includes="tibcojms-4.3.0.jar" />
+			<fileset dir="${thirdparty.dir}/xfire" includes="qname-1.0.jar" />
+			<fileset dir="${src.dir}" includes="**/jaxb.properties" />
+		</jar>
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- Copy resources for the application.                     -->
+	<!-- ======================================================= -->
+	<target name="copy_tokens">
+		<delete dir="${deploy_config.dir}" failonerror="false" />
+		<mkdir dir="${deploy_config.dir}" />
+		<copy toDir="${deploy_config.dir}">
+			<fileset dir="${properties.dir}">
+				<include name="**/log4j.properties" />
+				<include name="**/log4j.xml" />
+				<include name="**/springClassFactory.xml" />
+			</fileset>
+			<fileset dir="${config.dir}">
+				<!--exclude name="**/tsSpringClassFactory-local*.xml" /-->
+				<include name="**/*.properties" />
+				<include name="**/*.xml" />
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- =============================================================== -->
+	<!-- Ensure that an environment property was set in the command line -->
+	<!-- =============================================================== -->
+	<target name="init">
+		<!-- make sure passed in environment variable -->
+		<fail unless="env" message="You need to pass in an environment variable (i.e. ant -Denv=idv1)" />
+		<!-- make sure have environment config file to filter with -->
+		<available file="${env.config.dir}/${env}_environment.properties" type="file" property="env.file.present" />
+		<fail unless="env.file.present" message="You need to have an environment file for ${env} called ${env}_environment.properties in ${env.config.dir}" />
+		<!-- make sure passed in where to variable -->
+		<fail unless="runwhere" message="You need to pass in a 'runwhere' variable (i.e. ant -Drunwhere=local)" />
+	</target>
+
+	<!-- ========================================================= -->
+	<!-- Setup the clarify.env file on a windows machine (default) -->
+	<!-- ========================================================= -->
+	<target name="turnoff-hibernate-show-sql" if="with.cruise">
+		<replaceregexp match="hibernate.show_sql&quot;>true" replace="hibernate.show_sql&quot;>false" byline="true">
+			<fileset dir="${classes.dir}">
+				<include name="tsSpringClassFactory-localTest.xml" />
+			</fileset>
+		</replaceregexp>
+		<replaceregexp match="log4j.rootCategory=DEBUG" replace="log4j.rootCategory=ERROR" byline="true">
+			<fileset dir="${classes.dir}">
+				<include name="log4j.properties" />
+				<include name="log4j.xml" />
+			</fileset>
+		</replaceregexp>
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- Setup the application for local testing                 -->
+	<!-- ======================================================= -->
+	<target name="test_setup" depends="init">
+		<echo message="Setting up properties files for local execution, for environment=${env} runWhere=${runwhere} project_loc=${project_loc}" />
+		<copy overwrite="true" todir="${classes.dir}">
+			<fileset dir="${level3.dir}/adt/soaphandler" includes="soaphandler.properties" />
+			<fileset dir="${config.dir}">
+				<include name="**/*.properties" />
+				<include name="**/*.xml" />
+				<exclude name="**/tsSpringClassFactory.xml" />
+			</fileset>
+			<filterset begintoken="${marker_token}" endtoken="${marker_token}">
+				<filtersfile file="${env.config.dir}/${env}_environment.properties" />
+				<filtersfile file="${env.config.dir}/local_environment.properties" />
+			</filterset>
+		</copy>
+		<echo message="copy jaxb.properties - should be 3 files" />
+		<copy overwrite="true" todir="${classes.dir}">
+			<fileset dir="${src.dir}" includes="**/jaxb.properties" />
+		</copy>
+		<copy overwrite="true" todir="${classes.dir}/level3/clarify/fcamedms/utilities">
+			<fileset dir="${src.dir}/level3/clarify/fcamedms/utilities" includes="**/level3_header.bmp" />
+		</copy>
+		<echo message="copy log4j.properties - should be 1 file" />
+		<copy file="${properties.dir}/log4j.properties" tofile="${classes.dir}/log4j.properties" />
+		<copy file="${properties.dir}/log4j.xml" tofile="${classes.dir}/log4j.xml" />
+
+		<!-- Update hibernate.properties for specified test parameters  -->
+		<replaceregexp match="runWhere=(.*)" replace="runWhere=${runwhere}">
+			<fileset dir="${classes.dir}">
+				<include name="hibernate.properties" />
+			</fileset>
+		</replaceregexp>
+		<replaceregexp match="targetEnv=(.*)" replace="targetEnv=${env}">
+			<fileset dir="${classes.dir}">
+				<include name="hibernate.properties" />
+			</fileset>
+		</replaceregexp>
+
+		<antcall target="turnoff-hibernate-show-sql" />
+
+		<!-- build a resource.jar to be used in a local implementation of an app server -->
+		<!-- <delete dir="${deploy_config.dir}" failonerror="false" />
+        <mkdir dir="${deploy_config.dir}" />
+        <copy toDir="${deploy_config.dir}">
+            <fileset dir="${config.dir}">
+                <include name="**/*.properties" />
+                <include name="**/*.xml" />
+            </fileset>
+            <filterset begintoken="${marker_token}" endtoken="${marker_token}">
+                <filtersfile file="${env.config.dir}/${env}_environment.properties" />
+                <filtersfile file="${env.config.dir}/appserver_environment.properties" />
+            </filterset>
+        </copy>-->
+		<!-- Add ${env}_environment.properties and local_environment.properties to resources.jar so local ticketingRestServices can debug into ticketingServices. -->
+		<!-- <copy toDir="${deploy_config.dir}">
+            <fileset dir="${env.config.dir}">
+                <include name="${env}_environment.properties" />
+                <include name="local_environment.properties" />
+            </fileset>
+        </copy>
+        <copy toDir="${deploy_config.dir}" overwrite="true">
+            <fileset dir="${classes.dir}">
+                <include name="hibernate.properties" />
+            	<include name="log4j.properties" />
+            </fileset>
+        </copy>
+
+        <jar destfile="${libs.dir}/resources.jar" basedir="${deploy_config.dir}" />-->
+
+		<loadproperties srcFile="${classes.dir}/hibernate.properties">
+			<filterchain>
+				<linecontains>
+					<contains value="FCAMEDMS_T3_URL" />
+				</linecontains>
+			</filterchain>
+		</loadproperties>
+
+		<!--echo message="Begin local maven install of resources.jar for local testing." />
+        <exec executable="${mvn}" failonerror="true" failifexecutionfails="false">
+            <arg value="install:install-file" />
+            <arg value="-DgroupId=Ticketing" />
+            <arg value="-DartifactId=resources" />
+            <arg value="-Dversion=current" />
+            <arg value="-Dpackaging=jar" />
+            <arg value="-Dfile=libs/resources.jar" />
+        </exec>
+        <echo message="End local resources.jar deploy" /-->
+
+		<echo message="" />
+		<echo message="*****************************************************************************" />
+		<echo message="NOTE: To complete the local_setup when you are testing in a local instance   " />
+		<echo message=" of a weblogic server, you will still need to do the following:              " />
+		<echo message="   1) Copy the following files from the libs directory to your BEA domain    " />
+		<echo message="      applications directory:                                                " />
+		<echo message="         - resources.jar                                                     " />
+		<echo message="         - ticketingservices.ear                                             " />
+		<echo message="   2) Make sure the classpath that your domain uses includes the resource.jar" />
+		<echo message="   3) Update the JDBC Pool in your domains config.xml to point to the correct" />
+		<echo message="      database                                                               " />
+		<echo message="*****************************************************************************" />
+		<echo message="Setup complete for ${runwhere} testing and environment ${env}" />
+		<echo message="FCAMEDMS_T3_URL=${FCAMEDMS_T3_URL}" />
+	</target>
+
+
+	<target name="jar_srcs">
+		<property name="ticketingservicessrcs.jar" value="ticketingservicessrcs.jar" />
+		<jar destfile="${libs.dir}/${ticketingservicessrcs.jar}" duplicate="preserve">
+			<zipfileset dir="${src.dir}" prefix="" includes="**/*.java" />
+			<zipfileset dir="${test-src.dir}" prefix="" includes="**/*.java" />
+		</jar>
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- Setup files for local deployment                 -->
+	<!-- ======================================================= -->
+	<target name="local_deployment_setup" depends="init">
+		<echo message="Setting up properties files for local deployment, for environment=${env}" />
+		<echo message="${deploy_config.dir}  ${cbo_deploy_scripts.dir}" />
+		<available file="${cbo_deploy_scripts.dir}/local_deployment.properties" type="file" property="local_deployment_properties.file.present" />
+		<fail unless="local_deployment_properties.file.present" message="You need to have an environment file for ${env} called ${cbo_deploy_scripts.dir}/local_deployment.properties" />
+		<!--
+<copy overwrite="true" file="${env.config.dir}/${env}_environment.properties" tofile="${env.config.dir}/environment.properties">
+-->
+		<property file="${cbo_deploy_scripts.dir}/local_deployment.properties" prefix="deployment" />
+		<echo>configuring to ${cbo_deploy_scripts.dir}/local_deployment.properties which contains:
+LOGFILE=${deployment.LOGFILE}
+ANTLOGFILE=${deployment.ANTLOGFILE}
+TMP_DIR=${deployment.TMP_DIR}
+EXEC_DIR=${deployment.EXEC_DIR}
+DISTRIB_DIR=${deployment.DEPLOY_SCRIPTS_DIR}
+DEPLOY_SCRIPTS_DIR=${deployment.DEPLOY_SCRIPTS_DIR}
+ENV_CONFIG_DIR=${deployment.ENV_CONFIG_DIR}
+DEPLOY_CONFIG_DIR=${deployment.DEPLOY_CONFIG_DIR}
+WINDOWS_TMP_DIR=${deployment.WINDOWS_TMP_DIR}
+WINDOWS_EXEC_DIR=${deployment.WINDOWS_EXEC_DIR}
+WINDOWS_DISTRIB_DIR=${deployment.WINDOWS_DEPLOY_SCRIPTS_DIR}
+WINDOWS_DEPLOY_SCRIPTS_DIR=${deployment.WINDOWS_DEPLOY_SCRIPTS_DIR}
+WINDOWS_ENV_CONFIG_DIR=${deployment.WINDOWS_ENV_CONFIG_DIR}
+WINDOWS_DEPLOY_CONFIG_DIR=${deployment.WINDOWS_DEPLOY_CONFIG_DIR}
+        </echo>
+
+		<delete dir="${deployment.WINDOWS_EXEC_DIR}" />
+
+		<mkdir dir="${deployment.WINDOWS_TMP_DIR}" />
+		<mkdir dir="${deployment.WINDOWS_EXEC_DIR}" />
+		<mkdir dir="${deployment.WINDOWS_DISTRIB_DIR}" />
+		<mkdir dir="${deployment.WINDOWS_DEPLOY_SCRIPTS_DIR}" />
+		<mkdir dir="${deployment.WINDOWS_ENV_CONFIG_DIR}" />
+		<mkdir dir="${deployment.WINDOWS_DEPLOY_CONFIG_DIR}" />
+
+		<copy todir="${deployment.WINDOWS_DEPLOY_SCRIPTS_DIR}" overwrite="true">
+			<fileset dir="${cbo_deploy_scripts.dir}" />
+			<filterset>
+				<filtersfile file="${cbo_deploy_scripts.dir}/local_deployment.properties" />
+			</filterset>
+		</copy>
+		<copy todir="${deployment.WINDOWS_EXEC_DIR}" overwrite="true">
+			<fileset dir="${ticketingservices_deploy_scripts.dir}" />
+			<filterset>
+				<filtersfile file="${cbo_deploy_scripts.dir}/local_deployment.properties" />
+			</filterset>
+		</copy>
+		<mkdir dir="${deployment.WINDOWS_DEPLOY_SCRIPTS_DIR}/wls_config" />
+		<copy todir="${deployment.WINDOWS_DEPLOY_SCRIPTS_DIR}/wls_config" overwrite="true">
+			<fileset dir="${wls.config.dir}" />
+			<filterset>
+				<filtersfile file="${cbo_deploy_scripts.dir}/local_deployment.properties" />
+			</filterset>
+		</copy>
+		<copy todir="${deployment.WINDOWS_ENV_CONFIG_DIR}" overwrite="true">
+			<fileset dir="${env.config.dir}" />
+			<filterset>
+				<filtersfile file="${cbo_deploy_scripts.dir}/local_deployment.properties" />
+			</filterset>
+		</copy>
+		<copy todir="${deployment.WINDOWS_DEPLOY_CONFIG_DIR}" overwrite="true">
+			<fileset dir="${deploy_config.dir}" />
+			<filterset>
+				<filtersfile file="${cbo_deploy_scripts.dir}/local_deployment.properties" />
+			</filterset>
+		</copy>
+		<!-- Copy jars etc for later un-jar, configure, re-jar -->
+		<copy todir="${deployment.WINDOWS_DISTRIB_DIR}">
+			<fileset dir="${libs.dir}" />
+		</copy>
+
+	</target>
+
+
+
+	<!-- ======================================================= -->
+	<!-- Execute local deployment                 -->
+	<!-- ======================================================= -->
+	<target name="local_deployment" depends="init, local_deployment_setup">
+		<echo message="Execute ${deployment.DEPLOY_SCRIPTS_DIR}/deploydriver.bash, for environment=${env}" />
+		<exec dir="${deployment.WINDOWS_EXEC_DIR}" executable="${deployment.DEPLOY_SCRIPTS_DIR}/deploydriver.bsh" outputproperty="failed.deploydriver" logError="true">
+			<arg value="${env} password" />
+		</exec>
+	</target>
+
+	<!-- ======================================================= -->
+	<!-- All                                                     -->
+	<!-- ======================================================= -->
+	<!-- TODO: Add target: call_script_to_compile_TS_classes_under_Java14 as the last target once it works -->
+
+	<!-- TODO: Add build_ticketing_rest_services after create_fcamedmsservices (war_clarify_ejb_plugin) -->
+
+	<!-- (dropped "war_clarify_ejb_plugin" from "All" as it is already called by "create_fcamedmsservices" ) -->
+	<!-- delete this comment in next version of thisd build file -->
+	<target name="all" description="build all - used when doing a local/eclipse build" depends="
+    	get_clarify_dal_jar,
+    	get_clarify_ejb_jar,
+		get_opsConServices,
+		get_CommonRestUtilities_jar,
+		get_glm_client_jar,
+		cleanup_all,
+        create_common,
+        gen_webservices,
+        gen_webserviceclients,
+        create_fcamedmsservices,
+        jarResources" />
+
+	<target name="all_On_Jenkins" description="build all - called by JENKINS" depends="
+    	get_clarify_dal_jar,
+    	get_clarify_ejb_jar,
+		get_opsConServices,
+		get_CommonRestUtilities_jar,
+		get_glm_client_jar,
+		cleanup_all,
+        create_common,
+        gen_webservices,
+        gen_webserviceclients,
+        create_fcamedmsservices,
+    	jarResources,
+    	build_ear" />
+
+	<target name="all_no_gets" description="build all - don't get any jars from Nexus" depends="
+        cleanup_all,
+        create_common,
+        gen_webservices,
+        gen_webserviceclients,
+        create_fcamedmsservices,
+        jarResources" />
+
+	<condition property="windowsos">
+		<os family="windows" />
+	</condition>
+
+	<condition property="search.path" value="/apache-maven-3.0.4" else="${env.JENKINS_HOME}/tools">
+		<os family="windows" />
+	</condition>
+
+	<path id="mvn.path">
+		<fileset dir="${search.path}" />
+	</path>
+
+	<target name="find_mvn" depends="find_mvn_linux, find_mvn_windows">
+		<echo message="maven.executable: ${maven.executable}" />
+	</target>
+
+	<target name="find_mvn_linux" unless="windowsos">
+		<echo message="search.path: ${search.path}" />
+		<pathconvert property="maven.executable" refid="mvn.path">
+			<globmapper from="*mvn" to="*mvn" />
+		</pathconvert>
+	</target>
+
+	<target name="find_mvn_windows" if="windowsos">
+		<property name="maven.executable" value="mvn.bat" />
+	</target>
+
+
+	<condition property="mb.checkin.client.jar">
+		<isTrue value="${mb.checkin.client.jars}" />
+	</condition>
+
+	<target name="publish_artifacts" depends="find_mvn" if="mb.checkin.client.jar">
+		<delete dir="${assemble.dir}" />
+		<mkdir dir="${assemble.dir}" />
+
+		<condition property="build.version.major.set">
+			<isset property="build.version.major" />
+		</condition>
+		<fail unless="build.version.major.set" message="You need to provide the build.version.major property when running the maven-deploy-ejbjar target" />
+
+		<condition property="build.version.minor.set">
+			<isset property="build.version.minor" />
+		</condition>
+		<fail unless="build.version.minor.set" message="You need to provide the build.version.minor property when running the maven-deploy-ejbjar target" />
+
+		<!-- Checking in client jars, so get the jar we just built. -->
+		<copy file="${libs.dir}/FcamEdmsEjb.jar" todir="${assemble.dir}" />
+		<echo message="${libs.dir}/FcamEdmsEjb.jar copy complete" />
+
+		<property name="FcamEdmsEjbNexusVersion" value="${build.version.major}.${build.version.minor}" />
+		<!-- We publish the FcamEdmsEjb from libs directory because that is the one that is created by this build -->
+		<echo message="Begin Nexus deploy of FcamEdmsEjb version ${FcamEdmsEjbNexusVersion} jar deploy" />
+		<echo message="Panda Maven executable is ${maven.executable}" />
+		<exec executable="${maven.executable}" failonerror="true">
+			<arg value="deploy:deploy-file" />
+			<arg value="-s=xmls/maven.settings.xml" />
+			<arg value="-DgroupId=com.level3.fcamedms" />
+			<arg value="-DartifactId=FcamEdmsEjb" />
+			<arg value="-Dversion=${FcamEdmsEjbNexusVersion}-SNAPSHOT" />
+			<arg value="-Dpackaging=jar" />
+			<arg value="-Dfile=libs/FcamEdmsEjb.jar" />
+			<arg value="-DrepositoryId=ts-nexus" />
+			<arg value="-Durl=${nexus.snapshot.url}" />
+		</exec>
+		<echo message="End Nexus EJB jar deploy" />
+	</target>
+
+	<target name="coverage-dirs-clean">
+		<delete dir="${instrumented.dir}" quiet="true" />
+		<delete dir="${testreports.xml.dir}" quiet="true" />
+		<mkdir dir="${testreports.xml.dir}" />
+		<delete dir="${coveragereport.dir}" quiet="true" />
+		<delete file="${cobertura.dir}/cobertura.ser" quiet="true" />
+	</target>
+
+	<!--<target name="code-coverage" depends="cleanup_all,create_common,
+        gen_webservices, gen_webserviceclients,create_fcamedmsservices, test_setup, coverage-dirs-clean"> -->
+
+	<target name="code-coverage" depends="test_setup, coverage-dirs-clean" if="runTests">
+		<echo message="Setting up properties files for test result report executiontestass, for environment=${env} runWhere=${runwhere}" />
+		<!-- Instrument all the compiled classes that JUnit will be testing (not the test classes themselves) -->
+		<cobertura-instrument todir="${instrumented.dir}" datafile="${cobertura.dir}/cobertura.ser">
+			<ignore regex="org.apache.log4j.*" />
+			<fileset dir="${classes.dir}">
+				<include name="**/*.class" />
+				<exclude name="**/Test*.class" />
+			</fileset>
+			<fileset dir="${test.classes.dir}">
+				<exclude name="**/Test*.class" />
+				<include name="**/TestConstants.class" />
+				<include name="**/TestTicketGenerator.class" />
+			</fileset>
+		</cobertura-instrument>
+	</target>
+
+	<target name="junit" depends="code-coverage" if="runTests">
+		<!-- fork="yes" ==> It only flushes its changes to the coverage data file to disk when the JVM exits.
+		If JUnit runs in the same JVM as ant, then the coverage data file will be updated AFTER ant exits, but you want to run cobertura-report BEFORE ant exits. -->
+		<junit forkmode="once" maxmemory="2048m" clonevm="false" dir="${basedir}" failureProperty="test.failed" haltonfailure="no" showoutput="true">
+			<!--Specify the name of the coverage data file to use. (.ser file is used for generating the report-->
+			<sysproperty key="net.sourceforge.cobertura.datafile" file="${cobertura.dir}/cobertura.ser" />
+			<jvmarg value="-XX:MaxPermSize=2048m" />
+			<jvmarg value="-Djava.awt.headless=true" />
+			<jvmarg value="-XX:-UseSplitVerifier" />
+			<!--Note the classpath order: instrumented classes are before the
+				original (uninstrumented) classes. 	-->
+			<classpath location="${instrumented.dir}" />
+			<classpath location="${classes.dir}" />
+			<classpath location="${test.classes.dir}" />
+
+			<!-- The instrumented classes reference classes used by the
+				Cobertura runtime, so Cobertura and its dependencies
+				must be on your classpath. -->
+
+			<classpath refid="cobertura.classpath" />
+			<classpath refid="extlibs" />
+			<classpath refid="webservice.class.path" />
+			<classpath refid="jaxb.classpath" />
+
+			<formatter type="xml" />
+			<test name="${testcase}" todir="${testreports.xml.dir}" if="testcase" />
+			<batchtest todir="${testreports.xml.dir}" unless="testcase" fork="yes">
+				<fileset dir="${test-src.dir}">
+					<include name="level3/clarify/fcamedms/builder/Test*.java" />
+					<include name="level3/clarify/fcamedms/builder/edms/Test*.java" />
+					<include name="level3/clarify/fcamedms/builder/edms/envsiteaudit/Test*.java" />
+					<include name="level3/clarify/fcamedms/builder/fcam/Test*.java" />
+					<include name="level3/clarify/fcamedmsservlet/Test*.java" />
+					<include name="level3/clarify/fcamedms/common/utilities/Test*.java" />
+					<include name="level3/clarify/fcamedms/utilities/Test*.java" />
+					<include name="level3/clarify/fcamedms/validator/Test*.java" />
+
+					<exclude name="**/TestGeographicProfileBuilder.java" if="exclude.if.local" />
+					<!-- Excluding this test cases as it is failing locally due to directory "/sdrive2/EMT/KML/dev2/Temp-bob.gurdikian-20151001184703.kml (No such file or directory)" not found on jenkins server -->
+					<exclude name="**/TestConstants.java" />
+					<exclude name="**/TestTicketGenerator.java" />
+					<exclude name="**/TestCaseApiBase.java" />
+					<exclude name="**/TestTicketingConsoleConstants.java" />
+					<exclude name="**/TestEnterpriseDocumentService.java" />
+					<exclude name="**/TestResponseValidator.java" />
+					<exclude name="**/TestValidators.java" />
+					<exclude name="**/TestUtils.java" />
+					<exclude name="**/TestBase.java" />
+				</fileset>
+				<formatter type="plain" usefile="false" />
+			</batchtest>
+		</junit>
+	</target>
+	<target name="test-report" depends="checkIfBypassTest, junit" if="runTests">
+		<cobertura-report format="xml" destdir="${coveragereport.dir}" srcdir="${src.dir}" datafile="${cobertura.dir}/cobertura.ser" />
+		<cobertura-report format="html" destdir="${coveragereport.dir}" srcdir="${src.dir}" datafile="${cobertura.dir}/cobertura.ser" />
+		<!--fail message="Test failure detected, check test results." if="test.failed" /-->
+	</target>
+	<target name="checkIfBypassTest">
+		<condition property="runTests">
+			<isFalse value="${skipTests}" />
+		</condition>
+		<condition property="exclude.if.local">
+			<equals arg1="${runwhere}" arg2="local" />
+		</condition>
+	</target>
+</project>

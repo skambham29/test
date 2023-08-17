@@ -1,0 +1,577 @@
+include:
+  # Injects TMO Global Shared (handles certs, etc.)
+  - project: 'tmobile/templates'
+    file: '/gitlab-ci/.tmo.global.common.gitlab-ci.yml'
+    
+  # Injects Maven Test
+  - project: 'tmobile/templates'
+    file: '/gitlab-ci/.tmo.job.mavenTest.gitlab-ci.yml'
+
+  # Injects Maven Build
+  - project: 'tmobile/templates'
+    file: '/gitlab-ci/.tmo.job.mavenBuild.gitlab-ci.yml'
+    
+  # Injects sonar properties
+  - project: 'tmobile/templates'
+    file: '/gitlab-ci/.tmo.job.sonar.gitlab-ci.yml'  
+
+  # Injects fortify
+  - project: 'tmobile/templates'
+    file: '/gitlab-ci/.tmo.job.fortify.gitlab-ci.yml'
+
+  # Injects docker
+  - project: 'tmobile/templates'
+    file: '/gitlab-ci/.tmo.function.docker.gitlab-ci.yml'
+    
+  # Injects Maven publish  
+  - project: 'tmobile/templates'
+    file: 'gitlab-ci/.tmo.function.mavenPublish.gitlab-ci.yml'
+
+  # Injects TMO Global Shared (handles certs, lists deny list files etc.)
+  - project: 'tmobile/templates'
+    file: 
+    - '/gitlab-ci/.tmo.job.container-scan.gitlab-ci.yml'
+    
+  # Injects deploy
+  - project: 'tmobile/EBCIS/ebcis-scee-devops'
+    ref: tmo/main
+    file: '/COMMON/.ebcis.function.helm-deploy.gitlab-ci.yml'
+
+    
+variables:
+  JACOCO_COVERAGE_REPORT: "yes"
+  SONAR_URL: "https://sonarqube.service.cdp.t-mobile.com"                
+  SONAR_RESULTS: "sonarqube"                                                
+  SONAR_ANALYSIS_MODE: "preview"
+  CDP_SONAR_NPE: "true"                             
+#  ALLOW_SONAR_FAILURE: "false"                                            
+  SONAR_PARAMS: "-Dsonar.javascript.lcov.reportPaths=coverage/lcov.info"  
+  SAST_SCAN_BRANCH : $CI_COMMIT_REF_NAME
+  MAVEN_VERSION: 3-openjdk-17
+  MAVEN_BUILD_ARGS: "clean install"  
+  MAVEN_PUBLISH_ARGS: "-Dfile=target/ebcis-scee-ms-conversionfacilitator-0.0.1-SNAPSHOT.jar" 
+  ALLOW_SONAR_FAILURE: "true"
+  K8S_API_LOGIN_URL: "pksapi.px-npe1001.pks.t-mobile.com"
+  K8S_SERVER_URL: "https://api-px-npe1101.pks.t-mobile.com:8443"
+  K8S_CLUSTER: "api-px-npe1101.pks.t-mobile.com"
+  K8S_NS: "conversion-eligibility-engine-npe"
+  K8S_USER: $NPE_K8S_USER
+  K8S_PASS: $NPE_K8S_PASS
+  K8S_SERVICE_ACCOUNT: "true"
+  HELM_APP_NAME: "conversion-facilitator"
+  HELM_CHARTS_DIR: ./ebcis-scee-devops/SCEE/${HELM_APP_NAME}/develop/helm
+  HELM_VALUES: ./ebcis-scee-devops/SCEE/${HELM_APP_NAME}/develop/helm/values.yaml
+  HELM_HISTORY_MAX: 3
+  #HELM_DRY: "true"
+  
+  
+stages:
+  - tmo
+  - clone
+  - build
+  - test
+  - publish
+  - package
+  - ci
+  - deploy
+
+clone:
+  stage: clone
+  script:
+    - apk update && apk add git
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/tmobile/EBCIS/ebcis-scee-devops.git
+  artifacts:
+    name: "devops"
+    paths:
+    - ebcis-scee-devops/COMMON  
+    - ebcis-scee-devops/SCEE/custom_files
+    - ebcis-scee-devops/SCEE/${HELM_APP_NAME}
+
+publish:
+  extends: .maven-publish
+  stage: publish 
+ 
+package:
+  stage: package
+  image: docker:stable
+  services:
+    - docker:stable-dind
+  script: 
+    - chmod 777 ebcis-scee-devops/SCEE/custom_files/docker-script_new.sh
+    - ./ebcis-scee-devops/SCEE/custom_files/docker-script_new.sh
+
+con-aqua_scanner:
+   stage: ci
+   extends: .aqua_scanner
+   variables:
+     ENV_DT: "con" 
+     AQUA_SCANNER_SCAN: "true"
+     CONTAINER_SCANNING_DISABLED: "true"
+     DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:${ENV_DT}-${CI_COMMIT_SHORT_SHA}"
+   only:
+     - /^featurebranch_.*$/
+   allow_failure: true
+  
+
+int-aqua_scanner:
+   stage: ci
+   extends: .aqua_scanner
+   variables:
+     ENV_DT: "int"
+     AQUA_SCANNER_SCAN: "true"
+     CONTAINER_SCANNING_DISABLED: "true" 
+     DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:${ENV_DT}-${CI_COMMIT_SHORT_SHA}"
+   only:
+     - /^featurebranch_.*$/
+   allow_failure: true
+
+     
+bb-aqua_scanner:
+   stage: ci
+   extends: .aqua_scanner
+   variables:
+     ENV_DT: "bb"
+     AQUA_SCANNER_SCAN: "true"
+     CONTAINER_SCANNING_DISABLED: "true" 
+     DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:${ENV_DT}-${CI_COMMIT_SHORT_SHA}"
+   only:     
+     - /^featurebranch_.*$/
+   allow_failure: true
+
+DEV1-aqua_scanner:
+   stage: ci
+   extends: .aqua_scanner
+   variables:
+     ENV_DT: "dev1"
+     AQUA_SCANNER_SCAN: "true"
+     CONTAINER_SCANNING_DISABLED: "true" 
+     DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:${ENV_DT}-${CI_COMMIT_SHORT_SHA}"
+   only:
+     - develop
+   allow_failure: true
+
+QAT1-aqua_scanner:
+   stage: ci
+   extends: .aqua_scanner
+   variables:
+     ENV_DT: "qat1"
+     AQUA_SCANNER_SCAN: "true"
+     CONTAINER_SCANNING_DISABLED: "true" 
+     DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:${ENV_DT}-${CI_COMMIT_SHORT_SHA}"
+   only:
+     - develop 
+   allow_failure: true 
+
+QAT2-aqua_scanner:
+   stage: ci
+   extends: .aqua_scanner
+   variables:
+     ENV_DT: "qat2"
+     AQUA_SCANNER_SCAN: "true"
+     CONTAINER_SCANNING_DISABLED: "true" 
+     DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:${ENV_DT}-${CI_COMMIT_SHORT_SHA}"
+   only:
+     - develop
+   allow_failure: true  
+
+QAT3-aqua_scanner:
+   stage: ci
+   extends: .aqua_scanner
+   variables:
+     ENV_DT: "qat3"
+     AQUA_SCANNER_SCAN: "true"
+     CONTAINER_SCANNING_DISABLED: "true" 
+     DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:${ENV_DT}-${CI_COMMIT_SHORT_SHA}"
+   only:
+     - develop
+   allow_failure: true  
+
+
+PLAB-aqua_scanner:
+   stage: ci
+   extends: .aqua_scanner
+   variables:
+     ENV_DT: "plab"
+     AQUA_SCANNER_SCAN: "true"
+     CONTAINER_SCANNING_DISABLED: "true" 
+     DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:${ENV_DT}-${CI_COMMIT_SHORT_SHA}"
+   only:
+     - release
+     - release_pre  
+   allow_failure: true
+
+UAT1-aqua_scanner:
+   stage: ci
+   extends: .aqua_scanner
+   variables:
+     ENV_DT: "uat1"
+     AQUA_SCANNER_SCAN: "true"
+     CONTAINER_SCANNING_DISABLED: "true" 
+     DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:${ENV_DT}-${CI_COMMIT_SHORT_SHA}"
+   only:
+     - release
+     - release_pre
+   allow_failure: true
+
+UAT2-aqua_scanner:
+   stage: ci
+   extends: .aqua_scanner
+   variables:
+     ENV_DT: "uat2"
+     AQUA_SCANNER_SCAN: "true"
+     CONTAINER_SCANNING_DISABLED: "true" 
+     DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:${ENV_DT}-${CI_COMMIT_SHORT_SHA}"
+   only:
+     - release
+     - release_pre 
+   allow_failure: true   
+
+UAT3-aqua_scanner:
+   stage: ci
+   extends: .aqua_scanner
+   variables:
+     ENV_DT: "uat3"
+     AQUA_SCANNER_SCAN: "true"
+     CONTAINER_SCANNING_DISABLED: "true" 
+     DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:${ENV_DT}-${CI_COMMIT_SHORT_SHA}"
+   only:
+     - release
+     - release_pre
+   allow_failure: true
+
+
+hotfix-aqua_scanner:
+   stage: ci
+   extends: .aqua_scanner
+   variables:
+     ENV_DT: "hotfix"
+     AQUA_SCANNER_SCAN: "true"
+     CONTAINER_SCANNING_DISABLED: "true" 
+     DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:${ENV_DT}-${CI_COMMIT_SHORT_SHA}"
+   only:
+     - /^hotfixbranch_.*$/
+   allow_failure: true
+
+supfix-aqua_scanner:
+   stage: ci
+   extends: .aqua_scanner
+   variables:
+     ENV_DT: "supfix"
+     AQUA_SCANNER_SCAN: "true"
+     CONTAINER_SCANNING_DISABLED: "true" 
+     DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:${ENV_DT}-${CI_COMMIT_SHORT_SHA}"
+   only:
+     - /^supportfixbranch_.*$/
+   allow_failure: true
+
+prodstg-aqua_scanner:
+   stage: ci
+   extends: .aqua_scanner
+   variables:
+     ENV_DT: "prodstg"
+     AQUA_SCANNER_SCAN: "true"
+     CONTAINER_SCANNING_DISABLED: "true" 
+     DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:${ENV_DT}-${CI_COMMIT_SHORT_SHA}"
+   only:
+     - tmo/main
+   allow_failure: true
+
+prod-aqua_scanner:
+   stage: ci
+   extends: .aqua_scanner
+   variables:
+     ENV_DT: "prod"
+     AQUA_SCANNER_SCAN: "true"
+     CONTAINER_SCANNING_DISABLED: "true" 
+     DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:${ENV_DT}-${CI_COMMIT_SHORT_SHA}"
+   only:
+     - tmo/main
+   allow_failure: true
+
+preprod-aqua_scanner:
+   stage: ci
+   extends: .aqua_scanner
+   variables:
+     ENV_DT: "preprod"
+     AQUA_SCANNER_SCAN: "true"
+     CONTAINER_SCANNING_DISABLED: "true" 
+     DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:${ENV_DT}-${CI_COMMIT_SHORT_SHA}"
+   only:
+     - tmo/main
+   allow_failure: true
+
+stg-aqua_scanner:
+   stage: ci
+   extends: .aqua_scanner
+   variables:
+     ENV_DT: "stg"
+     AQUA_SCANNER_SCAN: "true"
+     CONTAINER_SCANNING_DISABLED: "true" 
+     DOCKER_IMAGE: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:${ENV_DT}-${CI_COMMIT_SHORT_SHA}"
+   only:
+     - release
+   allow_failure: true
+
+deploy-DEV1:
+  stage: deploy
+  extends: .helm_deploy
+  variables:
+    HELM_HISTORY_MAX: 2
+  environment:
+    name: DEV1
+  only:
+    - develop
+    
+deploy-QAT1:
+  stage: deploy
+  extends: .helm_deploy
+  variables:
+    HELM_HISTORY_MAX: 2
+  environment:
+    name: QAT1
+  only:
+    - develop
+  
+
+deploy-QAT2:
+  stage: deploy
+  extends: .helm_deploy
+  variables:
+    HELM_HISTORY_MAX: 2
+  environment:
+    name: QAT2
+  only:
+    - develop
+  when: manual
+
+deploy-QAT3:
+  stage: deploy
+  extends: .helm_deploy
+  variables:
+    HELM_HISTORY_MAX: 2
+  environment:
+    name: QAT3
+  only:
+    - develop
+  when: manual    
+  
+deploy-UAT1:
+  stage: deploy
+  extends: .helm_deploy
+  variables:
+    K8S_API_LOGIN_URL: "pksapi.px-npe2001.pks.t-mobile.com"
+    K8S_SERVER_URL: "https://api-px-npe2103.pks.t-mobile.com:8443"
+    K8S_CLUSTER: "api-px-npe2103.pks.t-mobile.com"
+    K8S_NS: "conversion-eligibility-engine-uat1"
+    K8S_USER: $UAT1_K8S_USER
+    K8S_PASS: $UAT1_K8S_PASS
+    HELM_CHARTS_DIR: ./ebcis-scee-devops/SCEE/${HELM_APP_NAME}/release/helm
+    HELM_VALUES: ./ebcis-scee-devops/SCEE/${HELM_APP_NAME}/release/helm/values.yaml  
+  environment:
+    name: UAT1
+  only:
+    - release
+  when: manual
+  
+deploy-UAT2:
+  stage: deploy
+  extends: .helm_deploy
+  variables:
+    K8S_API_LOGIN_URL: "pksapi.px-npe2001.pks.t-mobile.com"
+    K8S_SERVER_URL: "https://api-px-npe2103.pks.t-mobile.com:8443"
+    K8S_CLUSTER: "api-px-npe2103.pks.t-mobile.com"
+    K8S_NS: "conversion-eligibility-engine-uat2"
+    K8S_USER: $UAT2_K8S_USER
+    K8S_PASS: $UAT2_K8S_PASS
+    HELM_CHARTS_DIR: ./ebcis-scee-devops/SCEE/${HELM_APP_NAME}/release/helm
+    HELM_VALUES: ./ebcis-scee-devops/SCEE/${HELM_APP_NAME}/release/helm/values.yaml  
+  environment:
+    name: UAT2
+  only:
+    - release
+  when: manual
+
+deploy-UAT3:
+  stage: deploy
+  extends: .helm_deploy
+  variables:
+    K8S_API_LOGIN_URL: "pksapi.px-npe2001.pks.t-mobile.com"
+    K8S_SERVER_URL: "https://api-px-npe2103.pks.t-mobile.com:8443"
+    K8S_CLUSTER: "api-px-npe2103.pks.t-mobile.com"
+    K8S_NS: "conversion-eligibility-engine-uat3"
+    K8S_USER: $UAT3_K8S_USER
+    K8S_PASS: $UAT3_K8S_PASS
+    HELM_CHARTS_DIR: ./ebcis-scee-devops/SCEE/${HELM_APP_NAME}/release/helm
+    HELM_VALUES: ./ebcis-scee-devops/SCEE/${HELM_APP_NAME}/release/helm/values.yaml  
+  environment:
+    name: UAT3
+  only:
+    - release
+  when: manual
+
+deploy-PLAB:
+  stage: deploy
+  extends: .helm_deploy
+  variables:
+    K8S_API_LOGIN_URL: "pksapi.px-npe2001.pks.t-mobile.com"
+    K8S_SERVER_URL: "https://api-px-npe2103.pks.t-mobile.com:8443"
+    K8S_CLUSTER: "api-px-npe2103.pks.t-mobile.com"
+    K8S_NS: "conversion-eligibility-engine-plab"
+    K8S_USER: $PLAB_K8S_USER
+    K8S_PASS: $PLAB_K8S_PASS 
+    HELM_CHARTS_DIR: ./ebcis-scee-devops/SCEE/${HELM_APP_NAME}/release/helm
+    HELM_VALUES: ./ebcis-scee-devops/SCEE/${HELM_APP_NAME}/release/helm/values.yaml  
+  environment:
+    name: PLAB
+  only:
+    - release
+  when: manual
+
+deploy-hotfix:
+  stage: deploy
+  extends: .helm_deploy
+  environment:
+    name: hotfix
+  only:
+    - /^hotfixbranch_.*$/
+
+deploy-supfix:
+  stage: deploy
+  extends: .helm_deploy
+  environment:
+    name: supfix
+  only:
+    - /^supportfixbranch_.*$/
+  
+deploy-int:
+  stage: deploy
+  extends: .helm_deploy
+  variables:
+    HELM_HISTORY_MAX: 1
+  environment:
+    name: int
+  only:
+    - /^featurebranch_.*$/
+  when: manual
+
+deploy-bb:
+  stage: deploy
+  extends: .helm_deploy
+  variables:
+    HELM_HISTORY_MAX: 1
+  environment:
+    name: bb
+  only:
+    - /^featurebranch_.*$/
+  when: manual
+
+deploy-con:
+  stage: deploy
+  extends: .helm_deploy
+  variables:
+    HELM_HISTORY_MAX: 1
+  environment:
+    name: con
+  only:
+    - /^featurebranch_.*$/
+  when: manual
+
+
+deploy-PRDSTG2101p:
+  stage: deploy
+  extends: .helm_deploy
+  variables:
+    K8S_API_LOGIN_URL: "pksapi.px-prd2001.pks.t-mobile.com"
+    K8S_SERVER_URL: "https://api-px-prd2101.pks.t-mobile.com:8443"
+    K8S_CLUSTER: "api-px-prd2101.pks.t-mobile.com"
+    K8S_NS: "conversion-eligibility-engine-prd2"
+    K8S_USER: $PRODSTG_K8S_USER2
+    K8S_PASS: $PRODSTG_K8S_PASS2  
+    HELM_CHARTS_DIR: ./ebcis-scee-devops/SCEE/${HELM_APP_NAME}/tmo-main/helm
+    HELM_VALUES: ./ebcis-scee-devops/SCEE/${HELM_APP_NAME}/tmo-main/helm/values.yaml
+    SLACK_CHANNEL_WEBHOOK: https://t-mo.slack.com/archives/G01FZV7H6CV
+  environment:
+    name: prodstg
+  only:
+    - tmo/main
+  when: manual
+
+ 
+deploy-PRD2107p:
+  stage: deploy
+  extends: .helm_deploy
+  variables:
+    K8S_API_LOGIN_URL: "pksapi.px-prd2001.pks.t-mobile.com"
+    K8S_SERVER_URL: "https://api-px-prd2107.pks.t-mobile.com:8443"
+    K8S_CLUSTER: "api-px-prd2107.pks.t-mobile.com"
+    K8S_NS: "conversion-eligibility-engine-prd"
+    K8S_USER: $PROD_K8S_USER2
+    K8S_PASS: $PROD_K8S_PASS2   
+    HELM_CHARTS_DIR: ./ebcis-scee-devops/SCEE/${HELM_APP_NAME}/tmo-main/helm
+    HELM_VALUES: ./ebcis-scee-devops/SCEE/${HELM_APP_NAME}/tmo-main/helm/values.yaml
+    SLACK_CHANNEL_WEBHOOK: https://t-mo.slack.com/archives/G01FZV7H6CV
+  environment:
+    name: prod
+  only:
+    - tmo/main
+  when: manual
+
+deploy-PRD1107t:
+  stage: deploy
+  extends: .helm_deploy
+  variables:
+    K8S_API_LOGIN_URL: "pksapi.tt-prd1001.pks.t-mobile.com"
+    K8S_SERVER_URL: "https://api-tt-prd1107.pks.t-mobile.com:8443"
+    K8S_CLUSTER: "api-tt-prd1107.pks.t-mobile.com"
+    K8S_NS: "conversion-eligibility-engine-prd"
+    K8S_USER: $PROD_K8S_USER3
+    K8S_PASS: $PROD_K8S_PASS3   
+    HELM_CHARTS_DIR: ./ebcis-scee-devops/SCEE/${HELM_APP_NAME}/tmo-main/helm
+    HELM_VALUES: ./ebcis-scee-devops/SCEE/${HELM_APP_NAME}/tmo-main/helm/values.yaml
+    SLACK_CHANNEL_WEBHOOK: https://t-mo.slack.com/archives/G01FZV7H6CV
+  environment:
+    name: prod
+  only:
+    - tmo/main
+  when: manual
+
+
+deploy-PREPRD1107p:
+  stage: deploy
+  extends: .helm_deploy
+  variables:
+    K8S_API_LOGIN_URL: "pksapi.px-prd1001.pks.t-mobile.com"
+    K8S_SERVER_URL: "https://api-px-prd1107.pks.t-mobile.com:8443"
+    K8S_CLUSTER: "api-px-prd1107.pks.t-mobile.com"
+    K8S_NS: "conversion-eligibility-engine-pre-prod"
+    K8S_USER: $PREPROD_K8S_USER1
+    K8S_PASS: $PREPROD_K8S_PASS1   
+    HELM_CHARTS_DIR: ./ebcis-scee-devops/SCEE/${HELM_APP_NAME}/tmo-main/helm
+    HELM_VALUES: ./ebcis-scee-devops/SCEE/${HELM_APP_NAME}/tmo-main/helm/values.yaml
+    SLACK_CHANNEL_WEBHOOK: https://t-mo.slack.com/archives/G01FZV7H6CV
+  environment:
+    name: preprod
+  only:
+    - tmo/main
+  when: manual
+
+
+deploy-STG:
+  stage: deploy
+  extends: .helm_deploy
+  variables:
+    K8S_API_LOGIN_URL: "pksapi.px-npe2001.pks.t-mobile.com"
+    K8S_SERVER_URL: "https://api-px-npe2101.pks.t-mobile.com:8443"
+    K8S_CLUSTER: "api-px-npe2101.pks.t-mobile.com"
+    K8S_NS: "conversion-eligibility-engine-data-npe"
+    K8S_USER: $NPE_ISTIO_K8S_USER
+    K8S_PASS: $NPE_ISTIO_K8S_PASS
+    HELM_CHARTS_DIR: ./ebcis-scee-devops/SCEE/${HELM_APP_NAME}/release/helm
+    HELM_VALUES: ./ebcis-scee-devops/SCEE/${HELM_APP_NAME}/release/helm/values.yaml
+  environment:
+    name: stg
+  only:
+    - release
+  when: manual
+ 
+

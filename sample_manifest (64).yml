@@ -1,0 +1,123 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'topologyviewer-master-prod'
+  namespace: 'topologyviewer'
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/proxy-body-size: "2g"
+  labels:
+    project: 'topologyviewer-ui'
+    branch: 'master'
+    commit: 'c9cd7e3'
+    role: java
+    environment: prod
+spec:
+  rules:
+    - host: topologyviewer-ui-prod.kubeodc-prod.corp.intranet
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: 'topologyviewer-master-prod'
+              servicePort: 8080
+  tls:
+    - hosts:
+      - 'topologyviewer-ui-prod.kubeodc-prod.corp.intranet'
+      secretName: managed-tls-secret
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'topologyviewer-master-prod'
+  namespace: 'topologyviewer'
+  labels:
+    project: 'topologyviewer-ui'
+    branch: 'master'
+    commit: 'c9cd7e3'
+    role: java
+    environment: prod
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    project: 'topologyviewer-ui'
+    branch: 'master'
+    commit: 'c9cd7e3'
+    role: java
+    environment: prod
+  type: ClusterIP
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'topologyviewer-master-prod'
+  labels:
+    project: 'topologyviewer-ui'
+    branch: 'master'
+    commit: 'c9cd7e3'
+    role: java
+    environment: prod
+spec:
+  selector:
+    matchLabels:
+      project: 'topologyviewer-ui'
+      branch: 'master'
+      role: java
+      environment: prod
+  replicas: 7
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'topologyviewer-ui'
+        branch: 'master'
+        commit: 'c9cd7e3'
+        role: java
+        environment: prod
+    spec:
+      containers:
+        - name: topologyviewer-ui-prod
+          image: 'nexusprod.corp.intranet:4567/topologyviewer/topologyviewer/topologyviewer-ui:prod_20221121'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            limits:
+              memory: 3Gi
+            requests:
+              memory: 1Gi
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: cloud-prod
+            - name: APP_SPACE
+              value: master
+            - name: APPDYNAMICS_CONTROLLER_HOST_NAME
+              value: 'centurylink.saas.appdynamics.com'
+            - name: APPDYNAMICS_CONTROLLER_PORT
+              value: '443'
+            - name: APPDYNAMICS_CONTROLLER_SSL_ENABLED
+              value: 'true'
+            - name: APPDYNAMICS_AGENT_APPLICATION_NAME
+              value: 'TOPOLOGYVIEWER (SYSGEN787584643)'
+            - name: APPDYNAMICS_AGENT_TIER_NAME
+              value: 'topologyviewer'
+            - name: APPDYNAMICS_AGENT_ACCOUNT_NAME
+              value: 'centurylink'
+            - name: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: appdynamic-secret
+                  key: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+      imagePullSecrets:
+        - name: topologyviewer-ui-master
+---
+---

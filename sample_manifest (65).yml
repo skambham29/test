@@ -1,0 +1,121 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'dpr-cuiaccessservice-production-java-prod'
+  namespace: 'fdc'
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: '3600'
+    nginx.ingress.kubernetes.io/proxy-read-timeout: '3600'
+    nginx.ingress.kubernetes.io/proxy-send-timeout: '3600'
+  labels:
+    project: 'dpr-cuiaccessservice'
+    branch: 'production'
+    commit: '93c2558'
+    role: java
+    environment: 'prod'
+spec:
+  rules:
+    - host: dpr-cuiaccessservice.kubeidc-prod.level3.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: 'dpr-cuiaccessservice-production-java-prod'
+              servicePort: 9096
+  tls:
+    - hosts:
+      - 'dpr-cuiaccessservice.kubeidc-prod.level3.com'
+      secretName: managed-tls-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'dpr-cuiaccessservice-production-java-prod'
+  namespace: 'fdc'
+  labels:
+    project: 'dpr-cuiaccessservice'
+    branch: 'production'
+    commit: '93c2558'
+    role: java
+    environment: 'prod'
+spec:
+  ports:
+    - port: 9096
+      targetPort: 9096
+      protocol: TCP
+  selector:
+    project: 'dpr-cuiaccessservice'
+    branch: 'production'
+    commit: '93c2558'
+    role: java
+    environment: 'prod'
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'dpr-cuiaccessservice-production-java-prod'
+  labels:
+    project: 'dpr-cuiaccessservice'
+    branch: 'production'
+    commit: '93c2558'
+    role: java
+    environment: 'prod'
+spec:
+  selector:
+    matchLabels:
+      project: 'dpr-cuiaccessservice'
+      branch: 'production'
+      role: java
+      environment: 'prod'
+  replicas: 2
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'dpr-cuiaccessservice'
+        branch: 'production'
+        commit: '93c2558'
+        role: java
+        environment: 'prod'
+    spec:
+      containers:
+        - name: dpr-cuiaccessservice-production-java-prod
+          image: 'nexusprod.corp.intranet:4567/dpr-services/dpr-cuiaccessservice/dpr-cuiaccessservice:production'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9096
+              protocol: TCP
+          resources:
+            limits:
+              memory: 1000Mi
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+            - name: JAVA_TOOL_OPTIONS
+              value: -Dqxgf.properties.instance=prod
+            - name: APPDYNAMICS_CONTROLLER_HOST_NAME
+              value: 'centurylink.saas.appdynamics.com'
+            - name: APPDYNAMICS_CONTROLLER_PORT
+              value: '443'
+            - name: APPDYNAMICS_CONTROLLER_SSL_ENABLED
+              value: 'true'
+            - name: APPDYNAMICS_AGENT_APPLICATION_NAME
+              value: 'DPR - Data Protection Registry (SYSGEN787706323)'
+            - name: APPDYNAMICS_AGENT_TIER_NAME
+              value: 'dpr_cuiaccessservice'
+            - name: APPDYNAMICS_AGENT_ACCOUNT_NAME
+              value: 'centurylink'
+            - name: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+              value: '4na8stokk43j'
+            - name: APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME
+              value: 'true'
+              
+      imagePullSecrets:
+        - name: dpr-cuiaccessservice-production
+---
+---

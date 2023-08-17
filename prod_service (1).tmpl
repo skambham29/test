@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: '${KUBERNETES_PREFIX}-${JENKINSPREFIX}-${CONTAINERTYPE}-${APP_ACTIVE_PROFILE}-prod'
+  namespace: '${KUBERNETES_NAMESPACE}'
+  labels:
+    project: '${PROJECT_NAME}'
+    branch: '${BRANCH_NAME}'
+    commit: '${COMMIT_ID}'
+    role: ${CONTAINERTYPE}
+    environment: '${APP_ACTIVE_PROFILE}'
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8086
+      protocol: TCP
+  selector:
+    project: '${PROJECT_NAME}'
+    branch: '${BRANCH_NAME}'
+    commit: '${COMMIT_ID}'
+    role: ${CONTAINERTYPE}
+    environment: '${APP_ACTIVE_PROFILE}'
+---

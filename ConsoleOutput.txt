@@ -1,0 +1,1161 @@
+Started by user Ravi Joshi
+14:22:04 Connecting to https://api.github.com using ravishjoshi/****** (ravishjoshi-lumen-https)
+Obtained Jenkinsfile from 2b052cdd497e69cdea13222b6b252d69add1de75
+Running in Durability level: MAX_SURVIVABILITY
+[Pipeline] Start of Pipeline
+[Pipeline] library
+Loading library jsl-jenkins-shared-library-local@release/20220603
+Attempting to resolve release/20220603 from remote references...
+ > git --version # timeout=10
+ > git --version # 'git version 2.20.1'
+using GIT_ASKPASS to set credentials ravishjoshi-lumen-https
+ > git ls-remote -- https://github.com/CenturyLink/jsl-jenkins-shared-library.git # timeout=10
+Found match: refs/heads/release/20220603 revision 042b202e952b6a07780b34dc0d9fb69d0aad3706
+The recommended git tool is: NONE
+using credential ravishjoshi-lumen-https
+Wiping out workspace first.
+Cloning the remote Git repository
+Cloning with configured refspecs honoured and without tags
+Cloning repository https://github.com/CenturyLink/jsl-jenkins-shared-library.git
+ > git init /var/jenkins_home/workspace/_ng911-dashboard-api_development@libs/jsl-jenkins-shared-library-local # timeout=10
+Fetching upstream changes from https://github.com/CenturyLink/jsl-jenkins-shared-library.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.20.1'
+using GIT_ASKPASS to set credentials ravishjoshi-lumen-https
+ > git fetch --no-tags --force --progress -- https://github.com/CenturyLink/jsl-jenkins-shared-library.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/CenturyLink/jsl-jenkins-shared-library.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+Checking out Revision 042b202e952b6a07780b34dc0d9fb69d0aad3706 (release/20220603)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 042b202e952b6a07780b34dc0d9fb69d0aad3706 # timeout=10
+Exception logging commit message for Build #83 of Revision 042b202e952b6a07780b34dc0d9fb69d0aad3706 (release/20220603): java.io.IOException: Cannot read file /var/jenkins_home/.config/jgit/config
+ > git rev-list --no-walk 042b202e952b6a07780b34dc0d9fb69d0aad3706 # timeout=10
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/_ng911-dashboard-api_development
+[Pipeline] {
+[Pipeline] echo
+Placeholder to integrate Service Now DevOps Module in  Declarative: Checkout SCM stage.
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+The recommended git tool is: git
+using credential ravishjoshi-lumen-https
+Cloning the remote Git repository
+Cloning with configured refspecs honoured and without tags
+Cloning repository https://github.com/CenturyLink/ps-ng911-api.git
+ > git init /var/jenkins_home/workspace/_ng911-dashboard-api_development # timeout=10
+Fetching upstream changes from https://github.com/CenturyLink/ps-ng911-api.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.20.1'
+using GIT_ASKPASS to set credentials ravishjoshi-lumen-https
+ > git fetch --no-tags --force --progress -- https://github.com/CenturyLink/ps-ng911-api.git +refs/heads/development:refs/remotes/origin/development # timeout=10
+ > git config remote.origin.url https://github.com/CenturyLink/ps-ng911-api.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/development:refs/remotes/origin/development # timeout=10
+Avoid second fetch
+Checking out Revision 2b052cdd497e69cdea13222b6b252d69add1de75 (development)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 2b052cdd497e69cdea13222b6b252d69add1de75 # timeout=10
+Exception logging commit message for Build #83 of Revision 2b052cdd497e69cdea13222b6b252d69add1de75 (development): java.io.IOException: Cannot read file /var/jenkins_home/.config/jgit/config
+ > git rev-list --no-walk 2b052cdd497e69cdea13222b6b252d69add1de75 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] timeout
+19:52:13  Timeout set to expire in 1 hr 0 min
+[Pipeline] {
+[Pipeline] echo
+19:52:13  Placeholder to integrate Service Now DevOps Module in  Declarative: Tool Install stage.
+[Pipeline] stage
+[Pipeline] { (Declarative: Tool Install)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] echo
+19:52:13  Placeholder to integrate Service Now DevOps Module in  Static Code Analysis stage.
+[Pipeline] stage
+[Pipeline] { (Static Code Analysis)
+[Pipeline] parallel
+[Pipeline] { (Branch: Linting)
+[Pipeline] { (Branch: DevSecOps)
+[Pipeline] echo
+19:52:13  Placeholder to integrate Service Now DevOps Module in  Linting stage.
+[Pipeline] stage
+[Pipeline] { (Linting)
+[Pipeline] echo
+19:52:14  Placeholder to integrate Service Now DevOps Module in  DevSecOps stage.
+[Pipeline] stage
+[Pipeline] { (DevSecOps)
+[Pipeline] tool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] configFileProvider
+19:52:14  provisioning config files...
+19:52:14  copy managed file [MAVEN-SETTINGS] to file:/var/jenkins_home/workspace/_ng911-dashboard-api_development@tmp/config2927225622620082667tmp
+[Pipeline] isUnix
+[Pipeline] sh
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] isUnix
+[Pipeline] sh (mvn -f ./pom.xml checkstyle:checkstyle)
+19:52:15  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:15  + mvn -s /var/jenkins_home/workspace/_ng911-dashboard-api_development@tmp/config2927225622620082667tmp -f ./pom.xml checkstyle:checkstyle
+19:52:15  + set +x
+[Pipeline] withCredentials
+19:52:15  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (GitHub Security Alert Repo)
+19:52:15  + set +x
+19:52:15  Checking dependencies vulnerability alerts are enabled
+19:52:16  /var/jenkins_home/workspace/_ng911-dashboard-api_development@tmp/durable-7aec604d/script.sh: 8: /var/jenkins_home/workspace/_ng911-dashboard-api_development@tmp/durable-7aec604d/script.sh: [[: not found
+19:52:16  Getting dependencies vulnerability alerts report
+19:52:16  /var/jenkins_home/workspace/_ng911-dashboard-api_development@tmp/durable-7aec604d/script.sh: 17: /var/jenkins_home/workspace/_ng911-dashboard-api_development@tmp/durable-7aec604d/script.sh: python: not found
+19:52:16    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+19:52:16                                   Dload  Upload   Total   Spent    Left  Speed
+19:52:16  
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100   691  100   304  100   387    812   1034 --:--:-- --:--:-- --:--:--  1852
+19:52:16  (23) Failed writing body
+[Pipeline] }
+[Pipeline] // withCredentials
+19:52:16  [INFO] Scanning for projects...
+19:52:16  Downloading from nexus-public: https://nexus.eis.ctl.io/repository/maven-public/org/springframework/boot/spring-boot-starter-parent/2.3.1.RELEASE/spring-boot-starter-parent-2.3.1.RELEASE.pom
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:17  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:17  [ERROR] [ERROR] Some problems were encountered while processing the POMs:
+19:52:17  [FATAL] Non-resolvable parent POM for com.lumen.ng911:NG911-api:1.2.9-202203: Could not transfer artifact org.springframework.boot:spring-boot-starter-parent:pom:2.3.1.RELEASE from/to nexus-public (https://nexus.eis.ctl.io/repository/maven-public/): Transfer failed for https://nexus.eis.ctl.io/repository/maven-public/org/springframework/boot/spring-boot-starter-parent/2.3.1.RELEASE/spring-boot-starter-parent-2.3.1.RELEASE.pom and 'parent.relativePath' points at no local POM @ line 5, column 13
+19:52:17   @ 
+19:52:17  [ERROR] The build could not read 1 project -> [Help 1]
+19:52:17  [ERROR]   
+19:52:17  [ERROR]   The project com.lumen.ng911:NG911-api:1.2.9-202203 (/var/jenkins_home/workspace/_ng911-dashboard-api_development/./pom.xml) has 1 error
+19:52:17  [ERROR]     Non-resolvable parent POM for com.lumen.ng911:NG911-api:1.2.9-202203: Could not transfer artifact org.springframework.boot:spring-boot-starter-parent:pom:2.3.1.RELEASE from/to nexus-public (https://nexus.eis.ctl.io/repository/maven-public/): Transfer failed for https://nexus.eis.ctl.io/repository/maven-public/org/springframework/boot/spring-boot-starter-parent/2.3.1.RELEASE/spring-boot-starter-parent-2.3.1.RELEASE.pom and 'parent.relativePath' points at no local POM @ line 5, column 13: PKIX path validation failed: java.security.cert.CertPathValidatorException: validity check failed: NotAfter: Thu Jun 16 15:24:38 UTC 2022 -> [Help 2]
+19:52:17  [ERROR] 
+19:52:17  [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+19:52:17  [ERROR] Re-run Maven using the -X switch to enable full debug logging.
+19:52:17  [ERROR] 
+19:52:17  [ERROR] For more information about the errors and possible solutions, please read the following articles:
+19:52:17  [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/ProjectBuildingException
+19:52:17  [ERROR] [Help 2] http://cwiki.apache.org/confluence/display/MAVEN/UnresolvableModelException
+[Pipeline] }
+19:52:17  Deleting 1 temporary files
+[Pipeline] // configFileProvider
+[Pipeline] }
+19:52:17  + set +x
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] withCredentials
+19:52:17  Masking supported pattern matches of $USERNAME or $GITHUB_TOKEN
+[Pipeline] // withEnv
+[Pipeline] {
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] echo
+19:52:18  Fallback to Adoption Stats
+[Pipeline] catchError
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting the list of branches of the repository)
+[Pipeline] }
+19:52:18  ERROR: ⚠️⚠️⚠️⚠️ PLEASE CHECK Linting CONSOLE LOGS FOR MORE DETAILS ⚠️⚠️⚠️⚠️
+19:52:18  ERROR: script returned exit code 1
+[Pipeline] // catchError
+[Pipeline] }
+19:52:18  + set +x
+19:52:18    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+19:52:18                                   Dload  Upload   Total   Spent    Left  Speed
+19:52:18  
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  2313  100  2313    0     0   5507      0 --:--:-- --:--:-- --:--:--  5507
+[Pipeline] readJSON
+[Pipeline] writeJSON
+[Pipeline] isUnix
+[Pipeline] sh (Cleaning up)
+19:52:19  + rm -rf branch_protection.json
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] dir
+19:52:19  Running in /var/jenkins_home/workspace/_ng911-dashboard-api_development
+[Pipeline] {
+[Pipeline] findFiles
+[Pipeline] isUnix
+[Pipeline] sh (Creating daumerling)
+19:52:19  + md5sum Jenkinsfile
+[Pipeline] stash
+19:52:19  Stashed 1 file(s)
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] echo
+19:52:20  Placeholder to integrate Service Now DevOps Module in  Adoption Stats stage.
+[Pipeline] stage
+[Pipeline] { (Adoption Stats)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:21  + sh cicd/scripts/AdoptionStats.sh
+[Pipeline] echo
+19:52:21  CHECK ✅️: JSL jsl-jenkins-shared-library using version release/20220603 without warnings.
+[Pipeline] unstash
+[Pipeline] echo
+19:52:21  There is no deployment contracted, defaulting to: No deployment found
+[Pipeline] unstash
+[Pipeline] echo
+19:52:22  No artifacts generated in this Pipeline
+[Pipeline] echo
+19:52:22  No Artifact reference has been provided for the DeploymentGate.
+[Pipeline] echo
+19:52:22  WARNING: The artifact used for this deployment has not passed the tests. Continue executing …
+[Pipeline] withCredentials
+19:52:22  Masking supported pattern matches of $BREAD_CRUMBS_FILE
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting expected crumbs from credentials)
+19:52:22  + set +x
+[Pipeline] unstash
+[Pipeline] echo
+19:52:23  missing crumb qualitygate_bread_crumb
+[Pipeline] unstash
+[Pipeline] echo
+19:52:23  missing crumb qualitygate_codecoverage_bread_crumb
+[Pipeline] unstash
+[Pipeline] echo
+19:52:23  missing crumb sonarqube_bread_crumb
+[Pipeline] unstash
+[Pipeline] echo
+19:52:23  missing crumb testing_bread_crumb
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Looking for each crumb)
+19:52:24  + set +x
+[Pipeline] writeJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:24  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:24  + set +x
+[Pipeline] withCredentials
+19:52:24  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] echo
+19:52:25  Not a PR. Looking at commit sha PRs.
+[Pipeline] isUnix
+[Pipeline] sh (Fetching last successful commit)
+19:52:25  + set +x
+19:52:25  commit 83278ef2f48095cfa0c2d95cd941578e95a44c04
+19:52:25  Author: Varadraj <Varadraj.Korde@CenturyLink.com>
+19:52:25  Date:   Wed Apr 21 16:17:21 2021 +0530
+19:52:25  
+19:52:25      fixed Jenkinsfile
+[Pipeline] isUnix
+[Pipeline] sh (Get changelog from 2b052cdd497e69cdea13222b6b252d69add1de75 to 83278ef2f48095cfa0c2d95cd941578e95a44)
+19:52:25  + set +x
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:28  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:28  + set +x
+[Pipeline] withCredentials
+19:52:28  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:52:28  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] echo
+19:52:29  PR Not found for 2b052cdd497e69cdea13222b6b252d69add1de75. Probable direct commit
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:29  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:29  + set +x
+[Pipeline] withCredentials
+19:52:29  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:52:30  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] echo
+19:52:30  PR Not found for 7ac55739d9307c0629ce33f623b980a3ac17b82c. Probable direct commit
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:30  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:31  + set +x
+[Pipeline] withCredentials
+19:52:31  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:52:31  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] echo
+19:52:32  PR Not found for c78f35e31e117056a26b8f12ddf18f9a85cdc959. Probable direct commit
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:32  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:32  + set +x
+[Pipeline] withCredentials
+19:52:32  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:52:33  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:52:34  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:52:34  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:35  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:35  + set +x
+[Pipeline] withCredentials
+19:52:35  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:52:36  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:52:37  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:52:38  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:38  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:39  + set +x
+[Pipeline] withCredentials
+19:52:39  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:52:39  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:52:40  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:52:41  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:41  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:42  + set +x
+[Pipeline] withCredentials
+19:52:42  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:52:42  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] echo
+19:52:43  PR Not found for 40bfb6f9ef018beaacfdd99e1bd2531d5c74f555. Probable direct commit
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:43  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:43  + set +x
+[Pipeline] withCredentials
+19:52:43  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:52:44  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:52:45  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:52:45  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:47  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:47  + set +x
+[Pipeline] withCredentials
+19:52:47  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:52:47  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:52:48  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:52:49  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:50  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:50  + set +x
+[Pipeline] withCredentials
+19:52:50  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:52:51  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:52:51  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:52:52  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:53  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:53  + set +x
+[Pipeline] withCredentials
+19:52:53  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:52:53  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:52:54  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:52:55  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:55  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:56  + set +x
+[Pipeline] withCredentials
+19:52:56  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:52:56  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:52:57  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:52:58  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:59  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:52:59  + set +x
+[Pipeline] withCredentials
+19:52:59  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:53:00  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:53:01  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:53:02  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:02  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:02  + set +x
+[Pipeline] withCredentials
+19:53:02  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:53:03  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:53:04  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:53:04  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:05  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:05  + set +x
+[Pipeline] withCredentials
+19:53:05  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:53:06  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:53:07  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:53:07  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:09  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:09  + set +x
+[Pipeline] withCredentials
+19:53:09  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:53:09  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:53:10  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:53:11  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:12  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:12  + set +x
+[Pipeline] withCredentials
+19:53:12  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:53:12  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:53:13  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:53:14  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:15  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:15  + set +x
+[Pipeline] withCredentials
+19:53:15  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:53:15  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:53:16  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:53:17  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:18  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:18  + set +x
+[Pipeline] withCredentials
+19:53:18  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:53:18  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:53:19  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:53:20  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:21  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:21  + set +x
+[Pipeline] withCredentials
+19:53:21  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:53:21  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:53:22  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:53:23  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:24  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:24  + set +x
+[Pipeline] withCredentials
+19:53:24  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:53:25  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:53:26  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:53:26  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:27  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:27  + set +x
+[Pipeline] withCredentials
+19:53:27  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:53:28  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:53:28  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:53:29  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:30  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:30  + set +x
+[Pipeline] withCredentials
+19:53:30  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:53:30  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:53:31  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:53:32  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:32  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:33  + set +x
+[Pipeline] withCredentials
+19:53:33  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:53:33  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:53:34  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:53:34  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:35  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:35  + set +x
+[Pipeline] withCredentials
+19:53:35  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:53:36  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:53:37  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:53:37  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:38  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:38  + set +x
+[Pipeline] withCredentials
+19:53:38  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:53:39  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:53:40  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:53:40  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:41  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:41  + set +x
+[Pipeline] withCredentials
+19:53:41  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:53:42  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:53:42  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:53:43  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:44  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:44  + set +x
+[Pipeline] withCredentials
+19:53:44  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:53:45  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:53:46  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:53:46  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:47  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:47  + set +x
+[Pipeline] withCredentials
+19:53:47  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:53:48  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:53:49  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:53:50  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:50  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:51  + set +x
+[Pipeline] withCredentials
+19:53:51  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:53:51  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:53:52  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:53:52  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:53  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:54  + set +x
+[Pipeline] withCredentials
+19:53:54  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:53:54  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:53:55  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:53:56  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:56  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+19:53:57  + set +x
+[Pipeline] withCredentials
+19:53:57  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+19:53:57  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+19:53:58  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+19:53:59  + set +x
+[Pipeline] readJSON
+[Pipeline] writeJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Jenkins Build Json)
+19:54:00  + set +x
+19:54:00    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+19:54:00                                   Dload  Upload   Total   Spent    Left  Speed
+19:54:00  
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  4015  100  4015    0     0   206k      0 --:--:-- --:--:-- --:--:--  206k
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Format Timestamp)
+19:54:01  + echo 1656080524106
+19:54:01  + sed s/.\{3\}$//
+19:54:01  + date=1656080524
+19:54:01  + date -d @1656080524 +%Y-%m-%d %H:%M:%S
+[Pipeline] echo
+19:54:01  CHECK ✅️: JSL jsl-jenkins-shared-library using version release/20220603 without warnings.
+[Pipeline] writeJSON
+[Pipeline] isUnix
+[Pipeline] sh
+19:54:01  + rm -rf authorize_prod_deploy
+[Pipeline] unstash
+[Pipeline] isUnix
+[Pipeline] sh (Searching Config File)
+19:54:02  + find . -name sonar-project.properties
+[Pipeline] isUnix
+[Pipeline] sh (Get PROJECT_KEY)
+19:54:02  + set +x
+[Pipeline] isUnix
+[Pipeline] sh (Get SONAR_HOST)
+19:54:02  + set +x
+[Pipeline] withCredentials
+19:54:03  Masking supported pattern matches of $SONARQUBE_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Get project branches)
+19:54:03  + set +x
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+Scripts not permitted to use method java.lang.Throwable getStackTrace. Administrators can decide whether to approve or reject this signature.
+[Pipeline] echo
+19:54:04  Placeholder to integrate Service Now DevOps Module in  Declarative: Post Actions stage.
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] cleanWs
+19:54:04  [WS-CLEANUP] Deleting project workspace...
+19:54:04  [WS-CLEANUP] Deferred wipeout is used...
+19:54:04  [WS-CLEANUP] done
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+
+GitHub has been notified of this commit’s build result
+
+org.jenkinsci.plugins.scriptsecurity.sandbox.RejectedAccessException: Scripts not permitted to use method java.lang.Throwable getStackTrace
+	at org.jenkinsci.plugins.scriptsecurity.sandbox.whitelists.StaticWhitelist.rejectMethod(StaticWhitelist.java:265)
+	at org.jenkinsci.plugins.scriptsecurity.sandbox.groovy.SandboxInterceptor.onMethodCall(SandboxInterceptor.java:161)
+	at org.kohsuke.groovy.sandbox.impl.Checker$1.call(Checker.java:161)
+	at org.kohsuke.groovy.sandbox.impl.Checker.checkedCall(Checker.java:165)
+	at com.cloudbees.groovy.cps.sandbox.SandboxInvoker.methodCall(SandboxInvoker.java:17)
+	at stage.call(stage.groovy:23)
+	at org.jenkinsci.plugins.pipeline.modeldefinition.ModelInterpreter.evaluateStage(ModelInterpreter.groovy:240)
+	at org.jenkinsci.plugins.pipeline.modeldefinition.ModelInterpreter.evaluateSequentialStages(ModelInterpreter.groovy:172)
+	at com.cloudbees.groovy.cps.CpsDefaultGroovyMethods.each(CpsDefaultGroovyMethods:2030)
+	at com.cloudbees.groovy.cps.CpsDefaultGroovyMethods.each(CpsDefaultGroovyMethods:2015)
+	at com.cloudbees.groovy.cps.CpsDefaultGroovyMethods.each(CpsDefaultGroovyMethods:2056)
+	at org.jenkinsci.plugins.pipeline.modeldefinition.ModelInterpreter.evaluateSequentialStages(ModelInterpreter.groovy:157)
+	at org.jenkinsci.plugins.pipeline.modeldefinition.ModelInterpreter.call(ModelInterpreter.groovy:84)
+	at org.jenkinsci.plugins.pipeline.modeldefinition.ModelInterpreter.toolsBlock(ModelInterpreter.groovy:539)
+	at ___cps.transform___(Native Method)
+	at com.cloudbees.groovy.cps.impl.ContinuationGroup.methodCall(ContinuationGroup.java:86)
+	at com.cloudbees.groovy.cps.impl.FunctionCallBlock$ContinuationImpl.dispatchOrArg(FunctionCallBlock.java:113)
+	at com.cloudbees.groovy.cps.impl.FunctionCallBlock$ContinuationImpl.fixName(FunctionCallBlock.java:78)
+	at sun.reflect.GeneratedMethodAccessor1133.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.cloudbees.groovy.cps.impl.ContinuationPtr$ContinuationImpl.receive(ContinuationPtr.java:72)
+	at com.cloudbees.groovy.cps.impl.ConstantBlock.eval(ConstantBlock.java:21)
+	at com.cloudbees.groovy.cps.Next.step(Next.java:83)
+	at com.cloudbees.groovy.cps.Continuable$1.call(Continuable.java:174)
+	at com.cloudbees.groovy.cps.Continuable$1.call(Continuable.java:163)
+	at org.codehaus.groovy.runtime.GroovyCategorySupport$ThreadCategoryInfo.use(GroovyCategorySupport.java:129)
+	at org.codehaus.groovy.runtime.GroovyCategorySupport.use(GroovyCategorySupport.java:268)
+	at com.cloudbees.groovy.cps.Continuable.run0(Continuable.java:163)
+	at org.jenkinsci.plugins.workflow.cps.SandboxContinuable.access$001(SandboxContinuable.java:18)
+	at org.jenkinsci.plugins.workflow.cps.SandboxContinuable.run0(SandboxContinuable.java:51)
+	at org.jenkinsci.plugins.workflow.cps.CpsThread.runNextChunk(CpsThread.java:185)
+	at org.jenkinsci.plugins.workflow.cps.CpsThreadGroup.run(CpsThreadGroup.java:400)
+	at org.jenkinsci.plugins.workflow.cps.CpsThreadGroup.access$400(CpsThreadGroup.java:96)
+	at org.jenkinsci.plugins.workflow.cps.CpsThreadGroup$2.call(CpsThreadGroup.java:312)
+	at org.jenkinsci.plugins.workflow.cps.CpsThreadGroup$2.call(CpsThreadGroup.java:276)
+	at org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService$2.call(CpsVmExecutorService.java:67)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at hudson.remoting.SingleLaneExecutorService$1.run(SingleLaneExecutorService.java:139)
+	at jenkins.util.ContextResettingExecutorService$1.run(ContextResettingExecutorService.java:28)
+	at jenkins.security.ImpersonatingExecutorService$1.run(ImpersonatingExecutorService.java:68)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Finished: FAILURE

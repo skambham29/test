@@ -1,0 +1,302 @@
+try {
+    library(
+      identifier: 'jsl-jenkins-shared-library-local@stable',
+      retriever: modernSCM(
+        [
+          $class: 'GitSCMSource',
+          remote: "/app/jenkins/git/jsl-jenkins-shared-library.git",
+          extensions: [[$class: 'WipeWorkspace']]
+        ]
+     )
+   ) _
+} catch (Exception Ex) {
+   library(
+     identifier: 'jsl-jenkins-shared-library@stable',
+     retriever: modernSCM(
+       [
+         $class: 'GitSCMSource',
+         remote: "https://github.com/CenturyLink/jsl-jenkins-shared-library.git",
+         credentialsId: 'GITHUB_APP_CREDENTIALS',
+         extensions: [[$class: 'WipeWorkspace']]
+       ]
+     )
+   ) _
+}
+
+// Label for the Jenkins Windows build agent.
+WINDOWS_BUILD_AGENT = 'JenkWin'
+
+String getProjectMajorVersion() {
+    // TODO: Where do we pull the verison from?
+    major_version = '1.0'
+    return major_version
+}
+
+String getProjectMinorVersion() {
+    // TODO: Where do we pull the verison from?
+    minor_version = '0'
+    return minor_version
+}
+
+pipeline {
+    agent {
+      label 'Docker-enabled'
+    }
+  options {
+      buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '10'))
+      timestamps ()
+      timeout(time: 1, unit: 'HOURS')
+      preserveStashes(buildCount: 10)
+      disableConcurrentBuilds()
+    }
+
+    environment {
+        GITHUB_TOKEN_CREDENTIALS = 'GITHUB_APP_CREDENTIALS'
+        GITHUB_SSH_CREDENTIALS = 'SCMAUTO_SSH_DEVOPS_PIPELINE'
+        DOCKER_CREDENTIALS = 'nexus-secrets-file'
+        SONARQUBE_CREDENTIALS = 'sonartokenprod'
+        JIRA_CREDENTIALS = 'jira-credentials'
+        QUALITY_GATE_CREDENTIALS = 'qg-creds'
+        PROJECT_MAL = 'FEDPRT'
+        //GCP_CREDENTIALS = ''
+
+        BRANCH_NAME = GIT_BRANCH.split('/')[-1].trim().toLowerCase()
+        COMMIT_ID = GIT_COMMIT.substring(0,7).trim().toLowerCase()
+        PROJECT_NAME = 'fedprt-eis'
+
+        DOCKERFILE_PATH = './Dockerfile'
+        DOCKER_REGISTRY = 'nexusprod.corp.intranet:4567'
+        DOCKER_REPO = 'fedprt-eis'
+        IMAGE_NAME = "${env.PROJECT_NAME}"
+        IMAGE_REPO = "${DOCKER_REGISTRY}/${DOCKER_REPO}/${IMAGE_NAME}"
+
+        BUILD_CONFIGURATION = 'Debug'
+        APPLICATION_NAME = 'fedprt-eis'
+        SOLUTION_FILE = "${SRC_CODE_DIR}/CenturyLink.EIS.sln"
+        PROJECT_FILE = "${SRC_CODE_DIR}/CenturyLink.EIS.Web/CenturyLink.EIS.Web.csproj"
+
+        // used by jsl
+        SCAN_BRANCH = 'development'
+        SRC_CODE_DIR = 'CenturyLink.EIS'
+
+        HELM_TEMPLATES_PATH = './helm/'
+        NUGET_REPO = 'http://l3nexus.level3.com/nexus/service/local/nuget/SM-NuGet/'
+		
+		MAJOR_VERSION = getProjectMajorVersion()
+		MINOR_VERSION = getProjectMinorVersion()
+		PROJECT_FULL_VERSION = "${MAJOR_VERSION}.${MINOR_VERSION}"
+		
+		SONARQUBE_PROPERTIES_FILE_PATH = './cicd/sonarqube/sonar-project.properties'
+		NEXUS_PROD_URL = 'https://nexusprod.corp.intranet:8443'
+		
+		// ETS variables
+		ETS_NEXUS_URL = ''
+		ETS_APPLICATION_NAME = 'FedPRT'
+		//ETS_REPOSITORY = 'devOps_deploy'
+		ETS_REPOSITORY = 'CTLRaw'
+		ETS_ENVIRONMENT = jslETSGetEnvironment()
+		ETS_RELEASE_TARGET = jslETSGetReleaseTarget()
+		//ETS_PAYLOAD_PATH = 'SpecConst/cicd/payloads/ets/ets.json'
+		
+		// Name of production branch
+		PROD_BRANCH = 'production'
+		TEST_BRANCH = 'PSSPI-6297'
+    }
+    stages { 
+	stage('DevSecOps'){
+            steps {
+              script {
+                /* Contract validation gate */
+                jslGitHubSecurityAlert()
+              }
+            }
+	}
+	stage('Build') {
+          agent {
+            label "JenkWin"
+          }
+          steps {
+            script {
+                 dir("${SRC_CODE_DIR}") {
+                bat('if exist target rmdir target /q /s')
+				powershell("""Invoke-WebRequest https://dist.nuget.org/win-x86-commandline/latest/nuget.exe -OutFile nuget.exe """)
+				bat "dotnet restore ${workspace}\\${SOLUTION_FILE}"
+				bat "\"${tool 'msbuild_2019win'}\" ..\\${PROJECT_FILE} -p:DeployOnBuild=true;DeployDefaultTarget=WebPublish;WebPublishMethod=FileSystem;SkipInvalidConfigurations=true;publishUrl=..\\target2;OutDir=..\\project1 -t:build"			
+                stash name: "TARGET", includes: "project1/**"
+				}
+            }
+          }
+        }
+		stage('Test') {
+			stages {
+			    stage('Unit Testing') {
+					  agent {
+						 label "JenkWin"
+					  }
+					  steps {
+						script {
+						  echo('Unit testing currently not implemented. Generating mock test result...')
+						  unit_test_results_file = 'hook_unit_tests_results.xml'
+						  jslGenerateManualTestReport("Version Created", "Check Version", PROJECT_FULL_VERSION, true, 1.0, "${unit_test_results_file}")
+						  jslPublishTestResults(unit_test_results_file, false)
+						  stash name: 'UNIT_TEST_RESULTS_FILE_STASH', includes: unit_test_results_file
+						}
+					  }
+				}
+			}
+		}
+		stage('Coverage') {
+		  agent {
+			label WINDOWS_BUILD_AGENT
+		  }
+		  steps {
+			script {
+			  /* Contract Validation Gate */
+			  jslQualityGateCodeCoverage(SONARQUBE_PROPERTIES_FILE_PATH)
+			}
+		  }
+		}
+		stage('Sonarqube') {
+		  agent {
+			label WINDOWS_BUILD_AGENT
+		  }
+		  steps {
+			script {
+			  /* Contract validation gate */
+			  build_command = "\"${tool 'msbuild_2019win'}\" \"${SOLUTION_FILE}\" -t:build -restore"
+
+			  // MS Scanner commands for the application to be scanned. Default value.
+			  msb_scanner = 'sonarscanner'
+
+			  //  MS build commands to build the application to be scanned. Default values.
+			  msb_options = ''
+			  msb_scanner_commands = ''
+
+			  // Path for the report output. Default value.
+			  report_path = 'sonarqubeReport'
+
+			  // Running this command directly due to a bug in the jsl with Windows builds.
+			  jslSonarQubeStaticAnalysis(
+				SONARQUBE_PROPERTIES_FILE_PATH,
+				SONARQUBE_CREDENTIALS,
+				env.SCAN_BRANCH,
+				build_command,
+				msb_options,
+				msb_scanner,
+				msb_scanner_commands,
+				NEXUS_PROD_URL,
+				DOCKER_CREDENTIALS,
+				report_path,
+				GITHUB_TOKEN_CREDENTIALS)
+			}
+		  }
+		}
+		stage('Quality Gate') {
+			  agent {
+				docker {
+				  image 'nexusprod.corp.intranet:4567/jsl-docker-standard-images/dotnet_agent:latest'
+				  label 'Docker-enabled'
+				  alwaysPull true
+				}
+			  }
+			  steps {
+				script {
+				  /* Contract validation gate */
+				  // This uses linux specific commands. Needs to run on Linux.
+				  jslQualityGate()
+				}
+			  }
+		}
+		stage('Push to Nexus') {
+		  when {
+			beforeAgent true
+			anyOf { 
+			  //branch PROD_BRANCH
+			  branch TEST_BRANCH
+			}
+		  }
+		  agent {
+			label WINDOWS_BUILD_AGENT
+		  }
+		  steps {
+			script {
+			  timestamp = "${currentBuild.startTimeInMillis}"
+			  upload_path = "${ETS_APPLICATION_NAME}/${PROJECT_FULL_VERSION}"
+			  artifact = "${ETS_APPLICATION_NAME}.${timestamp}.zip"
+			  deployment_dir = 'project1'
+			  sha256file = "${artifact}.sha256"
+
+			  // Unstash build
+			  unstash name: 'TARGET'
+
+			  // zip target for deployment
+			  bat("7za.exe a -tzip ${artifact} ${deployment_dir}")
+
+			  // Checksum package
+			  bat("certUtil -hashfile ${artifact} SHA256 > ${sha256file}")
+
+			  // Write Nexus info to devops scorecard
+			  jslDeploymentContractValidationWrite(BRANCH_NAME)
+
+			  // Upload zipped build and checksum to Nexus
+			  //ETS_NEXUS_URL = jslUploadFileToNexus(artifact, upload_path, ETS_REPOSITORY)
+			  ETS_NEXUS_URL = jslUploadFileToNexus(artifact, upload_path, ETS_REPOSITORY, env.NEXUS_PROD_URL, env.DOCKER_CREDENTIALS, false)
+			  echo "$ETS_NEXUS_URL"
+			  echo "$upload_path"
+			 // jslUploadFileToNexus(sha256file, upload_path, ETS_REPOSITORY)
+			  jslUploadFileToNexus(sha256file, upload_path, ETS_REPOSITORY, env.NEXUS_PROD_URL, env.DOCKER_CREDENTIALS, false)
+
+			  // Generate SOE report
+			  echo('Generating SOECheckerLib report with a placeholder')
+			  if (env.BUILD_TRIGGER_BY == 'Branch indexing') {
+				soe_test_user = 'Webhook Build'
+			  }
+			  else {
+				soe_test_user = env.BUILD_TRIGGER_BY
+			  }
+
+			  // Generate SOE report
+			  ets_test = 'Test1'
+			  report_name = jslETSGenerateSOECheckerLibReport(ETS_APPLICATION_NAME, PROJECT_FULL_VERSION, ets_test, soe_test_user)
+
+			  // Upload SOE report to Nexus
+			  // jslUploadFileToNexus(report_name, upload_path, ETS_REPOSITORY)
+
+			  // Upload AAT and RDD files to Nexus
+			  // jslUploadFileToNexus(ETS_AAT_FILE, upload_path, ETS_REPOSITORY)
+			  // jslUploadFileToNexus(ETS_RDD_FILE, upload_path, ETS_REPOSITORY)
+			}
+		  }
+		}
+		stage('Adoption Stats') {
+		  agent {
+			docker {
+			  image 'nexusprod.corp.intranet:4567/jsl-docker-standard-images/jira_agent:latest'
+			  label 'Docker-enabled'
+			}
+		  }
+		  steps {
+			script {
+			  unstash name: 'UNIT_TEST_RESULTS_FILE_STASH'
+
+			  /* Contract validation gate */
+			  jslAdoptionMain('hook_*.xml')
+			}
+		  }
+		}
+	}
+	post {
+		success {
+		 jslNotification('success')
+		 cleanWs()
+		}
+		failure {
+		  jslNotification('failure')
+		  cleanWs()
+		}
+		unstable {
+		  jslNotification('unstable')
+		  cleanWs()
+		}
+	}
+}

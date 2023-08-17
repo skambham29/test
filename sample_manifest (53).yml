@@ -1,0 +1,223 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'digi-custcare-test-bmd-8415-prodimageinnexus-dev2-java'
+  namespace: 'digi-custcare-test'
+  annotations:
+    kubernetes.io/ingress.allow-http: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.org/ssl-services: 'digi-custcare-test-dev2-java'
+  labels:
+    project: 'dss-custcare-service'
+    branch: 'bmd-8415-prodimageinnexus'
+    commit: '977ef50'
+    role: java
+    env: dev2
+spec:
+  rules:
+    - host: dss-custcare-service-dev2.kubeodc-test.corp.intranet
+      http:
+        paths:
+          - path: "/"
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: 'digi-custcare-test-dev2-java'
+              servicePort: 8080
+    - host: dssr-dev2.lumen.com
+      http:
+        paths:
+          - path: "/custcare"
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: 'digi-custcare-test-dev2-java'
+              servicePort: 8080
+    - host: dssr-dev2.lumen.com
+      http:
+        paths:
+          - path: "/login"
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: 'digi-custcare-test-dev2-java'
+              servicePort: 8080
+    - host: dssr-dev2.lumen.com
+      http:
+        paths:
+          - path: "/logout"
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: 'digi-custcare-test-dev2-java'
+              servicePort: 8080
+    - host: dssr-dev2.lumen.com
+      http:
+        paths:
+          - path: "/oauth2"
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: 'digi-custcare-test-dev2-java'
+              servicePort: 8080
+    - host: dssr-dev2.centurylink.com
+      http:
+        paths:
+          - path: "/custcare"
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: 'digi-custcare-test-dev2-java'
+              servicePort: 8080
+    - host: dssr-dev2.centurylink.com
+      http:
+        paths:
+          - path: "/login"
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: 'digi-custcare-test-dev2-java'
+              servicePort: 8080
+    - host: dssr-dev2.centurylink.com
+      http:
+        paths:
+          - path: "/logout"
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: 'digi-custcare-test-dev2-java'
+              servicePort: 8080
+    - host: dssr-dev2.centurylink.com
+      http:
+        paths:
+          - path: "/oauth2"
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: 'digi-custcare-test-dev2-java'
+              servicePort: 8080
+    - host: dssr-dev2.test.intranet
+      http:
+        paths:
+          - path: "/custcare"
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: 'digi-custcare-test-dev2-java'
+              servicePort: 8080
+    - host: dssr-dev2.test.intranet
+      http:
+        paths:
+          - path: "/login"
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: 'digi-custcare-test-dev2-java'
+              servicePort: 8080
+    - host: dssr-dev2.test.intranet
+      http:
+        paths:
+          - path: "/logout"
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: 'digi-custcare-test-dev2-java'
+              servicePort: 8080
+    - host: dssr-dev2.test.intranet
+      http:
+        paths:
+          - path: "/oauth2"
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: 'digi-custcare-test-dev2-java'
+              servicePort: 8080
+  tls:
+    - hosts:
+      - dss-custcare-service-dev2.kubeodc-test.corp.intranet
+      secretName: managed-tls-secret
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'digi-custcare-test-dev2-java'
+  namespace: 'digi-custcare-test'
+  labels:
+    project: 'dss-custcare-service'
+    branch: 'bmd-8415-prodimageinnexus'
+    commit: '977ef50'
+    role: java
+    env: dev2
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    project: 'dss-custcare-service'
+    branch: 'bmd-8415-prodimageinnexus'
+    commit: '977ef50'
+    role: java
+    env: dev2
+  type: ClusterIP
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'digi-custcare-test-bmd-8415-prodimageinnexus-java-dev2'
+  labels:
+    project: 'dss-custcare-service'
+    branch: 'bmd-8415-prodimageinnexus'
+    commit: '977ef50'
+    role: java
+    env: dev2
+spec:
+  selector:
+    matchLabels:
+      project: 'dss-custcare-service'
+      branch: 'bmd-8415-prodimageinnexus'
+      role: java
+  replicas: 1
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'dss-custcare-service'
+        branch: 'bmd-8415-prodimageinnexus'
+        commit: '977ef50'
+        role: java
+        env: dev2
+    spec:
+      containers:
+        - name: java-bmd-8415-prodimageinnexus
+          image: 'nexusprod.corp.intranet:4567/digi-custcare/dss-custcare-service/dss-custcare-service:bmd-8415-prodimageinnexus'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: java
+          resources:
+            limits:
+              cpu: 400m
+              memory: 400Mi
+            requests:
+              cpu: 300m
+              memory: 300Mi
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: 'dev2'
+            - name: APPDYNAMICS_CONTROLLER_HOST_NAME
+              value: 'centurylink-nonprod.saas.appdynamics.com'
+            - name: APPDYNAMICS_CONTROLLER_PORT
+              value: '443'
+            - name: APPDYNAMICS_CONTROLLER_SSL_ENABLED
+              value: 'true'
+            - name: APPDYNAMICS_AGENT_APPLICATION_NAME
+              value: 'DIGI-CUSTCARE (Test) CUSTCARE - SYSGEN787781698'
+            - name: APPDYNAMICS_AGENT_TIER_NAME
+              value: 'digicustcare'
+            - name: APPDYNAMICS_AGENT_ACCOUNT_NAME
+              value: 'centurylink-nonprod'
+            - name: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+              value: 'yjrtnfaze8uk'
+            - name: APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME
+              value: 'true'
+            - name: JASYPT_PWD
+              valueFrom:
+               secretKeyRef:
+                name: custcare-secret
+                key: JASYPT_PWD
+      imagePullSecrets:
+        - name: dss-custcare-service-bmd-8415-prodimageinnexus
+---
+---

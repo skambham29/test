@@ -1,0 +1,19 @@
+apiVersion: v1
+clusters:
+- cluster:
+    insecure-skip-tls-verify: true
+    server: https://kubeapiidc-prod.level3.com
+  name: denverDev
+contexts:
+- context:
+    cluster: denverDev
+    namespace: rtns-dev
+    user: rtns-dev
+  name: rtns-dev
+current-context: rtns-dev
+kind: Config
+preferences: {}
+users:
+- name: rtns-dev
+  user:
+    token: eyJhbGciOiJSUzI1NiIsImtpZCI6IjYyYTQ0YzUxZjQzOGM1MDlhOWVmMmI3YzhiOWE1Nzg0MTA5MGYwOGMifQ.eyJpc3MiOiJodHRwczovL2t1YmVpZGMwMS1wcm9kLmlkYzEubGV2ZWwzLmNvbTo1NTU2LyIsInN1YiI6IkNpNTFhV1E5YldOb2FXeDFheXh2ZFQxUVpXOXdiR1VzWkdNOWJXNWxkQ3hrWXoxeGFXNTBjbUVzWkdNOVkyOXRFZ1JzWkdGdyIsImF1ZCI6InRva2VuLWFwcCIsImV4cCI6MTY0NzkyMzY4OSwiaWF0IjoxNjQ3ODM3Mjg5LCJhdF9oYXNoIjoiNkpfNVBTTzlrMnFoN0lnWkhsLTV2ZyIsImVtYWlsIjoiTWFkaGF2YXJhby5DaGlsdWt1cmlAbHVtZW4uY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJNYWRoYXZhcmFvLkNoaWx1a3VyaUBsdW1lbi5jb20ifQ.iYin36ZeRTU7XZ7pVx6Q-lhKLcXIC-n-zyb8wEP3Ry6dCxN901p2AbMi0Yz39IgCLXLSfZaN8A4Fdolgqrz-OfV3frL40kZaNWnTFWUoWi9mJlGB6BwWW5F0h4R-H8cd4yqm5huV0QTIzOtnHWzcN18ZERiGy-tidmNS8i3pwD1vxVfpHucjNq7d0qNJ1MRSvj4HTUW40ybA5QDYWMIcU0jf31GmiflZbgILbx31TFgtssvbwXAMde4M-xGkLwzdPvFvLv19TD1pX2YpiLb_z3BKgorP1zLGhS1kZPSMBXZQFT0F2JvOnffYphWXVBzEOmlyTIk6mQhISfI_Mdfcsw

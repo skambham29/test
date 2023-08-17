@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<settings>
+  <servers>
+		<server>
+			<id>my-server</id>
+			<configuration>
+				<httpConfiguration>
+					<put>
+						<params>
+							<param>
+								<name>http.authentication.preemptive</name>
+								<value>%b,true</value>
+							</param>
+						</params>
+					</put>
+				</httpConfiguration>
+			</configuration>
+		</server>
+
+		<server>
+			<id>mdw.repository</id>
+			<username>DOCSBLD</username>
+			<password>X8nvoAMY</password>
+		</server>
+		<server>
+			<id>ctl.nexus.docs</id>
+			<username>DOCSBLD</username>
+			<password>X8nvoAMY</password>
+		</server>
+		<server>
+			<id>ctl.nexus.thirdparty</id>
+			<username>DOCSBLD</username>
+			<password>X8nvoAMY</password>
+		</server>
+		<server>
+			<id>ctl.nexus.central</id>
+			<username>DOCSBLD</username>
+			<password>X8nvoAMY</password>
+		</server>
+		<server>
+           <id>central-public</id>
+           <username>Kf4Ozx36</username>
+             <password>EfI7dJ4ij9hv3WhoEq6JuXnUK102bjdhfdZKxYZUn2nj</password>
+       </server>
+	</servers>
+	
+	<mirrors>
+       <mirror>
+           <id>central-public</id>
+           <name>Maven Public</name>
+           <url>https://nexusprod.corp.intranet:8443/repository/maven-public/</url>
+           <mirrorOf>external:http:*</mirrorOf>
+       </mirror>
+   </mirrors>
+
+	<offline>false</offline>
+	<localRepository>C:\Users\AD31068\.m2\repository</localRepository>
+
+	<profiles>
+		<!-- nexus profile -->
+		<profile>
+			<id>CenturyLink-Nexus-repositories</id>
+			<activation />
+			<repositories>
+				<repository>
+					<id>ctl.nexus.docs</id>
+					<url>http://lxomavmpc110.qintra.com:8081/nexus/content/repositories/thirdparty/com/centurylink/docs/
+					</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+				<repository>
+					<id>ctl.nexus.thirdparty</id>
+					<url>http://lxomavmpc110.qintra.com:8081/nexus/content/repositories/thirdparty/
+					</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+				<repository>
+					<id>ctl.nexus.central</id>
+					<url>http://lxomavmpc110.qintra.com:8081/nexus/content/repositories/central/
+					</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+				<repository>
+					<id>ctl.nexus.central</id>
+					<url>http://lxomavmpc110.qintra.com:8081/nexus/content/groups/public/
+					</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+		</profile>
+		<profile>
+			<id>ssl-profile</id>
+			<activation>
+			<activeByDefault>true</activeByDefault>
+</activation>
+			<properties>
+			<https.protocols>TLSv1.2</https.protocols>
+			</properties>
+		</profile>
+	</profiles>
+
+	<activeProfiles>
+		<activeProfile>CenturyLink-Nexus-repositories</activeProfile>
+	</activeProfiles>
+</settings>

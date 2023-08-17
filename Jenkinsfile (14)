@@ -1,0 +1,308 @@
+try {
+  library(
+    identifier: 'jsl-jenkins-shared-library-local@stable',
+    retriever: modernSCM(
+    [
+      $class: 'GitSCMSource',
+      remote: "/app/jenkins/git/jsl-jenkins-shared-library.git",
+      extensions: [[$class: 'WipeWorkspace']]
+     ]
+    )
+  ) _
+} catch (Exception Ex) {
+  library(
+    identifier: 'jsl-jenkins-shared-library@stable',
+    retriever: modernSCM(
+    [
+      $class: 'GitSCMSource',
+      remote: "git@github.com:CenturyLink/jsl-jenkins-shared-library.git",
+      credentialsId: 'FedAutoBot-SSH',
+      extensions: [[$class: 'WipeWorkspace']]
+    ]
+   )
+  ) _
+}
+
+pipeline {
+    agent {
+      label 'Docker-enabled'
+     }
+
+    options {
+      buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '10'))
+      timestamps ()
+      timeout(time: 1, unit: 'HOURS')
+      preserveStashes(buildCount: 10)
+      disableConcurrentBuilds()
+    }
+
+    environment {
+        GITHUB_TOKEN_CREDENTIALS = 'FedAutoBot-Token'
+        GITHUB_SSH_CREDENTIALS = 'FedAutoBot-SSH'
+        DOCKER_CREDENTIALS = 'nexus-secret'
+        QUALITY_GATE_CREDENTIALS = 'qualitygate-secret'
+        SONARQUBE_CREDENTIALS = 'sonarcicdent'
+        JIRA_CREDENTIALS = 'jira-credentials'
+        PROJECT_MAL = 'EIS-FEDERAL-PORTAL'
+        MSTEAMS_CREDENTIALS = 'EIS_TEAMS_URL'
+
+        // Custom project variables
+        BRANCH_NAME = GIT_BRANCH.split('/')[-1].trim().toLowerCase()
+        COMMIT_ID = GIT_COMMIT.substring(0,7).trim().toLowerCase()
+        PULL_REQUEST="pr-${env.CHANGE_ID}"
+        PROJECT_NAME = 'ordering-processor'
+
+        DOCKERFILE_PATH = './dockerfiles/DockerfileAzure'
+        // ACR parameters
+        ACR_CREDENTIALS = 'eis-dev-acr'
+        ACR_REGISTRY = 'eisimages.azurecr.io'
+        ACR_CREDENTIALS_PROD = 'eis-ato-acr'
+        ACR_REGISTRY_PROD = 'eisimages.azurecr.us'
+        ACR_REPO = "eis"
+
+    }
+
+    parameters {
+      choice(name: 'ACR_ENV', choices: ['Commercial', 'Gov'], description: 'Container Registry')
+    }
+
+    stages {
+      stage('Static Code Analysis') {
+        parallel {
+          stage('Linting') {
+            agent {
+              dockerfile {
+                filename 'Dockerfile'
+                dir 'cicd/docker/mvn'
+                label 'Docker-enabled'
+              }
+            }
+            steps {
+              script {
+                /* Contract validation gate */
+                jslMavenWrapper('pmd:pmd')
+                recordIssues(tools: [pmdParser(reportEncoding: 'UTF-8')], unstableTotalAll: 100)
+                jslMavenWrapper('checkstyle:checkstyle')
+                recordIssues(tools: [checkStyle(reportEncoding: 'UTF-8')], unstableTotalAll: 1000)
+              }
+            }
+          }
+          stage('DevSecOps'){
+            steps {
+              script {
+                /* Contract validation gate */
+                jslGitHubSecurityAlert()
+              }
+            }
+          }
+        }
+      }
+
+      stage('Build files') {
+        agent {
+          dockerfile {
+            filename 'Dockerfile'
+            dir 'cicd/docker/mvn'
+            label 'Docker-enabled'
+          }
+        }
+        steps {
+          script {
+            jslMavenWrapper('-f ./pom.xml clean install')
+            stash name: "TARGET", includes: "target/**"
+            jslMavenWrapper('findbugs:findbugs')
+            recordIssues(tools: [findBugs(reportEncoding: 'UTF-8')], unstableTotalAll: 100)
+          }
+        }
+      }
+
+      stage('VersionUpdate') {
+        agent {
+          docker {
+            image 'nexusprod.corp.intranet:4567/eis/azcli:latest'
+            label 'Docker-enabled'
+          }
+        }
+        steps {
+          script {
+            REGISTRY='eisimages'
+            if ("${params.ACR_ENV}" ==~ /(Gov)/) {
+              env.AZ_SVC_PRINCIPAL='azure-service-principal-cert'
+              AZ_CLOUD='AzureUSGovernment'
+            }
+            else {
+              env.AZ_SVC_PRINCIPAL='azure-service-principal-dev'
+              AZ_CLOUD='AzureCloud'
+            }
+            withCredentials([azureServicePrincipal("${env.AZ_SVC_PRINCIPAL}")]) {
+              sh "az cloud set --name ${AZ_CLOUD}"
+              sh "az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} -t ${AZURE_TENANT_ID}"
+              sh "az account set -s ${AZURE_SUBSCRIPTION_ID}"
+              sh "az acr login --name ${REGISTRY} --expose-token --output none"
+              sh "az acr repository show-tags --name ${REGISTRY} --repository ${env.ACR_REPO}/${env.PROJECT_NAME} --output table | awk -F\"-\" '{print \$1}'| sort -t \".\" -k1,1n -k2,2n -k3,3n | tail -1 > version.txt"
+              CUR_VER = readFile 'version.txt';
+
+              if ("${CUR_VER}" != "") {
+                println("Current Version :: ${CUR_VER}")
+                def script_output = sh(returnStdout: true, script: """
+                  #!/bin/sh
+                  semverVersion=\$(awk -F\"-\" '{print \$1}' version.txt)
+                  major=\$(echo \$semverVersion | awk -F\".\" '{print \$1}')
+                  minor=\$(echo \$semverVersion | awk -F\".\" '{print \$2}')
+                  patch=\$(echo \$semverVersion | awk -F\".\" '{print \$3}')
+                  if [[ \$patch -ge 99 ]]; then
+                    if [[ \$minor -ge 99 ]]; then
+                      major=\$((\$major+1)); minor="0"; patch="0"
+                    else
+                      minor=\$((\$minor+1)); patch="0"
+                    fi
+                  else
+                    patch=\$((\$patch+1))
+                  fi
+                incremented_version="\$major.\$minor.\$patch"
+                echo \$incremented_version
+                """)
+                env.VERSION = script_output.trim()
+                env.IMAGE_TAG = env.VERSION + "-${COMMIT_ID}"
+              } else {
+                env.IMAGE_TAG="1.0.0" + "-${COMMIT_ID}"
+                println("Current Version :: None")
+              }
+              println("Next Version :: ${env.IMAGE_TAG}")
+            }
+          }
+        }
+      }
+
+      stage('Docker') {
+        steps {
+          script {
+            unstash name: "TARGET"
+            def dockerfile_path = "${env.DOCKERFILE_PATH}"
+            withCredentials([usernamePassword(credentialsId: 'ps-nexus-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+              if ("${params.ACR_ENV}" ==~ /(Gov)/) {
+                withCredentials([usernamePassword(credentialsId: "${env.ACR_CREDENTIALS_PROD}", usernameVariable: 'ACRUSER', passwordVariable: 'ACRPASS')]) {
+                  sh "docker login -u $ACRUSER -p $ACRPASS ${env.ACR_REGISTRY_PROD}"
+                  sh "docker build -t ${env.ACR_REGISTRY_PROD}/${env.ACR_REPO}/${env.PROJECT_NAME}:${env.IMAGE_TAG} -f ${DOCKERFILE_PATH} ."
+                  sh "docker push ${env.ACR_REGISTRY_PROD}/${env.ACR_REPO}/${env.PROJECT_NAME}:${env.IMAGE_TAG}"
+                }
+              } else {
+                withCredentials([usernamePassword(credentialsId: "${env.ACR_CREDENTIALS}", usernameVariable: 'ACRUSER', passwordVariable: 'ACRPASS')]) {
+                  sh "docker login -u $ACRUSER -p $ACRPASS ${env.ACR_REGISTRY}"
+                  sh "docker build -t ${env.ACR_REGISTRY}/${env.ACR_REPO}/${env.PROJECT_NAME}:${env.IMAGE_TAG} -f ${DOCKERFILE_PATH} ."
+                  sh "docker push ${env.ACR_REGISTRY}/${env.ACR_REPO}/${env.PROJECT_NAME}:${env.IMAGE_TAG}"
+                }
+              }
+            }
+          }
+        }
+      }
+
+      stage('Test') {
+        stages {
+          stage('Unit Tests') {
+            agent {
+              dockerfile {
+                filename 'Dockerfile'
+                dir 'cicd/docker/mvn'
+                label 'Docker-enabled'
+              }
+            }
+            steps {
+              script {
+                /* Contract validation  gate */
+                jslMavenWrapper('-f ./pom.xml clean test')
+                jslPublishTestResults('target/surefire-reports/*.xml')
+                stash name: "TESTS", includes: "target/surefire-reports/*.xml"
+              }
+            }
+          }
+          stage('Coverage'){
+            steps {
+              script {
+                /* Contract validation gate */
+                unstash name: "TARGET"
+                jslPublishHTMLTestResults('index.html','target/site/jacoco/', 'Jacoco Report')
+                /* Sonar get executed only in Master Branch */
+                jslQualityGateCodeCoverage('./cicd/conf/sonarqube/sonar-project.properties')
+                jacoco(execPattern: 'target/jacoco.exec')
+              }
+            }
+          }
+          stage('Sonarqube'){
+            agent {
+              dockerfile {
+                filename 'Dockerfile'
+                dir 'cicd/docker/sonarqube'
+                label 'Docker-enabled'
+              }
+            }
+            steps {
+              script {
+                unstash name: "TARGET"
+                /* Contract validation gate */
+                jslSonarQubeStaticAnalysis('./cicd/conf/sonarqube/sonar-project.properties')
+              }
+            }
+          }
+          stage('Quality Gate'){
+            agent {
+              dockerfile {
+                filename 'Dockerfile'
+                dir 'cicd/docker/sonarqube'
+                label 'Docker-enabled'
+              }
+            }
+            steps {
+              script {
+                /* Contract validation gate */
+                jslQualityGate()
+              }
+            }
+          }
+        }
+      }
+
+      stage('Adoption Stats') {
+        agent {
+          dockerfile {
+            filename 'Dockerfile'
+            dir 'cicd/docker/jira'
+            label 'Docker-enabled'
+          }
+        }
+        steps {
+          unstash name: "TESTS"
+          /* Contract validation gate */
+          jslAdoptionMain('target/surefire-reports/*.xml')
+        }
+      }
+    }
+
+    post {
+      success {
+        script {
+          if (env.BRANCH_NAME ==~ /(master|main)/) {
+            jslNotification('success')
+          }
+        }
+        cleanWs()
+      }
+      failure {
+        script {
+          if (env.BRANCH_NAME ==~ /(master|main)/) {
+            jslNotification('failure')
+          }
+        }
+        cleanWs()
+      }
+      unstable {
+        script {
+          if (env.BRANCH_NAME ==~ /(master|main)/) {
+            jslNotification('unstable')
+          }
+        }
+        cleanWs()
+      }
+    }
+  }

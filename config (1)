@@ -1,0 +1,9 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = https://github.com/CenturyLink/34s-web-services.git
+	fetch = +refs/pull/12/head:refs/remotes/origin/PR-12
+	fetch = +refs/heads/feature/tsa:refs/remotes/origin/feature/tsa

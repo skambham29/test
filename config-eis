@@ -1,0 +1,31 @@
+apiVersion: v1
+clusters:
+- cluster:
+    insecure-skip-tls-verify: true
+    server: https://kubeapiodc-test.corp.intranet:443
+  name: omahaDev
+- cluster:
+    insecure-skip-tls-verify: true
+    server: https://kubeapiodc.corp.intranet:443
+  name: omahaProd
+contexts:
+- context:
+    cluster: omahaDev
+    namespace: eis-federal-portal-dev
+    user: eis-federal-portal-dev
+  name: eis-federal-portal-dev
+- context:
+    cluster: omahaDev
+    namespace: eis-federal-portal-test
+    user: eis-federal-portal-test
+  name: eis-federal-portal-test
+current-context: eis-federal-portal-dev
+kind: Config
+preferences: {}
+users:
+- name: eis-federal-portal-dev
+  user:
+    token: eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJlaXMtZmVkZXJhbC1wb3J0YWwtZGV2Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImVpcy1mZWRlcmFsLXBvcnRhbC1kZXYtdG9rZW4tNGJ3c24iLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZWlzLWZlZGVyYWwtcG9ydGFsLWRldiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjljYTMyOGJlLWI5NWYtNDg1Ny04NGYyLTFjMWYyODUzYjAyYyIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDplaXMtZmVkZXJhbC1wb3J0YWwtZGV2OmVpcy1mZWRlcmFsLXBvcnRhbC1kZXYifQ.uRti5-ScoFVWPsq3MAx7SOQEksbuOmlCPLM63E50dUN6M9LWo8Y2F3JT_nenea03qT8QluxD-4TXh4HUT5ylg9c0BaKR3DPvNga5_P2ftx_3gidRbotcNMm3YLy9nb9K2390MDc1i1KMphORBwDKV4ZvhzfF2wjxTOkNBUox6rxgBVPg-Rf6bcdAcadaC-OEaL1P1Cu_Qk_sLmZFuUKo_KCDPo1iLZC66OSnPsBQMpFjOIa_B6SZjjYieZH6M_ErMmiea2xcSh29gQlUVHo23-YQKnZlWBJSRHgEEAWs7IedfgRXSK1SIe987qWt4wJD7hKprUkO-xdgxhdTuOv6YA
+- name: eis-federal-portal-test
+  user:
+    token: eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJlaXMtZmVkZXJhbC1wb3J0YWwtdGVzdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJlaXMtZmVkZXJhbC1wb3J0YWwtdGVzdC10b2tlbi1tY25jaCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJlaXMtZmVkZXJhbC1wb3J0YWwtdGVzdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjlkMWJiNjIxLTFhNDQtNGEyOS1iZmVmLTZiOTY0ZTFkNTYwNCIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDplaXMtZmVkZXJhbC1wb3J0YWwtdGVzdDplaXMtZmVkZXJhbC1wb3J0YWwtdGVzdCJ9.cys1BO73M7YMJNI-PcME2BYym8mcepWNpiYcZ_pY-ZdywI6odWwbUIjVqqcN0K65-v3z2aBfXP_14dc9kUetSuGZECJ4vgfxAG6UVgMcwBtK68M80zfxOvsXnwyS--MtstCSlymxkrxmaiyyQOMN5aoqNuApmfBDB7Gds-RtHhAHwGXydAwwnbaO1KHN6E5K2g2TSFSf1P5io4HLSxZso-w6LtJSw2XzGIFv0FQX_ia8yoNGhVpWe15OqZ_qtd2sI0CxrOHybzRCxBpNQpwCZO8Lb7urYfOXYRd_evB9kNRAj5jGT3i59s4AZb-Q3E563uvaD3uWf0RLggVg4NWn6g

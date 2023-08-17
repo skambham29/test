@@ -1,0 +1,628 @@
+/*
+ Library declaration.
+  Notes:
+  identifier includes the version of the library (git tag / branch)
+  remote includes the repository git url
+  credentialsId needs to be of the type SSH key in Jenkins
+  _ at the end of the declaration loads the whole library
+
+  This section always runs in the main jenkins.
+*/
+
+try {
+library(
+      identifier: 'jsl-jenkins-shared-library-local@stable',
+      retriever: modernSCM(
+        [
+          $class: 'GitSCMSource',
+          remote: "/app/jenkins/git/jsl-jenkins-shared-library.git",
+          extensions: [[$class: 'WipeWorkspace']]
+        ]
+      )
+    ) _
+} catch (Exception Ex) {
+library(
+  identifier: 'jsl-jenkins-shared-library@stable',
+  retriever: modernSCM(
+    [
+      $class: 'GitSCMSource',
+      remote: "git@github.com:CenturyLink/jsl-jenkins-shared-library.git",
+      credentialsId: 'SCMAUTO_SSH_DEVOPS_PIPELINE',
+      extensions: [[$class: 'WipeWorkspace']]
+    ]
+  )
+) _
+}
+
+pipeline {
+    environment {
+
+      /*
+        Credentials:
+        GITHUB_TOKEN_CREDENTIALS github token, jenkins user password credential
+        GITHUB_SSH_CREDENTIALS github ssh private key, jenkins private key credential.
+        DOCKER_CREDENTIALS Docker access info, jenkins secret file credential with environment variables to export
+        KUBE_CREDENTIALS Kubernetes access info, jenkins secret file credential with environment variables to export. For PRs.
+        KUBE_CREDENTIALS_TEST Kubernetes access info, jenkins secret file credential with environment variables to export. For branches.
+        AMAZON_CREDENTIALS AWS access info, jenkins secret file credential with environment variables to export
+        SONARQUBE_CREDENTIALS Sonarqube access info, jenkins secret text
+        GCP_CREDENTIALS GCP access info, jenkins secret file credential with environment variables to export
+        JIRA_CREDENTIALS Jira access info, jenkins secret file credential with environment variables to export
+        MORPHEUS_CREDENTIALS Morpheus access info, jenkins secret text
+        MSTEAMS_CREDENTIALS MS Teams access info, jenkins secret text
+        QUALITY_GATE_CREDENTIALS Credentials to gather
+        PROJECT_MAL The MAL of the project
+      */
+      GITHUB_TOKEN_CREDENTIALS = 'GITHUB_APP_CREDENTIALS'
+      GITHUB_SSH_CREDENTIALS = 'SCMAUTO_SSH_DEVOPS_PIPELINE'
+      KUBE_CREDENTIALS = 'dev-kube-creds'
+      KUBE_CREDENTIALS_TEST = 'test-kube-creds'
+      KUBE_CREDENTIALS_PROD = 'prod-kube-creds'
+      AMAZON_CREDENTIALS = ''
+      SONARQUBE_CREDENTIALS = 'sonarcicdent'
+      QUALITY_GATE_CREDENTIALS = 'qualitygate-secret'
+      JIRA_CREDENTIALS = 'jira-credentials'
+      DOCKER_CREDENTIALS = 'nexus-secret'
+      MSTEAMS_CREDENTIALS = 'teams-secret'
+      PROJECT_MAL = 'DIGIHOME'
+
+      //Deployment control credentialsId
+      AUTHORIZED_USERS = 'authorized_users'
+      DEPLOY_AUTH_TOKEN = 'deploy_auth_token'
+
+      // Custom project variables
+      COMMIT_ID = GIT_COMMIT.substring(0,7).trim().toLowerCase()
+      BRANCH_NAME = GIT_BRANCH.split('/')[-1].trim().toLowerCase()
+      PULL_REQUEST="pr-${env.CHANGE_ID}"
+      PROJECT_NAME = 'digihome-orchestration-service'
+      //For destination images
+      DOCKER_REPO ='digihome/digihome-orchestration-service'
+      IMAGE_NAME = "${env.PROJECT_NAME}"
+      PRODUCTION_BRANCH = 'production'
+      KUBE_DOCKER_SECRET_NAME = "${env.PROJECT_NAME}-${env.PULL_REQUEST}"
+      KUBE_DOCKER_SECRET_NAME_TEST = "${env.PROJECT_NAME}-${env.BRANCH_NAME}"
+      KUBE_DOCKER_SECRET_NAME_PROD = "${env.PROJECT_NAME}-${env.BRANCH_NAME}"
+
+      //AppDynamics
+      APPDYNAMICS_VERSION = "1.8-21.2.0.31849"
+      APPDYNAMICS_AGENT_TIER_NAME = "digihome-orchestration-service"
+
+	  //Email
+      to = "Digihome_dev@lumen.com"
+      replyTo = "Digihome_dev@lumen.com"
+	}
+
+    parameters {
+          //      https://www.jenkins.io/doc/book/pipeline/syntax/#parameters
+          text(name: 'GCR', defaultValue: '', description: 'Enter the GCR description. Only used in deployment to production stage.')
+          text(name: 'VERSION', defaultValue: '', description: 'Version to deploy. Only used in deployment to production stage.')
+    }
+
+    agent {
+        label 'Docker-enabled'
+    }
+
+    options {
+        /*
+          https://www.jenkins.io/doc/book/pipeline/syntax/#options
+        */
+		timestamps ()
+		timeout(time: 1, unit: 'HOURS')
+		buildDiscarder(logRotator(numToKeepStr:'10', daysToKeepStr: '30'))
+		preserveStashes(buildCount: 10)
+		disableConcurrentBuilds abortPrevious: true
+    }
+
+    /*
+        https://www.jenkins.io/doc/book/pipeline/syntax/#triggers
+    */
+        triggers {
+          issueCommentTrigger('.*test this please.*')
+        }
+
+    stages {
+        stage('Authorize - Prod only') {
+            when {
+                expression { BRANCH_NAME ==~ /production[a-z0-9-_]*/ }
+            }
+            steps {
+              script {
+                if(!params.VERSION.equals('')){
+                  jslDeploymentControlKnob()
+                }else{
+                  currentBuild.result = 'ABORTED'
+                  error("Please enter the version to deploy")
+                }
+              }
+            }
+        }
+
+        stage('Static Code Analysis') {
+            when {
+                anyOf {
+                    expression { !(BRANCH_NAME ==~ /production[a-z0-9-_]*/ ) }
+                    not {
+                        expression {
+                            def doTest = false
+                            if ( params.VERSION == '' && BRANCH_NAME ==~ /production[a-z0-9-_]*/ ) {
+                            doTest = jslReadSkipProdValidation()
+                            }
+                            return doTest
+                        }
+                    }
+                }
+            }
+            parallel {
+                stage('Linting') {
+                    agent {
+                      docker {
+                        // Use the image accoridng to your version
+                        // jdk1_11_agent:latest
+                        // jdk1_8_agent:latest
+                        // jdk1_7_agent:latest
+                        image 'nexusprod.corp.intranet:4567/jsl-docker-standard-images/jdk1_8_agent:latest'
+                        label 'Docker-enabled'
+                      }
+                    }
+                    steps {
+                        script{
+                            jslMavenWrapper('-f ./pom.xml checkstyle:checkstyle ')
+                            archiveArtifacts artifacts: 'target/checkstyle*.xml', fingerprint: true
+                        }
+                    }
+                }
+                stage('DevSecOps'){
+                    steps {
+                        script {
+
+                            sh "git --no-pager show -s --format='%an' $GIT_COMMIT > ${WORKSPACE}/GITNAME"
+                            env.GIT_NAME = readFile (file: "${WORKSPACE}/GITNAME")
+
+                            //def props = readProperties file: 'src/main/resources/application.properties'
+                            //env.SPRING_PROFILE_ACTIVE = props['spring.profiles.active']
+                            //echo "Spring Active profile = "+SPRING_PROFILE_ACTIVE
+
+                            def defalt = ['spring.profiles.active': 'e2e']
+                            def propsTest = readProperties(defaults: defalt, file: 'src/test/resources/application.properties')
+                            env.SPRING_PROFILES_TEST = propsTest['spring.profiles.active']
+                            echo "Spring Test = "+SPRING_PROFILES_TEST
+                            /* Contract validation gate */
+                            jslGitHubSecurityAlert()
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Setting variables') {
+            steps {
+                script {
+                    println "IMAGE TAG before " + env.IMAGE_TAG
+                    println "Change id " + env.CHANGE_ID
+                    if(BRANCH_NAME == 'test1'){
+                        env.SPRING_PROFILE_ACTIVE = "test1"
+                    }else if(BRANCH_NAME == 'main'){
+                        env.SPRING_PROFILE_ACTIVE = "test2"
+                    }else if(BRANCH_NAME == 'test4'){
+                        env.SPRING_PROFILE_ACTIVE = "e2e"
+                    }else if(BRANCH_NAME ==~ /production[a-z0-9-_]*/ ){
+                        env.SPRING_PROFILE_ACTIVE = "prod"
+                    }
+                    if (!params.VERSION.equals('') && BRANCH_NAME ==~ /production[a-z0-9-_]*/ ) {
+                        println "Version as parameter"
+                        env.IMAGE_TAG = "prod-"+params.VERSION
+                        env.CUSTOM_PREFIX = "${env.PROJECT_NAME}"
+                    } else if (env.CHANGE_ID.equals(null)) {
+                        println "This is not a PR"
+                        env.IMAGE_TAG = "${env.BRANCH_NAME}" //"${env.BUILD_NUMBER}"
+                        env.CUSTOM_PREFIX = "${env.PROJECT_NAME}-${env.BRANCH_NAME}"
+                        env.APPDYNAMICS_AGENT_APPLICATION_NAME = "DIGIHOME (${env.SPRING_PROFILE_ACTIVE}) Digital Home for Residential and SMB - SYSGEN787764553"
+                    } else {
+                        "This is a PR"
+                        env.IMAGE_TAG = "${env.PULL_REQUEST}"
+                        env.CUSTOM_PREFIX = "${env.PULL_REQUEST}"
+                    }
+
+                    if (!params.VERSION.equals('') && BRANCH_NAME ==~ /production[a-z0-9-_]*/ ) {
+                        env.K8S_REPLICAS = 4
+                        env.K8S_MEMORY_LIMIT = '1500Mi'
+                        env.K8S_MEMORY_REQUEST = '1000Mi'
+                    } else {
+                        env.K8S_REPLICAS = 2
+                        env.K8S_MEMORY_LIMIT = '1000Mi'
+                        env.K8S_MEMORY_REQUEST = '750Mi'
+                    }
+
+                    if(BRANCH_NAME ==~ /(main)/ || BRANCH_NAME ==~ /(master)/ ) {
+                      env.SCAN_BRANCH = "${env.BRANCH_NAME}" //Used for sonarqube
+                    }
+                    println "Spring Profile Active = " + env.SPRING_PROFILE_ACTIVE
+                    println "IMAGE TAG is " + env.IMAGE_TAG
+                    println "CUSTOM_PREFIX is " + env.CUSTOM_PREFIX
+                    println "K8S_REPLICAS is " + env.K8S_REPLICAS
+                    println "K8S_MEMORY_LIMIT is " + env.K8S_MEMORY_LIMIT
+                    println "K8S_MEMORY_REQUEST is " + env.K8S_MEMORY_REQUEST
+                    println "SCAN_BRANCH is " + env.SCAN_BRANCH
+                    println "APPDYNAMICS_AGENT_APPLICATION_NAME ="+ env.APPDYNAMICS_AGENT_APPLICATION_NAME
+                }
+            }
+        }
+
+
+      	stage('Build') {
+      	    environment {
+                JASYPT_PWD = credentials('JASYPT_PWD')
+            }
+            agent {
+              docker {
+                // Use the image accoridng to your version
+                // jdk1_11_agent:latest
+                // jdk1_8_agent:latest
+                // jdk1_7_agent:latest
+                image 'nexusprod.corp.intranet:4567/jsl-docker-standard-images/jdk1_8_agent:latest'
+                label 'Docker-enabled'
+              }
+            }
+            steps {
+                script {
+                    env.pomVersion =  jslMvnProjectVersion()
+                    jslMavenWrapper('-f ./pom.xml -DskipTests=true clean package')
+                    stash name: "TARGET", includes: "target/**"
+                }
+            }
+        }
+
+        stage('Test') {
+            when {
+              anyOf {
+                expression { !(BRANCH_NAME ==~ /production[a-z0-9-_]*/ ) }
+                not {
+                  expression {
+                    def doTest = false
+                    if ( params.VERSION == '' && BRANCH_NAME ==~ /production[a-z0-9-_]*/ ) {
+                      doTest = jslReadSkipProdValidation()
+                    }
+                    return doTest
+                  }
+                }
+              }
+            }
+            stages {
+              stage('Unit Tests') {
+
+                environment {
+                    JASYPT_PWD = credentials('JASYPT_PWD')
+                }
+
+                agent {
+                  docker {
+                    // Use the image accoridng to your version
+                    // jdk1_11_agent:latest
+                    // jdk1_8_agent:latest
+                    // jdk1_7_agent:latest
+                    image 'nexusprod.corp.intranet:4567/jsl-docker-standard-images/jdk1_8_agent:latest'
+                    label 'Docker-enabled'
+                  }
+                }
+                steps {
+
+                  script {
+                    jslMavenWrapper('-f ./pom.xml clean test -DJASYPT_PWD=$JASYPT_PWD -Dspring.profiles.active=$SPRING_PROFILES_TEST')
+                    /* Contract validation gate */
+                    jslPublishTestResults('target/surefire-reports/*.xml')
+                    stash name: "TESTS", includes: "target/surefire-reports/*.xml"
+                    stash name: "COVERAGE", includes: "target/site/jacoco/**"
+                  }
+                }
+              }
+              stage('Coverage'){
+                steps {
+                  script {
+                    /* Contract validation gate */
+                    jslQualityGateCodeCoverage('./cicd/conf/sonarqube/sonar-project.properties')
+                  }
+                }
+              }
+              stage('Sonarqube'){
+                agent {
+                  docker {
+                    image 'nexusprod.corp.intranet:4567/jsl-docker-standard-images/sonarqube_agent:latest'
+                    label 'Docker-enabled'
+                  }
+                }
+                steps {
+                  script {
+                    unstash name: "TARGET"
+                    unstash name: "COVERAGE"
+                    unstash name: "TESTS"
+                    /* Contract validation gate */
+                    jslSonarQubeStaticAnalysis('./cicd/conf/sonarqube/sonar-project.properties')
+                  }
+                }
+              }
+              stage('Quality Gate'){
+                agent {
+                  docker {
+                    image 'nexusprod.corp.intranet:4567/jsl-docker-standard-images/sonarqube_agent:latest'
+                    label 'Docker-enabled'
+                  }
+                }
+                steps {
+                  script {
+                    /* Contract validation gate */
+                    jslQualityGate()
+                  }
+                }
+              }
+            }
+        }
+
+        stage('QualityGate1') {
+          when {
+            expression {
+              !(BRANCH_NAME ==~ /(production)/)
+            }
+          }
+          agent {
+            docker {
+              image 'nexusprod.corp.intranet:4567/jsl-docker-standard-images/jira_agent:latest'
+              label 'Docker-enabled'
+            }
+          }
+          steps {
+            script {
+              unstash name: "TESTS"
+              echo "QualityGate1-Unit"
+              jslCheckQualityGates("'target/surefire-reports/*.xml'", 'QualityGate1-Unit')
+              if (currentBuild.currentResult == 'UNSTABLE') {
+                error("Aborting build as its Quality Gate1 Conditions not satisfied.")
+                currentBuild.result = 'ABORTED'
+              }
+            }
+          }
+        }
+        stage('Create Images') {
+            when {
+              not { changeRequest() }
+            }
+            steps {
+              script {
+                unstash name: "TARGET"
+                def dockerfile_path = './Dockerfile'
+                env.ARGUMENTS = "--build-arg AD_VERSION=${env.APPDYNAMICS_VERSION}"
+                println "creating image " + env.IMAGE_NAME + ":" + env.IMAGE_TAG
+                echo "ARGUMENTS :: ${env.ARGUMENTS}"
+                jslDirectBuildAndPushToNexus(dockerfile_path, env.IMAGE_TAG, env.IMAGE_NAME, env.DOCKER_REPO, env.DOCKER_CREDENTIALS, env.ARGUMENTS)
+                jslCleanPath(dockerfile_path)
+              }
+            }
+        }
+
+        stage('Deploy') {
+            when {
+              not { changeRequest() }
+            }
+            steps {
+              script {
+                // Get the environment to deploy
+                // master branch => master
+                // production production => production
+                // any pull request => PR
+                // any other branch => BRANCH
+                env.CLOUD_ENVIRONMENT = jslGetLifecycleEnvironment()
+                if (env.CHANGE_ID == null) {
+                  jslGitHubDeploymentCreate(env.GIT_BRANCH, env.CLOUD_ENVIRONMENT)
+                }
+                try {
+                  if (env.CHANGE_ID == null) {
+                    jslGitHubDeploymentSetStatus(env.GIT_BRANCH,'in_progress', null, env.GITHUB_TOKEN_CREDENTIALS, env.CLOUD_ENVIRONMENT)
+                  }
+                  def my_manifest = './sample_manifest.yml'
+                  def configmap_Path
+                  if (!params.VERSION.equals('') && BRANCH_NAME ==~ /production[a-z0-9-_]*/ ) {
+                    configmap_Path = 'cicd/conf/kubernetes/configmap-prod.yaml'
+                  }else{
+                    configmap_Path = 'cicd/conf/kubernetes/configmap-properties.yaml'
+                  }
+                  jslGenerateManifestFromTemplate(configmap_Path+' ingress.tmpl service.tmpl deployment.tmpl', my_manifest, 'java', 'master', env.PRODUCTION_BRANCH)
+                  archiveArtifacts artifacts: 'sample_manifest.yml', fingerprint: true
+                  jslDeployK8sManifest(my_manifest, 'java', 'master',env.PRODUCTION_BRANCH, env.KUBE_DOCKER_SECRET_NAME, env.KUBE_CREDENTIALS, env.KUBE_DOCKER_SECRET_NAME_TEST, env.KUBE_CREDENTIALS_TEST, env.KUBE_DOCKER_SECRET_NAME_PROD,env.KUBE_CREDENTIALS_PROD,env.DOCKER_CREDENTIALS, '', env.CUSTOM_PREFIX)
+                  stash name: "INGRESS", includes: "ingress_info.txt"
+                  jslCleanPath(my_manifest)
+                  /*Single endpoint.*/
+                  def endpoint = sh(script: "cat ingress_info.txt", returnStdout: true).trim()
+                  jslGitHubMessage("The endpoint is available at: ${endpoint}")
+                  if (env.CHANGE_ID == null) {
+                    jslGitHubDeploymentSetStatus(env.GIT_BRANCH,'success', endpoint, env.GITHUB_TOKEN_CREDENTIALS, env.CLOUD_ENVIRONMENT)
+                  }
+                } catch (Exception e) {
+                  if (env.CHANGE_ID == null) {
+                    jslGitHubDeploymentSetStatus(env.GIT_BRANCH,'failure', null, env.GITHUB_TOKEN_CREDENTIALS, env.CLOUD_ENVIRONMENT)
+                  }
+                  error ('Deployment failed with error: ' + e)
+                }
+              }
+            }
+        }
+
+       stage('Sanity Test') {
+         when {
+           beforeAgent true
+           expression { return  BRANCH_NAME ==~ /test[1-4]{1}$/ || BRANCH_NAME.equals('main') && currentBuild.currentResult == 'SUCCESS'}
+         }
+         agent {
+           /* docker {
+             image 'nexusprod.corp.intranet:4567/jsl-docker-standard-images/selenium_agent:latest'
+             label 'Docker-enabled'
+           } */
+           label 'TEST_GEN_NODE'
+         }
+         steps {
+           configFileProvider([configFile(fileId: 'TEST-SETTINGS', variable: 'MAVEN_SETTINGS')]) {
+             script {
+               try {
+                 jslGitHubCloneRepo ("TST_DIGIHOME",'CenturyLink',"main")
+
+                 def TEST_ENV = BRANCH_NAME
+                 if (BRANCH_NAME ==~ /(main)/) {
+       		       TEST_ENV = "TEST2"
+       			 } else {
+       			   TEST_ENV = BRANCH_NAME.toUpperCase()
+       			 }
+       			 echo "TEST_ENV: ${TEST_ENV} SanityTest"
+                 bat "cd TST_DIGIHOME/DigiHomeTools && mvn -s ${MAVEN_SETTINGS} clean install -Djavax.net.ssl.trustStore=C:\\jenkins\\cacerts"
+                 //sh "cd TST_DIGIHOME/DigiHomeTests && mvn -s ${MAVEN_SETTINGS} clean verify serenity:aggregate -Dcucumber.options=\'src/test/resources --tags @Sanity --plugin json:target/CucumberReport.json --plugin junit:target/cucumber-reports/Cucumber-Sanity.xml\' -Dstaf.mal.key=${PROJECT_MAL} -Dstaf.testtype.key=Sanity -Dstaf.environment.key=${TEST_ENV} -Dwebdriver.driver=chrome -Dwebdriver.timeouts.implicitlywait=40000 -Dchrome.switches=--no-sandbox,--disable-dev-shm-usage,--disable-gpu,--headless -ntp"
+                 bat "cd TST_DIGIHOME/DigiHomeTests && mvn -s ${MAVEN_SETTINGS} clean verify serenity:aggregate -Dcucumber.options=\"src/test/resources --tags @Sanity --plugin json:target/CucumberReport.json --plugin junit:target/cucumber-reports/Cucumber-Sanity.xml\" -Dstaf.mal.key=${PROJECT_MAL} -Dstaf.testtype.key=Sanity -Dstaf.environment.key=${TEST_ENV} -Dwebdriver.driver=chrome -DThreadCount=2 -Dwebdriver.timeouts.implicitlywait=40000"
+               }catch (Exception e) {
+                 println "Tests executed but failed"+e
+               }
+               try{
+                 //sh 'mkdir -p qareports && cp TST_DIGIHOME/DigiHomeTests/target/cucumber-reports/Cucumber-Sanity.xml qareports/Cucumber-Sanity.xml'
+                 bat 'mkdir -p qareports && copy TST_DIGIHOME\\DigiHomeTests\\target\\cucumber-reports\\Cucumber-Sanity.xml qareports\\Cucumber-Sanity.xml'
+                 stash name: 'qareports' , includes: 'qareports/**'
+                 jslEmailNotification('rajiv.puttaramaiah@lumen.com,girish.bhat@lumen.com,binod.kumar@lumen.com,ogirala.padma@lumen.com,pragati.rajkumardwivedi@lumen.com','ogirala.padma@lumen.com,binod.kumar@lumen.com','Job Name:${JOB_NAME} BuildNo:${BUILD_NUMBER}','TST_DIGIHOME/DigiHomeTests/target/report/Report.html,TST_DIGIHOME/DigiHomeTests/target/report/*.png','''${FILE,path="TST_DIGIHOME/DigiHomeTests/target/report/Report.html"} Build Url : ${BUILD_URL}''','text/html')
+               }catch (Exception e) {
+                 println "Issue with either copying file to qareport"+e
+               }
+             }
+           }
+         }
+       }
+
+       stage('QualityGate2') {
+       	 when {
+           expression {
+             return (BRANCH_NAME ==~ /test[1-4]{1}$/ || BRANCH_NAME.equals('main')) && currentBuild.currentResult == 'SUCCESS'
+           }
+         }
+         agent {
+           docker {
+             image 'nexusprod.corp.intranet:4567/jsl-docker-standard-images/jira_agent:latest'
+             label 'Docker-enabled'
+             alwaysPull true
+           }
+         }
+         steps {
+           script {
+       	     echo "printing branch name QG2"+env.BRANCH_NAME
+             /* Contract validation gate */
+             unstash name: "qareports"
+             echo "QualityGate2-Sanity"
+       	     //echo "QualityGate2-Regression"
+       	     //echo "QualityGate2-Functional"
+             jslCheckQualityGates('qareports/Cucumber-Sanity.xml', 'QualityGate2-Sanity')
+             //jslCheckQualityGates('qareports/Cucumber-Regression.xml', 'QualityGate2-Regression')
+       	     //jslCheckQualityGates('qareports/Cucumber-Functional.xml', 'QualityGate2-Functional')
+           }
+         }
+       }
+
+       stage('E2E Testing') {
+
+            environment {
+              JASYPT_PWD = credentials('JASYPT_PWD')
+            }
+            when {
+              not { changeRequest() }
+            }
+            agent {
+              docker {
+                // Use the image accoridng to your version
+                // jdk1_11_agent:latest
+                // jdk1_8_agent:latest
+                // jdk1_7_agent:latest
+                image 'nexusprod.corp.intranet:4567/jsl-docker-standard-images/jdk1_8_agent:latest'
+                label 'Docker-enabled'
+              }
+            }
+            steps {
+              script {
+                unstash name: "INGRESS"
+                unstash name: "TESTS"
+                def endpoint = sh(script: "cat ingress_info.txt", returnStdout: true).trim()
+                //jslMavenWrapper("-f ./pom.xml clean test -Pe2e-tests -DmyEndPoint=${endpoint}")
+                println "Endpoint = ${endpoint}"
+                //jslMavenWrapper("-f ./pom.xml clean test -DJASYPT_PWD=$JASYPT_PWD")
+                /* Contract validation gate */
+                jslPublishTestResults('target/surefire-reports/*.xml')
+                stash name: "E2E-TESTS", includes: "target/surefire-reports/*.xml"
+              }
+            }
+       }
+
+      stage('Adoption Stats') {
+        when{ not { changeRequest() } }
+         agent {
+            docker {
+                image 'nexusprod.corp.intranet:4567/jsl-docker-standard-images/jira_agent:latest'
+                label 'Docker-enabled'
+            }
+         }
+         steps {
+            script{
+                def validTests = 'target/surefire-reports/*.xml'
+                try {
+                  unstash name: "E2E-TESTS"
+                } catch (Exception e) {
+                  sh ('touch hook_test.xml')
+                  validTests = 'hook_test.xml'
+                }
+                /* Contract validation gate */
+                jslAdoptionMain(validTests)
+            }
+         }
+      }
+   }
+
+  post {
+    /*
+    https://www.jenkins.io/doc/book/pipeline/syntax/#post
+    Always post somewhere the watermark:
+  - md5sum of Jenkinsfile
+  - Output of the Jenkinsfile checker output
+    */
+    success {
+      jslNotification('success')
+        emailext(
+                to:"${to}",
+                replyTo : "${replyTo}",
+                subject:"SUCCESSFUL: Job ${env.JOB_NAME}",
+                body:"""<p>SUCCESSFUL: Job ${env.JOB_NAME}</p>
+                        <p>BUILD_NUMBER: [${env.BUILD_NUMBER}]</p>
+                        <p>Check console output at: &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>
+                        <p>Committed by: ${env.GIT_NAME}</p>
+                        <p>Environment : ${env.SPRING_PROFILE_ACTIVE}</p>""",
+                mimeType:'text/html'
+        )
+    }
+
+    failure {
+      jslNotification('failure')
+        emailext(
+                to:"${to}",
+                replyTo : "${replyTo}",
+                subject:"FAILED: Job ${env.JOB_NAME}",
+                body:"""<p>FAILED: Job ${env.JOB_NAME}</p>
+                        <p>BUILD_NUMBER: [${env.BUILD_NUMBER}]</p>
+                        <p>Check console output at: &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>
+                        <p>Committed by: ${env.GIT_NAME}</p>
+                        <p>Environment : ${env.SPRING_PROFILE_ACTIVE}</p>""",
+                mimeType:'text/html'
+        )
+    }
+    unstable {
+      jslNotification('unstable')
+        emailext(
+                 to:"${to}",
+                 replyTo : "${replyTo}",
+                 subject:"UNSTABLE: Job ${env.JOB_NAME}",
+                 body:"""<p>UNSTABLE: Job ${env.JOB_NAME}</p>
+                         <p>BUILD_NUMBER: [${env.BUILD_NUMBER}]</p>
+                         <p>Check console output at: &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>
+                         <p>Committed by: ${env.GIT_NAME}</p>
+                         <p>Environment : ${env.SPRING_PROFILE_ACTIVE}</p>""",
+                 mimeType:'text/html'
+        )
+    }
+  }
+}

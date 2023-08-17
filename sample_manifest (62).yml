@@ -1,0 +1,116 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'laser-audit-service-kubernetes-java-dev1'
+  namespace: 'rtns-dev'
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/load-balance: "round_robin"
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    nginx.org/client-max-body-size: "50m"
+  labels:
+    project: 'laser-audit-service'
+    branch: 'kubernetes'
+    commit: '4aae713'
+    role: java
+    environment: 'dev1'
+spec:
+  rules:
+    - host: laser-audit-service.kubeodc-test.corp.intranet
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: 'laser-audit-service'
+              servicePort: 8080
+  tls:
+    - hosts:
+      - 'laser-audit-service.kubeodc-test.corp.intranet'
+      secretName: managed-tls-secret
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'laser-audit-service'
+  namespace: 'rtns-dev'
+  labels:
+    project: 'laser-audit-service'
+    branch: 'kubernetes'
+    commit: '4aae713'
+    role: java
+    environment: 'dev1'
+spec:
+  ports:
+    - name: laser-audit-service
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    project: 'laser-audit-service'
+    branch: 'kubernetes'
+    commit: '4aae713'
+    role: java
+    environment: 'dev1'
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'laser-audit-service-kubernetes-java-dev1'
+  labels:
+    project: 'laser-audit-service'
+    branch: 'kubernetes'
+    commit: '4aae713'
+    role: java
+    environment: 'dev1'
+spec:
+  selector:
+    matchLabels:
+      project: 'laser-audit-service'
+      branch: 'kubernetes'
+      role: java
+      environment: 'dev1'
+  replicas: 2
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'laser-audit-service'
+        branch: 'kubernetes'
+        commit: '4aae713'
+        role: java
+        environment: 'dev1'
+    spec:
+      containers:
+        - name: laser-audit-service
+          image:
+          imagePullPolicy: Always
+          command: ["/bin/sh"]
+          args: ["-c", "service rsyslog start && haproxy -f /etc/haproxy/haproxy-cm.cfg && tail -F /var/log/haproxy.log"]
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            limits:
+              memory: 2048Mi
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: dev1
+            - name: JAVA_OPTS
+              value: -Xms512m -Xmx1024m -XX:MetaspaceSize=300124K -XX:MaxMetaspaceSize=300124K -Xss80440K -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+UseConcMarkSweepGC
+          volumeMounts:
+            - name: haproxy-config
+              mountPath: /etc/haproxy/haproxy-cm.cfg
+              subPath: haproxy.cfg
+      volumes:
+      - name: haproxy-config
+        configMap:
+          name: haproxy-greenconfigmap        
+      imagePullSecrets:
+        - name: null
+---
+---

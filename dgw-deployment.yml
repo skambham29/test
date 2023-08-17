@@ -1,0 +1,148 @@
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: "2023-01-23T14:19:51Z"
+  generation: 1
+  name: dgwspringboot-dev1
+  namespace: dgw-dev
+  resourceVersion: "1255601211"
+  selfLink: /apis/apps/v1/namespaces/dgw-dev/deployments/dgwspringboot-dev1
+  uid: afb053f2-9ee8-4a5f-a731-aa7c5e174feb
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 2
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: dgwspringboot-dev1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: dgwspringboot-dev1
+        author: ""
+        org: dgw-dev
+        space: dev1
+    spec:
+      containers:
+      - env:
+        - name: MDW_APP_TOKEN
+          value: DUVVdQkYqrruXmspgoHcspNgthxmkcjEYlzsGvaIPSNCJhQdrzDgyasQBqoUWbIu
+        - name: K8S_NAMESPACE
+          value: dgw-dev
+        - name: APPDYNAMICS_CONTROLLER_HOST_NAME
+        - name: APPDYNAMICS_CONTROLLER_PORT
+          value: "443"
+        - name: APPDYNAMICS_CONTROLLER_SSL_ENABLED
+          value: "true"
+        - name: APPDYNAMICS_AGENT_APPLICATION_NAME
+        - name: APPDYNAMICS_AGENT_TIER_NAME
+        - name: APPDYNAMICS_AGENT_ACCOUNT_NAME
+        - name: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+        - name: K8S_SERVICE_TOKEN
+          valueFrom:
+            secretKeyRef:
+              key: token
+              name: dgw-dev-token-xpsdv
+        - name: SPRING_PROFILES_ACTIVE
+          value: dev1
+        image: nexusprod.corp.intranet:4567/dispatchgateway/dispatch-gateway/dgw-dev/dgwspringboot:dgwspringboot-JAN2023
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /dgw/services/AppSummary
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 300
+          periodSeconds: 120
+          successThreshold: 1
+          timeoutSeconds: 10
+        name: dgwspringboot-dev1
+        ports:
+        - containerPort: 9999
+          protocol: TCP
+        resources:
+          limits:
+            cpu: "2"
+            memory: 8Gi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /opt/mdw/config
+          name: config-volume
+        - mountPath: /opt/mdw/git/
+          name: git-volume
+        - mountPath: /opt/mdw/data/
+          name: data-volume
+        - mountPath: /opt/mdw/logs/pods
+          name: logs-volume
+        - mountPath: /opt/mdw/externalFile
+          name: file-volume
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: reg-secret-nexus
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - configMap:
+          defaultMode: 420
+          items:
+          - key: mdw.yaml
+            path: mdw.yaml
+          - key: access.yaml
+            path: access.yaml
+          - key: seed_users.json
+            path: seed_users.json
+          - key: dgw_config.yaml
+            path: dgw_config.yaml
+          - key: dgw_common_config.yaml
+            path: dgw_common_config.yaml
+          - key: busconnector.xml
+            path: cfg/busconnector.xml
+          - key: application-context.xml
+            path: spring/application-context.xml
+          - key: application.yml
+            path: spring/application.yml
+          name: mdw-config-dev1
+        name: config-volume
+      - emptyDir: {}
+        name: git-volume
+      - emptyDir: {}
+        name: data-volume
+      - emptyDir: {}
+        name: logs-volume
+      - emptyDir: {}
+        name: file-volume
+status:
+  availableReplicas: 2
+  conditions:
+  - lastTransitionTime: "2023-01-23T14:19:58Z"
+    lastUpdateTime: "2023-01-23T14:19:58Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2023-01-23T14:19:51Z"
+    lastUpdateTime: "2023-01-23T14:19:58Z"
+    message: ReplicaSet "dgwspringboot-dev1-76cbdc6598" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 1
+  readyReplicas: 2
+  replicas: 2
+  updatedReplicas: 2

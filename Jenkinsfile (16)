@@ -1,0 +1,302 @@
+/*
+ Library declaration.
+  Notes:
+  identifier includes the version of the library (git tag / branch)
+  remote includes the repository git url
+  credentialsId needs to be of the type SSH key in Jenkins
+  _ at the end of the declaration loads the whole library
+
+  This section always runs in the master jenkins.
+*/
+try {
+library(
+      identifier: 'jsl-jenkins-shared-library-local@stable',
+      retriever: modernSCM(
+        [
+          $class: 'GitSCMSource',
+          remote: "/app/jenkins/git/jsl-jenkins-shared-library.git",
+          extensions: [[$class: 'WipeWorkspace']]
+        ]
+      )
+    ) _
+} catch (Exception Ex) {
+library(
+  identifier: 'jsl-jenkins-shared-library@stable',
+  retriever: modernSCM(
+    [
+      $class: 'GitSCMSource',
+      remote: "https://github.com/CenturyLink/jsl-jenkins-shared-library.git",
+      credentialsId: 'GITHUB_APP_CREDENTIALS',
+      extensions: [[$class: 'WipeWorkspace']]
+    ]
+  )
+) _
+}
+
+pipeline {
+//     tools { jdk 'openJDK-17' }
+    environment {
+
+      /*
+        Credentials:
+        GITHUB_TOKEN_CREDENTIALS github token, jenkins user password credential
+        GITHUB_SSH_CREDENTIALS github ssh private key, jenkins private key credential.
+        DOCKER_CREDENTIALS Docker access info, jenkins secret file credential with environment variables to export
+        KUBE_CREDENTIALS Kubernetes access info, jenkins secret file credential with environment variables to export
+        AMAZON_CREDENTIALS AWS access info, jenkins secret file credential with environment variables to export
+        SONARQUBE_CREDENTIALS Sonarqube access info, jenkins secret file credential with environment variables to export
+        GCP_CREDENTIALS GCP access info, jenkins secret file credential with environment variables to export
+        JIRA_CREDENTIALS Jira access info, jenkins secret file credential with environment variables to export
+        MSTEAMS_CREADENTIALS MS Teams access info, jenkins secret file credential with environment variables to export
+      */
+      GITHUB_TOKEN_CREDENTIALS = 'GITHUB_APP_CREDENTIALS'
+      GITHUB_SSH_CREDENTIALS = 'SCMAUTO_SSH_DEVOPS_PIPELINE'
+      DOCKER_CREDENTIALS = 'nexus-secret'
+      SONARQUBE_CREDENTIALS = 'sonarcicdent'
+      QUALITY_GATE_CREDENTIALS = 'qualitygate-secret'
+      JIRA_CREDENTIALS = 'jira-credentials'
+      PROJECT_MAL = 'CONSMOBILE'
+      MSTEAMS_CREDENTIALS = 'android-teams-secret'
+
+      // Custom project variables
+      COMMIT_ID = GIT_COMMIT.substring(0,7).trim().toLowerCase()
+      PULL_REQUEST="pr-${env.CHANGE_ID}"
+      PROJECT_NAME = 'ConsMobile-Android-v5'
+
+      // Email Notification
+      to="Sanjay.Katagihallimath@lumen.com, Prashanth.Natarajan@lumen.com, Revar.Nirmalsinhbalvatnsinh@lumen.com, darpalbhasker.dhyani@lumen.com, RaghuKiran.Katukuri@lumen.com,Latha.M@lumen.com,Kunza.Noonari@lumen.com"
+      replyTo="Sanjay.Katagihallimath@lumen.com"
+    }
+
+    /*
+    https://www.jenkins.io/doc/book/pipeline/syntax/#agent
+    Add agent sections in stages/stage if needed.
+    */
+    agent {
+      label 'Docker-enabled'
+    }
+
+    options {
+      /*
+      https://www.jenkins.io/doc/book/pipeline/syntax/#options
+      */
+      timestamps ()
+      timeout(time: 1, unit: 'HOURS')
+      buildDiscarder(logRotator(numToKeepStr:'10', daysToKeepStr: '30'))
+      preserveStashes(buildCount: 10)
+      disableConcurrentBuilds()
+    }
+
+    /*
+    https://www.jenkins.io/doc/book/pipeline/syntax/#triggers
+    */
+    triggers {
+      issueCommentTrigger('.*test this please.*')
+    }
+
+    stages {
+      stage('Static Code Analysis') {
+        parallel {
+          stage('Linting') {
+            agent {
+              docker {
+                image 'nexusprod.corp.intranet:4567/jsl-docker-standard-images/jdk1_17_agent:latest'
+                label 'Docker-enabled'
+              }
+            }
+            steps {
+              script {
+                sh './gradlew clean'
+                // sh './gradlew lintVitalRelease'
+                //sh './gradlew tasks'
+                // archiveArtifacts artifacts: 'app/build/reports/lint-*.xml', fingerprint: true
+                // sh(script: './gradlew checkstyleMain')
+//                  archiveArtifacts artifacts: 'build/reports/*.xml', fingerprint: true
+
+                // Git commit details
+                sh "git --no-pager show -s --format='%an' $GIT_COMMIT > ${WORKSPACE}/GITNAME"
+                sh "git --no-pager show -s --format='%ae' $GIT_COMMIT > ${WORKSPACE}/GITEMAIL"
+                sh "git log --format=%B -n 1 $GIT_COMMIT > ${WORKSPACE}/GITCOMMITMSG"
+                env.GIT_NAME = readFile (file: "${WORKSPACE}/GITNAME")
+                env.GIT_EMAIL = readFile (file: "${WORKSPACE}/GITEMAIL")
+                env.GIT_COMMIT_MSG = readFile (file: "${WORKSPACE}/GITCOMMITMSG")
+              }
+            }
+          }
+          stage('DevSecOps'){
+            steps {
+              script {
+                /* Contract validation gate */
+                jslGitHubSecurityAlert()
+              }
+            }
+          }
+        }
+      }
+
+      stage('Build') {
+        agent {
+          dockerfile {
+            filename 'Dockerfile'
+            dir 'cicd/docker/android'
+            label 'Docker-enabled'
+          }
+        }
+        steps {
+          script {
+            sh 'export ANDROID_HOME=/opt/android-sdk && ./gradlew clean assembleProdDebug'
+            stash name: "TARGET", includes: "app/build/**"
+            archiveArtifacts artifacts: 'app/build/**', fingerprint: true
+          }
+        }
+      }
+
+      stage('Test') {
+        stages {
+          stage('Unit Tests') {
+            agent {
+              dockerfile {
+                filename 'Dockerfile'
+                dir 'cicd/docker/android'
+                label 'Docker-enabled'
+              }
+            }
+            steps {
+              script {
+                sh 'export ANDROID_HOME=/opt/android-sdk && ./gradlew rootCoverageReport'
+                 stash name: "TESTS", includes: "app/build/**"
+                /* Contract validation gate */
+//                 /Users/ac30278/Desktop/CTLI/Android/Prashant-Fork/app/build/reports/coverage/test/prod/debug/report.xml
+                jslPublishTestResults('build/reports/coverage/test/prod/debug/report.xml')
+              }
+            }
+          }
+          stage('Coverage'){
+            steps {
+              script {
+                 unstash name: "TARGET"
+                jacoco(execPattern: 'app/build/outputs/unit_test_code_coverage/prodDebugUnitTest/testProdDebugUnitTest.exec')
+                /* Contract validation gate */
+                jslQualityGateCodeCoverage('./cicd/conf/sonarqube/sonar-project.properties')
+              }
+            }
+          }
+          stage('Sonarqube'){
+            agent {
+              docker {
+                image 'nexusprod.corp.intranet:4567/jsl-docker-standard-images/sonarqube_agent:latest'
+                label 'Docker-enabled'
+              }
+            }
+            steps {
+              script {
+                  unstash name: "TARGET"
+                  unstash name: "TESTS"
+                  /* Contract validation gate */
+                  jslSonarQubeStaticAnalysis('./cicd/conf/sonarqube/sonar-project.properties')
+              }
+            }
+          }
+          stage('Quality Gate'){
+            agent {
+              docker {
+                image 'nexusprod.corp.intranet:4567/jsl-docker-standard-images/sonarqube_agent:latest'
+                label 'Docker-enabled'
+              }
+            }
+            steps {
+              script {
+                /* Contract validation gate */
+                jslQualityGate()
+              }
+            }
+          }
+        }
+      }
+
+      stage('Deploy'){
+        agent {
+          label 'Docker-enabled'
+        }
+        steps {
+          script {
+            echo "Deploy placeholder"
+            env.CLOUD_ENVIRONMENT = jslGetLifecycleEnvironment()
+            jslGitHubDeploymentCreate(env.GIT_BRANCH, env.CLOUD_ENVIRONMENT)
+          }
+        }
+      }
+
+      stage('Adoption Stats') {
+        agent {
+          docker {
+            image 'nexusprod.corp.intranet:4567/jsl-docker-standard-images/jira_agent:latest'
+            label 'Docker-enabled'
+          }
+        }
+         steps {
+           unstash name: "TESTS"
+          /* Contract validation gate */
+          jslAdoptionMain('hook_*.xml')
+         }
+      }
+    }
+
+    post {
+      success {
+         jslNotification('success')
+         withCredentials([string(credentialsId: "${MSTEAMS_CREDENTIALS}", variable: 'TEAMS_HOOK')]) {
+           office365ConnectorSend webhookUrl: TEAMS_HOOK,
+           message: "The CI pipeline run successfully in [${env.BUILD_URL}](${env.BUILD_URL}).\n\n" + "\nCommitted by ${env.GIT_EMAIL}"+" \nCommit message: ${env.GIT_COMMIT_MSG}" +" \nTo view DevOps ScoreCard, Click (https://app.powerbi.com/links/Wad_TTgDwd?ctid=72b17115-9915-42c0-9f1b-4f98e5a4bcd2&pbi_source=linkShare&bookmarkGuid=2d867022-684f-4d63-894d-258180674d6e)",
+           status: 'success',
+           color: "05b222"
+         }
+
+         emailext(
+                 to:"${to}",
+                 replyTo : "${replyTo}",
+                 subject:"SUCCESSFUL: Job ${env.JOB_NAME} "+" Commit message: ${env.GIT_COMMIT_MSG}",
+                 body:"""<p>SUCCESSFUL: Job ${env.JOB_NAME}</p>
+                 <p>BUILD_NUMBER: [${env.BUILD_NUMBER}]</p>
+                 <p>Check console output at: &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>
+                          <p>Committed by: ${env.GIT_NAME}</p>""",
+                 mimeType:'text/html'
+                 )
+
+      }
+      failure {
+        jslNotification('failure')
+        withCredentials([string(credentialsId: "${MSTEAMS_CREDENTIALS}", variable: 'TEAMS_HOOK')]) {
+          office365ConnectorSend webhookUrl: TEAMS_HOOK,
+          message: "The CI pipeline did not run successfully in [${env.BUILD_URL}](${env.BUILD_URL}).\n\n" + "\nCommitted by ${env.GIT_EMAIL}"+" \nCommit message: ${env.GIT_COMMIT_MSG}"+" \nTo view DevOps ScoreCard, Click (https://app.powerbi.com/links/Wad_TTgDwd?ctid=72b17115-9915-42c0-9f1b-4f98e5a4bcd2&pbi_source=linkShare&bookmarkGuid=2d867022-684f-4d63-894d-258180674d6e)",
+          status: 'failure',
+          color: "d00000"
+        }
+
+        emailext(
+                to:"${to}",
+                replyTo : "${replyTo}",
+                subject:"FAILURE: Job ${env.JOB_NAME}"+" Commit message: ${env.GIT_COMMIT_MSG}",
+                body:"""<p>FAILURE: Job ${env.JOB_NAME}</p>                <p>BUILD_NUMBER: [${env.BUILD_NUMBER}]</p>                <p>Check console output at: &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>                <p>Committed by: ${env.GIT_NAME}</p>""",
+                mimeType:'text/html'
+                )
+
+      }
+      unstable {
+        jslNotification('unstable')
+        withCredentials([string(credentialsId: "${MSTEAMS_CREDENTIALS}", variable: 'TEAMS_HOOK')]) {
+          office365ConnectorSend webhookUrl: TEAMS_HOOK,
+          message: "The CI pipeline did not run successfully in [${env.BUILD_URL}](${env.BUILD_URL}).\n\n" + "\nCommitted by ${env.GIT_EMAIL}"+" \nCommit message: ${env.GIT_COMMIT_MSG}"+" \nTo view DevOps ScoreCard, Click (https://app.powerbi.com/links/Wad_TTgDwd?ctid=72b17115-9915-42c0-9f1b-4f98e5a4bcd2&pbi_source=linkShare&bookmarkGuid=2d867022-684f-4d63-894d-258180674d6e)",
+          status: 'unstable'
+        }
+
+        emailext(
+                to:"${to}",
+                replyTo : "${replyTo}",
+                subject:"UNSTABLE: Job ${env.JOB_NAME}",
+                body:"""<p>UNSTABLE: Job ${env.JOB_NAME}</p>                <p>BUILD_NUMBER: [${env.BUILD_NUMBER}]</p>                <p>Check console output at: &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>                <p>Committed by: ${env.GIT_NAME}</p> """,
+                mimeType:'text/html'
+                )
+      }
+    }
+}

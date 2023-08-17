@@ -1,0 +1,61 @@
+Step-1: Uninstall OMNIVue bundles, make sure  to uninstall only Omnivue  bundle (omnivue-common, omnivue-services,  omnivue-services-icl,  omnivue-services-isat, omnivue-services-mars, omnivue-services-osr,omnivue-services-ntms, omnivue)
+
+ 
+Uninstall the previous version.
+Uninstall <bundle id1> < bundle id2>…< bundle id8>
+
+ 
+
+Step-2: Uninstall ICL-ARM_ML bundle
+
+ 
+
+List | grep ICL
+Uninstall <bundle-id> 
+
+ 
+
+ 
+
+Step-3: Install OMNIVue/ARM bundles 
+
+
+ 
+
+install -s mvn:com.centurylink.icl/icl-arm-ml/1.37.0
+install -s mvn:com.centurylink.omnivue/omnivue-common/83.0.0.v20220919-1-SNAPSHOT
+install -s mvn:com.centurylink.omnivue/omnivue-services-icl/83.0.0.v20220919-1-SNAPSHOT
+install -s mvn:com.centurylink.omnivue/omnivue-services/83.0.0.v20220919-1-SNAPSHOT
+install -s mvn:com.centurylink.omnivue/omnivue-services-osr/83.0.0.v20220919-1-SNAPSHOT
+install -s mvn:com.centurylink.omnivue/omnivue-services-isat/83.0.0.v20220919-1-SNAPSHOT
+install -s mvn:com.centurylink.omnivue/omnivue-services-mars/83.0.0.v20220919-1-SNAPSHOT
+install -s mvn:com.centurylink.omnivue/omnivue-services-ntms/83.0.0.v20220919-1-SNAPSHOT
+install -s mvn:com.centurylink.omnivue/omnivue/83.0.0.v20220919-1-SNAPSHOT/war
+
+
+
+Step-4:
+
+ 
+
+List | grep omnivue | grep -v wrap_mvn_com
+
+ 
+
+Execute bundle-level {bundle-id} 90 for below OMNIVue bundles (ids)-
+
+ 
+
+mvn:com.centurylink.omnivue/omnivue-common/83.0.0.v20220919-1-SNAPSHOT
+mvn:com.centurylink.omnivue/omnivue-services/83.0.0.v20220919-1-SNAPSHOT
+mvn:com.centurylink.omnivue/omnivue-services-icl/83.0.0.v20220919-1-SNAPSHOT
+mvn:com.centurylink.omnivue/omnivue-services-isat/83.0.0.v20220919-1-SNAPSHOT
+mvn:com.centurylink.omnivue/omnivue-services-mars/83.0.0.v20220919-1-SNAPSHOT
+mvn:com.centurylink.omnivue/omnivue-services-osr/83.0.0.v20220919-1-SNAPSHOT
+mvn:com.centurylink.omnivue/omnivue-services-ntms/83.0.0.v20220919-1-SNAPSHOT
+mvn:com.centurylink.omnivue/omnivue/83.0.0.v20220919-1-SNAPSHOT/war
+
+ 
+
+
+Step-5: Restart the Service Mix Server instance

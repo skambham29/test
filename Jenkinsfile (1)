@@ -1,0 +1,397 @@
+/*
+ Library declaration.
+  Notes:
+  identifier includes the version of the library (git tag / branch)
+  remote includes the repository git url
+  credentialsId needs to be of the type SSH key in Jenkins
+  _ at the end of the declaration loads the whole library
+
+  This section always runs in the master jenkins.
+*/
+
+try {
+library(
+      identifier: 'jsl-jenkins-shared-library-local@release/20210716',
+      retriever: modernSCM(
+        [
+          $class: 'GitSCMSource',
+          remote: "/app/jenkins/git/jsl-jenkins-shared-library.git",
+          extensions: [[$class: 'WipeWorkspace']]
+        ]
+      )
+    ) _
+} catch (Exception Ex) {
+library(
+  identifier: 'jsl-jenkins-shared-library@release/20210716',
+  retriever: modernSCM(
+    [
+      $class: 'GitSCMSource',
+      remote: "git@github.com:CenturyLink/jsl-jenkins-shared-library.git",
+      credentialsId: 'SCMAUTO_SSH_DEVOPS_PIPELINE',
+      extensions: [[$class: 'WipeWorkspace']]
+    ]
+  )
+) _
+}
+
+pipeline {
+
+    environment {
+
+      //  Credentials:
+      //  GITHUB_TOKEN_CREDENTIALS github token, jenkins user password credential. SCMAUTO_GITHUB contains the GitHub token from SCMAuto user, which need to have access to the repository.
+      //  GITHUB_SSH_CREDENTIALS github ssh private key, jenkins private key credential. SCMAUTO_SSH_DEVOPS_PIPELINE contains the SSH key from SCMAuto user, which need to have access to the repository.
+      //  DOCKER_CREDENTIALS Docker access info, jenkins secret file credential with environment variables to export.
+      //  KUBE_CREDENTIALS Kubernetes access info, jenkins secret file credential with environment variables to export. For PRs.
+      //  KUBE_CREDENTIALS_TEST Kubernetes access info, jenkins secret file credential with environment variables to export. For branches.
+      //  AMAZON_CREDENTIALS AWS access info, jenkins secret file credential with environment variables to export
+      //  SONARQUBE_CREDENTIALS Sonarqube access info, jenkins secret text
+      //  GCP_CREDENTIALS GCP access info, jenkins secret file credential with environment variables to export
+      //  JIRA_CREDENTIALS Jira access info, jenkins secret file credential with environment variables to export
+      //  MORPHEUS_CREDENTIALS Morpheus access info, jenkins secret text
+      //  MSTEAMS_CREDENTIALS MS Teams access info, jenkins secret text
+      //  QUALITY_GATE_CREDENTIALS Credentials to gather all the contract validation gates expected to be crossed.
+      //  PROJECT_MAL The MAL of the project
+      // AUTHORIZED_USERS - List of CUIDs who will deploy to production environment, seperated by comma(,) & space, jenkins secret text credential
+      // DEPLOY_AUTH_TOKEN - Production deployment password, which will be asked at the time if production deployment, jenkins secret text credential
+
+      GITHUB_TOKEN_CREDENTIALS = 'SCMAUTO_GITHUB'
+      GITHUB_SSH_CREDENTIALS = 'SCMAUTO_SSH_DEVOPS_PIPELINE'
+      DOCKER_CREDENTIALS = 'NEXUS_DOCKER_CREDS'
+      KUBE_CREDENTIALS = 'kube-secret-dev'
+      KUBE_CREDENTIALS_TEST = 'kube-secret-test'
+      KUBE_CREDENTIALS_PROD = 'kube-secret-prod'
+      SONARQUBE_CREDENTIALS = 'sonar-credentials'
+      JIRA_CREDENTIALS = 'jira-credentials'
+      MSTEAMS_CREDENTIALS = 'TEAMS_SECRET'
+      QUALITY_GATE_CREDENTIALS = 'CRUMBS-FILE'
+      //Deployment control credentialsId
+      AUTHORIZED_USERS = 'authorized_users'
+      DEPLOY_AUTH_TOKEN = 'deploy_auth_token'
+      VERSION = "3.9.0"
+
+      // Custom project variables
+      PROJECT_NAME = 'transport-services'
+      PROJECT_MAL = "LASER-TRANSPORT-SVCS"
+      DOCKER_REGISTRY = 'nexusprod.corp.intranet:4567'
+      DOCKER_REPO = 'laser_downstream/transport'
+      IMAGE_NAME = "${env.PROJECT_NAME}"
+      DOCKERFILE_PATH = './cicd/helm/Dockerfile'
+      IMAGE_REPO = "${DOCKER_REGISTRY}/${DOCKER_REPO}/${IMAGE_NAME}"
+      HELM_TEMPLATES_PATH = './cicd/helm/'
+
+      // Custom project variables
+      BRANCH_NAME = GIT_BRANCH.split('/')[-1].trim().toLowerCase()
+      COMMIT_ID = GIT_COMMIT.substring(0,7).trim().toLowerCase()
+      PULL_REQUEST="pr-${env.CHANGE_ID}"
+
+      IMAGE_TAG =  "${env.VERSION}-${env.BUILD_NUMBER}"
+      PRODUCTION_BRANCH = 'transport-release-3.9'
+
+    }
+
+
+    parameters {
+      //      https://www.jenkins.io/doc/book/pipeline/syntax/#parameters
+      choice(name: 'APP_ACTIVE_PROFILE', choices: ['dev1', 'dev2', 'dev3', 'test1', 'test2', 'prod'], description: 'APP_ACTIVE_PROFILE')
+      string(name: 'RELEASE_IMAGE_TAG', defaultValue: '', description: 'Set for prod env')
+
+    }
+
+    // https://www.jenkins.io/doc/book/pipeline/syntax/#agent
+    //Add agent sections in stages/stage if needed.
+
+    agent {
+      label 'Docker-enabled'
+    }
+
+    options {
+
+      // https://www.jenkins.io/doc/book/pipeline/syntax/#options
+
+      timestamps ()
+      timeout(time: 1, unit: 'HOURS')
+      buildDiscarder(logRotator(numToKeepStr:'10', daysToKeepStr: '30'))
+      preserveStashes(buildCount: 10)
+      disableConcurrentBuilds()
+    }
+
+
+    // https://www.jenkins.io/doc/book/pipeline/syntax/#triggers
+
+    triggers {
+      issueCommentTrigger('.*test this please.*')
+    }
+
+    stages {
+      stage('Summary') {
+        steps {
+          script {
+            sh script: """
+                echo "PROJECT_NAME: ${PROJECT_NAME}"
+                echo "DOCKER_REPO: ${DOCKER_REPO}"
+                echo "GIT_BRANCH: ${GIT_BRANCH}"
+                echo "GIT_COMMIT: ${GIT_COMMIT}"
+                echo "BRANCH_NAME: ${BRANCH_NAME}"
+                echo "COMMIT_ID: ${COMMIT_ID}"
+                echo "PULL_REQUEST: ${PULL_REQUEST}"
+                echo "CHANGE_ID: ${env.CHANGE_ID}"
+                echo "IMAGE_NAME: ${IMAGE_NAME}"
+                echo "IMAGE_TAG: ${IMAGE_TAG}"
+            """, label: "Details summary"
+          }
+        }
+      }
+      stage('Authorize - Prod only') {
+        when {
+          expression { "${params.APP_ACTIVE_PROFILE}" ==~ /(prod)/ && "${env.BRANCH_NAME}" ==~ "${env.PRODUCTION_BRANCH}" && "${params.RELEASE_IMAGE_TAG}" != ""}
+        }
+        steps {
+          script {
+            jslDeploymentControlKnob()
+          }
+        }
+      }
+      stage('Static Code Analysis') {
+        when {
+          expression { !("${params.APP_ACTIVE_PROFILE}" ==~ /(prod)/) }
+        }
+        parallel {
+          stage('Linting') {
+            agent {
+              dockerfile {
+                filename 'Dockerfile'
+                dir 'cicd/docker/mvn'
+                label 'Docker-enabled'
+                args '--shm-size=2gb'
+              }
+            }
+            steps {
+              script{
+                jslMavenWrapper('checkstyle:checkstyle || true')
+                archiveArtifacts artifacts: '**/target/checkstyle*.xml', fingerprint: true
+              }
+            }
+          }
+          stage('DevSecOps') {
+            steps {
+              script {
+                jslGitHubSecurityAlert()
+              }
+            }
+          }
+        }
+      }
+      stage ('Build') {
+        when {
+          expression { !("${params.APP_ACTIVE_PROFILE}" ==~ /(prod)/) }
+        }
+        agent {
+          dockerfile {
+            filename 'Dockerfile'
+            dir 'cicd/docker/mvn'
+            label 'Docker-enabled'
+            args '--shm-size=2gb'
+          }
+        }
+        steps {
+          script {
+            jslMavenWrapper('clean deploy -DskipTests')
+            stash name: "TRANSPORT", includes: "transport/target/**"
+          }
+        }
+      }
+      stage ('Create Images') {
+        when {
+          expression { !("${params.APP_ACTIVE_PROFILE}" ==~ /(prod)/) }
+        }
+        agent {
+          label 'Docker-enabled'
+        }
+        steps {
+          script {
+            unstash name: "TRANSPORT"
+            def dockerfile_path = './cicd/helm/Dockerfile'
+            jslDirectBuildAndPushToNexus(dockerfile_path)
+          }
+        }
+      }
+      stage ('Test') {
+        when {
+          expression { !("${params.APP_ACTIVE_PROFILE}" ==~ /(prod)/) }
+        }
+        stages {
+          stage ('Unit Tests') {
+            agent {
+              dockerfile {
+                filename 'Dockerfile'
+                dir 'cicd/docker/mvn'
+                label 'Docker-enabled'
+                args '--shm-size=2gb'
+              }
+            }
+            steps {
+              script {
+                jslMavenWrapper('clean verify -P testreports ')
+                // jslPublishTestResults('transport/target/surefire-reports/*.xml')
+                jslPublishHTMLTestResults('junittestreport.html', '/target/reports/junittestreport.html', 'Junit Report')
+                stash name: "TESTS", includes: "transport/target/reports/*"
+              }
+            }
+          }
+          stage('Coverage') {
+            agent {
+              dockerfile {
+                filename 'Dockerfile'
+                dir 'cicd/docker/sonar-scanner'
+                label 'Docker-enabled'
+              }
+            }
+            steps {
+              script {
+                jacoco(execPattern: 'transport/target/jacoco.exec')
+                jslQualityGateCodeCoverage('./cicd/docker/SonarQube/sonar-project.properties')
+              }
+            }
+          }
+          stage('Sonarqube') {
+            agent {
+              dockerfile {
+                filename 'Dockerfile'
+                dir 'cicd/docker/sonar-scanner'
+                label 'Docker-enabled'
+              }
+            }
+            steps {
+              script {
+                try {
+                  unstash name: "TRANSPORT"
+                }  catch (Exception e) {
+                  echo "No coverage data"
+                }
+                jslSonarQubeStaticAnalysis('./cicd/docker/SonarQube/sonar-project.properties', env.SONARQUBE_CREDENTIALS)
+              }
+            }
+          }
+//          stage('Quality Gate') {
+//            agent {
+//              dockerfile {
+//                filename 'Dockerfile'
+//                dir 'cicd/docker/sonar-scanner'
+//                label 'Docker-enabled'
+//              }
+//            }
+//           steps {
+//              script {
+//                jslQualityGate()
+//              }
+//            }
+//          }
+        }
+      }
+
+      stage('Deploy') {
+          agent {
+            dockerfile {
+              filename 'Dockerfile'
+              dir 'cicd/docker/mvn'
+              label 'Docker-enabled'
+            }
+          }
+          steps {
+            script {
+              // Prod deployment
+              if("${params.APP_ACTIVE_PROFILE}" ==~ /(prod)/) {
+                withCredentials([file(credentialsId: 'laser-transport-svcs-prod.kubeconfig', variable: 'KUBECONFIG')]) {
+                  sh 'mkdir -p ~/.kube && cat $KUBECONFIG > ~/.kube/config'
+                    env.ENVIRONMENT = "${params.APP_ACTIVE_PROFILE}"
+                    env.K8S_NAMESPACE = 'laser-transport-svcs'
+                    env.INGRESS_DOMAIN = 'kubeodc-prod.corp.intranet'
+                    sh("helm upgrade --install ${env.PROJECT_NAME}-${env.ENVIRONMENT} --kube-context=${env.K8S_NAMESPACE} --namespace=${env.K8S_NAMESPACE} --set branch=${env.BRANCH_NAME} --set image.tag=${env.IMAGE_TAG} --set environment=${env.ENVIRONMENT} --set ingress.domain=${env.INGRESS_DOMAIN} --set image.repository=${env.IMAGE_REPO} --set timestamp=${BUILD_ID} --set artifactname=${env.ARTIFACT_NAME} ${env.HELM_TEMPLATES_PATH}")
+                    sh "echo https://${env.PROJECT_NAME}-${env.APP_ACTIVE_PROFILE}.${env.INGRESS_DOMAIN} > ingress_info.txt"
+                }
+              } else {
+                withCredentials([file(credentialsId: 'laser-transport-svcs.kubeconfig', variable: 'KUBECONFIG')]) {
+                  sh 'mkdir -p ~/.kube && cat $KUBECONFIG > ~/.kube/config'
+                  if("${params.APP_ACTIVE_PROFILE}" ==~ /(test1|test2)/) {
+                    env.ENVIRONMENT = "${params.APP_ACTIVE_PROFILE}"
+                    env.K8S_NAMESPACE = 'laser-transport-svcs-test'
+                    env.INGRESS_DOMAIN = 'kubeodc-test.corp.intranet'
+                    sh("helm upgrade --install ${env.PROJECT_NAME}-${env.ENVIRONMENT} --kube-context=${env.K8S_NAMESPACE} --namespace=${env.K8S_NAMESPACE} --set branch=${env.BRANCH_NAME} --set image.tag=${env.IMAGE_TAG} --set environment=${env.ENVIRONMENT} --set ingress.domain=${env.INGRESS_DOMAIN} --set image.repository=${env.IMAGE_REPO} --set timestamp=${BUILD_ID} --set artifactname=${env.ARTIFACT_NAME} ${env.HELM_TEMPLATES_PATH}")
+                    sh "echo https://${env.PROJECT_NAME}-${env.APP_ACTIVE_PROFILE}.${env.INGRESS_DOMAIN} > ingress_info.txt"
+                  } else {
+                    if (env.CHANGE_ID == null) {
+                        env.APP_ACTIVE_PROFILE = "${params.APP_ACTIVE_PROFILE}"
+                    } else {
+                        env.APP_ACTIVE_PROFILE = "${env.PULL_REQUEST}-java-${params.APP_ACTIVE_PROFILE}"
+                    }
+                    env.ENVIRONMENT = "${params.APP_ACTIVE_PROFILE}"
+                    env.K8S_NAMESPACE = 'laser-transport-svcs-dev'
+                    env.INGRESS_DOMAIN = 'kubeodc-test.corp.intranet'
+                    sh("helm upgrade --install ${env.PROJECT_NAME}-${env.APP_ACTIVE_PROFILE} --kube-context=${env.K8S_NAMESPACE} --namespace=${env.K8S_NAMESPACE} --set branch=${env.BRANCH_NAME} --set image.tag=${env.IMAGE_TAG} --set environment=${env.ENVIRONMENT} --set ingress.domain=${env.INGRESS_DOMAIN} --set image.repository=${env.IMAGE_REPO} --set timestamp=${BUILD_ID} --set artifactname=${env.ARTIFACT_NAME} ${env.HELM_TEMPLATES_PATH}")
+                    sh "echo https://${env.PROJECT_NAME}-${env.APP_ACTIVE_PROFILE}.${env.INGRESS_DOMAIN} > ingress_info.txt"
+                  }
+                }
+              }
+              stash name: "INGRESS", includes: "ingress_info.txt"
+              archiveArtifacts artifacts: 'ingress_info.txt', fingerprint: true
+              /*Single endpoint.*/
+              def endpoint = sh(script: "cat ingress_info.txt", returnStdout: true).trim()
+              jslGitHubMessage("The endpoint is available at: ${endpoint}")
+            }
+          }
+      }
+
+      stage('After Deployment Testing') {
+        when {
+          expression { !("${params.APP_ACTIVE_PROFILE}" ==~ /(prod)/) }
+        }
+        agent {
+          dockerfile {
+            filename 'Dockerfile'
+            dir 'cicd/docker/mvn'
+            label 'Docker-enabled'
+          }
+        }
+        steps {
+          script {
+            echo "Testing after deployment"
+          }
+        }
+      }
+
+      stage('Adoption Stats') {
+        when {
+          expression { !("${params.APP_ACTIVE_PROFILE}" ==~ /(prod)/) }
+        }
+        agent {
+          dockerfile {
+            filename 'Dockerfile'
+            dir 'cicd/docker/jira'
+            label 'Docker-enabled'
+          }
+        }
+        steps {
+          script {
+          //  unstash name: "TESTS"
+            jslAdoptionMain('transport/target/reports/*')
+          }
+        }
+      }
+    }
+
+    post {
+      success {
+        jslNotification('success')
+        cleanWs()
+      }
+      failure {
+        jslNotification('failure')
+        cleanWs()
+      }
+      unstable {
+        jslNotification('unstable')
+        cleanWs()
+      }
+    }
+}

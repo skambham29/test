@@ -1,0 +1,67 @@
+<settings>
+    <servers>
+        <server>
+            <id>nexus-releases</id>
+			<username>#####</username>
+      		<password>#######</password>
+        </server>
+        <server>
+            <id>nexus-snapshots</id>
+			<username>#####</username>
+      		<password>#######</password>
+        </server>
+        <server>
+            <id>central-public</id>
+			<username>#####</username>
+      		<password>#######</password>
+        </server>
+        <server>
+            <id>thirdparty</id>
+			<username>#####</username>
+      		<password>#######</password>
+        </server>
+    </servers>
+    <profiles>
+        <profile>
+        <id>DEVOPS-CICD</id>
+            <repositories>
+                <repository>
+                        <id>thirdparty</id>
+                        <name>3rd Party</name>
+                        <url>https://nexusprod.corp.intranet:8443/repository/3rdParty/</url>
+                </repository>
+                <repository>
+                        <id>central</id>
+                        <name>Maven Central</name>
+                        <url>https://nexusprod.corp.intranet:8443/repository/maven-central/</url>
+                </repository>
+                <repository>
+                        <id>nexus-releases</id>
+                        <name>Nexus Releases</name>
+                        <url>https://nexusprod.corp.intranet:8443/repository/maven-releases/</url>
+                </repository>
+                <repository>
+                        <id>nexus-snapshots</id>
+                        <name>Nexus Snapshots</name>
+                        <url>https://nexusprod.corp.intranet:8443/repository/maven-snapshots/</url>
+                </repository>
+                <repository>
+                        <id>central-public</id>
+                        <name>Maven Public</name>
+                        <url>https://nexusprod.corp.intranet:8443/repository/maven-public/</url>
+                </repository>
+        </repositories>
+        </profile>
+    </profiles>
+    <mirrors>
+        <mirror>
+            <id>central-public</id>
+            <name>Maven Public</name>
+            <url>https://nexusprod.corp.intranet:8443/repository/maven-public/</url>
+            <mirrorOf>external:http:*</mirrorOf>
+        </mirror>
+    </mirrors>
+    <activeProfiles>
+        <activeProfile>DEVOPS-CICD</activeProfile>
+    </activeProfiles>
+</settings>

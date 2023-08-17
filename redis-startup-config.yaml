@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-startup
+  namespace: rtns-dev
+data:
+  redis-startup.sh: |
+    #!/bin/sh
+    if [ -f "/conf/nodes-6379.conf" ]; then
+      echo "Cluster details exists /conf/nodes-6379.conf.. starting script to do CLUSTER MEET when node is up"
+      while :
+      do
+        pong=$(timeout 5 redis-cli -c -a admin ping)
+        if [ ${pong} == 'PONG' ];then
+            nslookup redis.redis.svc.cluster.local | grep "Address:" | tail -n +2 | awk '{print "CLUSTER MEET " $2 " 6379"}' > /tmp/redis_meet_commands.txt
+            nslookup redis.redis.svc.cluster.local | grep "Address:" | tail -n +2 | awk '{print $2}' > /tmp/redis_ip_list.txt
+            echo "IP list"
+            cat /tmp/redis_ip_list.txt
+            echo "Cluster meet commands"
+            cat /tmp/redis_meet_commands.txt
+            while read line
+            do
+              echo "Cluster meet applying on ${line}"
+              cat /tmp/redis_meet_commands.txt | redis-cli -c -a admin -h ${line}
+            done < /tmp/redis_ip_list.txt
+            exit 0
+        fi
+        sleep 10
+      done
+    else
+      echo "Cluster details doesn't exist .. A new node"
+    fi

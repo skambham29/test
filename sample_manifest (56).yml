@@ -1,0 +1,191 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: dgwspringboot-dev1
+  namespace: dgw-dev
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "900"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "900"
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "8m"
+spec:
+  tls:
+  - hosts: 
+    - dgwspringboot-dev1.kubeodc-test.corp.intranet
+    secretName: managed-tls-secret
+  rules:
+  - host: dgwspringboot-dev1.kubeodc-test.corp.intranet
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: dgwspringboot-dev1
+          servicePort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dgwspringboot-dev1
+  namespace: dgw-dev
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    app: dgwspringboot-dev1
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dgwspringboot-dev1
+  namespace: dgw-dev
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dgwspringboot-dev1
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        app: dgwspringboot-dev1
+        author: 
+        org: dgw-dev
+        space: dev1
+    spec:
+      imagePullSecrets:
+      - name: dgw-Devops
+      containers:
+        - name: dgwspringboot-dev1
+          image: 
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9999
+              protocol: TCP
+          resources:
+            limits:
+              memory: 8192Mi
+              cpu: 2
+          livenessProbe:
+            httpGet:
+               path: /dgw/services/AppSummary
+               port: 8080
+            initialDelaySeconds: 300
+            timeoutSeconds: 10
+            periodSeconds: 120
+            failureThreshold: 3
+          env:
+          - name: MDW_APP_TOKEN
+            value: DUVVdQkYqrruXmspgoHcspNgthxmkcjEYlzsGvaIPSNCJhQdrzDgyasQBqoUWbIu
+          - name: K8S_NAMESPACE
+            value: dgw-dev
+          - name: APPDYNAMICS_CONTROLLER_HOST_NAME
+            value: 
+          - name: APPDYNAMICS_CONTROLLER_PORT
+            value: "443"
+          - name: APPDYNAMICS_CONTROLLER_SSL_ENABLED
+            value: "true"
+          - name: APPDYNAMICS_AGENT_APPLICATION_NAME
+            value: 
+          - name: APPDYNAMICS_AGENT_TIER_NAME
+            value: 
+          - name: APPDYNAMICS_AGENT_ACCOUNT_NAME
+            value: 
+          - name: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+            value: 
+          - name: K8S_SERVICE_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: dgw-dev-token-xpsdv
+                key: token
+          - name: SPRING_PROFILES_ACTIVE
+            value: dev1
+          volumeMounts:
+          - name: config-volume
+            mountPath: /opt/mdw/config
+          - name: git-volume
+            mountPath: /opt/mdw/git/
+          - name: data-volume
+            mountPath: /opt/mdw/data/
+          - name: logs-volume
+            mountPath: /opt/mdw/logs/pods
+          - name: file-volume
+            mountPath: /opt/mdw/externalFile
+      volumes:
+        - name: config-volume
+          configMap:
+            name:  mdw-config-dev1
+            items:
+            - key: mdw.yaml
+              path: mdw.yaml
+            - key: access.yaml
+              path: access.yaml
+            - key: seed_users.json
+              path: seed_users.json
+            - key: dgw_config.yaml
+              path: dgw_config.yaml
+            - key: dgw_common_config.yaml
+              path: dgw_common_config.yaml
+            - key: busconnector.xml
+              path: cfg/busconnector.xml
+            - key: application-context.xml
+              path: spring/application-context.xml
+            - key: application.yml
+              path: spring/application.yml
+        - name: git-volume
+          emptyDir: {}
+        - name: data-volume
+          emptyDir: {}
+        - name: logs-volume
+          emptyDir: {}
+        - name: file-volume
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dgwspringboot-dev1-hub
+  namespace: dgw-dev
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    app: dgwspringboot-dev1
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: dgwspringboot-dev1-hub
+  namespace: dgw-dev
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.ingress.kubernetes.io/session-cookie-name: "JSESSIONID"
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "900"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "900"
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "8m"
+spec:
+  tls:
+  - hosts:
+    - dgwspringboot-dev1-hub.kubeodc-test.corp.intranet
+    secretName: managed-tls-secret
+  rules:
+  - host: dgwspringboot-dev1-hub.kubeodc-test.corp.intranet
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: dgwspringboot-dev1-hub
+          servicePort: 8080
+---

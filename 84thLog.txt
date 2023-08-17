@@ -1,0 +1,2330 @@
+
+FailedConsole Output
+Started by user Nutan Choudhari
+13:09:59 Connecting to https://api.github.com using ravishjoshi/****** (ravishjoshi-lumen-https)
+Obtained Jenkinsfile from d56ad88108962057668fe559bc1af2d12dc55d80
+Running in Durability level: MAX_SURVIVABILITY
+[Pipeline] Start of Pipeline
+[Pipeline] library
+Loading library jsl-jenkins-shared-library@release/20220617
+Attempting to resolve release/20220617 from remote references...
+ > git --version # timeout=10
+ > git --version # 'git version 2.20.1'
+using GIT_ASKPASS to set credentials ravishjoshi-lumen-https
+ > git ls-remote -- https://github.com/CenturyLink/jsl-jenkins-shared-library.git # timeout=10
+Found match: refs/heads/release/20220617 revision 0ffcc73726edadcaddc7c61aca9428134c6d64ac
+The recommended git tool is: git
+using credential ravishjoshi-lumen-https
+Wiping out workspace first.
+Cloning the remote Git repository
+Cloning with configured refspecs honoured and without tags
+Cloning repository https://github.com/CenturyLink/jsl-jenkins-shared-library.git
+ > git init /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master@libs/jsl-jenkins-shared-library # timeout=10
+Fetching upstream changes from https://github.com/CenturyLink/jsl-jenkins-shared-library.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.20.1'
+using GIT_ASKPASS to set credentials ravishjoshi-lumen-https
+ > git fetch --no-tags --force --progress -- https://github.com/CenturyLink/jsl-jenkins-shared-library.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/CenturyLink/jsl-jenkins-shared-library.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+Checking out Revision 0ffcc73726edadcaddc7c61aca9428134c6d64ac (release/20220617)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 0ffcc73726edadcaddc7c61aca9428134c6d64ac # timeout=10
+Exception logging commit message for Build #84 of Revision 0ffcc73726edadcaddc7c61aca9428134c6d64ac (release/20220617): java.io.IOException: Cannot read file /var/jenkins_home/.config/jgit/config
+ > git rev-list --no-walk 0ffcc73726edadcaddc7c61aca9428134c6d64ac # timeout=10
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master
+[Pipeline] {
+[Pipeline] echo
+Placeholder to integrate Service Now DevOps Module in  Declarative: Checkout SCM stage.
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+The recommended git tool is: NONE
+using credential ravishjoshi-lumen-https
+ > git rev-parse --is-inside-work-tree # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/CenturyLink/ps-ng911-synergem.git # timeout=10
+Fetching without tags
+Fetching upstream changes from https://github.com/CenturyLink/ps-ng911-synergem.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.20.1'
+using GIT_ASKPASS to set credentials ravishjoshi-lumen-https
+ > git fetch --no-tags --force --progress -- https://github.com/CenturyLink/ps-ng911-synergem.git +refs/heads/master:refs/remotes/origin/master # timeout=10
+Checking out Revision d56ad88108962057668fe559bc1af2d12dc55d80 (master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f d56ad88108962057668fe559bc1af2d12dc55d80 # timeout=10
+Exception logging commit message for Build #84 of Revision d56ad88108962057668fe559bc1af2d12dc55d80 (master): java.io.IOException: Cannot read file /var/jenkins_home/.config/jgit/config
+ > git rev-list --no-walk 15859118e25aba551cfeb2a8e5bb7a10a5aed6f0 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] timeout
+18:40:08  Timeout set to expire in 1 hr 0 min
+[Pipeline] {
+[Pipeline] echo
+18:40:08  Placeholder to integrate Service Now DevOps Module in  Declarative: Tool Install stage.
+[Pipeline] stage
+[Pipeline] { (Declarative: Tool Install)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] echo
+18:40:09  Placeholder to integrate Service Now DevOps Module in  Static Code Analysis stage.
+[Pipeline] stage
+[Pipeline] { (Static Code Analysis)
+[Pipeline] parallel
+[Pipeline] { (Branch: Linting)
+[Pipeline] { (Branch: DevSecOps)
+[Pipeline] echo
+18:40:09  Placeholder to integrate Service Now DevOps Module in  Linting stage.
+[Pipeline] stage
+[Pipeline] { (Linting)
+[Pipeline] echo
+18:40:09  Placeholder to integrate Service Now DevOps Module in  DevSecOps stage.
+[Pipeline] stage
+[Pipeline] { (DevSecOps)
+[Pipeline] tool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh
+[Pipeline] isUnix
+[Pipeline] sh
+18:40:10  + mvn -f ng911-synergem-api/pom.xml checkstyle:checkstyle
+18:40:10  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+18:40:10  + set +x
+[Pipeline] withCredentials
+18:40:10  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (GitHub Security Alert Repo)
+18:40:11  + set +x
+18:40:11  Checking dependencies vulnerability alerts are enabled
+18:40:11  /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master@tmp/durable-52f9c4a7/script.sh: 8: /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master@tmp/durable-52f9c4a7/script.sh: [[: not found
+18:40:11  [INFO] Scanning for projects...
+18:40:11  Getting dependencies vulnerability alerts report
+18:40:11  /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master@tmp/durable-52f9c4a7/script.sh: 17: /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master@tmp/durable-52f9c4a7/script.sh: python: not found
+18:40:11    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+18:40:11                                   Dload  Upload   Total   Spent    Left  Speed
+18:40:12  [WARNING] 
+18:40:12  [WARNING] Some problems were encountered while building the effective model for io.ctl.gov:ng911-synergem-api:jar:0.0.7-SNAPSHOT
+18:40:12  [WARNING] 'build.plugins.plugin.version' for org.springframework.boot:spring-boot-maven-plugin is missing. @ line 176, column 12
+18:40:12  [WARNING] 
+18:40:12  [WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+18:40:12  [WARNING] 
+18:40:12  [WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+18:40:12  [WARNING] 
+18:40:12  [INFO] 
+18:40:12  [INFO] -------------------< io.ctl.gov:ng911-synergem-api >--------------------
+18:40:12  [INFO] Building ng911-synergem-api 0.0.7-SNAPSHOT
+18:40:12  [INFO] --------------------------------[ jar ]---------------------------------
+18:40:12  
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100   701  100   309  100   392    732    928 --:--:-- --:--:-- --:--:--  1661
+18:40:12  (23) Failed writing body
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh
+18:40:12  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+18:40:13  + set +x
+18:40:13  [INFO] 
+18:40:13  [INFO] --- maven-checkstyle-plugin:3.1.2:checkstyle (default-cli) @ ng911-synergem-api ---
+[Pipeline] withCredentials
+18:40:13  Masking supported pattern matches of $USERNAME or $GITHUB_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting the list of branches of the repository)
+18:40:13  + set +x
+18:40:13    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+18:40:13                                   Dload  Upload   Total   Spent    Left  Speed
+18:40:14  
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  1053  100  1053    0     0   3694      0 --:--:-- --:--:-- --:--:--  3694
+[Pipeline] readJSON
+[Pipeline] writeJSON
+[Pipeline] isUnix
+18:40:14  [WARNING] Old version of checkstyle detected. Consider updating to >= v8.30
+18:40:14  [WARNING] For more information see: https://maven.apache.org/plugins/maven-checkstyle-plugin/examples/upgrading-checkstyle.html
+[Pipeline] sh (Protecting branch master)
+18:40:14  + set +x
+18:40:14    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+18:40:14                                   Dload  Upload   Total   Spent    Left  Speed
+18:40:14  [WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+18:40:14  
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100   357  100   125  100   232    448    831 --:--:-- --:--:-- --:--:--  1279
+18:40:14  {
+18:40:14    "message": "Not Found",
+18:40:14    "documentation_url": "https://docs.github.com/rest/reference/repos#update-branch-protection"
+18:40:14  }
+[Pipeline] isUnix
+[Pipeline] sh (Cleaning up)
+18:40:15  + rm -rf branch_protection.json
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] dir
+18:40:15  Running in /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master
+[Pipeline] {
+[Pipeline] findFiles
+[Pipeline] isUnix
+18:40:15  [INFO] There are 578 errors reported by Checkstyle 8.29 with sun_checks.xml ruleset.
+18:40:15  [WARNING] Unable to locate Source XRef to link to - DISABLED
+18:40:15  [INFO] ------------------------------------------------------------------------
+18:40:15  [INFO] BUILD SUCCESS
+18:40:15  [INFO] ------------------------------------------------------------------------
+18:40:15  [INFO] Total time:  3.973 s
+18:40:15  [INFO] Finished at: 2022-07-01T13:10:15Z
+18:40:15  [INFO] ------------------------------------------------------------------------
+[Pipeline] sh (Creating daumerling)
+[Pipeline] archiveArtifacts
+18:40:16  Archiving artifacts
+18:40:16  Recording fingerprints
+18:40:16  + md5sum Jenkinsfile
+[Pipeline] }
+[Pipeline] stash
+18:40:16  Stashed 1 file(s)
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] echo
+18:40:16  Placeholder to integrate Service Now DevOps Module in  Test stage.
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] echo
+18:40:17  Placeholder to integrate Service Now DevOps Module in  Unit Tests stage.
+[Pipeline] stage
+[Pipeline] { (Unit Tests)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh
+18:40:18  + mvn clean test --projects ng911-synergem-api
+18:40:19  [INFO] Scanning for projects...
+18:40:19  [WARNING] 
+18:40:19  [WARNING] Some problems were encountered while building the effective model for io.ctl.gov:ng911-synergem-api:jar:0.0.7-SNAPSHOT
+18:40:19  [WARNING] 'build.plugins.plugin.version' for org.springframework.boot:spring-boot-maven-plugin is missing. @ line 176, column 12
+18:40:19  [WARNING] 
+18:40:19  [WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+18:40:19  [WARNING] 
+18:40:19  [WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+18:40:19  [WARNING] 
+18:40:19  [INFO] 
+18:40:19  [INFO] -------------------< io.ctl.gov:ng911-synergem-api >--------------------
+18:40:19  [INFO] Building ng911-synergem-api 0.0.7-SNAPSHOT
+18:40:19  [INFO] --------------------------------[ jar ]---------------------------------
+18:40:20  [INFO] 
+18:40:20  [INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ ng911-synergem-api ---
+18:40:20  [INFO] Deleting /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target
+18:40:20  [INFO] 
+18:40:20  [INFO] --- maven-resources-plugin:3.1.0:copy-resources (copy-resources) @ ng911-synergem-api ---
+18:40:20  [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+18:40:20  [INFO] Copying 2 resources
+18:40:20  [INFO] 
+18:40:20  [INFO] --- os-maven-plugin:1.6.2:detect (default) @ ng911-synergem-api ---
+18:40:21  [INFO] ------------------------------------------------------------------------
+18:40:21  [INFO] Detecting the operating system and CPU architecture
+18:40:21  [INFO] ------------------------------------------------------------------------
+18:40:21  [INFO] os.detected.name: linux
+18:40:21  [INFO] os.detected.arch: x86_64
+18:40:21  [INFO] os.detected.version: 4.15
+18:40:21  [INFO] os.detected.version.major: 4
+18:40:21  [INFO] os.detected.version.minor: 15
+18:40:21  [INFO] os.detected.release: debian
+18:40:21  [INFO] os.detected.release.version: 10
+18:40:21  [INFO] os.detected.release.like.debian: true
+18:40:21  [INFO] os.detected.classifier: linux-x86_64
+18:40:21  [INFO] 
+18:40:21  [INFO] --- jacoco-maven-plugin:0.8.5:prepare-agent (default) @ ng911-synergem-api ---
+18:40:21  [INFO] argLine set to -javaagent:/root/.m2/repository/org/jacoco/org.jacoco.agent/0.8.5/org.jacoco.agent-0.8.5-runtime.jar=destfile=/var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/jacoco.exec,append=true,excludes=*MethodAccess
+18:40:21  [INFO] 
+18:40:21  [INFO] --- protobuf-maven-plugin:0.6.1:compile (default) @ ng911-synergem-api ---
+18:40:21  [INFO] Compiling 1 proto file(s) to /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/generated-sources/protobuf/java
+18:40:21  [INFO] 
+18:40:21  [INFO] --- protobuf-maven-plugin:0.6.1:compile-custom (default) @ ng911-synergem-api ---
+18:40:21  [INFO] Compiling 1 proto file(s) to /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/generated-sources/protobuf/grpc-java
+18:40:21  [INFO] 
+18:40:21  [INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ ng911-synergem-api ---
+18:40:21  [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+18:40:21  [INFO] Copying 2 resources
+18:40:21  [INFO] Copying 1 resource
+18:40:21  [INFO] Copying 1 resource
+18:40:21  [INFO] 
+18:40:21  [INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ ng911-synergem-api ---
+18:40:22  [INFO] Changes detected - recompiling the module!
+18:40:22  [WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+18:40:22  [INFO] Compiling 14 source files to /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/classes
+18:40:25  [INFO] /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/generated-sources/protobuf/java/io/ctl/gov/ng911/thanos/adapter/prometheus/Prometheus.java: /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/generated-sources/protobuf/java/io/ctl/gov/ng911/thanos/adapter/prometheus/Prometheus.java uses or overrides a deprecated API.
+18:40:25  [INFO] /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/generated-sources/protobuf/java/io/ctl/gov/ng911/thanos/adapter/prometheus/Prometheus.java: Recompile with -Xlint:deprecation for details.
+18:40:25  [INFO] 
+18:40:25  [INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ ng911-synergem-api ---
+18:40:25  [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+18:40:25  [INFO] Copying 4 resources
+18:40:25  [INFO] 
+18:40:25  [INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ ng911-synergem-api ---
+18:40:25  [INFO] Changes detected - recompiling the module!
+18:40:25  [WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+18:40:25  [INFO] Compiling 6 source files to /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/test-classes
+18:40:25  [INFO] /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/src/test/java/io/ctl/ng911/synergem/service/DGraphServiceTest.java: /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/src/test/java/io/ctl/ng911/synergem/service/DGraphServiceTest.java uses unchecked or unsafe operations.
+18:40:25  [INFO] /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/src/test/java/io/ctl/ng911/synergem/service/DGraphServiceTest.java: Recompile with -Xlint:unchecked for details.
+18:40:25  [INFO] 
+18:40:25  [INFO] --- maven-surefire-plugin:3.0.0-M4:test (default-test) @ ng911-synergem-api ---
+18:40:26  [INFO] 
+18:40:26  [INFO] -------------------------------------------------------
+18:40:26  [INFO]  T E S T S
+18:40:26  [INFO] -------------------------------------------------------
+18:40:27  [INFO] Running io.ctl.gov.thanos.adapter.web.DocumentationTest
+18:40:30  
+18:40:30    .   ____          _            __ _ _
+18:40:30   /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+18:40:30  ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+18:40:30   \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+18:40:30    '  |____| .__|_| |_|_| |_\__, | / / / /
+18:40:30   =========|_|==============|___/=/_/_/_/
+18:40:30   :: Spring Boot ::        (v2.2.4.RELEASE)
+18:40:30  
+18:40:30  2022-07-01 13:10:30.512  INFO 29112 --- [           main] i.c.g.t.a.w.DocumentationTest            : Starting DocumentationTest on jenkins-85f5bd7965-4wcr2 with PID 29112 (started by root in /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api)
+18:40:30  2022-07-01 13:10:30.529  INFO 29112 --- [           main] i.c.g.t.a.w.DocumentationTest            : No active profile set, falling back to default profiles: default
+18:40:33  2022-07-01 13:10:33.084  WARN 29112 --- [           main] o.s.s.c.u.User                           : User.withDefaultPasswordEncoder() is considered unsafe for production and is only intended for sample applications.
+18:40:33  2022-07-01 13:10:33.485  INFO 29112 --- [           main] o.s.s.w.DefaultSecurityFilterChain       : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3a0eb06, org.springframework.security.web.context.SecurityContextPersistenceFilter@69fbf4a3, org.springframework.security.web.header.HeaderWriterFilter@2a89fd0a, org.springframework.security.web.authentication.logout.LogoutFilter@3f7c623a, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@6a6ce193, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@76c86180, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6b9f08b0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7dfde83f, org.springframework.security.web.session.SessionManagementFilter@10adc98e, org.springframework.security.web.access.ExceptionTranslationFilter@3dee0166, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4b19b2db]
+18:40:33  2022-07-01 13:10:33.670  INFO 29112 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+18:40:33  2022-07-01 13:10:33.671  INFO 29112 --- [           main] o.s.t.w.s.TestDispatcherServlet          : Initializing Servlet ''
+18:40:33  2022-07-01 13:10:33.695  INFO 29112 --- [           main] o.s.t.w.s.TestDispatcherServlet          : Completed initialization in 24 ms
+18:40:34  2022-07-01 13:10:33.781  INFO 29112 --- [           main] i.c.g.t.a.w.DocumentationTest            : Started DocumentationTest in 4.264 seconds (JVM running for 7.601)
+18:40:35  2022-07-01 13:10:35.248  WARN 29112 --- [           main] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public org.springframework.http.ResponseEntity<java.lang.Void> io.ctl.ng911.synergem.web.SynergemResource.create(io.ctl.ng911.synergem.model.SynergemModel)]
+18:40:35  
+18:40:35  MockHttpServletRequest:
+18:40:35        HTTP Method = POST
+18:40:35        Request URI = /api/v1/metrics
+18:40:35         Parameters = {}
+18:40:35            Headers = [Content-Type:"application/json", Authorization:"Basic cm9vdDpwYXNzd29yZA==", Content-Length:"236"]
+18:40:35               Body = <no character encoding set>
+18:40:35      Session Attrs = {}
+18:40:35  
+18:40:35  Handler:
+18:40:35               Type = io.ctl.ng911.synergem.web.SynergemResource
+18:40:35             Method = io.ctl.ng911.synergem.web.SynergemResource#create(SynergemModel)
+18:40:35  
+18:40:35  Async:
+18:40:35      Async started = false
+18:40:35       Async result = null
+18:40:35  
+18:40:35  Resolved Exception:
+18:40:35               Type = null
+18:40:35  
+18:40:35  ModelAndView:
+18:40:35          View name = null
+18:40:35               View = null
+18:40:35              Model = null
+18:40:35  
+18:40:35  FlashMap:
+18:40:35         Attributes = null
+18:40:35  
+18:40:35  MockHttpServletResponse:
+18:40:35             Status = 204
+18:40:35      Error message = null
+18:40:35            Headers = [X-Content-Type-Options:"nosniff", X-XSS-Protection:"1; mode=block", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0", X-Frame-Options:"DENY"]
+18:40:35       Content type = null
+18:40:35               Body = 
+18:40:35      Forwarded URL = null
+18:40:35     Redirected URL = null
+18:40:35            Cookies = []
+18:40:35  [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.904 s - in io.ctl.gov.thanos.adapter.web.DocumentationTest
+18:40:35  [INFO] Running io.ctl.ng911.synergem.adapter.DGraphAdapterTest
+18:40:35  [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.264 s - in io.ctl.ng911.synergem.adapter.DGraphAdapterTest
+18:40:35  [INFO] Running io.ctl.ng911.synergem.config.AppConfigTest
+18:40:36  [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 s - in io.ctl.ng911.synergem.config.AppConfigTest
+18:40:36  [INFO] Running io.ctl.ng911.synergem.ApplicationTest
+18:40:36  [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.155 s - in io.ctl.ng911.synergem.ApplicationTest
+18:40:36  [INFO] Running io.ctl.ng911.synergem.service.DGraphServiceTest
+18:40:36  [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.102 s - in io.ctl.ng911.synergem.service.DGraphServiceTest
+18:40:36  [INFO] Running io.ctl.ng911.synergem.ThanosReceiverConsumerTest
+18:40:36  2022-07-01 13:10:36.582  INFO 29112 --- [           main] i.c.n.s.ThanosReceiverConsumer           : device_name: CTL_LAX_SoCal_ESRP ,Status: Up ,Maintenance: false 
+18:40:36  2022-07-01 13:10:36.694  INFO 29112 --- [           main] i.c.n.s.ThanosReceiverConsumer           : timeseries {
+18:40:36    labels {
+18:40:36      name: "__name__"
+18:40:36      value: "core_component_health_status"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "circuit"
+18:40:36      value: "Los Angeles NGCS Core"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "device_name"
+18:40:36      value: "CTL_LAX_SoCal_ESRP"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "device_type"
+18:40:36      value: "ESRP"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "enterprise_id"
+18:40:36      value: "11959257"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "metric_type"
+18:40:36      value: "core_component_health_status"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "type_name"
+18:40:36      value: "Los Angeles NGCS Core"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "type_unit"
+18:40:36      value: "ngcs"
+18:40:36    }
+18:40:36    samples {
+18:40:36      timestamp: 1656681036578
+18:40:36    }
+18:40:36  }
+18:40:36  timeseries {
+18:40:36    labels {
+18:40:36      name: "__name__"
+18:40:36      value: "core_component_maintenance_status"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "circuit"
+18:40:36      value: "Los Angeles NGCS Core"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "device_name"
+18:40:36      value: "CTL_LAX_SoCal_ESRP"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "device_type"
+18:40:36      value: "ESRP"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "enterprise_id"
+18:40:36      value: "11959257"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "metric_type"
+18:40:36      value: "core_component_health_status"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "type_name"
+18:40:36      value: "Los Angeles NGCS Core"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "type_unit"
+18:40:36      value: "ngcs"
+18:40:36    }
+18:40:36    samples {
+18:40:36      timestamp: 1656681036578
+18:40:36    }
+18:40:36  }
+18:40:36  
+18:40:36  2022-07-01 13:10:36.800  INFO 29112 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Start Thanos call
+18:40:36  2022-07-01 13:10:36.801 ERROR 29112 --- [           main] i.c.n.s.e.InternalServerError            : reason=failed to transmit metric to receiver
+18:40:36  2022-07-01 13:10:36.812  WARN 29112 --- [           main] i.c.n.s.ThanosReceiverConsumer           : NGCS Component is not configured for xref_synergem_fe: CTL_LAX_SoCal_ESRP
+18:40:36  2022-07-01 13:10:36.829  INFO 29112 --- [           main] i.c.n.s.ThanosReceiverConsumer           : device_name: CTL_LAX_SoCal_ESRP ,Status: Up ,Maintenance: false 
+18:40:36  2022-07-01 13:10:36.830  INFO 29112 --- [           main] i.c.n.s.ThanosReceiverConsumer           : timeseries {
+18:40:36    labels {
+18:40:36      name: "__name__"
+18:40:36      value: "core_component_health_status"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "circuit"
+18:40:36      value: "Los Angeles NGCS Core"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "device_name"
+18:40:36      value: "CTL_LAX_SoCal_ESRP"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "device_type"
+18:40:36      value: "ESRP"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "enterprise_id"
+18:40:36      value: "11959257"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "metric_type"
+18:40:36      value: "core_component_health_status"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "type_name"
+18:40:36      value: "Los Angeles NGCS Core"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "type_unit"
+18:40:36      value: "ngcs"
+18:40:36    }
+18:40:36    samples {
+18:40:36      timestamp: 1656681036829
+18:40:36    }
+18:40:36  }
+18:40:36  timeseries {
+18:40:36    labels {
+18:40:36      name: "__name__"
+18:40:36      value: "core_component_maintenance_status"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "circuit"
+18:40:36      value: "Los Angeles NGCS Core"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "device_name"
+18:40:36      value: "CTL_LAX_SoCal_ESRP"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "device_type"
+18:40:36      value: "ESRP"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "enterprise_id"
+18:40:36      value: "11959257"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "metric_type"
+18:40:36      value: "core_component_health_status"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "type_name"
+18:40:36      value: "Los Angeles NGCS Core"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "type_unit"
+18:40:36      value: "ngcs"
+18:40:36    }
+18:40:36    samples {
+18:40:36      timestamp: 1656681036829
+18:40:36    }
+18:40:36  }
+18:40:36  
+18:40:36  2022-07-01 13:10:36.832  INFO 29112 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Start Thanos call
+18:40:36  2022-07-01 13:10:36.832  INFO 29112 --- [           main] i.c.n.s.ThanosReceiverConsumer           : response status code :200
+18:40:36  2022-07-01 13:10:36.832  INFO 29112 --- [           main] i.c.n.s.ThanosReceiverConsumer           : device_name: CTL_LAX_SoCal_ESRP ,Status: Up ,Maintenance: false 
+18:40:36  2022-07-01 13:10:36.833  INFO 29112 --- [           main] i.c.n.s.ThanosReceiverConsumer           : timeseries {
+18:40:36    labels {
+18:40:36      name: "__name__"
+18:40:36      value: "core_component_health_status"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "circuit"
+18:40:36      value: "Los Angeles NGCS Core"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "device_name"
+18:40:36      value: "CTL_LAX_SoCal_ESRP"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "device_type"
+18:40:36      value: "ESRP"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "enterprise_id"
+18:40:36      value: "9481"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "metric_type"
+18:40:36      value: "core_component_health_status"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "type_name"
+18:40:36      value: "Los Angeles NGCS Core"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "type_unit"
+18:40:36      value: "ngcs"
+18:40:36    }
+18:40:36    samples {
+18:40:36      timestamp: 1656681036829
+18:40:36    }
+18:40:36  }
+18:40:36  timeseries {
+18:40:36    labels {
+18:40:36      name: "__name__"
+18:40:36      value: "core_component_maintenance_status"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "circuit"
+18:40:36      value: "Los Angeles NGCS Core"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "device_name"
+18:40:36      value: "CTL_LAX_SoCal_ESRP"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "device_type"
+18:40:36      value: "ESRP"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "enterprise_id"
+18:40:36      value: "9481"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "metric_type"
+18:40:36      value: "core_component_health_status"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "type_name"
+18:40:36      value: "Los Angeles NGCS Core"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "type_unit"
+18:40:36      value: "ngcs"
+18:40:36    }
+18:40:36    samples {
+18:40:36      timestamp: 1656681036829
+18:40:36    }
+18:40:36  }
+18:40:36  
+18:40:36  2022-07-01 13:10:36.835  INFO 29112 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Start Thanos call
+18:40:36  2022-07-01 13:10:36.835  INFO 29112 --- [           main] i.c.n.s.ThanosReceiverConsumer           : response status code :200
+18:40:36  2022-07-01 13:10:36.835  INFO 29112 --- [           main] i.c.n.s.ThanosReceiverConsumer           : device_name: CTL_LAX_SoCal_ESRP ,Status: Up ,Maintenance: false 
+18:40:36  2022-07-01 13:10:36.836  INFO 29112 --- [           main] i.c.n.s.ThanosReceiverConsumer           : timeseries {
+18:40:36    labels {
+18:40:36      name: "__name__"
+18:40:36      value: "core_component_health_status"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "circuit"
+18:40:36      value: "Los Angeles NGCS Core"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "device_name"
+18:40:36      value: "CTL_LAX_SoCal_ESRP"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "device_type"
+18:40:36      value: "ESRP"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "enterprise_id"
+18:40:36      value: "9811108"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "metric_type"
+18:40:36      value: "core_component_health_status"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "type_name"
+18:40:36      value: "Los Angeles NGCS Core"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "type_unit"
+18:40:36      value: "ngcs"
+18:40:36    }
+18:40:36    samples {
+18:40:36      timestamp: 1656681036829
+18:40:36    }
+18:40:36  }
+18:40:36  timeseries {
+18:40:36    labels {
+18:40:36      name: "__name__"
+18:40:36      value: "core_component_maintenance_status"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "circuit"
+18:40:36      value: "Los Angeles NGCS Core"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "device_name"
+18:40:36      value: "CTL_LAX_SoCal_ESRP"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "device_type"
+18:40:36      value: "ESRP"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "enterprise_id"
+18:40:36      value: "9811108"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "metric_type"
+18:40:36      value: "core_component_health_status"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "type_name"
+18:40:36      value: "Los Angeles NGCS Core"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "type_unit"
+18:40:36      value: "ngcs"
+18:40:36    }
+18:40:36    samples {
+18:40:36      timestamp: 1656681036829
+18:40:36    }
+18:40:36  }
+18:40:36  
+18:40:36  2022-07-01 13:10:36.838  INFO 29112 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Start Thanos call
+18:40:36  2022-07-01 13:10:36.839  INFO 29112 --- [           main] i.c.n.s.ThanosReceiverConsumer           : response status code :200
+18:40:36  2022-07-01 13:10:36.839  INFO 29112 --- [           main] i.c.n.s.ThanosReceiverConsumer           : timeseries {
+18:40:36    labels {
+18:40:36      name: "__name__"
+18:40:36      value: "ng911_system_heartbeat"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "source"
+18:40:36      value: "synergem"
+18:40:36    }
+18:40:36    labels {
+18:40:36      name: "xrefSynergemFE"
+18:40:36      value: "CTL_LAX_SoCal_ESRP"
+18:40:36    }
+18:40:36    samples {
+18:40:36      value: 1.0
+18:40:36      timestamp: 1656681036839
+18:40:36    }
+18:40:36  }
+18:40:36  
+18:40:36  2022-07-01 13:10:36.840  INFO 29112 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Start Thanos call
+18:40:36  2022-07-01 13:10:36.840  INFO 29112 --- [           main] i.c.n.s.ThanosReceiverConsumer           : response status code :200
+18:40:36  [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.648 s - in io.ctl.ng911.synergem.ThanosReceiverConsumerTest
+18:40:37  [INFO] 
+18:40:37  [INFO] Results:
+18:40:37  [INFO] 
+18:40:37  [INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0
+18:40:37  [INFO] 
+18:40:37  [INFO] 
+18:40:37  [INFO] --- jacoco-maven-plugin:0.8.5:report (post-unit-test) @ ng911-synergem-api ---
+18:40:37  [INFO] Loading execution data file /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/jacoco.exec
+18:40:37  [INFO] Analyzed bundle 'ng911-synergem-api' with 58 classes
+18:40:38  [INFO] ------------------------------------------------------------------------
+18:40:38  [INFO] BUILD SUCCESS
+18:40:38  [INFO] ------------------------------------------------------------------------
+18:40:38  [INFO] Total time:  18.959 s
+18:40:38  [INFO] Finished at: 2022-07-01T13:10:38Z
+18:40:38  [INFO] ------------------------------------------------------------------------
+[Pipeline] isUnix
+[Pipeline] sh (Set sonar properties)
+18:40:38  + set +x
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] echo
+18:40:39  Placeholder to integrate Service Now DevOps Module in  Coverage stage.
+[Pipeline] stage
+[Pipeline] { (Coverage)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] dir
+18:40:39  Running in /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master
+[Pipeline] {
+[Pipeline] findFiles
+[Pipeline] isUnix
+[Pipeline] sh (Creating daumerling)
+18:40:40  + md5sum Jenkinsfile
+[Pipeline] stash
+18:40:40  Stashed 1 file(s)
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] echo
+18:40:40  Placeholder to integrate Service Now DevOps Module in  Sonarqube stage.
+[Pipeline] stage
+[Pipeline] { (Sonarqube)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] withSonarQubeEnv
+18:40:41  Injecting SonarQube environment variables using the configuration: sonarqube
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh
+18:40:41  + mvn clean verify sonar:sonar -Dsonar.projectKey=com.lumen:synergem:master_scan -Dsonar.projectName=synergem-master -f ng911-synergem-api/pom.xml
+18:40:42  [INFO] Scanning for projects...
+18:40:42  [WARNING] 
+18:40:42  [WARNING] Some problems were encountered while building the effective model for io.ctl.gov:ng911-synergem-api:jar:0.0.7-SNAPSHOT
+18:40:43  [WARNING] 'build.plugins.plugin.version' for org.springframework.boot:spring-boot-maven-plugin is missing. @ line 176, column 12
+18:40:43  [WARNING] 
+18:40:43  [WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+18:40:43  [WARNING] 
+18:40:43  [WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+18:40:43  [WARNING] 
+18:40:43  [INFO] 
+18:40:43  [INFO] -------------------< io.ctl.gov:ng911-synergem-api >--------------------
+18:40:43  [INFO] Building ng911-synergem-api 0.0.7-SNAPSHOT
+18:40:43  [INFO] --------------------------------[ jar ]---------------------------------
+18:40:43  [INFO] 
+18:40:43  [INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ ng911-synergem-api ---
+18:40:43  [INFO] Deleting /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target
+18:40:43  [INFO] 
+18:40:43  [INFO] --- maven-resources-plugin:3.1.0:copy-resources (copy-resources) @ ng911-synergem-api ---
+18:40:44  [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+18:40:44  [INFO] Copying 2 resources
+18:40:44  [INFO] 
+18:40:44  [INFO] --- os-maven-plugin:1.6.2:detect (default) @ ng911-synergem-api ---
+18:40:44  [INFO] ------------------------------------------------------------------------
+18:40:44  [INFO] Detecting the operating system and CPU architecture
+18:40:44  [INFO] ------------------------------------------------------------------------
+18:40:44  [INFO] os.detected.name: linux
+18:40:44  [INFO] os.detected.arch: x86_64
+18:40:44  [INFO] os.detected.version: 4.15
+18:40:44  [INFO] os.detected.version.major: 4
+18:40:44  [INFO] os.detected.version.minor: 15
+18:40:44  [INFO] os.detected.release: debian
+18:40:44  [INFO] os.detected.release.version: 10
+18:40:44  [INFO] os.detected.release.like.debian: true
+18:40:44  [INFO] os.detected.classifier: linux-x86_64
+18:40:44  [INFO] 
+18:40:44  [INFO] --- jacoco-maven-plugin:0.8.5:prepare-agent (default) @ ng911-synergem-api ---
+18:40:44  [INFO] argLine set to -javaagent:/root/.m2/repository/org/jacoco/org.jacoco.agent/0.8.5/org.jacoco.agent-0.8.5-runtime.jar=destfile=/var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/jacoco.exec,append=true,excludes=*MethodAccess
+18:40:44  [INFO] 
+18:40:44  [INFO] --- protobuf-maven-plugin:0.6.1:compile (default) @ ng911-synergem-api ---
+18:40:44  [INFO] Compiling 1 proto file(s) to /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/generated-sources/protobuf/java
+18:40:44  [INFO] 
+18:40:44  [INFO] --- protobuf-maven-plugin:0.6.1:compile-custom (default) @ ng911-synergem-api ---
+18:40:44  [INFO] Compiling 1 proto file(s) to /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/generated-sources/protobuf/grpc-java
+18:40:44  [INFO] 
+18:40:44  [INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ ng911-synergem-api ---
+18:40:44  [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+18:40:44  [INFO] Copying 2 resources
+18:40:44  [INFO] Copying 1 resource
+18:40:44  [INFO] Copying 1 resource
+18:40:44  [INFO] 
+18:40:44  [INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ ng911-synergem-api ---
+18:40:45  [INFO] Changes detected - recompiling the module!
+18:40:45  [WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+18:40:45  [INFO] Compiling 14 source files to /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/classes
+18:40:48  [INFO] /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/generated-sources/protobuf/java/io/ctl/gov/ng911/thanos/adapter/prometheus/Prometheus.java: /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/generated-sources/protobuf/java/io/ctl/gov/ng911/thanos/adapter/prometheus/Prometheus.java uses or overrides a deprecated API.
+18:40:48  [INFO] /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/generated-sources/protobuf/java/io/ctl/gov/ng911/thanos/adapter/prometheus/Prometheus.java: Recompile with -Xlint:deprecation for details.
+18:40:48  [INFO] 
+18:40:48  [INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ ng911-synergem-api ---
+18:40:48  [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+18:40:48  [INFO] Copying 4 resources
+18:40:48  [INFO] 
+18:40:48  [INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ ng911-synergem-api ---
+18:40:48  [INFO] Changes detected - recompiling the module!
+18:40:48  [WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+18:40:48  [INFO] Compiling 6 source files to /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/test-classes
+18:40:48  [INFO] /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/src/test/java/io/ctl/ng911/synergem/service/DGraphServiceTest.java: /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/src/test/java/io/ctl/ng911/synergem/service/DGraphServiceTest.java uses unchecked or unsafe operations.
+18:40:48  [INFO] /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/src/test/java/io/ctl/ng911/synergem/service/DGraphServiceTest.java: Recompile with -Xlint:unchecked for details.
+18:40:48  [INFO] 
+18:40:48  [INFO] --- maven-surefire-plugin:3.0.0-M4:test (default-test) @ ng911-synergem-api ---
+18:40:49  [INFO] 
+18:40:49  [INFO] -------------------------------------------------------
+18:40:49  [INFO]  T E S T S
+18:40:49  [INFO] -------------------------------------------------------
+18:40:50  [INFO] Running io.ctl.gov.thanos.adapter.web.DocumentationTest
+18:40:53  
+18:40:53    .   ____          _            __ _ _
+18:40:53   /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+18:40:53  ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+18:40:53   \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+18:40:53    '  |____| .__|_| |_|_| |_\__, | / / / /
+18:40:53   =========|_|==============|___/=/_/_/_/
+18:40:53   :: Spring Boot ::        (v2.2.4.RELEASE)
+18:40:53  
+18:40:53  2022-07-01 13:10:53.358  INFO 29221 --- [           main] i.c.g.t.a.w.DocumentationTest            : Starting DocumentationTest on jenkins-85f5bd7965-4wcr2 with PID 29221 (started by root in /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api)
+18:40:53  2022-07-01 13:10:53.373  INFO 29221 --- [           main] i.c.g.t.a.w.DocumentationTest            : No active profile set, falling back to default profiles: default
+18:40:56  2022-07-01 13:10:55.876  WARN 29221 --- [           main] o.s.s.c.u.User                           : User.withDefaultPasswordEncoder() is considered unsafe for production and is only intended for sample applications.
+18:40:56  2022-07-01 13:10:56.264  INFO 29221 --- [           main] o.s.s.w.DefaultSecurityFilterChain       : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3a0eb06, org.springframework.security.web.context.SecurityContextPersistenceFilter@69fbf4a3, org.springframework.security.web.header.HeaderWriterFilter@2a89fd0a, org.springframework.security.web.authentication.logout.LogoutFilter@3f7c623a, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@6a6ce193, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@76c86180, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6b9f08b0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7dfde83f, org.springframework.security.web.session.SessionManagementFilter@10adc98e, org.springframework.security.web.access.ExceptionTranslationFilter@3dee0166, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4b19b2db]
+18:40:56  2022-07-01 13:10:56.464  INFO 29221 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+18:40:56  2022-07-01 13:10:56.464  INFO 29221 --- [           main] o.s.t.w.s.TestDispatcherServlet          : Initializing Servlet ''
+18:40:56  2022-07-01 13:10:56.487  INFO 29221 --- [           main] o.s.t.w.s.TestDispatcherServlet          : Completed initialization in 22 ms
+18:40:56  2022-07-01 13:10:56.553  INFO 29221 --- [           main] i.c.g.t.a.w.DocumentationTest            : Started DocumentationTest in 4.178 seconds (JVM running for 7.57)
+18:40:58  2022-07-01 13:10:58.000  WARN 29221 --- [           main] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public org.springframework.http.ResponseEntity<java.lang.Void> io.ctl.ng911.synergem.web.SynergemResource.create(io.ctl.ng911.synergem.model.SynergemModel)]
+18:40:58  
+18:40:58  MockHttpServletRequest:
+18:40:58        HTTP Method = POST
+18:40:58        Request URI = /api/v1/metrics
+18:40:58         Parameters = {}
+18:40:58            Headers = [Content-Type:"application/json", Authorization:"Basic cm9vdDpwYXNzd29yZA==", Content-Length:"236"]
+18:40:58               Body = <no character encoding set>
+18:40:58      Session Attrs = {}
+18:40:58  
+18:40:58  Handler:
+18:40:58               Type = io.ctl.ng911.synergem.web.SynergemResource
+18:40:58             Method = io.ctl.ng911.synergem.web.SynergemResource#create(SynergemModel)
+18:40:58  
+18:40:58  Async:
+18:40:58      Async started = false
+18:40:58       Async result = null
+18:40:58  
+18:40:58  Resolved Exception:
+18:40:58               Type = null
+18:40:58  
+18:40:58  ModelAndView:
+18:40:58          View name = null
+18:40:58               View = null
+18:40:58              Model = null
+18:40:58  
+18:40:58  FlashMap:
+18:40:58         Attributes = null
+18:40:58  
+18:40:58  MockHttpServletResponse:
+18:40:58             Status = 204
+18:40:58      Error message = null
+18:40:58            Headers = [X-Content-Type-Options:"nosniff", X-XSS-Protection:"1; mode=block", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0", X-Frame-Options:"DENY"]
+18:40:58       Content type = null
+18:40:58               Body = 
+18:40:58      Forwarded URL = null
+18:40:58     Redirected URL = null
+18:40:58            Cookies = []
+18:40:58  [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.782 s - in io.ctl.gov.thanos.adapter.web.DocumentationTest
+18:40:58  [INFO] Running io.ctl.ng911.synergem.adapter.DGraphAdapterTest
+18:40:58  [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.268 s - in io.ctl.ng911.synergem.adapter.DGraphAdapterTest
+18:40:58  [INFO] Running io.ctl.ng911.synergem.config.AppConfigTest
+18:40:58  [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 s - in io.ctl.ng911.synergem.config.AppConfigTest
+18:40:58  [INFO] Running io.ctl.ng911.synergem.ApplicationTest
+18:40:58  [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.159 s - in io.ctl.ng911.synergem.ApplicationTest
+18:40:58  [INFO] Running io.ctl.ng911.synergem.service.DGraphServiceTest
+18:40:59  [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.1 s - in io.ctl.ng911.synergem.service.DGraphServiceTest
+18:40:59  [INFO] Running io.ctl.ng911.synergem.ThanosReceiverConsumerTest
+18:40:59  2022-07-01 13:10:59.276  INFO 29221 --- [           main] i.c.n.s.ThanosReceiverConsumer           : device_name: CTL_LAX_SoCal_ESRP ,Status: Up ,Maintenance: false 
+18:40:59  2022-07-01 13:10:59.413  INFO 29221 --- [           main] i.c.n.s.ThanosReceiverConsumer           : timeseries {
+18:40:59    labels {
+18:40:59      name: "__name__"
+18:40:59      value: "core_component_health_status"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "circuit"
+18:40:59      value: "Los Angeles NGCS Core"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "device_name"
+18:40:59      value: "CTL_LAX_SoCal_ESRP"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "device_type"
+18:40:59      value: "ESRP"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "enterprise_id"
+18:40:59      value: "11959257"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "metric_type"
+18:40:59      value: "core_component_health_status"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "type_name"
+18:40:59      value: "Los Angeles NGCS Core"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "type_unit"
+18:40:59      value: "ngcs"
+18:40:59    }
+18:40:59    samples {
+18:40:59      timestamp: 1656681059271
+18:40:59    }
+18:40:59  }
+18:40:59  timeseries {
+18:40:59    labels {
+18:40:59      name: "__name__"
+18:40:59      value: "core_component_maintenance_status"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "circuit"
+18:40:59      value: "Los Angeles NGCS Core"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "device_name"
+18:40:59      value: "CTL_LAX_SoCal_ESRP"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "device_type"
+18:40:59      value: "ESRP"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "enterprise_id"
+18:40:59      value: "11959257"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "metric_type"
+18:40:59      value: "core_component_health_status"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "type_name"
+18:40:59      value: "Los Angeles NGCS Core"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "type_unit"
+18:40:59      value: "ngcs"
+18:40:59    }
+18:40:59    samples {
+18:40:59      timestamp: 1656681059271
+18:40:59    }
+18:40:59  }
+18:40:59  
+18:40:59  2022-07-01 13:10:59.512  INFO 29221 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Start Thanos call
+18:40:59  2022-07-01 13:10:59.513 ERROR 29221 --- [           main] i.c.n.s.e.InternalServerError            : reason=failed to transmit metric to receiver
+18:40:59  2022-07-01 13:10:59.524  WARN 29221 --- [           main] i.c.n.s.ThanosReceiverConsumer           : NGCS Component is not configured for xref_synergem_fe: CTL_LAX_SoCal_ESRP
+18:40:59  2022-07-01 13:10:59.547  INFO 29221 --- [           main] i.c.n.s.ThanosReceiverConsumer           : device_name: CTL_LAX_SoCal_ESRP ,Status: Up ,Maintenance: false 
+18:40:59  2022-07-01 13:10:59.548  INFO 29221 --- [           main] i.c.n.s.ThanosReceiverConsumer           : timeseries {
+18:40:59    labels {
+18:40:59      name: "__name__"
+18:40:59      value: "core_component_health_status"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "circuit"
+18:40:59      value: "Los Angeles NGCS Core"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "device_name"
+18:40:59      value: "CTL_LAX_SoCal_ESRP"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "device_type"
+18:40:59      value: "ESRP"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "enterprise_id"
+18:40:59      value: "11959257"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "metric_type"
+18:40:59      value: "core_component_health_status"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "type_name"
+18:40:59      value: "Los Angeles NGCS Core"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "type_unit"
+18:40:59      value: "ngcs"
+18:40:59    }
+18:40:59    samples {
+18:40:59      timestamp: 1656681059547
+18:40:59    }
+18:40:59  }
+18:40:59  timeseries {
+18:40:59    labels {
+18:40:59      name: "__name__"
+18:40:59      value: "core_component_maintenance_status"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "circuit"
+18:40:59      value: "Los Angeles NGCS Core"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "device_name"
+18:40:59      value: "CTL_LAX_SoCal_ESRP"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "device_type"
+18:40:59      value: "ESRP"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "enterprise_id"
+18:40:59      value: "11959257"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "metric_type"
+18:40:59      value: "core_component_health_status"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "type_name"
+18:40:59      value: "Los Angeles NGCS Core"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "type_unit"
+18:40:59      value: "ngcs"
+18:40:59    }
+18:40:59    samples {
+18:40:59      timestamp: 1656681059547
+18:40:59    }
+18:40:59  }
+18:40:59  
+18:40:59  2022-07-01 13:10:59.549  INFO 29221 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Start Thanos call
+18:40:59  2022-07-01 13:10:59.550  INFO 29221 --- [           main] i.c.n.s.ThanosReceiverConsumer           : response status code :200
+18:40:59  2022-07-01 13:10:59.550  INFO 29221 --- [           main] i.c.n.s.ThanosReceiverConsumer           : device_name: CTL_LAX_SoCal_ESRP ,Status: Up ,Maintenance: false 
+18:40:59  2022-07-01 13:10:59.551  INFO 29221 --- [           main] i.c.n.s.ThanosReceiverConsumer           : timeseries {
+18:40:59    labels {
+18:40:59      name: "__name__"
+18:40:59      value: "core_component_health_status"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "circuit"
+18:40:59      value: "Los Angeles NGCS Core"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "device_name"
+18:40:59      value: "CTL_LAX_SoCal_ESRP"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "device_type"
+18:40:59      value: "ESRP"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "enterprise_id"
+18:40:59      value: "9481"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "metric_type"
+18:40:59      value: "core_component_health_status"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "type_name"
+18:40:59      value: "Los Angeles NGCS Core"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "type_unit"
+18:40:59      value: "ngcs"
+18:40:59    }
+18:40:59    samples {
+18:40:59      timestamp: 1656681059547
+18:40:59    }
+18:40:59  }
+18:40:59  timeseries {
+18:40:59    labels {
+18:40:59      name: "__name__"
+18:40:59      value: "core_component_maintenance_status"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "circuit"
+18:40:59      value: "Los Angeles NGCS Core"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "device_name"
+18:40:59      value: "CTL_LAX_SoCal_ESRP"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "device_type"
+18:40:59      value: "ESRP"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "enterprise_id"
+18:40:59      value: "9481"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "metric_type"
+18:40:59      value: "core_component_health_status"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "type_name"
+18:40:59      value: "Los Angeles NGCS Core"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "type_unit"
+18:40:59      value: "ngcs"
+18:40:59    }
+18:40:59    samples {
+18:40:59      timestamp: 1656681059547
+18:40:59    }
+18:40:59  }
+18:40:59  
+18:40:59  2022-07-01 13:10:59.552  INFO 29221 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Start Thanos call
+18:40:59  2022-07-01 13:10:59.553  INFO 29221 --- [           main] i.c.n.s.ThanosReceiverConsumer           : response status code :200
+18:40:59  2022-07-01 13:10:59.553  INFO 29221 --- [           main] i.c.n.s.ThanosReceiverConsumer           : device_name: CTL_LAX_SoCal_ESRP ,Status: Up ,Maintenance: false 
+18:40:59  2022-07-01 13:10:59.554  INFO 29221 --- [           main] i.c.n.s.ThanosReceiverConsumer           : timeseries {
+18:40:59    labels {
+18:40:59      name: "__name__"
+18:40:59      value: "core_component_health_status"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "circuit"
+18:40:59      value: "Los Angeles NGCS Core"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "device_name"
+18:40:59      value: "CTL_LAX_SoCal_ESRP"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "device_type"
+18:40:59      value: "ESRP"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "enterprise_id"
+18:40:59      value: "9811108"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "metric_type"
+18:40:59      value: "core_component_health_status"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "type_name"
+18:40:59      value: "Los Angeles NGCS Core"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "type_unit"
+18:40:59      value: "ngcs"
+18:40:59    }
+18:40:59    samples {
+18:40:59      timestamp: 1656681059547
+18:40:59    }
+18:40:59  }
+18:40:59  timeseries {
+18:40:59    labels {
+18:40:59      name: "__name__"
+18:40:59      value: "core_component_maintenance_status"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "circuit"
+18:40:59      value: "Los Angeles NGCS Core"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "device_name"
+18:40:59      value: "CTL_LAX_SoCal_ESRP"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "device_type"
+18:40:59      value: "ESRP"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "enterprise_id"
+18:40:59      value: "9811108"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "metric_type"
+18:40:59      value: "core_component_health_status"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "type_name"
+18:40:59      value: "Los Angeles NGCS Core"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "type_unit"
+18:40:59      value: "ngcs"
+18:40:59    }
+18:40:59    samples {
+18:40:59      timestamp: 1656681059547
+18:40:59    }
+18:40:59  }
+18:40:59  
+18:40:59  2022-07-01 13:10:59.556  INFO 29221 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Start Thanos call
+18:40:59  2022-07-01 13:10:59.556  INFO 29221 --- [           main] i.c.n.s.ThanosReceiverConsumer           : response status code :200
+18:40:59  2022-07-01 13:10:59.557  INFO 29221 --- [           main] i.c.n.s.ThanosReceiverConsumer           : timeseries {
+18:40:59    labels {
+18:40:59      name: "__name__"
+18:40:59      value: "ng911_system_heartbeat"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "source"
+18:40:59      value: "synergem"
+18:40:59    }
+18:40:59    labels {
+18:40:59      name: "xrefSynergemFE"
+18:40:59      value: "CTL_LAX_SoCal_ESRP"
+18:40:59    }
+18:40:59    samples {
+18:40:59      value: 1.0
+18:40:59      timestamp: 1656681059556
+18:40:59    }
+18:40:59  }
+18:40:59  
+18:40:59  2022-07-01 13:10:59.557  INFO 29221 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Start Thanos call
+18:40:59  2022-07-01 13:10:59.558  INFO 29221 --- [           main] i.c.n.s.ThanosReceiverConsumer           : response status code :200
+18:40:59  [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.661 s - in io.ctl.ng911.synergem.ThanosReceiverConsumerTest
+18:41:00  [INFO] 
+18:41:00  [INFO] Results:
+18:41:00  [INFO] 
+18:41:00  [INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0
+18:41:00  [INFO] 
+18:41:00  [INFO] 
+18:41:00  [INFO] --- jacoco-maven-plugin:0.8.5:report (post-unit-test) @ ng911-synergem-api ---
+18:41:00  [INFO] Loading execution data file /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/jacoco.exec
+18:41:01  [INFO] Analyzed bundle 'ng911-synergem-api' with 58 classes
+18:41:01  [INFO] 
+18:41:01  [INFO] --- asciidoctor-maven-plugin:1.5.8:process-asciidoc (generate-docs) @ ng911-synergem-api ---
+18:41:05  [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+18:41:05  [INFO] Copying 0 resource
+18:41:05  [INFO] Rendered /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/src/main/asciidoc/index.adoc
+18:41:05  [INFO] 
+18:41:05  [INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ ng911-synergem-api ---
+18:41:05  [INFO] Building jar: /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/ng911-synergem-api-0.0.7-SNAPSHOT.jar
+18:41:05  [INFO] 
+18:41:05  [INFO] --- spring-boot-maven-plugin:2.7.1:repackage (default) @ ng911-synergem-api ---
+18:41:06  [INFO] Replacing main artifact with repackaged archive
+18:41:06  [INFO] 
+18:41:06  [INFO] -------------------< io.ctl.gov:ng911-synergem-api >--------------------
+18:41:06  [INFO] Building ng911-synergem-api 0.0.7-SNAPSHOT
+18:41:06  [INFO] --------------------------------[ jar ]---------------------------------
+18:41:06  [INFO] 
+18:41:06  [INFO] --- sonar-maven-plugin:3.9.1.2184:sonar (default-cli) @ ng911-synergem-api ---
+18:41:06  [INFO] User cache: /root/.sonar/cache
+18:41:06  [INFO] SonarQube version: 8.2.0
+18:41:06  [INFO] Default locale: "en_US", source code encoding: "UTF-8" (analysis is platform dependent)
+18:41:07  [WARNING] SonarScanner will require Java 11 to run starting in SonarQube 8.x
+18:41:07  [INFO] Load global settings
+18:41:07  [INFO] Load global settings (done) | time=98ms
+18:41:07  [INFO] Server id: BF41A1F2-AXUh7UbahiLDxjRSKFfT
+18:41:07  [INFO] User cache: /root/.sonar/cache
+18:41:07  [INFO] Load/download plugins
+18:41:07  [INFO] Load plugins index
+18:41:07  [INFO] Load plugins index (done) | time=58ms
+18:41:07  [INFO] Load/download plugins (done) | time=78ms
+18:41:08  [INFO] Process project properties
+18:41:08  [INFO] Process project properties (done) | time=73ms
+18:41:08  [INFO] Project key: com.lumen:synergem:master_scan
+18:41:08  [INFO] Base dir: /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api
+18:41:08  [INFO] Working dir: /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/sonar
+18:41:08  [INFO] Load project settings for component key: 'com.lumen:synergem:master_scan'
+18:41:08  [INFO] Load project settings for component key: 'com.lumen:synergem:master_scan' (done) | time=17ms
+18:41:08  [INFO] Load quality profiles
+18:41:08  [INFO] Load quality profiles (done) | time=51ms
+18:41:08  [INFO] Detected Jenkins
+18:41:08  [INFO] Load active rules
+18:41:08  [INFO] Load active rules (done) | time=454ms
+18:41:08  [INFO] Indexing files...
+18:41:08  [INFO] Project configuration:
+18:41:08  [INFO] 20 files indexed
+18:41:08  [INFO] 0 files ignored because of scm ignore settings
+18:41:08  [INFO] Quality profile for java: Sonar way
+18:41:08  [INFO] ------------- Run sensors on module synergem-master
+18:41:08  [INFO] Load metrics repository
+18:41:08  [INFO] Load metrics repository (done) | time=23ms
+18:41:09  [INFO] Sensor JavaSquidSensor [java]
+18:41:09  [INFO] Configured Java source version (sonar.java.source): 8
+18:41:09  [INFO] JavaClasspath initialization
+18:41:09  [INFO] JavaClasspath initialization (done) | time=16ms
+18:41:09  [INFO] JavaTestClasspath initialization
+18:41:09  [INFO] JavaTestClasspath initialization (done) | time=5ms
+18:41:09  [INFO] Java Main Files AST scan
+18:41:09  [INFO] 13 source files to be analyzed
+18:41:09  [INFO] Load project repositories
+18:41:09  [INFO] Load project repositories (done) | time=20ms
+18:41:13  [INFO] 13/13 source files have been analyzed
+18:41:13  [INFO] Java Main Files AST scan (done) | time=3854ms
+18:41:13  [INFO] Java Test Files AST scan
+18:41:13  [INFO] 6 source files to be analyzed
+18:41:13  [INFO] 6/6 source files have been analyzed
+18:41:13  [INFO] Java Test Files AST scan (done) | time=675ms
+18:41:13  [INFO] Java Generated Files AST scan
+18:41:13  [INFO] 0 source files to be analyzed
+18:41:13  [INFO] Java Generated Files AST scan (done) | time=1ms
+18:41:13  [INFO] 0/0 source files have been analyzed
+18:41:13  [INFO] Sensor JavaSquidSensor [java] (done) | time=4856ms
+18:41:13  [INFO] Sensor JaCoCo XML Report Importer [jacoco]
+18:41:13  [INFO] 'sonar.coverage.jacoco.xmlReportPaths' is not defined. Using default locations: target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml
+18:41:13  [INFO] Importing 1 report(s). Turn your logs in debug mode in order to see the exhaustive list.
+18:41:14  [INFO] Sensor JaCoCo XML Report Importer [jacoco] (done) | time=133ms
+18:41:14  [INFO] Sensor SurefireSensor [java]
+18:41:14  [INFO] parsing [/var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/surefire-reports]
+18:41:14  [INFO] Sensor SurefireSensor [java] (done) | time=70ms
+18:41:14  [INFO] Sensor JavaXmlSensor [java]
+18:41:14  [INFO] 1 source files to be analyzed
+18:41:14  [INFO] 1/1 source files have been analyzed
+18:41:14  [INFO] Sensor JavaXmlSensor [java] (done) | time=198ms
+18:41:14  [INFO] ------------- Run sensors on project
+18:41:14  [INFO] Sensor Zero Coverage Sensor
+18:41:14  [INFO] Sensor Zero Coverage Sensor (done) | time=1ms
+18:41:14  [INFO] Sensor Java CPD Block Indexer
+18:41:14  [INFO] Sensor Java CPD Block Indexer (done) | time=43ms
+18:41:14  [INFO] CPD Executor 2 files had no CPD blocks
+18:41:14  [INFO] CPD Executor Calculating CPD for 11 files
+18:41:14  [INFO] CPD Executor CPD calculation finished (done) | time=18ms
+18:41:14  [INFO] Analysis report generated in 79ms, dir size=122 KB
+18:41:14  [INFO] Analysis report compressed in 92ms, zip size=58 KB
+18:41:14  [INFO] Analysis report uploaded in 21ms
+18:41:14  [INFO] ANALYSIS SUCCESSFUL, you can browse http://10.120.33.16:32170/dashboard?id=com.lumen%3Asynergem%3Amaster_scan
+18:41:14  [INFO] Note that you will be able to access the updated dashboard once the server has processed the submitted analysis report
+18:41:14  [INFO] More about the report processing at http://10.120.33.16:32170/api/ce/task?id=AYG54w-JhJnN92Wj28KN
+18:41:14  [INFO] Analysis total time: 7.189 s
+18:41:14  [INFO] ------------------------------------------------------------------------
+18:41:14  [INFO] BUILD SUCCESS
+18:41:14  [INFO] ------------------------------------------------------------------------
+18:41:14  [INFO] Total time:  31.990 s
+18:41:14  [INFO] Finished at: 2022-07-01T13:11:14Z
+18:41:14  [INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // withSonarQubeEnv
+[Pipeline] dir
+18:41:14  Running in /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master
+[Pipeline] {
+[Pipeline] findFiles
+[Pipeline] isUnix
+[Pipeline] sh (Creating daumerling)
+18:41:15  + md5sum Jenkinsfile
+[Pipeline] stash
+18:41:15  Stashed 1 file(s)
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] echo
+18:41:16  Placeholder to integrate Service Now DevOps Module in  Quality Gate stage.
+[Pipeline] stage
+[Pipeline] { (Quality Gate)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh
+18:41:16  + sleep 60
+[Pipeline] timeout
+18:42:24  Timeout set to expire in 5 min 0 sec
+[Pipeline] {
+[Pipeline] waitForQualityGate
+18:42:24  Checking status of SonarQube task 'AYG54w-JhJnN92Wj28KN' on server 'sonarqube'
+18:42:24  SonarQube task 'AYG54w-JhJnN92Wj28KN' status is 'SUCCESS'
+18:42:24  SonarQube task 'AYG54w-JhJnN92Wj28KN' completed. Quality gate is 'OK'
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] dir
+18:42:24  Running in /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master
+[Pipeline] {
+[Pipeline] findFiles
+[Pipeline] isUnix
+[Pipeline] sh (Creating daumerling)
+18:42:24  + md5sum Jenkinsfile
+[Pipeline] stash
+18:42:25  Stashed 1 file(s)
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] echo
+18:42:25  Placeholder to integrate Service Now DevOps Module in  Build stage.
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh
+18:42:26  + mvn clean install -DskipTests
+18:42:27  [INFO] Scanning for projects...
+18:42:27  [WARNING] 
+18:42:27  [WARNING] Some problems were encountered while building the effective model for io.ctl.gov:ng911-synergem-api:jar:0.0.7-SNAPSHOT
+18:42:27  [WARNING] 'build.plugins.plugin.version' for org.springframework.boot:spring-boot-maven-plugin is missing. @ line 176, column 12
+18:42:27  [WARNING] 
+18:42:27  [WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+18:42:27  [WARNING] 
+18:42:27  [WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+18:42:27  [WARNING] 
+18:42:27  [INFO] ------------------------------------------------------------------------
+18:42:27  [INFO] Reactor Build Order:
+18:42:27  [INFO] 
+18:42:27  [INFO] ng911-synergem                                                     [pom]
+18:42:27  [INFO] ng911-synergem-api                                                 [jar]
+18:42:27  [INFO] 
+18:42:27  [INFO] ---------------------< io.ctl.gov:ng911-synergem >----------------------
+18:42:27  [INFO] Building ng911-synergem 0.0.7-SNAPSHOT                             [1/2]
+18:42:27  [INFO] --------------------------------[ pom ]---------------------------------
+18:42:27  [INFO] 
+18:42:27  [INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ ng911-synergem ---
+18:42:27  [INFO] 
+18:42:27  [INFO] --- maven-install-plugin:2.4:install (default-install) @ ng911-synergem ---
+18:42:27  [INFO] Installing /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/pom.xml to /root/.m2/repository/io/ctl/gov/ng911-synergem/0.0.7-SNAPSHOT/ng911-synergem-0.0.7-SNAPSHOT.pom
+18:42:27  [INFO] 
+18:42:27  [INFO] -------------------< io.ctl.gov:ng911-synergem-api >--------------------
+18:42:27  [INFO] Building ng911-synergem-api 0.0.7-SNAPSHOT                         [2/2]
+18:42:27  [INFO] --------------------------------[ jar ]---------------------------------
+18:42:28  [INFO] 
+18:42:28  [INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ ng911-synergem-api ---
+18:42:28  [INFO] Deleting /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target
+18:42:28  [INFO] 
+18:42:28  [INFO] --- maven-resources-plugin:3.1.0:copy-resources (copy-resources) @ ng911-synergem-api ---
+18:42:28  [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+18:42:28  [INFO] Copying 2 resources
+18:42:28  [INFO] 
+18:42:28  [INFO] --- os-maven-plugin:1.6.2:detect (default) @ ng911-synergem-api ---
+18:42:28  [INFO] ------------------------------------------------------------------------
+18:42:28  [INFO] Detecting the operating system and CPU architecture
+18:42:28  [INFO] ------------------------------------------------------------------------
+18:42:28  [INFO] os.detected.name: linux
+18:42:28  [INFO] os.detected.arch: x86_64
+18:42:28  [INFO] os.detected.version: 4.15
+18:42:28  [INFO] os.detected.version.major: 4
+18:42:28  [INFO] os.detected.version.minor: 15
+18:42:29  [INFO] os.detected.release: debian
+18:42:29  [INFO] os.detected.release.version: 10
+18:42:29  [INFO] os.detected.release.like.debian: true
+18:42:29  [INFO] os.detected.classifier: linux-x86_64
+18:42:29  [INFO] 
+18:42:29  [INFO] --- jacoco-maven-plugin:0.8.5:prepare-agent (default) @ ng911-synergem-api ---
+18:42:29  [INFO] argLine set to -javaagent:/root/.m2/repository/org/jacoco/org.jacoco.agent/0.8.5/org.jacoco.agent-0.8.5-runtime.jar=destfile=/var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/jacoco.exec,append=true,excludes=*MethodAccess
+18:42:29  [INFO] 
+18:42:29  [INFO] --- protobuf-maven-plugin:0.6.1:compile (default) @ ng911-synergem-api ---
+18:42:29  [INFO] Compiling 1 proto file(s) to /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/generated-sources/protobuf/java
+18:42:29  [INFO] 
+18:42:29  [INFO] --- protobuf-maven-plugin:0.6.1:compile-custom (default) @ ng911-synergem-api ---
+18:42:29  [INFO] Compiling 1 proto file(s) to /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/generated-sources/protobuf/grpc-java
+18:42:29  [INFO] 
+18:42:29  [INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ ng911-synergem-api ---
+18:42:29  [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+18:42:29  [INFO] Copying 2 resources
+18:42:29  [INFO] Copying 1 resource
+18:42:29  [INFO] Copying 1 resource
+18:42:29  [INFO] 
+18:42:29  [INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ ng911-synergem-api ---
+18:42:30  [INFO] Changes detected - recompiling the module!
+18:42:30  [WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+18:42:30  [INFO] Compiling 14 source files to /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/classes
+18:42:33  [INFO] /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/generated-sources/protobuf/java/io/ctl/gov/ng911/thanos/adapter/prometheus/Prometheus.java: /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/generated-sources/protobuf/java/io/ctl/gov/ng911/thanos/adapter/prometheus/Prometheus.java uses or overrides a deprecated API.
+18:42:33  [INFO] /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/generated-sources/protobuf/java/io/ctl/gov/ng911/thanos/adapter/prometheus/Prometheus.java: Recompile with -Xlint:deprecation for details.
+18:42:33  [INFO] 
+18:42:33  [INFO] --- maven-resources-plugin:3.1.0:testResources (default-testResources) @ ng911-synergem-api ---
+18:42:33  [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+18:42:33  [INFO] Copying 4 resources
+18:42:33  [INFO] 
+18:42:33  [INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ ng911-synergem-api ---
+18:42:33  [INFO] Changes detected - recompiling the module!
+18:42:33  [WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+18:42:33  [INFO] Compiling 6 source files to /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/test-classes
+18:42:33  [INFO] /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/src/test/java/io/ctl/ng911/synergem/service/DGraphServiceTest.java: /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/src/test/java/io/ctl/ng911/synergem/service/DGraphServiceTest.java uses unchecked or unsafe operations.
+18:42:33  [INFO] /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/src/test/java/io/ctl/ng911/synergem/service/DGraphServiceTest.java: Recompile with -Xlint:unchecked for details.
+18:42:33  [INFO] 
+18:42:33  [INFO] --- maven-surefire-plugin:3.0.0-M4:test (default-test) @ ng911-synergem-api ---
+18:42:33  [INFO] Tests are skipped.
+18:42:33  [INFO] 
+18:42:33  [INFO] --- jacoco-maven-plugin:0.8.5:report (post-unit-test) @ ng911-synergem-api ---
+18:42:33  [INFO] Skipping JaCoCo execution due to missing execution data file.
+18:42:33  [INFO] 
+18:42:33  [INFO] --- asciidoctor-maven-plugin:1.5.8:process-asciidoc (generate-docs) @ ng911-synergem-api ---
+18:42:39  [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+18:42:39  [INFO] Copying 0 resource
+18:42:39  [INFO] asciidoctor: ERROR: index.adoc: line 10: include file not found: /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/snippets/metrics-post/http-request.adoc
+18:42:39  [INFO] asciidoctor: ERROR: index.adoc: line 13: include file not found: /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/snippets/metrics-post/http-response.adoc
+18:42:39  [INFO] Rendered /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/src/main/asciidoc/index.adoc
+18:42:39  [INFO] 
+18:42:39  [INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ ng911-synergem-api ---
+18:42:39  [INFO] Building jar: /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/ng911-synergem-api-0.0.7-SNAPSHOT.jar
+18:42:39  [INFO] 
+18:42:39  [INFO] --- spring-boot-maven-plugin:2.7.1:repackage (default) @ ng911-synergem-api ---
+18:42:39  [INFO] Replacing main artifact with repackaged archive
+18:42:39  [INFO] 
+18:42:39  [INFO] --- maven-install-plugin:2.4:install (default-install) @ ng911-synergem-api ---
+18:42:39  [INFO] Installing /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/ng911-synergem-api-0.0.7-SNAPSHOT.jar to /root/.m2/repository/io/ctl/gov/ng911-synergem-api/0.0.7-SNAPSHOT/ng911-synergem-api-0.0.7-SNAPSHOT.jar
+18:42:39  [INFO] Installing /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/pom.xml to /root/.m2/repository/io/ctl/gov/ng911-synergem-api/0.0.7-SNAPSHOT/ng911-synergem-api-0.0.7-SNAPSHOT.pom
+18:42:39  [INFO] ------------------------------------------------------------------------
+18:42:39  [INFO] Reactor Summary for ng911-synergem 0.0.7-SNAPSHOT:
+18:42:39  [INFO] 
+18:42:39  [INFO] ng911-synergem ..................................... SUCCESS [  0.325 s]
+18:42:39  [INFO] ng911-synergem-api ................................. SUCCESS [ 11.651 s]
+18:42:39  [INFO] ------------------------------------------------------------------------
+18:42:39  [INFO] BUILD SUCCESS
+18:42:39  [INFO] ------------------------------------------------------------------------
+18:42:39  [INFO] Total time:  12.252 s
+18:42:39  [INFO] Finished at: 2022-07-01T13:12:39Z
+18:42:39  [INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] echo
+18:42:39  Placeholder to integrate Service Now DevOps Module in  Docker stage.
+[Pipeline] stage
+[Pipeline] { (Docker)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh
+18:42:40  + mvn --projects ng911-synergem-api dockerfile:build dockerfile:push -Dbuild.tag=master
+18:42:41  [INFO] Scanning for projects...
+18:42:41  [WARNING] 
+18:42:41  [WARNING] Some problems were encountered while building the effective model for io.ctl.gov:ng911-synergem-api:jar:0.0.7-SNAPSHOT
+18:42:41  [WARNING] 'build.plugins.plugin.version' for org.springframework.boot:spring-boot-maven-plugin is missing. @ line 176, column 12
+18:42:41  [WARNING] 
+18:42:41  [WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+18:42:41  [WARNING] 
+18:42:41  [WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+18:42:41  [WARNING] 
+18:42:42  [INFO] 
+18:42:42  [INFO] -------------------< io.ctl.gov:ng911-synergem-api >--------------------
+18:42:42  [INFO] Building ng911-synergem-api 0.0.7-SNAPSHOT
+18:42:42  [INFO] --------------------------------[ jar ]---------------------------------
+18:42:42  [INFO] 
+18:42:42  [INFO] --- dockerfile-maven-plugin:1.4.13:build (default-cli) @ ng911-synergem-api ---
+18:42:43  [INFO] dockerfile: null
+18:42:43  [INFO] contextDirectory: /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api
+18:42:43  [INFO] Building Docker context /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api
+18:42:43  [INFO] Path(dockerfile): null
+18:42:43  [INFO] Path(contextDirectory): /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api
+18:42:43  [INFO] 
+18:42:43  [INFO] Image will be built as portr.ctl.io/ng911/ng911-synergem-api:master-0.0.7-SNAPSHOT
+18:42:43  [INFO] 
+18:42:49  [INFO] Step 1/5 : FROM portr.ctl.io/eis/openjdk:8u151-jdk-alpine
+18:42:49  [INFO] 
+18:42:50  [INFO] Pulling from eis/openjdk
+18:42:50  [INFO] Digest: sha256:e79472c1d43d9949408868a2ebbd1ed58cbc73b403e94155ee7807b20bdd3bc2
+18:42:50  [INFO] Status: Image is up to date for portr.ctl.io/eis/openjdk:8u151-jdk-alpine
+18:42:50  [INFO]  ---> cc2179b8f042
+18:42:50  [INFO] Step 2/5 : ARG JAR_FILE
+18:42:50  [INFO] 
+18:42:50  [INFO]  ---> Using cache
+18:42:50  [INFO]  ---> 6aa36b54b32e
+18:42:50  [INFO] Step 3/5 : RUN apk update && apk add --no-cache libc6-compat
+18:42:50  [INFO] 
+18:42:50  [INFO]  ---> Using cache
+18:42:50  [INFO]  ---> c916cc9037ed
+18:42:50  [INFO] Step 4/5 : ADD target/${JAR_FILE} app.jar
+18:42:50  [INFO] 
+18:42:51  [INFO]  ---> 600113e47e64
+18:42:51  [INFO] Step 5/5 : ENTRYPOINT ["java","-jar","/app.jar"]
+18:42:51  [INFO] 
+18:42:51  [INFO]  ---> Running in b27cbb685e69
+18:42:51  [INFO] Removing intermediate container b27cbb685e69
+18:42:51  [INFO]  ---> 0b49843a2528
+18:42:51  [INFO] [Warning] One or more build-args [BUILD_DIR] were not consumed
+18:42:51  [INFO] Successfully built 0b49843a2528
+18:42:52  [INFO] Successfully tagged portr.ctl.io/ng911/ng911-synergem-api:master-0.0.7-SNAPSHOT
+18:42:52  [INFO] 
+18:42:52  [INFO] Detected build of image with id 0b49843a2528
+18:42:52  [INFO] Building jar: /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/ng911-synergem-api-0.0.7-SNAPSHOT-docker-info.jar
+18:42:52  [INFO] Successfully built portr.ctl.io/ng911/ng911-synergem-api:master-0.0.7-SNAPSHOT
+18:42:52  [INFO] 
+18:42:52  [INFO] --- dockerfile-maven-plugin:1.4.13:push (default-cli) @ ng911-synergem-api ---
+18:42:52  [WARNING] Did not find maven server configuration for docker server portr.ctl.io
+18:42:52  [INFO] The push refers to repository [portr.ctl.io/ng911/ng911-synergem-api]
+18:42:52  [INFO] Image a87ce419c44f: Preparing
+18:42:52  [INFO] Image f8ca8a815191: Preparing
+18:42:52  [INFO] Image 01bca7cb4826: Preparing
+18:42:52  [INFO] Image a8cc3712c14a: Preparing
+18:42:52  [INFO] Image cd7100a72410: Preparing
+18:42:53  [INFO] Image a8cc3712c14a: Layer already exists
+18:42:53  [INFO] Image cd7100a72410: Layer already exists
+18:42:54  [INFO] Image a87ce419c44f: Pushing
+18:42:54  [INFO] Image f8ca8a815191: Layer already exists
+18:42:55  [INFO] Image 01bca7cb4826: Layer already exists
+18:43:01  [INFO] Image a87ce419c44f: Pushed
+18:43:08  [INFO] master-0.0.7-SNAPSHOT: digest: sha256:229b4b2e5d080f8ae3514495ac58985f7bc0a043e9ff908c3b898882622d10f3 size: 1370
+18:43:08  [INFO] ------------------------------------------------------------------------
+18:43:08  [INFO] BUILD SUCCESS
+18:43:08  [INFO] ------------------------------------------------------------------------
+18:43:08  [INFO] Total time:  25.696 s
+18:43:08  [INFO] Finished at: 2022-07-01T13:13:07Z
+18:43:08  [INFO] ------------------------------------------------------------------------
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:08  + mvn -P docs --projects ng911-synergem-api dockerfile:build dockerfile:push -Dbuild.tag=master
+18:43:10  [INFO] Scanning for projects...
+18:43:10  [WARNING] 
+18:43:10  [WARNING] Some problems were encountered while building the effective model for io.ctl.gov:ng911-synergem-api:jar:0.0.7-SNAPSHOT
+18:43:10  [WARNING] 'build.plugins.plugin.version' for org.springframework.boot:spring-boot-maven-plugin is missing. @ line 176, column 12
+18:43:10  [WARNING] 
+18:43:10  [WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+18:43:10  [WARNING] 
+18:43:10  [WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+18:43:10  [WARNING] 
+18:43:10  [INFO] 
+18:43:10  [INFO] -------------------< io.ctl.gov:ng911-synergem-api >--------------------
+18:43:10  [INFO] Building ng911-synergem-api 0.0.7-SNAPSHOT
+18:43:10  [INFO] --------------------------------[ jar ]---------------------------------
+18:43:10  [INFO] 
+18:43:10  [INFO] --- dockerfile-maven-plugin:1.4.13:build (default-cli) @ ng911-synergem-api ---
+18:43:12  [INFO] dockerfile: null
+18:43:12  [INFO] contextDirectory: /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/generated-docs
+18:43:12  [INFO] Building Docker context /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/generated-docs
+18:43:12  [INFO] Path(dockerfile): null
+18:43:12  [INFO] Path(contextDirectory): /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/generated-docs
+18:43:12  [INFO] 
+18:43:12  [INFO] Image will be built as portr.ctl.io/ng911/ng911-synergem-docs:master-0.0.7-SNAPSHOT
+18:43:12  [INFO] 
+18:43:13  [INFO] Step 1/4 : FROM nginx:1.9.9
+18:43:13  [INFO] 
+18:43:15  [INFO] Pulling from library/nginx
+18:43:15  [INFO] Image docker.io/library/nginx:1.9.9 uses outdated schema1 manifest format. Please upgrade to a schema2 image for better future compatibility. More information at https://docs.docker.com/registry/spec/deprecated-schema-v1/
+18:43:15  [INFO] Image 81cc5f26a6a0: Already exists
+18:43:15  [INFO] Image a3ed95caeb02: Already exists
+18:43:15  [INFO] Image 595ee19faf5a: Already exists
+18:43:15  [INFO] Image 95b9225f5bbd: Already exists
+18:43:15  [INFO] Image 230fdafdb250: Already exists
+18:43:15  [INFO] Image d50f99407954: Already exists
+18:43:15  [INFO] Image de62b7e9c183: Already exists
+18:43:15  [INFO] Digest: sha256:c56e8eaec9ff118688c857e263f744039f5ba9fe3b30efcaeef5342f27534a01
+18:43:15  [INFO] Status: Image is up to date for nginx:1.9.9
+18:43:15  [INFO]  ---> fb7fe53bd952
+18:43:15  [INFO] Step 2/4 : EXPOSE 80
+18:43:15  [INFO] 
+18:43:15  [INFO]  ---> Using cache
+18:43:15  [INFO]  ---> 1ec821fb718c
+18:43:15  [INFO] Step 3/4 : ADD nginx.conf /etc/nginx/
+18:43:15  [INFO] 
+18:43:15  [INFO]  ---> Using cache
+18:43:15  [INFO]  ---> 9248e2ceee4b
+18:43:15  [INFO] Step 4/4 : ADD / /usr/share/nginx/html/
+18:43:15  [INFO] 
+18:43:15  [INFO]  ---> Using cache
+18:43:15  [INFO]  ---> eb656d426ff1
+18:43:15  [INFO] [Warning] One or more build-args [BUILD_DIR JAR_FILE] were not consumed
+18:43:15  [INFO] Successfully built eb656d426ff1
+18:43:15  [INFO] Successfully tagged portr.ctl.io/ng911/ng911-synergem-docs:master-0.0.7-SNAPSHOT
+18:43:15  [INFO] 
+18:43:15  [INFO] Detected build of image with id eb656d426ff1
+18:43:15  [INFO] Building jar: /var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master/ng911-synergem-api/target/ng911-synergem-api-0.0.7-SNAPSHOT-docker-info.jar
+18:43:15  [INFO] Successfully built portr.ctl.io/ng911/ng911-synergem-docs:master-0.0.7-SNAPSHOT
+18:43:15  [INFO] 
+18:43:15  [INFO] --- dockerfile-maven-plugin:1.4.13:push (default-cli) @ ng911-synergem-api ---
+18:43:15  [WARNING] Did not find maven server configuration for docker server portr.ctl.io
+18:43:15  [INFO] The push refers to repository [portr.ctl.io/ng911/ng911-synergem-docs]
+18:43:15  [INFO] Image 8ca31dbf86c3: Preparing
+18:43:15  [INFO] Image 7f6cb350be08: Preparing
+18:43:15  [INFO] Image 5f70bf18a086: Preparing
+18:43:15  [INFO] Image 84b177d75bea: Preparing
+18:43:15  [INFO] Image 86ac4687e632: Preparing
+18:43:15  [INFO] Image 0999f519e67f: Preparing
+18:43:15  [INFO] Image 031716937f03: Preparing
+18:43:15  [INFO] Image f5af250f2ec4: Preparing
+18:43:15  [INFO] Image 628a915caf0d: Preparing
+18:43:15  [INFO] Image 0999f519e67f: Waiting
+18:43:15  [INFO] Image 031716937f03: Waiting
+18:43:15  [INFO] Image 628a915caf0d: Waiting
+18:43:15  [INFO] Image f5af250f2ec4: Waiting
+18:43:16  [INFO] Image 7f6cb350be08: Layer already exists
+18:43:16  [INFO] Image 8ca31dbf86c3: Layer already exists
+18:43:16  [INFO] Image 84b177d75bea: Layer already exists
+18:43:16  [INFO] Image 5f70bf18a086: Layer already exists
+18:43:16  [INFO] Image f5af250f2ec4: Layer already exists
+18:43:16  [INFO] Image 86ac4687e632: Layer already exists
+18:43:16  [INFO] Image 031716937f03: Layer already exists
+18:43:16  [INFO] Image 0999f519e67f: Layer already exists
+18:43:17  [INFO] Image 628a915caf0d: Layer already exists
+18:43:19  [INFO] master-0.0.7-SNAPSHOT: digest: sha256:9985aeadecef78930f23dbc4d9835ef5d3d3b8b86214c4acf596c0b38161aa45 size: 3220
+18:43:19  [INFO] ------------------------------------------------------------------------
+18:43:19  [INFO] BUILD SUCCESS
+18:43:19  [INFO] ------------------------------------------------------------------------
+18:43:19  [INFO] Total time:  9.332 s
+18:43:19  [INFO] Finished at: 2022-07-01T13:13:19Z
+18:43:19  [INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] echo
+18:43:19  Placeholder to integrate Service Now DevOps Module in  Helm stage.
+[Pipeline] stage
+[Pipeline] { (Helm)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] configFileProvider
+18:43:20  provisioning config files...
+18:43:20  copy managed file [ng911.kubeconfig] to file:/var/jenkins_home/workspace/ARDIAN_ng911-synergem-api_master@tmp/config1650596317442582231tmp
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:20  + helm upgrade -i ng911-synergem-api-master --namespace=ng911-master --set api.tag=master-0.0.7-SNAPSHOT --set branch=master --set timestamp=84 --set api.kafka.topic=synergem-inbound-master --set api.kafka.groupId=synergem-inbound-master-0 ./ng911-synergem-api/src/main/helm
+18:43:21  Release "ng911-synergem-api-master" has been upgraded. Happy Helming!
+18:43:21  NAME: ng911-synergem-api-master
+18:43:21  LAST DEPLOYED: Fri Jul  1 13:13:20 2022
+18:43:21  NAMESPACE: ng911-master
+18:43:21  STATUS: deployed
+18:43:21  REVISION: 199
+18:43:21  TEST SUITE: None
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:22  + helm upgrade -i ng911-synergem-consumer-master --namespace=ng911-master --set api.tag=master-0.0.7-SNAPSHOT --set branch=master --set timestamp=84 --set api.kafka.topic=synergem-inbound-master --set api.kafka.groupId=synergem-inbound-master-0 --set consumer.environment=master ./ng911-synergem-api/src/main/helm-consumer
+18:43:23  Release "ng911-synergem-consumer-master" has been upgraded. Happy Helming!
+18:43:23  NAME: ng911-synergem-consumer-master
+18:43:23  LAST DEPLOYED: Fri Jul  1 13:13:22 2022
+18:43:23  NAMESPACE: ng911-master
+18:43:23  STATUS: deployed
+18:43:23  REVISION: 196
+18:43:23  TEST SUITE: None
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:23  + helm upgrade -i ng911-synergem-atos-consumer-master --namespace=ng911-master --set api.tag=master-0.0.7-SNAPSHOT --set branch=master --set timestamp=84 --set api.kafka.topic=synergem-inbound-master --set api.kafka.groupId=atos-synergem-inbound-master-0 --set consumer.environment=master ./ng911-synergem-api/src/main/helm-consumer-atos
+18:43:24  Release "ng911-synergem-atos-consumer-master" has been upgraded. Happy Helming!
+18:43:24  NAME: ng911-synergem-atos-consumer-master
+18:43:24  LAST DEPLOYED: Fri Jul  1 13:13:23 2022
+18:43:24  NAMESPACE: ng911-master
+18:43:24  STATUS: deployed
+18:43:24  REVISION: 157
+18:43:24  TEST SUITE: None
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:25  + helm upgrade -i ng911-synergem-ruler-master --namespace=ng911-master --set timestamp=84 ./ng911-synergem-api/src/main/helm-rules
+18:43:26  Release "ng911-synergem-ruler-master" has been upgraded. Happy Helming!
+18:43:26  NAME: ng911-synergem-ruler-master
+18:43:26  LAST DEPLOYED: Fri Jul  1 13:13:25 2022
+18:43:26  NAMESPACE: ng911-master
+18:43:26  STATUS: deployed
+18:43:26  REVISION: 136
+18:43:26  TEST SUITE: None
+[Pipeline] }
+18:43:26  Deleting 1 temporary files
+[Pipeline] // configFileProvider
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] echo
+18:43:26  Placeholder to integrate Service Now DevOps Module in  Adoption Stats stage.
+[Pipeline] stage
+[Pipeline] { (Adoption Stats)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:27  + sh adoption-stats.sh
+[Pipeline] echo
+18:43:28  CHECK ✅️: JSL jsl-jenkins-shared-library using version release/20220617 without warnings.
+[Pipeline] unstash
+[Pipeline] echo
+18:43:29  There is no deployment contracted, defaulting to: No deployment found
+[Pipeline] unstash
+[Pipeline] echo
+18:43:29  No artifacts generated in this Pipeline
+[Pipeline] echo
+18:43:29  No Artifact reference has been provided for the DeploymentGate.
+[Pipeline] echo
+18:43:29  WARNING: The artifact used for this deployment has not passed the tests. Continue executing …
+[Pipeline] withCredentials
+18:43:30  Masking supported pattern matches of $BREAD_CRUMBS_FILE
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting expected crumbs from credentials)
+18:43:30  + set +x
+[Pipeline] unstash
+[Pipeline] unstash
+[Pipeline] unstash
+[Pipeline] unstash
+[Pipeline] echo
+18:43:30  missing crumb testing_bread_crumb
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Looking for each crumb)
+18:43:31  + set +x
+[Pipeline] writeJSON
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:31  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:32  + set +x
+[Pipeline] withCredentials
+18:43:32  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] echo
+18:43:32  Not a PR. Looking at commit sha PRs.
+[Pipeline] isUnix
+[Pipeline] sh (Fetching last successful commit)
+18:43:32  + set +x
+18:43:32  commit 8fc2a71c738661df46b36b551d8088e3a64c8a5f
+18:43:32  Author: hmsayyads <SayyadHidayat.Munir@centurylink.com>
+18:43:32  Date:   Tue Jan 11 13:43:43 2022 +0530
+18:43:32  
+18:43:32      Version update to next release
+[Pipeline] isUnix
+[Pipeline] sh (Get changelog from d56ad88108962057668fe559bc1af2d12dc55d80 to 8fc2a71c738661df46b36b551d8088e3a64c8)
+18:43:33  + set +x
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:34  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:34  + set +x
+[Pipeline] withCredentials
+18:43:34  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+18:43:35  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] echo
+18:43:35  PR Not found for d56ad88108962057668fe559bc1af2d12dc55d80. Probable direct commit
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:35  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:36  + set +x
+[Pipeline] withCredentials
+18:43:36  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+18:43:36  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] echo
+18:43:36  PR Not found for 1427e4d58cbb8b955d6bcdeaae4922ecb46a2656. Probable direct commit
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:37  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:37  + set +x
+[Pipeline] withCredentials
+18:43:37  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+18:43:38  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] echo
+18:43:38  PR Not found for 15859118e25aba551cfeb2a8e5bb7a10a5aed6f0. Probable direct commit
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:38  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:39  + set +x
+[Pipeline] withCredentials
+18:43:39  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+18:43:39  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] echo
+18:43:40  PR Not found for bc4c4cd43393feb0b0da5e24220386d35ced524a. Probable direct commit
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:40  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:40  + set +x
+[Pipeline] withCredentials
+18:43:40  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+18:43:41  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] echo
+18:43:41  PR Not found for 03e82de5ffd38a0c8f85719e3bf5de4d825368bb. Probable direct commit
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:41  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:42  + set +x
+[Pipeline] withCredentials
+18:43:42  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+18:43:42  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] echo
+18:43:43  PR Not found for bf533b568243a37c8651db41053aaf0f807f4c21. Probable direct commit
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:43  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:43  + set +x
+[Pipeline] withCredentials
+18:43:43  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+18:43:44  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] echo
+18:43:44  PR Not found for c7c7648dfc52004da8349c5c52d71d22a1fb470d. Probable direct commit
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:44  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:45  + set +x
+[Pipeline] withCredentials
+18:43:45  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+18:43:45  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+18:43:46  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+18:43:47  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:47  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:48  + set +x
+[Pipeline] withCredentials
+18:43:48  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+18:43:48  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] echo
+18:43:48  PR Not found for b99c58a394cf7dfff279e80c3a09746ac0d99cbf. Probable direct commit
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:49  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:49  + set +x
+[Pipeline] withCredentials
+18:43:49  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+18:43:50  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+18:43:51  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+18:43:51  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:52  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:52  + set +x
+[Pipeline] withCredentials
+18:43:52  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+18:43:53  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+18:43:54  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+18:43:55  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:55  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:56  + set +x
+[Pipeline] withCredentials
+18:43:56  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+18:43:56  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+18:43:57  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+18:43:58  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:59  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+18:43:59  + set +x
+[Pipeline] withCredentials
+18:43:59  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+18:43:59  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+18:44:00  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+18:44:01  + set +x
+[Pipeline] readJSON
+[Pipeline] writeJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Jenkins Build Json)
+18:44:03  + set +x
+18:44:03    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+18:44:03                                   Dload  Upload   Total   Spent    Left  Speed
+18:44:03  
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  5742  100  5742    0     0   267k      0 --:--:-- --:--:-- --:--:--  280k
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Format Timestamp)
+18:44:04  + echo 1656680998229
+18:44:04  + sed s/.\{3\}$//
+18:44:04  + date=1656680998
+18:44:04  + date -d @1656680998 +%Y-%m-%d %H:%M:%S
+[Pipeline] echo
+18:44:04  CHECK ✅️: JSL jsl-jenkins-shared-library using version release/20220617 without warnings.
+[Pipeline] writeJSON
+[Pipeline] isUnix
+[Pipeline] sh
+18:44:04  + rm -rf authorize_prod_deploy
+[Pipeline] unstash
+[Pipeline] isUnix
+[Pipeline] sh (Searching Config File)
+18:44:05  + find . -name sonar-project.properties
+[Pipeline] isUnix
+[Pipeline] sh (Get PROJECT_KEY)
+18:44:05  + set +x
+[Pipeline] isUnix
+[Pipeline] sh (Get SONAR_HOST)
+18:44:05  + set +x
+[Pipeline] echo
+18:44:06  Using Default Configuration
+[Pipeline] withCredentials
+18:44:06  Masking supported pattern matches of $SONARQUBE_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Get Code Smells)
+18:44:06  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Get Bugs)
+18:44:06  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Get Vulnerabilities)
+18:44:07  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Get Security Hotspots)
+18:44:07  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Get Coverage)
+18:44:07  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Get SecurityRating)
+18:44:08  + set +x
+[Pipeline] readJSON
+[Pipeline] writeJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] echo
+18:44:08  Skip Prod was not requested, Continuing Stats as it is
+[Pipeline] withCredentials
+18:44:09  Masking supported pattern matches of $GIT_USERNAME or $GIT_PASSWORD
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Create mal folder)
+18:44:09  + set +x
+[Pipeline] isUnix
+[Pipeline] sh (Adding Jenkins Report. Build 84)
+18:44:09  + set +x
+[Pipeline] isUnix
+[Pipeline] sh (Adding Jira Report. Build 84)
+18:44:10  + set +x
+18:44:10  Jira report not found
+[Pipeline] isUnix
+[Pipeline] sh (Adding GitHub Report. Build 84)
+18:44:10  + set +x
+[Pipeline] isUnix
+[Pipeline] sh (Adding pipelineMtLvl Report. Build 84)
+18:44:10  + set +x
+[Pipeline] isUnix
+[Pipeline] sh (Adding Sonar Report. Build 84)
+18:44:11  + set +x
+[Pipeline] isUnix
+[Pipeline] sh (Adding Timing Report. Build 84)
+18:44:11  + set +x
+18:44:11  Timing report not found
+[Pipeline] isUnix
+[Pipeline] sh (Adding Tests Reports. Build 84)
+18:44:11  + set +x
+18:44:11  E2E report not found
+[Pipeline] isUnix
+[Pipeline] sh (Adding qa Report. Build 84)
+18:44:12  + set +x
+18:44:12  qa report not found
+[Pipeline] unstash
+[Pipeline] echo
+18:44:12  No QA reports for NG911-GUARDIAN/ng911-synergem-api/master build number84
+[Pipeline] unstash
+[Pipeline] echo
+18:44:12  No Nexus reports for NG911-GUARDIAN/ng911-synergem-api/master build number84
+[Pipeline] unstash
+[Pipeline] echo
+18:44:12  No Nexus certification reports for NG911-GUARDIAN/ng911-synergem-api/master build number84
+[Pipeline] unstash
+[Pipeline] echo
+18:44:12  No Morpheus reports for NG911-GUARDIAN/ng911-synergem-api/master build number84
+[Pipeline] unstash
+[Pipeline] echo
+18:44:12  No ITCDM reports for NG911-GUARDIAN/ng911-synergem-api/master build number84
+[Pipeline] unstash
+[Pipeline] echo
+18:44:12  No Anchore reports for NG911-GUARDIAN/ng911-synergem-api/master build number84
+[Pipeline] echo
+18:44:12  Pushing Report to Pipeline Maturity Level repository in GitHub will be done on Separate Job
+[Pipeline] isUnix
+[Pipeline] sh (Creating statsAggregate directory)
+18:44:12  + rm -rf NG911-GUARDIAN/NG911-GUARDIAN/ng911-synergem-api/master/statsAggregate
+[Pipeline] isUnix
+[Pipeline] sh (Creating statsAggregate directory)
+18:44:13  + mkdir -p NG911-GUARDIAN/NG911-GUARDIAN/ng911-synergem-api/master/statsAggregate
+[Pipeline] isUnix
+[Pipeline] sh (Generating aggregated tgz for 84)
+18:44:13  + set +x
+18:44:13  NG911-GUARDIAN/NG911-GUARDIAN/ng911-synergem-api/master/GitHub/gitHubStats-20220701-131409.json
+18:44:13  NG911-GUARDIAN/NG911-GUARDIAN/ng911-synergem-api/master/Jenkins/jenkinsStats-20220701-131409.json
+18:44:13  NG911-GUARDIAN/NG911-GUARDIAN/ng911-synergem-api/master/pipelineMtLvl/pipelineMtLvl-20220701-131409.json
+18:44:13  NG911-GUARDIAN/NG911-GUARDIAN/ng911-synergem-api/master/Sonar/sonarqubeStats-20220701-131409.json
+[Pipeline] isUnix
+[Pipeline] sh (Pushing Report to Pipeline Maturity Level repository in Nexus as Build 84)
+18:44:13  + set +x
+[Pipeline] withCredentials
+18:44:14  Masking supported pattern matches of $NEXUS_CREDENTIALS_FILE
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Deploy NG911-GUARDIAN/NG911-GUARDIAN/ng911-synergem-api/master/GitHub/gitHubStats-20220701-131409.js)
+18:44:14  + set +x
+18:44:14    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+18:44:14                                   Dload  Upload   Total   Spent    Left  Speed
+18:44:14  
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0curl: (6) Could not resolve host: nexusprod.corp.intranet
+18:44:14  000
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] echo
+18:44:14  Placeholder to integrate Service Now DevOps Module in  Declarative: Post Actions stage.
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+18:44:14  Failed
+[Pipeline] cleanWs
+18:44:14  [WS-CLEANUP] Deleting project workspace...
+18:44:14  [WS-CLEANUP] Deferred wipeout is used...
+18:44:14  [WS-CLEANUP] done
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+
+GitHub has been notified of this commit’s build result
+
+ERROR: script returned exit code 6
+Finished: FAILURE
+REST API
+Jenkins 2.280

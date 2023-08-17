@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: audit-service-deploy
+  namespace: laser-dev
+spec:
+  selector:
+    matchLabels:
+      app: audit-service-lbl
+  template:
+    metadata:
+      labels:
+        app: audit-service-lbl
+    spec:
+      containers:
+      - name: audit-service-container
+        image: nexusprod.corp.intranet:4567/laser/audit-services/laser-audit-service:1.0.0-111        
+        ports:
+        - containerPort: 9443

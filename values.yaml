@@ -1,0 +1,53 @@
+
+replicaCount: 1
+image:
+  pullPolicy: Always
+imagePullSecrets: nexus-reg-secret
+
+# Define service
+service:
+  name: invoicing-service
+  type: ClusterIP
+  externalPort: 8085
+  internalPort: 8085
+
+# Define resources
+resources:
+  limits:
+    memory: 1024Mi
+  requests:
+    memory: 512Mi
+
+## Liveness & Readiness Probes
+livenessProbe: {}
+#   httpGet:
+#     path: /
+#     port: 8080
+#   initialDelaySeconds: 30
+#   timeoutSeconds: 5
+#   periodSeconds: 3
+readinessProbe: {}
+#   httpGet:
+#     path: /
+#     port: 8080
+#   initialDelaySeconds: 30
+#   timeoutSeconds: 5
+#   periodSeconds: 3
+
+## Setup Ingress
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: "/"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  tls:
+    enabled: true
+    secretName: managed-tls-secret
+
+nameOverride:
+fullnameOverride:
+nodeSelector: {}
+tolerations: []
+affinity: {}

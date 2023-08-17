@@ -1,0 +1,178 @@
+2022-02-14 06:36:06.608  INFO [,8b114362e8982361,8b114362e8982361,true] 25926 --- [http-nio-8021-exec-1] i.c.e.auth.boot.aspect.AuthorizeAspect   : authorized: false subject: ankur.kumar component: default operation: getAllRefKPIs
+2022-02-14 07:00:00.000  INFO [,4c013c7e8bcd0360,4c013c7e8bcd0360,true] 25926 --- [scheduling-1] c.c.e.controllers.KpiController          : Executing Cron
+2022-02-14 07:00:00.003 DEBUG [,4c013c7e8bcd0360,4c013c7e8bcd0360,true] 25926 --- [scheduling-1] org.hibernate.SQL                        : select distinct oi.task_order_no, (select task_order_id from TASK_ORDER_VIEW where task_order_number = oi.task_order_no) as task_order_id, SUBSTR(oi.order_id,1,INSTR(oi.order_id,'-',1) -1 ) from ORDER_INST_VIEW oi left join KPIS kp on oi.task_order_no= kp.task_order_number and SUBSTR(oi.order_id,1,INSTR(oi.order_id,'-',1) -1 )=kp.svc_id where kp.task_order_number is null
+2022-02-14 07:00:00.290  WARN [,4c013c7e8bcd0360,4c013c7e8bcd0360,true] 25926 --- [scheduling-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1427, SQLState: 21000
+2022-02-14 07:00:00.291 ERROR [,4c013c7e8bcd0360,4c013c7e8bcd0360,true] 25926 --- [scheduling-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : ORA-01427: single-row subquery returns more than one row
+
+2022-02-14 07:00:00.291 ERROR [,4c013c7e8bcd0360,4c013c7e8bcd0360,true] 25926 --- [scheduling-1] c.c.e.controllers.KpiController          : Error while syncTaskOrderKPIs cron job
+2022-02-14 09:55:34.713  INFO [,644952b56e8c46b7,644952b56e8c46b7,true] 25926 --- [http-nio-8021-exec-3] i.c.e.auth.boot.aspect.AuthorizeAspect   : authorized: false subject: ankur.kumar component: default operation: getAllRefKPIs
+2022-02-14 10:04:02.694  INFO [,99cd38e1f60ca8d5,99cd38e1f60ca8d5,true] 25926 --- [http-nio-8021-exec-7] i.c.e.auth.boot.aspect.AuthorizeAspect   : authorized: false subject: ankur.kumar component: default operation: getAllRefKPIs
+2022-02-14 19:00:00.002  INFO [,97fc796a4b71f318,97fc796a4b71f318,true] 25926 --- [scheduling-1] c.c.e.controllers.KpiController          : Executing Cron
+2022-02-14 19:00:00.003 DEBUG [,97fc796a4b71f318,97fc796a4b71f318,true] 25926 --- [scheduling-1] org.hibernate.SQL                        : select distinct oi.task_order_no, (select task_order_id from TASK_ORDER_VIEW where task_order_number = oi.task_order_no) as task_order_id, SUBSTR(oi.order_id,1,INSTR(oi.order_id,'-',1) -1 ) from ORDER_INST_VIEW oi left join KPIS kp on oi.task_order_no= kp.task_order_number and SUBSTR(oi.order_id,1,INSTR(oi.order_id,'-',1) -1 )=kp.svc_id where kp.task_order_number is null
+2022-02-14 19:00:00.261  WARN [,97fc796a4b71f318,97fc796a4b71f318,true] 25926 --- [scheduling-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1427, SQLState: 21000
+2022-02-14 19:00:00.261 ERROR [,97fc796a4b71f318,97fc796a4b71f318,true] 25926 --- [scheduling-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : ORA-01427: single-row subquery returns more than one row
+
+2022-02-14 19:00:00.261 ERROR [,97fc796a4b71f318,97fc796a4b71f318,true] 25926 --- [scheduling-1] c.c.e.controllers.KpiController          : Error while syncTaskOrderKPIs cron job
+2022-02-14 19:04:01.804  INFO [,,,] 25926 --- [SpringContextShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2022-02-14 19:04:01.805  INFO [,,,] 25926 --- [SpringContextShutdownHook] o.s.i.channel.PublishSubscribeChannel    : Channel 'application-1.errorChannel' has 0 subscriber(s).
+2022-02-14 19:04:01.805  INFO [,,,] 25926 --- [SpringContextShutdownHook] o.s.i.endpoint.EventDrivenConsumer       : stopped bean '_org.springframework.integration.errorLogger'
+2022-02-14 19:04:01.940  INFO [,,,] 25926 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2022-02-14 19:04:01.972  INFO [,,,] 25926 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-02-14 19:04:02.048  INFO [,,,] 25926 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-02-14 19:04:02.329  INFO [,,,] 25926 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+************************ WARNING ************************
+
+This information system, including any related equipment, devices, and networks ("system") is the property of Lumen Technologies and all contents of this system are PROPRIETARY INFORMATION and remain the sole and exclusive property of Lumen Technologies.  Disclosure of any information found on this system for any unauthorized use is STRICTLY PROHIBITED.  Use of this system is restricted to authorized use only.  The use of this system may be monitored, audited, and recorded for administrative and security reasons at any time.  Lumen Technologies reserves the right to take appropriate action against anyone who accesses or uses, or attempts to use this system improperly or without the appropriate authorization. By continuing to use this system you indicate your awareness of, and consent to, these terms and conditions of use. 
+
+
+************************ WARNING ************************
+
+Warning: untrusted X11 forwarding setup failed: xauth key data not generated
+************************ WARNING ************************
+
+This information system, including any related equipment, devices, and networks ("system") is the property of Lumen Technologies and all contents of this system are PROPRIETARY INFORMATION and remain the sole and exclusive property of Lumen Technologies.  Disclosure of any information found on this system for any unauthorized use is STRICTLY PROHIBITED.  Use of this system is restricted to authorized use only.  The use of this system may be monitored, audited, and recorded for administrative and security reasons at any time.  Lumen Technologies reserves the right to take appropriate action against anyone who accesses or uses, or attempts to use this system improperly or without the appropriate authorization. By continuing to use this system you indicate your awareness of, and consent to, these terms and conditions of use. 
+
+
+************************ WARNING ************************
+
+Warning: untrusted X11 forwarding setup failed: xauth key data not generated
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::        (v2.2.5.RELEASE)
+
+2022-04-05 16:01:55.091  INFO [,,,] 13757 --- [           main] c.c.e.EisSlaServiceApplication           : No active profile set, falling back to default profiles: default
+2022-04-05 16:01:57.365  INFO [,,,] 13757 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-04-05 16:01:57.700  INFO [,,,] 13757 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 322ms. Found 1 JPA repository interfaces.
+2022-04-05 16:01:58.361  INFO [,,,] 13757 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=f013b11b-cdf5-3fea-8352-69bbd5ca3985
+2022-04-05 16:01:58.712  INFO [,,,] 13757 --- [           main] faultConfiguringBeanFactoryPostProcessor : No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2022-04-05 16:01:58.742  INFO [,,,] 13757 --- [           main] faultConfiguringBeanFactoryPostProcessor : No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2022-04-05 16:01:58.964  INFO [,,,] 13757 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.retry.annotation.RetryConfiguration' of type [org.springframework.retry.annotation.RetryConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-04-05 16:01:59.507  INFO [,,,] 13757 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.integration.config.IntegrationManagementConfiguration' of type [org.springframework.integration.config.IntegrationManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-04-05 16:01:59.554  INFO [,,,] 13757 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'integrationChannelResolver' of type [org.springframework.integration.support.channel.BeanFactoryChannelResolver] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-04-05 16:01:59.563  INFO [,,,] 13757 --- [           main] trationDelegate$BeanPostProcessorChecker : Bean 'integrationDisposableAutoCreatedBeans' of type [org.springframework.integration.config.annotation.Disposables] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-04-05 16:02:00.295  INFO [,,,] 13757 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8021 (http)
+2022-04-05 16:02:00.311  INFO [,,,] 13757 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-04-05 16:02:00.312  INFO [,,,] 13757 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2022-04-05 16:02:00.410  INFO [,,,] 13757 --- [           main] o.a.c.c.C.[.[.[/eis-sla-service]         : Initializing Spring embedded WebApplicationContext
+2022-04-05 16:02:00.411  INFO [,,,] 13757 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 5237 ms
+2022-04-05 16:02:02.436  INFO [,,,] 13757 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-04-05 16:02:02.607  INFO [,,,] 13757 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.12.Final
+2022-04-05 16:02:03.031  INFO [,,,] 13757 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2022-04-05 16:02:03.224  INFO [,,,] 13757 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-04-05 16:02:03.231  WARN [,,,] 13757 --- [           main] com.zaxxer.hikari.util.DriverDataSource  : Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2022-04-05 16:02:04.812  INFO [,,,] 13757 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-04-05 16:02:04.845  INFO [,,,] 13757 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.Oracle10gDialect
+2022-04-05 16:02:05.428  INFO [,,,] 13757 --- [           main] o.h.e.boot.internal.EnversServiceImpl    : Envers integration enabled? : true
+2022-04-05 16:02:08.174  INFO [,,,] 13757 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-04-05 16:02:08.187  INFO [,,,] 13757 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-04-05 16:02:09.654  WARN [,,,] 13757 --- [           main] o.s.c.n.a.ArchaiusAutoConfiguration      : No spring.application.name found, defaulting to 'application'
+2022-04-05 16:02:09.662  WARN [,,,] 13757 --- [           main] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2022-04-05 16:02:09.663  INFO [,,,] 13757 --- [           main] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2022-04-05 16:02:09.673  WARN [,,,] 13757 --- [           main] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2022-04-05 16:02:09.674  INFO [,,,] 13757 --- [           main] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2022-04-05 16:02:09.895  WARN [,,,] 13757 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-04-05 16:02:10.157  INFO [,,,] 13757 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-04-05 16:02:11.477  INFO [,,,] 13757 --- [           main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+2022-04-05 16:02:11.747  WARN [,,,] 13757 --- [           main] s.o.SpringCloudSecurityAutoConfiguration : All Spring Cloud Security modules and starters are deprecated. They will be moved to individual projects in the next major release.
+2022-04-05 16:02:11.880  INFO [,,,] 13757 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2022-04-05 16:02:12.509  INFO [,,,] 13757 --- [           main] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2022-04-05 16:02:12.510  INFO [,,,] 13757 --- [           main] o.s.i.channel.PublishSubscribeChannel    : Channel 'application-1.errorChannel' has 1 subscriber(s).
+2022-04-05 16:02:12.513  INFO [,,,] 13757 --- [           main] o.s.i.endpoint.EventDrivenConsumer       : started bean '_org.springframework.integration.errorLogger'
+2022-04-05 16:02:12.590  INFO [,,,] 13757 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8021 (http) with context path '/eis-sla-service'
+2022-04-05 16:02:12.595  INFO [,,,] 13757 --- [           main] c.c.e.EisSlaServiceApplication           : Started EisSlaServiceApplication in 20.324 seconds (JVM running for 21.362)
+2022-04-05 17:00:12.256  INFO [,,,] 13757 --- [nio-8021-exec-2] o.a.c.c.C.[.[.[/eis-sla-service]         : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-04-05 17:00:12.256  INFO [,,,] 13757 --- [nio-8021-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-04-05 17:00:12.283  INFO [,,,] 13757 --- [nio-8021-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 27 ms
+2022-04-05 17:00:12.559  INFO [,1e56e56a528372df,1e56e56a528372df,true] 13757 --- [nio-8021-exec-2] i.c.e.auth.boot.aspect.AuthorizeAspect   : authorized: false subject: ryan.knipe component: default operation: getAllRefKPIs
+2022-04-05 17:00:34.140  INFO [,46ae106189f3a1ed,46ae106189f3a1ed,true] 13757 --- [nio-8021-exec-3] i.c.e.auth.boot.aspect.AuthorizeAspect   : authorized: false subject: ryan.knipe component: default operation: getAllKpisByTaskOrderId
+2022-04-05 17:00:39.908  INFO [,92549c4e02058b90,92549c4e02058b90,true] 13757 --- [nio-8021-exec-4] i.c.e.auth.boot.aspect.AuthorizeAspect   : authorized: false subject: ryan.knipe component: default operation: getAllKpisByTaskOrderId
+2022-04-05 19:00:00.007  INFO [,94492e213f2a8c51,94492e213f2a8c51,true] 13757 --- [   scheduling-1] c.c.e.controllers.KpiController          : Executing Cron
+2022-04-05 19:00:00.120 DEBUG [,94492e213f2a8c51,94492e213f2a8c51,true] 13757 --- [   scheduling-1] org.hibernate.SQL                        : select distinct oi.task_order_no, (select task_order_id from TASK_ORDER_VIEW where task_order_number = oi.task_order_no) as task_order_id, SUBSTR(oi.order_id,1,INSTR(oi.order_id,'-',1) -1 ) from ORDER_INST_VIEW oi left join KPIS kp on oi.task_order_no= kp.task_order_number and SUBSTR(oi.order_id,1,INSTR(oi.order_id,'-',1) -1 )=kp.svc_id where kp.task_order_number is null
+Hibernate: select distinct oi.task_order_no, (select task_order_id from TASK_ORDER_VIEW where task_order_number = oi.task_order_no) as task_order_id, SUBSTR(oi.order_id,1,INSTR(oi.order_id,'-',1) -1 ) from ORDER_INST_VIEW oi left join KPIS kp on oi.task_order_no= kp.task_order_number and SUBSTR(oi.order_id,1,INSTR(oi.order_id,'-',1) -1 )=kp.svc_id where kp.task_order_number is null
+2022-04-05 19:00:00.394  WARN [,94492e213f2a8c51,94492e213f2a8c51,true] 13757 --- [   scheduling-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1427, SQLState: 21000
+2022-04-05 19:00:00.394 ERROR [,94492e213f2a8c51,94492e213f2a8c51,true] 13757 --- [   scheduling-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : ORA-01427: single-row subquery returns more than one row
+
+2022-04-05 19:00:00.399 ERROR [,94492e213f2a8c51,94492e213f2a8c51,true] 13757 --- [   scheduling-1] c.c.e.controllers.KpiController          : Error while syncTaskOrderKPIs cron job
+2022-04-06 04:30:35.471  INFO [,f9039ce2713b3bdc,f9039ce2713b3bdc,true] 13757 --- [nio-8021-exec-6] i.c.e.auth.boot.aspect.AuthorizeAspect   : authorized: false subject: ankur.kumar component: default operation: getAllRefKPIs
+2022-04-06 04:30:41.019  INFO [,265b7b3e2469fb93,265b7b3e2469fb93,true] 13757 --- [nio-8021-exec-7] i.c.e.auth.boot.aspect.AuthorizeAspect   : authorized: false subject: ankur.kumar component: default operation: getAllRefKPIs
+2022-04-06 07:00:00.001  INFO [,499070e469f5bf8f,499070e469f5bf8f,true] 13757 --- [   scheduling-1] c.c.e.controllers.KpiController          : Executing Cron
+2022-04-06 07:00:00.002 DEBUG [,499070e469f5bf8f,499070e469f5bf8f,true] 13757 --- [   scheduling-1] org.hibernate.SQL                        : select distinct oi.task_order_no, (select task_order_id from TASK_ORDER_VIEW where task_order_number = oi.task_order_no) as task_order_id, SUBSTR(oi.order_id,1,INSTR(oi.order_id,'-',1) -1 ) from ORDER_INST_VIEW oi left join KPIS kp on oi.task_order_no= kp.task_order_number and SUBSTR(oi.order_id,1,INSTR(oi.order_id,'-',1) -1 )=kp.svc_id where kp.task_order_number is null
+Hibernate: select distinct oi.task_order_no, (select task_order_id from TASK_ORDER_VIEW where task_order_number = oi.task_order_no) as task_order_id, SUBSTR(oi.order_id,1,INSTR(oi.order_id,'-',1) -1 ) from ORDER_INST_VIEW oi left join KPIS kp on oi.task_order_no= kp.task_order_number and SUBSTR(oi.order_id,1,INSTR(oi.order_id,'-',1) -1 )=kp.svc_id where kp.task_order_number is null
+2022-04-06 07:00:00.248  WARN [,499070e469f5bf8f,499070e469f5bf8f,true] 13757 --- [   scheduling-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1427, SQLState: 21000
+2022-04-06 07:00:00.248 ERROR [,499070e469f5bf8f,499070e469f5bf8f,true] 13757 --- [   scheduling-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : ORA-01427: single-row subquery returns more than one row
+
+2022-04-06 07:00:00.248 ERROR [,499070e469f5bf8f,499070e469f5bf8f,true] 13757 --- [   scheduling-1] c.c.e.controllers.KpiController          : Error while syncTaskOrderKPIs cron job
+2022-04-06 19:00:00.001  INFO [,74dd11bfe2d238a1,74dd11bfe2d238a1,true] 13757 --- [   scheduling-1] c.c.e.controllers.KpiController          : Executing Cron
+2022-04-06 19:00:00.003 DEBUG [,74dd11bfe2d238a1,74dd11bfe2d238a1,true] 13757 --- [   scheduling-1] org.hibernate.SQL                        : select distinct oi.task_order_no, (select task_order_id from TASK_ORDER_VIEW where task_order_number = oi.task_order_no) as task_order_id, SUBSTR(oi.order_id,1,INSTR(oi.order_id,'-',1) -1 ) from ORDER_INST_VIEW oi left join KPIS kp on oi.task_order_no= kp.task_order_number and SUBSTR(oi.order_id,1,INSTR(oi.order_id,'-',1) -1 )=kp.svc_id where kp.task_order_number is null
+Hibernate: select distinct oi.task_order_no, (select task_order_id from TASK_ORDER_VIEW where task_order_number = oi.task_order_no) as task_order_id, SUBSTR(oi.order_id,1,INSTR(oi.order_id,'-',1) -1 ) from ORDER_INST_VIEW oi left join KPIS kp on oi.task_order_no= kp.task_order_number and SUBSTR(oi.order_id,1,INSTR(oi.order_id,'-',1) -1 )=kp.svc_id where kp.task_order_number is null
+2022-04-06 19:00:00.227  WARN [,74dd11bfe2d238a1,74dd11bfe2d238a1,true] 13757 --- [   scheduling-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1427, SQLState: 21000
+2022-04-06 19:00:00.227 ERROR [,74dd11bfe2d238a1,74dd11bfe2d238a1,true] 13757 --- [   scheduling-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : ORA-01427: single-row subquery returns more than one row
+
+2022-04-06 19:00:00.228 ERROR [,74dd11bfe2d238a1,74dd11bfe2d238a1,true] 13757 --- [   scheduling-1] c.c.e.controllers.KpiController          : Error while syncTaskOrderKPIs cron job
+2022-04-07 07:00:00.001  INFO [,deb45c0a3e5c08d6,deb45c0a3e5c08d6,true] 13757 --- [   scheduling-1] c.c.e.controllers.KpiController          : Executing Cron
+2022-04-07 07:00:00.002 DEBUG [,deb45c0a3e5c08d6,deb45c0a3e5c08d6,true] 13757 --- [   scheduling-1] org.hibernate.SQL                        : select distinct oi.task_order_no, (select task_order_id from TASK_ORDER_VIEW where task_order_number = oi.task_order_no) as task_order_id, SUBSTR(oi.order_id,1,INSTR(oi.order_id,'-',1) -1 ) from ORDER_INST_VIEW oi left join KPIS kp on oi.task_order_no= kp.task_order_number and SUBSTR(oi.order_id,1,INSTR(oi.order_id,'-',1) -1 )=kp.svc_id where kp.task_order_number is null
+Hibernate: select distinct oi.task_order_no, (select task_order_id from TASK_ORDER_VIEW where task_order_number = oi.task_order_no) as task_order_id, SUBSTR(oi.order_id,1,INSTR(oi.order_id,'-',1) -1 ) from ORDER_INST_VIEW oi left join KPIS kp on oi.task_order_no= kp.task_order_number and SUBSTR(oi.order_id,1,INSTR(oi.order_id,'-',1) -1 )=kp.svc_id where kp.task_order_number is null
+2022-04-07 07:00:00.219  WARN [,deb45c0a3e5c08d6,deb45c0a3e5c08d6,true] 13757 --- [   scheduling-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1427, SQLState: 21000
+2022-04-07 07:00:00.219 ERROR [,deb45c0a3e5c08d6,deb45c0a3e5c08d6,true] 13757 --- [   scheduling-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : ORA-01427: single-row subquery returns more than one row
+
+2022-04-07 07:00:00.219 ERROR [,deb45c0a3e5c08d6,deb45c0a3e5c08d6,true] 13757 --- [   scheduling-1] c.c.e.controllers.KpiController          : Error while syncTaskOrderKPIs cron job
+2022-04-07 19:00:00.001  INFO [,0969edb1f95a623d,0969edb1f95a623d,true] 13757 --- [   scheduling-1] c.c.e.controllers.KpiController          : Executing Cron
+2022-04-07 19:00:00.004 DEBUG [,0969edb1f95a623d,0969edb1f95a623d,true] 13757 --- [   scheduling-1] org.hibernate.SQL                        : select distinct oi.task_order_no, (select task_order_id from TASK_ORDER_VIEW where task_order_number = oi.task_order_no) as task_order_id, SUBSTR(oi.order_id,1,INSTR(oi.order_id,'-',1) -1 ) from ORDER_INST_VIEW oi left join KPIS kp on oi.task_order_no= kp.task_order_number and SUBSTR(oi.order_id,1,INSTR(oi.order_id,'-',1) -1 )=kp.svc_id where kp.task_order_number is null
+Hibernate: select distinct oi.task_order_no, (select task_order_id from TASK_ORDER_VIEW where task_order_number = oi.task_order_no) as task_order_id, SUBSTR(oi.order_id,1,INSTR(oi.order_id,'-',1) -1 ) from ORDER_INST_VIEW oi left join KPIS kp on oi.task_order_no= kp.task_order_number and SUBSTR(oi.order_id,1,INSTR(oi.order_id,'-',1) -1 )=kp.svc_id where kp.task_order_number is null
+2022-04-07 19:00:00.228  WARN [,0969edb1f95a623d,0969edb1f95a623d,true] 13757 --- [   scheduling-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1427, SQLState: 21000
+2022-04-07 19:00:00.229 ERROR [,0969edb1f95a623d,0969edb1f95a623d,true] 13757 --- [   scheduling-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : ORA-01427: single-row subquery returns more than one row
+
+2022-04-07 19:00:00.229 ERROR [,0969edb1f95a623d,0969edb1f95a623d,true] 13757 --- [   scheduling-1] c.c.e.controllers.KpiController          : Error while syncTaskOrderKPIs cron job
+************************ WARNING ************************
+
+This information system, including any related equipment, devices, and networks ("system") is the property of Lumen Technologies and all contents of this system are PROPRIETARY INFORMATION and remain the sole and exclusive property of Lumen Technologies.  Disclosure of any information found on this system for any unauthorized use is STRICTLY PROHIBITED.  Use of this system is restricted to authorized use only.  The use of this system may be monitored, audited, and recorded for administrative and security reasons at any time.  Lumen Technologies reserves the right to take appropriate action against anyone who accesses or uses, or attempts to use this system improperly or without the appropriate authorization. By continuing to use this system you indicate your awareness of, and consent to, these terms and conditions of use. 
+
+
+************************ WARNING ************************
+
+Warning: untrusted X11 forwarding setup failed: xauth key data not generated
+************************ WARNING ************************
+
+This information system, including any related equipment, devices, and networks ("system") is the property of Lumen Technologies and all contents of this system are PROPRIETARY INFORMATION and remain the sole and exclusive property of Lumen Technologies.  Disclosure of any information found on this system for any unauthorized use is STRICTLY PROHIBITED.  Use of this system is restricted to authorized use only.  The use of this system may be monitored, audited, and recorded for administrative and security reasons at any time.  Lumen Technologies reserves the right to take appropriate action against anyone who accesses or uses, or attempts to use this system improperly or without the appropriate authorization. By continuing to use this system you indicate your awareness of, and consent to, these terms and conditions of use. 
+
+
+************************ WARNING ************************
+
+Warning: untrusted X11 forwarding setup failed: xauth key data not generated
+************************ WARNING ************************
+
+This information system, including any related equipment, devices, and networks ("system") is the property of Lumen Technologies and all contents of this system are PROPRIETARY INFORMATION and remain the sole and exclusive property of Lumen Technologies.  Disclosure of any information found on this system for any unauthorized use is STRICTLY PROHIBITED.  Use of this system is restricted to authorized use only.  The use of this system may be monitored, audited, and recorded for administrative and security reasons at any time.  Lumen Technologies reserves the right to take appropriate action against anyone who accesses or uses, or attempts to use this system improperly or without the appropriate authorization. By continuing to use this system you indicate your awareness of, and consent to, these terms and conditions of use. 
+
+
+************************ WARNING ************************
+
+Warning: untrusted X11 forwarding setup failed: xauth key data not generated
+************************ WARNING ************************
+
+This information system, including any related equipment, devices, and networks ("system") is the property of Lumen Technologies and all contents of this system are PROPRIETARY INFORMATION and remain the sole and exclusive property of Lumen Technologies.  Disclosure of any information found on this system for any unauthorized use is STRICTLY PROHIBITED.  Use of this system is restricted to authorized use only.  The use of this system may be monitored, audited, and recorded for administrative and security reasons at any time.  Lumen Technologies reserves the right to take appropriate action against anyone who accesses or uses, or attempts to use this system improperly or without the appropriate authorization. By continuing to use this system you indicate your awareness of, and consent to, these terms and conditions of use. 
+
+
+************************ WARNING ************************
+
+Warning: untrusted X11 forwarding setup failed: xauth key data not generated
+************************ WARNING ************************
+
+This information system, including any related equipment, devices, and networks ("system") is the property of Lumen Technologies and all contents of this system are PROPRIETARY INFORMATION and remain the sole and exclusive property of Lumen Technologies.  Disclosure of any information found on this system for any unauthorized use is STRICTLY PROHIBITED.  Use of this system is restricted to authorized use only.  The use of this system may be monitored, audited, and recorded for administrative and security reasons at any time.  Lumen Technologies reserves the right to take appropriate action against anyone who accesses or uses, or attempts to use this system improperly or without the appropriate authorization. By continuing to use this system you indicate your awareness of, and consent to, these terms and conditions of use. 
+
+
+************************ WARNING ************************
+
+Warning: untrusted X11 forwarding setup failed: xauth key data not generated
+************************ WARNING ************************
+
+This information system, including any related equipment, devices, and networks ("system") is the property of Lumen Technologies and all contents of this system are PROPRIETARY INFORMATION and remain the sole and exclusive property of Lumen Technologies.  Disclosure of any information found on this system for any unauthorized use is STRICTLY PROHIBITED.  Use of this system is restricted to authorized use only.  The use of this system may be monitored, audited, and recorded for administrative and security reasons at any time.  Lumen Technologies reserves the right to take appropriate action against anyone who accesses or uses, or attempts to use this system improperly or without the appropriate authorization. By continuing to use this system you indicate your awareness of, and consent to, these terms and conditions of use. 
+
+
+************************ WARNING ************************
+
+Warning: untrusted X11 forwarding setup failed: xauth key data not generated

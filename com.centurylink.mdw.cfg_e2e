@@ -1,0 +1,399 @@
+ESTAPI.DSPTaskURLsenger = jms
+mdw.logging.dir = data/log
+ossoi.req.param.group=MT
+MDWFramework.TaskManagerWeb-task.notice.email.from.address = mdw@centurylink.com
+MDWFramework.MDWDesigner-helpers.url = http://omnivue-test3.test.intranet/MDWWeb
+omniVue.searchLookup.rownum.value=10
+
+##### The following properties are for process cleanup
+# Used by ProcessCleanup to control how long to retain completed process instances
+MDWFramework.ProcessCleanup-ProcessExpirationAgeInDays=180
+mdw.listener.email.MDWAPPReader.username=mdwsupt
+
+sendEvaUrl=http://marsnic-test.corp.intranet/eva/advanced/loadFromActivationId?activationId=
+
+jdsuUrl=http://marsnic-test.corp.intranet:8080/marsweb/?tool=jdsu&evcCircuitName=
+tacacsLogsTemplateURL=http://marsnic-test.corp.intranet/logs-bin/tacacs_logs?router=
+#mdw.database.url=jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = racorad38-scan.corp.intranet)(PORT = 1521)) (CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = omnie2e)))
+#mdw.database.url=jdbc:oracle:thin:@omnie2edb.dev.qintra.com:1485:omnie2e
+mdw.database.url=jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = racorad38-scan.corp.intranet)(PORT = 1521)) (CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = omnie2e)))
+omnivue.activitycenter.tasklist.refreshrate=900000
+mdw.container.datasource_provider = OSGi
+
+#Comma separated valid corporate domain names for user Preferences
+omnivue.preferences.valid.corporate.domains = centurylink.com,Qwest.com,techmahindra.com,gmail.com 
+#isatActivityUrl=http://marsnic-test.corp.intranet/mars-bin/isat_pr_activation-log?activation_id=
+#isatHistoryUrl=http://marsnic-test.corp.intranet/mars-bin/isat_pr_history-log?activation_id=
+#isatServiceUrl=http://marsnic-test.corp.intranet/mars-bin/adam_pr_activation-log?activation_id=
+#isatMarsUrl=http://marsnic-test.corp.intranet/mars-bin/getMarsLogs?activation_id=
+
+#isatActivityUrl=http://qtomavd86.dev.qintra.com/moe/milc/Details.aspx?activation_id=
+#isatHistoryUrl=http://qtomavd86.dev.qintra.com/moe/milc/Details.aspx?activation_id=
+#isatServiceUrl=http://qtomavd86.dev.qintra.com/moe/milc/Details.aspx?activation_id=
+#isatMarsUrl=http://qtomavd86.dev.qintra.com/moe/milc/Details.aspx?activation_id=
+
+isatActivityUrl=http://moedev.qintra.com/milc/Details.aspx?activation_id=
+#mdw.remote.server.DSPWF=http://dsp-test3.test.intranet/MDWWeb
+mdw.remote.server.DSPWF=http://dspsmxtest-odc.test.intranet:10001/MDWWeb
+ldap.base = ou=people\,dc=mnet\,dc=qintra\,dc=com
+
+omnivue.login.workgroups.network=ASP,Data Planning Engineer,Access Engineers,LDP/BBNOC,NLT/DIGITS
+
+# Property for enabling/disabling user defined search panel 
+omnivue.display.user.defined.search.panel=true
+# SMTP Transport Timeout.
+MDWFramework.JavaMail-smtpTimeout=10000
+# Used by ProcessCleanup to control the maximum number of processes to delete in one execution cycle.
+MDWFramework.ProcessCleanup-MaximumProcessExpiration=10000
+ICL_username=OVAPI
+
+mdw.listener.email.MDWAPPReader.host=qtdenexmbm22.AD.QINTRA.COM
+mdw.taskmanager.remote.jndi=http://dspsmxtest-odc.test.intranet:10001/MDWWeb
+configHistoryTemplateURL=http://sudnp65g-3.qintra.com/nectool/network_element/show?nodename=
+omnivue.arm.sso.url=https://ctlssoe-test.centurylink.com/fed/idp/initiatesso?providerid=ARM001T&target=http://lxomavmtc267.dev.qintra.com:6001/CramerOSS/Login/SessionDefinition.jsp
+omniVue.search.rownum.value=2
+omnivue.inventory.designated.workgroup2=LDP
+
+#DSP:
+DSP_url=jdbc:oracle:thin:@(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = racorad28-scan.test.intranet)(PORT = 1521))(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = dspe2e1)))
+#omnivue.login.interfacing.appl.isat.url=http://qtomavmdt067.dev.qintra.com:7001/isatl2Web/Services/REST
+
+#Inventory Designated Workgroups.
+omnivue.inventory.designated.workgroup1=ASP
+#OSR DB Details
+osr.database.url=jdbc:oracle:thin:@(DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = racorad28-scan.test.intranet)(PORT = 1521))(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = nicosrt3)))
+
+# TIRKS TIMEOUT
+tirks.req.timeout=30000
+isat.database.password=omniapp_2015
+mdw.taskmanager.remote.summary = false
+ossoi.req.param.center=SLKCUTSHA05
+
+
+##LDAP  for MNET
+ldap.server.host = ldap.qintra.com
+MDWFramework.TaskManagerWeb-render.error.details = true
+CLC_username=OVAPI
+MDWFramework.ScriptExecutors-JavaScript=com.qwest.mdw.script.JavaScriptExecutor
+MDWFramework.TaskManagerWeb-task.manager.url = https://omnivue-test3.test.intranet/OMNIVue
+#omnivue.login.interfacing.appl.icl.url=http://iclsmxtest-odc.test.intranet:10001/icl/services/ICL_2_0?wsdl
+#omnivue.login.interfacing.appl.icl.url=http://icl-test3.test.intranet/icl/services/ICL_2_0?wsdl
+omnivue.login.interfacing.appl.icl.url=http://icl-e2e.test.intranet/icl/services/ICL_2_0?wsdl
+
+#Configurations for Applications ARM,CLC,DSP,ICL
+#ARM: 
+ARM_url=jdbc:oracle:thin:@arm005tdb.dev.qintra.com:1511:arm005t
+mdw.bus.account = OMNIVue
+DSPTaskUrl=https://dsp-test3.test.intranet/MDWTaskManagerWeb/facelets/tasks/taskDetail.jsf?tmTabbedPage=workgroupTasksTab&taskInstanceId=
+mdw.listener.email.MDWAPPReader.password=Clink123
+mdw.filepanel.binary.patterns=*.zip,*.gz,*.gif,*.jpg,*.png,*.jks
+# SMTP Connection Timeout.
+MDWFramework.JavaMail-connectionTimeout=10000
+
+
+#ISAT SOAP URL
+omnivue.login.interfacing.appl.isat.soapurl=http://nsmltlvt045b.corp.intranet:8900/AceRules?wsdl
+ossoi.regions=CENTRAL,WESTERN,EASTERN
+mdw.database.poolsize = 50
+ICL_password=L5mEVvno
+mdw.database.poolMaxIdle = 10
+ldap.port = 1389
+# Specifies the runtime directory where application temporary files reside (can be relative).
+MDWFramework.ApplicationDetails-TempDir=mdw/.temp
+ossoi.user.password=o1m2n3i4
+# Constant defined for Maximum search Result count 
+omnivue.display.defined.search.MaxSearchResultCount=100
+
+mdw.logging.file = data/log/mdw.log
+CLC_password=L5mEVvno
+
+osr.database.username=osr_app_user
+# The application LDAP username.
+LDAP-AppCUID=omniappl
+
+#omnivue.slc.geows.url=https://geowse2e.dev.qintra.com/GeoWS.asmx?wsdl
+omnivue.slc.geows.url=https://geowse2e.dev.qintra.com/GeoWS.asmx?wsdl
+#  Specifies a URL for an ApplicationProperties.xml file with config documentation (like this comment) for custom app properties.
+MDWFramework.ApplicationDetails-AnnotatedAppProps.URL = http://qshare/sites/MDW/Releases/Configurable%20Items/ApplicationProperties.xml  
+
+omnivue.slc.deversitylist.allvalues=None,Circuit,Protect Route
+#mdw.timer.task.ProcessCleanup.Schedule = 30 2 * * ? *
+MDWFramework.TaskManagerWeb-dev.tm.gui.user = aa40252
+ossoi.racf.userid=omniapp
+isatMarsUrl=http://moedev.qintra.com/milc/Details.aspx?activation_id=
+omnivue.login.interfacing.appl.dsp.url=http://dspsmxtest-odc.test.intranet:10001/MDWWeb
+omnivue.activitycenter.search.maxrow=500
+mdw.server.this = /localhost:10001
+
+omnivue.activation.resetMsg=If you have any unsaved data on the page, it will be lost, Do you want to continue ?
+
+##### The following properties are for LDAP (direct usage, not through CT API)
+# The LDAP host used for LDAP Library authentication, and by the LDAP adapter activity.
+#         Note: this setting is environment-specific.
+#LDAP-Host=ldapt.dev.qintra.com
+DSP_username=DSPUSER
+
+omnivue.login.interfacing.appl.osr.url=http://osrsmxtest-odc.test.intranet:10001/MDWWeb/Services/REST
+uniActivationUrl=http://marsnic-test.corp.intranet/mars-bin/dashboard?uni_circuit_name=
+MDWFramework.MDWDesigner-services.url = http://omnismxtest-odc.test.intranet:10001/MDWWeb
+
+#ptapFalloutQuery=select distinct be.event_name as STATUS,ba.attribute_value as MESSAGE from bam_attribute ba,bam_event be where ba.attribute_name='ErrorDesc' and ba.master_request_rowid in (select unique ba.master_request_rowid from  bam_attribute ba where ba.attribute_value = ? and rownum < 2) and be.event_name LIKE 'PTAP Error Fallout Task%'
+ptapFalloutQuery=select distinct be.event_name as STATUS,ba.attribute_value as MESSAGE from bam_attribute ba,bam_event be where ba.attribute_name='ErrorDesc' and ba.master_request_rowid in (select unique ba.master_request_rowid from  bam_attribute ba where ba.attribute_value = ?) and be.event_name LIKE 'PTAP Error Fallout Task%'
+
+mdw.database.trace = timing
+
+#Hotlink Url's
+lataTemplateURL=http://marsnic-test.corp.intranet/adat-bin/latadefaultList?clli=
+mdw.taskmanager.remote.authorization = false
+newtworkExpansionUrl=http://marsnic-test/mars-bin/expand_from_uni?uni_circuit_name=
+
+##### The following properties are about the application in general
+# The workflow application name.
+MDWFramework.ApplicationDetails-ApplicationName=OMNIVue
+MDWFramework.TaskManagerWeb-view.ui.definition.file = MDWTaskView.xml
+mdw.database.username = ov_e2e
+
+omniVue.allSearch.rownum.value=150
+omnivue.login.interfacing.appl.arm.url=http://lxomavmpc102:6001/CramerOSS/Login/SessionDefinition.jsp
+mdw.container.threadpool_provider = MDW
+
+#WAFA CONFIG
+ossoi.user.id=omniapp
+
+omnivue.armor.url=https://armorsmx-test3.foss.dev.qintra.com/ArmorHDWeb/SearchHistory.xhtml?ticketNo=
+osr.database.password=O5rappU5r
+
+#CLC:
+CLC_url=jdbc:oracle:thin:@arm005tdb.dev.qintra.com:1511:arm005t
+ARM_username=OVAPI
+mdw.container.jms_provider = ActiveMQ
+
+##### The following properties are for email notification
+# SMTP Host for E-Mail Notifications.
+MDWFramework.JavaMail-smtpHost=mailgate.uswc.uswest.com
+omnivue.equipmentbuild.td.acna=6249
+
+omnivue.activation.ncis.refreshtime=300
+# The environment name for the workflow application (dev,test,prod).
+#         If not specified, the value will be taken from the -DruntimeEnv Java VM parameter.
+#         This is used by the library-based ClearTrust authentication to determine which auth servers to point against.
+#         Also used by activities that might attempt to change document variables
+#         (prod means don't check for altered doc content; just silently fail since comparison is expensive)
+
+# Specifies the directory where application config files reside (can be relative).
+MDWFramework.ApplicationDetails-ConfigDir=mdw/config
+
+#omnivue.login.interfacing.appl.isat.url=http://qtomavmdt067.dev.qintra.com:7001/isatl2Web/Services/REST
+#omnivue.login.interfacing.appl.isat.url=http://ecomt178.dev.qintra.com:7490/isatl2vpnWeb/Services/REST
+omnivue.login.interfacing.appl.isat.url=http://isatl2vpn-e2e.dev.qintra.com/isatl2vpnWeb/Services/REST
+mdw.server.list = lxomavnat001:10001,lxomavnat002:10001,lxomavnat003:10001,lxomavnat004:10001,lxomavnat005:10001
+
+omnivue.equipmentbuild.td.subscriberfullname=CTL INFRASTRUCTURE CUSTOMER
+ossoi.req.param.position=000
+omnivue.activation.ncis.maxnumoftask=20
+
+mdw.task.view.definition=MDWTaskView
+
+omnivue.config.interfacing.appl.dsp.url=https://dsp-test3.test.intranet/refdatamgr/index.xhtml
+isatHistoryUrl=http://moedev.qintra.com/milc/Details.aspx?activation_id=
+mdw.database.driver = oracle.jdbc.driver.OracleDriver
+
+#ticket40584
+emsTemplateURL = emsjump://
+
+armor.database.url=jdbc:oracle:thin:@armorhde2e.DEV.QINTRA.COM:1573:armore2e
+DSP_password=T3mp5pswdz
+# The WebTools external link URL for MDW online developer documentation. 
+#   Other external link URLs may be specified in this property group.
+MDWFramework.MDWWeb.ExternalLinks-Online_Dev_Docs=http://omnivue-test3.test.intranet/MDWWeb/doc/index.html
+armor.database.username=ARMORHD_P
+mdw.filepanel.config.dirs=./mdw/config,./etc,./cleartrust
+MDWFramework.TaskManagerWeb-task.manager.welcome.path = /login/login.jsf
+# The LDAP port used for LDAP Library authentication, and by the LDAP adapter activity.
+#LDAP-Port=1636
+
+#omniVue.search.geoamSolr.url=https://geoamsrv-test3.test.intranet/geoam/addressmatch/addresses
+omniVue.search.geoamSolr.url=https://api-test3.test.intranet/Customer/v1/Location/addressmatch/addresses
+
+isat.database.url=jdbc:oracle:thin:@10.6.71.199:1544:isatl2t2
+
+mnetInfoUrl=http://directory.corp.intranet/emd/search.html?f_cuid=
+ARM_password=L5mEVvno
+#mdw.database.password =Ov32eU5r
+#mdw.database.password=ove2e
+mdw.database.password=********
+mdw.activemq.connector.url = tcp://localhost:61616
+
+omnivue.osr.simulation=false
+MDWFramework.MDWDesigner-designer.url = http://omnivue-test3.test.intranet/MDWWeb
+evcActivationUrl=http://marsnic-test.corp.intranet/mars-bin/dashboard?evc_circuit_name=
+MDWFramework.WorkflowEngine-ActivityStatusMessage.ShowStackTrace = true
+MDWFramework.TaskManagerWeb-attachments.storage.location = Database
+NCISUrl=https://ncistest.dev.intranet:9001/services
+ossoi.useracf=false
+rmaRehomeTemplateURL=http://moedev.qintra.com/cia/Default.aspx?rehome=YES&deviceName=
+# Used by ProcessCleanup to control how long to retain completed external events.
+MDWFramework.ProcessCleanup-ExternalEventExpirationAgeInDays=180
+
+#ticket58219_wfa_tirks_integration
+wfa.username=omniapp
+# The LDAP base DN. -->
+LDAP-BaseDN=dc=mnet,dc=qintra,dc=com
+# SMTP Port for E-Mail Notifications.
+MDWFramework.JavaMail-smtpPort=25
+ossoi.racf.password=omni1vue
+MDWFramework.TaskManagerWeb-attachments.download.servlet.url = 
+
+##### The following properties are for script executers to be used
+MDWFramework.ScriptExecutors-Groovy=com.qwest.mdw.script.GroovyExecutor
+managementSubnetTemplateURL=http://marsnic-test.corp.intranet/adat-bin/mgmtnets.search?router=
+armor.database.password=ctl777
+
+##### The following properties are for MDW Web external links  
+# The WebTools external link URL for the MDW QShare site. 
+#   Other external link URLs may be specified in this property group.
+MDWFramework.MDWWeb.ExternalLinks-MDW_QShare_Site=http://qshare/sites/MDW
+mdw.bus.uri = rvd://239.75.2.3:7523/denvzd.qwest.net:7523
+aspenTemplateURL=http://marsnic-test.corp.intranet/aspen-bin/aspen_dslam?
+mdw.listener.email.MDWAPPReader.deleteEmail=false
+mdw.taskmanager.remote.detail = true
+#omnivue.login.interfacing.appl.icl.action.url=http://iclsmxtest-odc.test.intranet:10001/icl/services/ICLAction?wsdl
+#omnivue.login.interfacing.appl.icl.action.url=http://icl-test3.test.intranet/icl/services/ICLAction?wsdl
+omnivue.login.interfacing.appl.icl.action.url=http://icl-e2e.test.intranet/icl/services/ICLAction?wsdl
+omnivue.activation.ncis.maxnumofretrycount=3
+rmaTemplateURL=http://moedev.qintra.com/cia/Default.aspx?param=
+# The application LDAP username.
+app.userid=omniappl
+# The Master Application List name for the workflow app
+MDWFramework.ApplicationDetails-MALApplicationAcronym=OMNIVue
+MDWFramework.WorkflowEngine-ActivityResumeDelay = 2
+MDWFramework.TaskManagerWeb-task.create.jms.timeout = 60
+MDWFramework.TaskManagerWeb-ui.task.actions.file = MDWTaskActions.xml
+
+#ICL:
+ICL_url=jdbc:oracle:thin:@arm005tdb.dev.qintra.com:1511:arm005t
+omniVue.db.optimizer=/*+ opt_param('_optimizer_use_feedback','false') */
+#mdw.timer.task.ProcessCleanup.TimerClass = com.qwest.mdw.timer.cleanup.ProcessCleanup
+isatServiceUrl=http://moedev.qintra.com/milc/Details.aspx?activation_id=
+
+# filepanel properties
+mdw.filepanel.root.dirs=./logs,/tmp/argos/log,~/.argos/log,./data/log,./mdw/.temp
+ossoi.user.position= 
+wfa.password=o1m2n3i4
+omnivue.inventory.artis.enable=true
+# The application LDAP password.
+app.password=EastBoundAndDown78=
+backupConfigTemplateURL=http://marsnic-test.corp.intranet/adat-bin/displayFile?dir=/srv/tftp/autodl&fname=
+# Used by ProcessCleanup to specify a SQL script for clean up. 
+#   	Without it, ProcessSql.txt/EventSql.txt/EventLogSql.txt will be used.
+#MDWFramework.ProcessCleanup-RuntimeCleanupScript=Cleanup-Runtime.sql
+mdw.logging.level = INFO
+isat.database.username=omniapp
+ldap.ssl.port = 1636
+# This property is used only for stand-alone framework builds.
+MDWFramework.ApplicationDetails-MdwVersion=${MDW_VERSION}
+omnivue.login.interfacing.appl.mob.url=http://mobfusewf-e2e.test.intranet/healthcheck/index.jsp
+# The application LDAP password.
+LDAP-AppPassword=*******************
+rue
+omnivue.SLC.jobScheduler.runJob=TRUE
+omnivue.SLC.jobScheduler.refreshtime=3
+
+#76067 rework
+mdw.remote.server.DSPWF55=https://dspsvc-e2e.test.intranet/MDWWeb
+#omnivue.login.interfacing.appl.dsp55.url=https://dspsvc-e2e.test.intranet/MDWWeb
+omnivue.login.interfacing.appl.dsp55.url=http://dspsvc-e2e.test.intranet/MDWWeb
+DSP55TaskUrl=https://dspsvc-e2e.test.intranet/MDWTaskManagerWeb/facelets/tasks/taskDetail.jsf?tmTabbedPage=workgroupTasksTab&taskInstanceId=
+
+#79551
+RESTAPI.User=ovtst2
+RESTAPI.Password=TrP5urpp
+#80528
+
+#RESTAPI.DSPTaskURL=https://dspsvc-e2e.test.intranet/MDWHub/services/Tasks/
+RESTAPI.DSPTaskURL=http://dspsvc-e2e.test.intranet/MDWHub/services/Tasks/
+#RESTAPI.DSPTaskWorkflowURL=https://dspsvc-e2e.test.intranet/MDWHub/workflowImage?taskInstanceId=
+RESTAPI.DSPTaskWorkflowURL=https://dspsvc-e2e.test.intranet/MDWHub/workflowImage?taskInstanceId=
+mdw.remote.server.DSPRouteURL=https://dsproute-e2e.test.intranet/MDWWeb
+#mdw.remote.server.DSPRouteURL=http://dsproute-e2e.test.intranet/MDWWeb
+
+mdw.remote.server.DSPWorkflowURL=https://dspwf-e2e.test.intranet/MDWWeb
+
+sm.microservices.host.address=http://corp-yzeus.lab.af.qwest.net
+
+#118200
+omnivue.login.interfacing.appl.ntms.url=http://ntms-itv1.qecom.dev.qintra.com/ntms-ts/NTMSTestService?WSDL
+omnivue.login.interfacing.appl.ntms.auth=https://amrtws-itv1.test.intranet/amrt-employee/Runtime?wsdl
+omnivue.login.interfacing.appl.ntms.auth.userid=DSPAPI
+omnivue.login.interfacing.appl.ntms.auth.password=eigkM5Wpfngceyvi8Wgd7g9a
+omnivue.login.interfacing.appl.snmp.user=SNMP_USER
+omnivue.login.interfacing.appl.snmp.password=SNMPV3_PASSWORD
+omnivue.login.interfacing.appl.snmp.rocommunity=SNMP_RO_COMMUNITY
+omnivue.login.interfacing.appl.snmp.secretkey=y0UN3v3R$@wTh!S1
+omnivue.login.interfacing.appl.icl.from=OMNIVUE
+omnivue.login.interfacing.appl.icl.to=ICL
+omnivue.login.interfacing.appl.icl.replyto=OMNIVUE
+omnivue.login.interfacing.appl.icl.serviceversion=3.1
+omnivue.login.interfacing.appl.icl.userid=OVWFPP
+omnivue.login.interfacing.appl.icl.password=OVWFPP
+
+#Archive Properties
+omnivue.archive.driver.class.name=com.cloudera.impala.jdbc4.Driver
+omnivue.archive.db.url=jdbc:impala://poldcdhdn001.dev.intranet:21050;AuthMech=3;UID=omniappl;PWD=Century_123;SSL=1
+omnivue.archive.databaseName=appltest_omnivue
+osr.archive.databaseName=appltest_osr
+omnivue.appl.mob.restservice.url=http://vlodctfus204.test.intranet:8015/MDWWeb/Services/REST
+archive.search.property=false
+
+#As Per Request # 120125
+batman.alarming.slack.webhook.url=https://hooks.slack.com/services/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
+sm.env=E2E
+notify.docs.url=http://vldddews001.dev.intranet:13461/mdw/Services
+sm.server.host.url=https://omnivue-test3.test.intranet/
+
+#SM_Schedular_Job
+sm.notify.dueDateMissedTimer=FALSE
+sm.notify.dueDateMissedTime.hour=6
+sm.notify.dueDateMissedTime.mins=0
+#refresh Time in hours.
+sm.notify.dueDateMissedTime.refreshTime=24
+
+#splunkforwarder
+splunk.log.dir=data/log
+splunk.log.level=INFO
+splunk.log.file=defecttasks.log
+splunk.log.console=true
+
+omnivue.login.interfacing.appl.icl.offnet.userid=OVWFPP
+omnivue.login.interfacing.appl.icl.offnet.password=OVWFPP
+
+#RMA Remainder  Notification
+sm.rma.remainderTimer=TRUE
+sm.rma.remainderTime.day=1
+sm.rma.remainderTime.hour=6
+sm.rma.remainderTime.mins=0
+
+## CLC BULK UPLOAD Properties
+omnivue.CLC.jobScheduler.refreshtime=10
+omnivue.CLC.jobScheduler.runJob=TRUE
+
+##OV 2 WM Integration 
+WM_LOGIN_USER=omniappl
+WM_LOGIN_PWD=EastBoundAndDown78=
+WM_AUTH_URL=https://workmate_svc_test1.pcfomactl.dev.intranet/RestService/Authenticate/Auth
+CREATE_NEW_TASK_URL=https://workmate_svc_test1.pcfomactl.dev.intranet/RestService/Task/TaskStatusSubmit
+UPDATE_TASK_URL=https://workmate_svc_test1.pcfomactl.dev.intranet/RestService/Task/TaskStatusUpdate
+GETNEXT_URL=https://workmate_svc_test1.pcfomactl.dev.intranet/RestService/WeightRule/getNext
+
+#GEOES properties
+#omnivue.slc.geoes.url=https://cxg7i.test.intranet/e2e/geoes
+omnivue.slc.geoes.url=https://api-test1.test.intranet/
+omnivue.slc.geoes.applicationID=OMNIAPPL
+omnivue.slc.geoes.password=EastBoundAndDown78=
+
+
+X-Application-Key=APPKEY7839920180718221502689118943
+X-Application-Secret=AKI193872018071822150268909489
+
+
+

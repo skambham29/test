@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: '${KUBERNETES_PREFIX}-${JENKINSPREFIX}-${CONTAINERTYPE}-${APP_ACTIVE_PROFILE}'
+  namespace: '${KUBERNETES_NAMESPACE}'
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  labels:
+    project: '${PROJECT_NAME}'
+    branch: '${BRANCH_NAME}'
+    commit: '${COMMIT_ID}'
+    role: ${CONTAINERTYPE}
+    environment: '${APP_ACTIVE_PROFILE}'
+spec:
+  rules:
+    - host: ${KUBERNETES_PREFIX}-prod.${CLUSTER_DOMAIN}
+      http:
+        paths:
+          - path: "/"
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: '${KUBERNETES_PREFIX}-${JENKINSPREFIX}-${CONTAINERTYPE}-${APP_ACTIVE_PROFILE}-prod'
+                port:
+                  number: 8080
+  tls:
+    - hosts:
+        - '${KUBERNETES_PREFIX}-prod.${CLUSTER_DOMAIN}'
+      secretName: managed-tls-secret
+---

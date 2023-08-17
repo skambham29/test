@@ -1,0 +1,18 @@
+FROM nexusprod.corp.intranet:4567/jsl-docker-standard-images/jdk1_6_agent:latest
+LABEL Description="This is a base image, which provides one ANT environment"
+
+USER root
+
+COPY wls-silent.xml /opt/
+
+RUN cd /opt && \
+    curl -k -u ${DOCKER_REGISTRY_USR}:${DOCKER_REGISTRY_PSW} https://nexusprod.corp.intranet:8443/repository/CTLRaw/legacy_jdk/wls1036_generic.jar --output wls1036_generic.jar && \
+    java -jar wls1036_generic.jar -mode=silent -silent_xml=wls-silent.xml && \
+    rm wls1036_generic.jar wls-silent.xml 
+ENV WLS_HOME=/opt/oracle/weblogic/wlserver_10.3
+ENV weblogic.home=/opt/oracle/weblogic/wlserver_10.3/server
+RUN chmod 755 -R /opt
+
+USER jenkins
+ENV ANT_OPTS="-Xmx4g -XX:MaxPermSize=2048m"
+ENV CLASSPATH=${WLS_HOME}/server/lib:${CLASSPATH}

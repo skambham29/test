@@ -1,0 +1,106 @@
+	// To Approve Build deployment in ITCDM tool - Written by Varshitha
+	@Step
+	public void openSite(String url) {
+		getDriver().navigate().to(envData.getFieldValue(url));
+		waitABit(10000);
+		System.out.println("URL - " + envData.getFieldValue(url));
+	}
+
+	@Step
+	public void user_logged_in_as_into_the_ITCDM_portal(String loggedInUser) {
+		System.setProperty("LoginUser", loggedInUser);
+		IntDataContainer dataContainer = envData.getContainer(loggedInUser);
+//		System.out.println(dataContainer.getFieldValue("username") + "," + dataContainer.getFieldValue("password"));
+		System.setProperty("LoggedinUserName", dataContainer.getFieldValue("username"));
+		loginAndMenusPage.txt_ITCDM_username.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible()
+				.type(dataContainer.getFieldValue("username"));
+		loginAndMenusPage.txt_ITCDM_password.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible()
+				.type(dataContainer.getFieldValue("password"));
+		loginAndMenusPage.btn_ITCDM_signin.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible().click();
+		waitABit(2000);
+	}
+
+	@Step
+	public void homepage_loaded_successfully() throws InterruptedException {
+		loginAndMenusPage.lbl_ITCDM.withTimeoutOf(60, TimeUnit.SECONDS).waitUntilVisible();
+		Thread.sleep(2000);
+		System.out.println("Home page Displayed");
+		Thread.sleep(20000);;
+	}
+
+	@Step
+	public void choose_required_application(String tabName) throws InterruptedException {
+		String[] tabs = tabName.split(",");
+		for (String tab : tabs) {
+			if (tab.equalsIgnoreCase("mylevel3_helpdoc")) {				
+				loginAndMenusPage.menu_helpdoc.withTimeoutOf(15, TimeUnit.SECONDS).waitUntilVisible().click();
+				System.out.println("Clicked on Mylevel3 help doc tab");
+				Thread.sleep(20000);
+			} else if (tab.equalsIgnoreCase("menu_level3_portal")) {				
+				loginAndMenusPage.menu_level3_portal.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible().click();
+				System.out.println("Clicked on Mylevel3 portal tab");
+				Thread.sleep(20000);
+			} else if (tab.equalsIgnoreCase("menu_portal_auth")) {
+				loginAndMenusPage.menu_portal_auth.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible().click();
+				System.out.println("Clicked on Portal auth tab");
+				Thread.sleep(20000);
+			} else if (tab.equalsIgnoreCase("menu_portal_sso")) {
+				loginAndMenusPage.menu_portal_sso.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible().click();
+				System.out.println("Clicked on Portal sso tab");
+				Thread.sleep(20000);
+			} else if (tab.equalsIgnoreCase("menu_portal_ui")) {
+				loginAndMenusPage.menu_portal_ui.withTimeoutOf(30, TimeUnit.SECONDS).waitUntilVisible().click();
+				System.out.println("Clicked on Portal ui tab");
+				Thread.sleep(20000);
+			}
+
+			// check and approve button
+			if (choose_table()) {
+				break;
+			}
+		}
+	}
+
+	public boolean choose_table() throws InterruptedException {
+		if (loginAndMenusPage.btn_build_action.isVisible()) {
+//			loginAndMenusPage.lbl_current_jobs.withTimeoutOf(60, TimeUnit.SECONDS).waitUntilVisible();
+//			waitABit(10000);
+			loginAndMenusPage.btn_build_action.withTimeoutOf(60, TimeUnit.SECONDS).waitUntilVisible().click();
+			Thread.sleep(10000);
+			loginAndMenusPage.btn_approve_deployment.withTimeoutOf(60, TimeUnit.SECONDS).waitUntilVisible().click();
+			Thread.sleep(10000);
+			loginAndMenusPage.pop_up_title.withTimeoutOf(60, TimeUnit.SECONDS).waitUntilVisible();
+			Thread.sleep(10000);
+			loginAndMenusPage.pop_up_body.withTimeoutOf(60, TimeUnit.SECONDS).waitUntilVisible();
+			System.out.println(loginAndMenusPage.pop_up_body);
+			Thread.sleep(10000);
+			loginAndMenusPage.pop_up_close.withTimeoutOf(60, TimeUnit.SECONDS).waitUntilVisible().click();
+			Thread.sleep(10000);
+			return true;
+		}
+		return false;
+
+	}
+
+	@Step
+	public void check_status() throws InterruptedException {
+		if (loginAndMenusPage.status_of_deployment.isVisible()) {
+			loginAndMenusPage.column_status_of_deployment.withTimeoutOf(60, TimeUnit.SECONDS).waitUntilVisible();
+			Thread.sleep(10000);
+			loginAndMenusPage.status_of_deployment.withTimeoutOf(60, TimeUnit.SECONDS).waitUntilVisible();
+			Thread.sleep(10000);
+			System.out.println("Status of the deployment is processing now");
+			try {
+				Thread.sleep(900000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+				if (loginAndMenusPage.status_of_deployment.isVisible()) {
+					System.out.println("Status of the deployment is processing now");
+				} else {
+					System.out.println("Deployment has been completed and moved to recent builds");
+				}
+				}
+		} else {
+			System.out.println("There is no build to approve");
+		}
+	}

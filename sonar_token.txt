@@ -1,0 +1,1 @@
+sonar-secrets = 6addf5b2f75051fe4e91a6af4693761d6c64e9ed

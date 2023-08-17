@@ -1,0 +1,28 @@
+REM Update Domain Security Groups via Global Protect
+REM written by John Randall
+@echo off
+cls
+c: 
+cd\
+
+:Get Username
+set /p strUsername=Enter Username: 
+@echo.
+
+:KillExplorer
+taskkill /IM explorer.exe /F
+@echo.
+
+:RestartExplorer
+@echo when prompted enter your login password you use to log into your machine
+RunAs /user:CTL\%strUsername% explorer.exe
+@echo.
+@echo wait for your desktop to re-appear and then press any key to reboot your machine
+Pause > nul
+@echo.
+
+:restart
+shutdown /r
+
+:End
+Set strUsername=

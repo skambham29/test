@@ -1,0 +1,2 @@
+Exception during execution:
+javax.script.ScriptException: com.xebialabs.overthere.RuntimeIOException: com.xebialabs.overthere.RuntimeIOException: Cannot copy byte_array:///c/Users/ac92185/Repos/extract.sh to local:/c/Users/ac92185/Repos/extract.sh in <script> at line number 12

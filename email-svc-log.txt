@@ -1,0 +1,156 @@
+________                          _    __
+|_   __  |                        (_)  [  |
+ | |_ \_|  _ .--..--.    ,--.    __    | |
+ |  _| _  [ `.-. .-. |  `'_\ :  [  |   | |
+_| |__/ |  | | | | | |  // | |,  | |   | |
+|________| [___||__||__] \'-;__/ [___] [___]
+
+                                   Spring Boot Formatted Version :  (v2.3.3.RELEASE)
+
+
+2021-07-14 07:39:48.984 [1] [main] INFO  com.eis.notification.ordernotification.OrdernotificationApplication : Starting OrdernotificationApplication v0.0.1-SNAPSHOT on ordering-email-service-test-547f5df868-v2fgp with PID 1 (/target/app.jar started by java in /)
+2021-07-14 07:39:48.987 [1] [main] DEBUG com.eis.notification.ordernotification.OrdernotificationApplication : Running with Spring Boot v2.3.3.RELEASE, Spring v5.2.8.RELEASE
+2021-07-14 07:39:48.987 [1] [main] INFO  com.eis.notification.ordernotification.OrdernotificationApplication : The following profiles are active: test
+2021-07-14 07:39:51.185 [1] [main] INFO  org.apache.catalina.core.StandardService : Starting service [Tomcat]
+2021-07-14 07:39:51.186 [1] [main] INFO  org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.37]
+2021-07-14 07:39:51.240 [1] [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/ord-email-svc/api/v1] : Initializing Spring embedded WebApplicationContext
+2021-07-14 07:39:53.345 [1] [task-1] INFO  com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Starting...
+2021-07-14 07:39:53.349 [1] [task-1] WARN  com.zaxxer.hikari.util.DriverDataSource : Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2021-07-14 07:40:54.503 [1] [task-1] ERROR com.zaxxer.hikari.pool.HikariPool : HikariPool-1 - Exception during pool initialization.
+java.sql.SQLRecoverableException: IO Error: The Network Adapter could not establish the connection
+ at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:801)
+ at oracle.jdbc.driver.PhysicalConnection.connect(PhysicalConnection.java:782)
+ at oracle.jdbc.driver.T4CDriverExtension.getConnection(T4CDriverExtension.java:39)
+ at oracle.jdbc.driver.OracleDriver.connect(OracleDriver.java:704)
+ at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+ at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:358)
+ at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206)
+ at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:477)
+ at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:560)
+ at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+ at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+ at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:122)
+ at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:180)
+ at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:68)
+ at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:35)
+ at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:101)
+ at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263)
+ at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:237)
+ at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214)
+ at org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory.injectServices(DefaultIdentifierGeneratorFactory.java:152)
+ at org.hibernate.service.internal.AbstractServiceRegistryImpl.injectDependencies(AbstractServiceRegistryImpl.java:286)
+ at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:243)
+ at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214)
+ at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:176)
+ at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:118)
+ at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1224)
+ at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1255)
+ at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+ at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+ at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:391)
+ at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+ at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+ at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+ at java.lang.Thread.run(Thread.java:748)
+Caused by: oracle.net.ns.NetException: The Network Adapter could not establish the connection
+ at oracle.net.nt.ConnStrategy.execute(ConnStrategy.java:569)
+ at oracle.net.resolver.AddrResolution.resolveAndExecute(AddrResolution.java:521)
+ at oracle.net.ns.NSProtocol.establishConnection(NSProtocol.java:660)
+ at oracle.net.ns.NSProtocol.connect(NSProtocol.java:287)
+ at oracle.jdbc.driver.T4CConnection.connect(T4CConnection.java:1481)
+ at oracle.jdbc.driver.T4CConnection.logon(T4CConnection.java:540)
+ ... 33 common frames omitted
+Caused by: java.io.IOException: Socket read timed out, socket connect lapse 30001 ms. /10.120.214.28 1521 30000 1 true
+ at oracle.net.nt.TcpNTAdapter.connect(TcpNTAdapter.java:229)
+ at oracle.net.nt.ConnOption.connect(ConnOption.java:172)
+ at oracle.net.nt.ConnStrategy.execute(ConnStrategy.java:508)
+ ... 38 common frames omitted
+Caused by: oracle.net.nt.TimeoutInterruptHandler$IOReadTimeoutException: Socket read timed out
+ at oracle.net.nt.TimeoutSocketChannel.handleInterrupt(TimeoutSocketChannel.java:258)
+ at oracle.net.nt.TimeoutSocketChannel.connect(TimeoutSocketChannel.java:112)
+ at oracle.net.nt.TimeoutSocketChannel.<init>(TimeoutSocketChannel.java:86)
+ at oracle.net.nt.TcpNTAdapter.connect(TcpNTAdapter.java:188)
+ ... 40 common frames omitted
+2021-07-14 07:40:54.512 [1] [main] ERROR com.eis.notification.ordernotification.service.FeatureTogglzService : Error creating bean with name 'featureToggleRepository' defined in com.eis.notification.ordernotification.repository.FeatureToggleRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaMappingContext' while setting bean property 'mappingContext'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaMappingContext': Invocation of init method failed; nested exception is org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+2021-07-14 07:40:54.512 [1] [main] INFO  com.eis.notification.ordernotification.service.FeatureTogglzService : FeatureToggle Config Map Initialised : {}
+Date in GMT: Wed Jul 14 07:40:55 GMT 2021
+2021-07-14 07:40:55.349 [1] [main] INFO  springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper : Context refreshed
+2021-07-14 07:40:55.367 [1] [main] INFO  springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2021-07-14 07:40:55.387 [1] [main] INFO  springfox.documentation.spring.web.scanners.ApiListingReferenceScanner : Scanning for api listing references
+2021-07-14 07:40:55.616 [1] [main] INFO  org.apache.catalina.core.StandardService : Stopping service [Tomcat]
+2021-07-14 07:40:55.698 [1] [main] ERROR org.springframework.boot.SpringApplication : Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'orderContactsRepository' defined in com.eis.notification.ordernotification.repository.OrderContactsRepository defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Cannot resolve reference to bean 'jpaMappingContext' while setting bean property 'mappingContext'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaMappingContext': Invocation of init method failed; nested exception is org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+ at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:342)
+ at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveValueIfNecessary(BeanDefinitionValueResolver.java:113)
+ at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyPropertyValues(AbstractAutowireCapableBeanFactory.java:1697)
+ at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1442)
+ at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:593)
+ at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:516)
+ at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:324)
+ at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226)
+ at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+ at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+ at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeansOfType(DefaultListableBeanFactory.java:624)
+ at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeansOfType(DefaultListableBeanFactory.java:612)
+ at org.springframework.data.repository.config.DeferredRepositoryInitializationListener.onApplicationEvent(DeferredRepositoryInitializationListener.java:51)
+ at org.springframework.data.repository.config.DeferredRepositoryInitializationListener.onApplicationEvent(DeferredRepositoryInitializationListener.java:36)
+ at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172)
+ at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165)
+ at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139)
+ at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:404)
+ at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:361)
+ at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:898)
+ at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:554)
+ at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+ at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:758)
+ at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:750)
+ at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+ at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+ at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237)
+ at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226)
+ at com.eis.notification.ordernotification.OrdernotificationApplication.main(OrdernotificationApplication.java:214)
+ at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+ at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+ at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+ at java.lang.reflect.Method.invoke(Method.java:498)
+ at org.springframework.boot.loader.MainMethodRunner.run(MainMethodRunner.java:49)
+ at org.springframework.boot.loader.Launcher.launch(Launcher.java:109)
+ at org.springframework.boot.loader.Launcher.launch(Launcher.java:58)
+ at org.springframework.boot.loader.JarLauncher.main(JarLauncher.java:88)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'jpaMappingContext': Invocation of init method failed; nested exception is org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+ at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1794)
+ at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594)
+ at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:516)
+ at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:324)
+ at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226)
+ at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
+ at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+ at org.springframework.beans.factory.support.BeanDefinitionValueResolver.resolveReference(BeanDefinitionValueResolver.java:330)
+ ... 36 common frames omitted
+Caused by: org.hibernate.service.spi.ServiceException: Unable to create requested service [org.hibernate.engine.jdbc.env.spi.JdbcEnvironment]
+ at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:275)
+ at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:237)
+ at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214)
+ at org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory.injectServices(DefaultIdentifierGeneratorFactory.java:152)
+ at org.hibernate.service.internal.AbstractServiceRegistryImpl.injectDependencies(AbstractServiceRegistryImpl.java:286)
+ at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:243)
+ at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214)
+ at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:176)
+ at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:118)
+ at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1224)
+ at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1255)
+ at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+ at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+ at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:391)
+ at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+ at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+ at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+ at java.lang.Thread.run(Thread.java:748)
+Caused by: org.hibernate.HibernateException: Access to DialectResolutionInfo cannot be null when 'hibernate.dialect' not set
+ at org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl.determineDialect(DialectFactoryImpl.java:100)
+ at org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl.buildDialect(DialectFactoryImpl.java:54)
+ at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:137)
+ at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:35)
+ at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:101)
+ at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263)
+ ... 17 common frames omitted

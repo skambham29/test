@@ -1,0 +1,92 @@
+<settings>
+  <servers>
+    <server>
+      <id>nexus-mirror</id>
+      <username>eisrw</username>
+      <password>hFeHyXYJtv7hnEP</password>
+    </server>
+    <server>
+      <id>central</id>
+      <username>eisrw</username>
+      <password>hFeHyXYJtv7hnEP</password>
+    </server>
+    <server>
+      <id>nexus-releases</id>
+      <username>eisrw</username>
+      <password>hFeHyXYJtv7hnEP</password>
+    </server>
+    <server>
+      <id>nexus-snapshots</id>
+      <username>eisrw</username>
+      <password>hFeHyXYJtv7hnEP</password>
+    </server>
+    <server>
+      <id>central-public</id>
+      <username>eisrw</username>
+      <password>hFeHyXYJtv7hnEP</password>
+    </server>
+    <server>
+      <id>ctl.nexus.thirdparty</id>
+      <username>eisrw</username>
+      <password>hFeHyXYJtv7hnEP</password>
+    </server>
+    <server>
+      <id>nexus</id>
+      <username>eisrw</username>
+      <password>hFeHyXYJtv7hnEP</password>
+    </server>
+    <server>
+      <id>nexus-test</id>
+      <username>eisrw</username>
+      <password>hFeHyXYJtv7hnEP</password>
+    </server>
+  </servers>
+
+  <mirrors>
+    <mirror>
+      <id>nexus-mirror</id>
+      <mirrorOf>central</mirrorOf>
+      <name>Nexus Production Mirror</name>
+      <url>https://nexusprod.corp.intranet:8443/repository/maven-central/</url>
+    </mirror>
+  </mirrors>
+  
+  <profiles>
+    <profile>
+    <id>nexus</id>
+      <repositories>
+        <repository>
+            <id>central</id>
+            <name>Maven Central</name>
+            <url>https://nexusprod.corp.intranet:8443/repository/maven-central/</url>
+        </repository>
+        <repository>
+            <id>nexus-releases</id>
+            <name>Nexus Releases</name>
+            <url>https://nexusprod.corp.intranet:8443/repository/maven-releases/</url>
+        </repository>
+        <repository>
+            <id>nexus-snapshots</id>
+            <name>Nexus Releases</name>
+            <url>https://nexusprod.corp.intranet:8443/repository/maven-snapshots/</url>
+        </repository>
+        <repository>
+            <id>central-public</id>
+            <name>Maven Public</name>
+            <url>https://nexusprod.corp.intranet:8443/repository/maven-public/</url>
+        </repository>
+        <repository>
+            <id>ctl.nexus.thirdparty</id>
+            <name>CenturyLink Nexus Repository - Thirdparty Releases</name>
+            <url>https://nexusprod.corp.intranet:8443/repository/maven-public/</url>
+        </repository>
+    </repositories>
+    </profile>
+  </profiles>
+
+  <activeProfiles>
+    <activeProfile>nexus</activeProfile>
+  </activeProfiles>
+
+
+</settings>

@@ -1,0 +1,115 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'digi-custcare-test-bmd-dev2-ui'
+  namespace: 'digi-custcare-test'
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  labels:
+    project: 'dss-custcare-ui'
+    branch: 'bmd'
+    commit: 'f695a33'
+    role: ui
+    env: dev2
+spec:
+  rules:
+    - host: dss-custcare-ui-dev2.kubeodc-test.corp.intranet
+      http:
+        paths:
+          - path: "/"
+            backend:
+              serviceName: 'digi-custcare-test-dev2-ui'
+              servicePort: 8080
+    - host: dssr-dev2.lumen.com
+      http:
+        paths:
+          - path: "/"
+            backend:
+              serviceName: 'digi-custcare-test-dev2-ui'
+              servicePort: 8080
+    - host: dssr-dev2.test.intranet
+      http:
+        paths:
+          - path: "/"
+            backend:
+              serviceName: 'digi-custcare-test-dev2-ui'
+              servicePort: 8080
+  tls:
+    - hosts:
+      - 'dss-custcare-ui-dev2.kubeodc-test.corp.intranet'
+      secretName: managed-tls-secret
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'digi-custcare-test-dev2-ui'
+  namespace: 'digi-custcare-test'
+  labels:
+    project: 'dss-custcare-ui'
+    branch: 'bmd'
+    commit: 'f695a33'
+    role: ui
+    env: dev2
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    project: 'dss-custcare-ui'
+    branch: 'bmd'
+    commit: 'f695a33'
+    role: ui
+    env: dev2
+  type: ClusterIP
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'digi-custcare-test-bmd-dev2-ui'
+  labels:
+    project: 'dss-custcare-ui'
+    branch: 'bmd'
+    commit: 'f695a33'
+    role: ui
+    env: dev2
+spec:
+  selector:
+    matchLabels:
+      project: 'dss-custcare-ui'
+      branch: 'bmd'
+      role: ui
+  replicas: 1
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'dss-custcare-ui'
+        branch: 'bmd'
+        commit: 'f695a33'
+        role: ui
+        env: dev2
+    spec:
+      containers:
+        - name: ui-bmd
+          image: 'nexusprod.corp.intranet:4567/dss-custcare-ui/dss-custcare-ui:bmd'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: ui
+          resources:
+            limits:
+              cpu: 400m
+              memory: 400Mi
+            requests:
+              cpu: 300m
+              memory: 300Mi
+      imagePullSecrets:
+        - name: dss-custcare-ui-bmd
+---
+---

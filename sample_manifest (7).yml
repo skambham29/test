@@ -1,0 +1,108 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'mbsgui-master-java-dev'
+  namespace: 'mbs-dev'
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/load-balance: "round_robin"
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  labels:
+    project: 'mbs-app-gui'
+    branch: 'master'
+    commit: '5589657'
+    role: java
+    environment: dev
+spec:
+  rules:
+    - host: mbsgui-dev.kubeodc-test.corp.intranet
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: 'mbsgui-master-java-dev'
+              servicePort: 8080
+  tls:
+    - hosts:
+      - 'mbsgui-dev.kubeodc-test.corp.intranet'
+      secretName: managed-tls-secret
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'mbsgui-master-java-dev'
+  namespace: 'mbs-dev'
+  labels:
+    project: 'mbs-app-gui'
+    branch: 'master'
+    commit: '5589657'
+    role: java
+    environment: dev
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    project: 'mbs-app-gui'
+    branch: 'master'
+    commit: '5589657'
+    role: java
+    environment: dev
+  type: ClusterIP
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'mbsgui-master-java-dev'
+  labels:
+    project: 'mbs-app-gui'
+    branch: 'master'
+    commit: '5589657'
+    role: java
+    environment: dev
+spec:
+  selector:
+    matchLabels:
+      project: 'mbs-app-gui'
+      branch: 'master'
+      role: java
+      environment: dev
+  replicas: 1
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'mbs-app-gui'
+        branch: 'master'
+        commit: '5589657'
+        role: java
+        environment: dev
+    spec:
+      containers:
+        - name: java-master
+          image: 'nexusprod.corp.intranet:4567/mbs_dev/mbs-app-gui:master'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            limits:
+              memory: 2048Mi
+              cpu: 250m
+            requests:
+              memory: 512Mi
+              cpu: 100m
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: kube-dev
+            - name: JAVA_OPTS
+              value: -Xms512m -Xmx1024m -XX:MetaspaceSize=300124K -XX:MaxMetaspaceSize=300124K -Xss80440K -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+UseConcMarkSweepGC
+      imagePullSecrets:
+        - name: mbs-app-gui-master
+---
+---

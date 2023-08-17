@@ -1,0 +1,2938 @@
+
+FailedConsole Output
+Started by user Nutan Choudhari
+10:33:13 Connecting to https://api.github.com using ravishjoshi/****** (ravishjoshi-lumen-https)
+Obtained Jenkinsfile from 47da2b33be7abc056d73de7abe10204e76049182
+Running in Durability level: MAX_SURVIVABILITY
+[Pipeline] Start of Pipeline
+[Pipeline] library
+Loading library jsl-jenkins-shared-library@release/20220617
+Attempting to resolve release/20220617 from remote references...
+ > git --version # timeout=10
+ > git --version # 'git version 2.20.1'
+using GIT_ASKPASS to set credentials ravishjoshi-lumen-https
+ > git ls-remote -- https://github.com/CenturyLink/jsl-jenkins-shared-library.git # timeout=10
+Found match: refs/heads/release/20220617 revision 0ffcc73726edadcaddc7c61aca9428134c6d64ac
+The recommended git tool is: git
+using credential ravishjoshi-lumen-https
+Wiping out workspace first.
+Cloning the remote Git repository
+Cloning with configured refspecs honoured and without tags
+Cloning repository https://github.com/CenturyLink/jsl-jenkins-shared-library.git
+ > git init /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master@libs/jsl-jenkins-shared-library # timeout=10
+Fetching upstream changes from https://github.com/CenturyLink/jsl-jenkins-shared-library.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.20.1'
+using GIT_ASKPASS to set credentials ravishjoshi-lumen-https
+ > git fetch --no-tags --force --progress -- https://github.com/CenturyLink/jsl-jenkins-shared-library.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/CenturyLink/jsl-jenkins-shared-library.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+Checking out Revision 0ffcc73726edadcaddc7c61aca9428134c6d64ac (release/20220617)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 0ffcc73726edadcaddc7c61aca9428134c6d64ac # timeout=10
+Exception logging commit message for Build #187 of Revision 0ffcc73726edadcaddc7c61aca9428134c6d64ac (release/20220617): java.io.IOException: Cannot read file /var/jenkins_home/.config/jgit/config
+ > git rev-list --no-walk 0ffcc73726edadcaddc7c61aca9428134c6d64ac # timeout=10
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master
+[Pipeline] {
+[Pipeline] echo
+Placeholder to integrate Service Now DevOps Module in  Declarative: Checkout SCM stage.
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+The recommended git tool is: NONE
+using credential ravishjoshi-lumen-https
+Cloning the remote Git repository
+Cloning with configured refspecs honoured and without tags
+Cloning repository https://github.com/CenturyLink/ps-ng911-splunk.git
+ > git init /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master # timeout=10
+Fetching upstream changes from https://github.com/CenturyLink/ps-ng911-splunk.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.20.1'
+using GIT_ASKPASS to set credentials ravishjoshi-lumen-https
+ > git fetch --no-tags --force --progress -- https://github.com/CenturyLink/ps-ng911-splunk.git +refs/heads/master:refs/remotes/origin/master # timeout=10
+ > git config remote.origin.url https://github.com/CenturyLink/ps-ng911-splunk.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/master:refs/remotes/origin/master # timeout=10
+Avoid second fetch
+Checking out Revision 47da2b33be7abc056d73de7abe10204e76049182 (master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 47da2b33be7abc056d73de7abe10204e76049182 # timeout=10
+Exception logging commit message for Build #187 of Revision 47da2b33be7abc056d73de7abe10204e76049182 (master): java.io.IOException: Cannot read file /var/jenkins_home/.config/jgit/config
+ > git rev-list --no-walk 47da2b33be7abc056d73de7abe10204e76049182 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] timeout
+16:03:22  Timeout set to expire in 1 hr 0 min
+[Pipeline] {
+[Pipeline] echo
+16:03:22  Placeholder to integrate Service Now DevOps Module in  Declarative: Tool Install stage.
+[Pipeline] stage
+[Pipeline] { (Declarative: Tool Install)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] echo
+16:03:23  Placeholder to integrate Service Now DevOps Module in  Static Code Analysis stage.
+[Pipeline] stage
+[Pipeline] { (Static Code Analysis)
+[Pipeline] parallel
+[Pipeline] { (Branch: Linting)
+[Pipeline] { (Branch: DevSecOps)
+[Pipeline] echo
+16:03:23  Placeholder to integrate Service Now DevOps Module in  Linting stage.
+[Pipeline] stage
+[Pipeline] { (Linting)
+[Pipeline] echo
+16:03:23  Placeholder to integrate Service Now DevOps Module in  DevSecOps stage.
+[Pipeline] stage
+[Pipeline] { (DevSecOps)
+[Pipeline] tool
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh
+[Pipeline] isUnix
+[Pipeline] sh
+16:03:24  + mvn -f ng911-splunk-api/pom.xml checkstyle:checkstyle
+16:03:24  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+16:03:24  + set +x
+[Pipeline] withCredentials
+16:03:24  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (GitHub Security Alert Repo)
+16:03:25  + set +x
+16:03:25  Checking dependencies vulnerability alerts are enabled
+16:03:25  /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master@tmp/durable-f06100f8/script.sh: 8: /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master@tmp/durable-f06100f8/script.sh: [[: not found
+16:03:25  [INFO] Scanning for projects...
+16:03:25  [WARNING] 
+16:03:25  [WARNING] Some problems were encountered while building the effective model for io.ctl.gov:ng911-splunk-api:jar:0.0.9-SNAPSHOT
+16:03:25  [WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.springframework.boot:spring-boot-starter-validation:jar -> duplicate declaration of version (?) @ line 69, column 15
+16:03:25  [WARNING] 'build.plugins.plugin.version' for org.springframework.boot:spring-boot-maven-plugin is missing. @ line 193, column 12
+16:03:25  [WARNING] 
+16:03:25  [WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+16:03:25  [WARNING] 
+16:03:25  [WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+16:03:25  [WARNING] 
+16:03:25  Getting dependencies vulnerability alerts report
+16:03:25  /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master@tmp/durable-f06100f8/script.sh: 17: /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master@tmp/durable-f06100f8/script.sh: python: not found
+16:03:25    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+16:03:25                                   Dload  Upload   Total   Spent    Left  Speed
+16:03:26  [INFO] 
+16:03:26  [INFO] --------------------< io.ctl.gov:ng911-splunk-api >---------------------
+16:03:26  [INFO] Building ng911-splunk-api 0.0.9-SNAPSHOT
+16:03:26  [INFO] --------------------------------[ jar ]---------------------------------
+16:03:26  
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  4088  100  3698  100   390   8501    896 --:--:-- --:--:-- --:--:--  9397
+16:03:26  (23) Failed writing body
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh
+16:03:26  [INFO] 
+16:03:26  [INFO] --- maven-checkstyle-plugin:3.1.2:checkstyle (default-cli) @ ng911-splunk-api ---
+16:03:26  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+16:03:27  + set +x
+[Pipeline] withCredentials
+16:03:27  Masking supported pattern matches of $USERNAME or $GITHUB_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting the list of branches of the repository)
+16:03:27  [WARNING] Old version of checkstyle detected. Consider updating to >= v8.30
+16:03:27  [WARNING] For more information see: https://maven.apache.org/plugins/maven-checkstyle-plugin/examples/upgrading-checkstyle.html
+16:03:27  + set +x
+16:03:27    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+16:03:27                                   Dload  Upload   Total   Spent    Left  Speed
+16:03:28  
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  2401  100  2401    0     0   7082      0 --:--:-- --:--:-- --:--:--  7082
+[Pipeline] readJSON
+[Pipeline] writeJSON
+16:03:28  [WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[Pipeline] isUnix
+[Pipeline] sh (Cleaning up)
+16:03:28  + rm -rf branch_protection.json
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] dir
+16:03:29  Running in /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master
+[Pipeline] {
+[Pipeline] findFiles
+16:03:29  [INFO] There are 546 errors reported by Checkstyle 8.29 with sun_checks.xml ruleset.
+16:03:29  [WARNING] Unable to locate Source XRef to link to - DISABLED
+[Pipeline] isUnix
+[Pipeline] sh (Creating daumerling)
+16:03:29  + md5sum Jenkinsfile
+[Pipeline] stash
+16:03:29  Stashed 1 file(s)
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+16:03:29  [INFO] ------------------------------------------------------------------------
+16:03:29  [INFO] BUILD SUCCESS
+16:03:29  [INFO] ------------------------------------------------------------------------
+16:03:29  [INFO] Total time:  4.045 s
+16:03:29  [INFO] Finished at: 2022-07-13T10:33:29Z
+16:03:29  [INFO] ------------------------------------------------------------------------
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] archiveArtifacts
+16:03:29  Archiving artifacts
+16:03:29  Recording fingerprints
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // parallel
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] echo
+16:03:30  Placeholder to integrate Service Now DevOps Module in  Test stage.
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] echo
+16:03:31  Placeholder to integrate Service Now DevOps Module in  Unit Tests stage.
+[Pipeline] stage
+[Pipeline] { (Unit Tests)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh
+16:03:31  + mvn clean test --projects ng911-splunk-api
+16:03:33  [INFO] Scanning for projects...
+16:03:33  [WARNING] 
+16:03:33  [WARNING] Some problems were encountered while building the effective model for io.ctl.gov:ng911-splunk-api:jar:0.0.9-SNAPSHOT
+16:03:33  [WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.springframework.boot:spring-boot-starter-validation:jar -> duplicate declaration of version (?) @ line 69, column 15
+16:03:33  [WARNING] 'build.plugins.plugin.version' for org.springframework.boot:spring-boot-maven-plugin is missing. @ line 193, column 12
+16:03:33  [WARNING] 
+16:03:33  [WARNING] Some problems were encountered while building the effective model for io.ctl.gov:ng911-splunk-poller:jar:0.0.9-SNAPSHOT
+16:03:33  [WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: io.micrometer:micrometer-registry-prometheus:jar -> duplicate declaration of version (?) @ line 115, column 21
+16:03:33  [WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.projectlombok:lombok:jar -> duplicate declaration of version (?) @ line 119, column 21
+16:03:33  [WARNING] 
+16:03:33  [WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+16:03:33  [WARNING] 
+16:03:33  [WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+16:03:33  [WARNING] 
+16:03:33  [INFO] 
+16:03:33  [INFO] --------------------< io.ctl.gov:ng911-splunk-api >---------------------
+16:03:33  [INFO] Building ng911-splunk-api 0.0.9-SNAPSHOT
+16:03:33  [INFO] --------------------------------[ jar ]---------------------------------
+16:03:34  [INFO] 
+16:03:34  [INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ ng911-splunk-api ---
+16:03:34  [INFO] Deleting /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target
+16:03:34  [INFO] 
+16:03:34  [INFO] --- os-maven-plugin:1.6.2:detect (default) @ ng911-splunk-api ---
+16:03:34  [INFO] ------------------------------------------------------------------------
+16:03:34  [INFO] Detecting the operating system and CPU architecture
+16:03:34  [INFO] ------------------------------------------------------------------------
+16:03:34  [INFO] os.detected.name: linux
+16:03:34  [INFO] os.detected.arch: x86_64
+16:03:34  [INFO] os.detected.version: 4.15
+16:03:34  [INFO] os.detected.version.major: 4
+16:03:34  [INFO] os.detected.version.minor: 15
+16:03:34  [INFO] os.detected.release: debian
+16:03:34  [INFO] os.detected.release.version: 10
+16:03:34  [INFO] os.detected.release.like.debian: true
+16:03:34  [INFO] os.detected.classifier: linux-x86_64
+16:03:34  [INFO] 
+16:03:34  [INFO] --- jacoco-maven-plugin:0.8.5:prepare-agent (default) @ ng911-splunk-api ---
+16:03:34  [INFO] argLine set to -javaagent:/root/.m2/repository/org/jacoco/org.jacoco.agent/0.8.5/org.jacoco.agent-0.8.5-runtime.jar=destfile=/var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/jacoco.exec,append=true,excludes=*MethodAccess
+16:03:34  [INFO] 
+16:03:34  [INFO] --- protobuf-maven-plugin:0.6.1:compile (default) @ ng911-splunk-api ---
+16:03:34  [INFO] Compiling 1 proto file(s) to /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/generated-sources/protobuf/java
+16:03:35  [INFO] 
+16:03:35  [INFO] --- protobuf-maven-plugin:0.6.1:compile-custom (default) @ ng911-splunk-api ---
+16:03:35  [INFO] Compiling 1 proto file(s) to /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/generated-sources/protobuf/grpc-java
+16:03:35  [INFO] 
+16:03:35  [INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ ng911-splunk-api ---
+16:03:35  [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+16:03:35  [INFO] Copying 4 resources
+16:03:35  [INFO] Copying 1 resource
+16:03:35  [INFO] Copying 1 resource
+16:03:35  [INFO] 
+16:03:35  [INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ ng911-splunk-api ---
+16:03:35  [INFO] Changes detected - recompiling the module!
+16:03:35  [WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+16:03:35  [INFO] Compiling 13 source files to /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/classes
+16:03:42  [INFO] /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/generated-sources/protobuf/java/io/ctl/gov/ng911/thanos/adapter/prometheus/Prometheus.java: /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/generated-sources/protobuf/java/io/ctl/gov/ng911/thanos/adapter/prometheus/Prometheus.java uses or overrides a deprecated API.
+16:03:42  [INFO] /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/generated-sources/protobuf/java/io/ctl/gov/ng911/thanos/adapter/prometheus/Prometheus.java: Recompile with -Xlint:deprecation for details.
+16:03:42  [INFO] 
+16:03:42  [INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ ng911-splunk-api ---
+16:03:42  [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+16:03:42  [INFO] Copying 17 resources
+16:03:42  [INFO] 
+16:03:42  [INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ ng911-splunk-api ---
+16:03:42  [INFO] Changes detected - recompiling the module!
+16:03:42  [WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+16:03:42  [INFO] Compiling 7 source files to /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/test-classes
+16:03:42  [INFO] /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/src/test/java/io/ctl/ng911/splunk/service/DGraphServiceTest.java: /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/src/test/java/io/ctl/ng911/splunk/service/DGraphServiceTest.java uses unchecked or unsafe operations.
+16:03:42  [INFO] /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/src/test/java/io/ctl/ng911/splunk/service/DGraphServiceTest.java: Recompile with -Xlint:unchecked for details.
+16:03:42  [INFO] 
+16:03:42  [INFO] --- maven-surefire-plugin:3.0.0-M4:test (default-test) @ ng911-splunk-api ---
+16:03:43  [INFO] 
+16:03:43  [INFO] -------------------------------------------------------
+16:03:43  [INFO]  T E S T S
+16:03:43  [INFO] -------------------------------------------------------
+16:03:45  [INFO] Running io.ctl.ng911.splunk.web.SplunkResourceTest
+16:03:47  
+16:03:47    .   ____          _            __ _ _
+16:03:47   /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+16:03:47  ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+16:03:47   \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+16:03:47    '  |____| .__|_| |_|_| |_\__, | / / / /
+16:03:47   =========|_|==============|___/=/_/_/_/
+16:03:47   :: Spring Boot ::        (v2.2.4.RELEASE)
+16:03:47  
+16:03:47  2022-07-13 10:33:47.691  INFO 6259 --- [           main] i.c.n.s.w.SplunkResourceTest             : Starting SplunkResourceTest on jenkins-85f5bd7965-4wcr2 with PID 6259 (started by root in /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api)
+16:03:47  2022-07-13 10:33:47.709  INFO 6259 --- [           main] i.c.n.s.w.SplunkResourceTest             : No active profile set, falling back to default profiles: default
+16:03:53  2022-07-13 10:33:52.960  INFO 6259 --- [           main] o.e.c.EhcacheManager                     : Cache 'dgraph' created in EhcacheManager.
+16:03:53  2022-07-13 10:33:52.994  INFO 6259 --- [           main] o.e.j.Eh107CacheManager                  : Registering Ehcache MBean javax.cache:type=CacheStatistics,CacheManager=urn.X-ehcache.jsr107-default-config,Cache=dgraph
+16:03:53  2022-07-13 10:33:53.514  INFO 6259 --- [           main] o.e.j.Eh107CacheManager                  : Registering Ehcache MBean javax.cache:type=CacheStatistics,CacheManager=urn.X-ehcache.jsr107-default-config,Cache=dgraph
+16:03:54  2022-07-13 10:33:54.069  INFO 6259 --- [           main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+16:03:54  2022-07-13 10:33:54.267  INFO 6259 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+16:03:54  2022-07-13 10:33:54.267  INFO 6259 --- [           main] o.s.t.w.s.TestDispatcherServlet          : Initializing Servlet ''
+16:03:54  2022-07-13 10:33:54.286  INFO 6259 --- [           main] o.s.b.a.e.w.EndpointLinksResolver        : Exposing 2 endpoint(s) beneath base path '/actuator'
+16:03:54  2022-07-13 10:33:54.358  INFO 6259 --- [           main] o.s.t.w.s.TestDispatcherServlet          : Completed initialization in 90 ms
+16:03:54  2022-07-13 10:33:54.455  INFO 6259 --- [           main] o.a.k.c.a.AdminClientConfig              : AdminClientConfig values: 
+16:03:54  	bootstrap.servers = [192.168.253.148:9093, 192.168.253.113:9093, 192.168.253.79:9093]
+16:03:54  	client.dns.lookup = default
+16:03:54  	client.id = 
+16:03:54  	connections.max.idle.ms = 300000
+16:03:54  	metadata.max.age.ms = 300000
+16:03:54  	metric.reporters = []
+16:03:54  	metrics.num.samples = 2
+16:03:54  	metrics.recording.level = INFO
+16:03:54  	metrics.sample.window.ms = 30000
+16:03:54  	receive.buffer.bytes = 65536
+16:03:54  	reconnect.backoff.max.ms = 1000
+16:03:54  	reconnect.backoff.ms = 50
+16:03:54  	request.timeout.ms = 120000
+16:03:54  	retries = 5
+16:03:54  	retry.backoff.ms = 100
+16:03:54  	sasl.client.callback.handler.class = null
+16:03:54  	sasl.jaas.config = null
+16:03:54  	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+16:03:54  	sasl.kerberos.min.time.before.relogin = 60000
+16:03:54  	sasl.kerberos.service.name = null
+16:03:54  	sasl.kerberos.ticket.renew.jitter = 0.05
+16:03:54  	sasl.kerberos.ticket.renew.window.factor = 0.8
+16:03:54  	sasl.login.callback.handler.class = null
+16:03:54  	sasl.login.class = null
+16:03:54  	sasl.login.refresh.buffer.seconds = 300
+16:03:54  	sasl.login.refresh.min.period.seconds = 60
+16:03:54  	sasl.login.refresh.window.factor = 0.8
+16:03:54  	sasl.login.refresh.window.jitter = 0.05
+16:03:54  	sasl.mechanism = GSSAPI
+16:03:54  	security.protocol = PLAINTEXT
+16:03:54  	send.buffer.bytes = 131072
+16:03:54  	ssl.cipher.suites = null
+16:03:54  	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+16:03:54  	ssl.endpoint.identification.algorithm = https
+16:03:54  	ssl.key.password = null
+16:03:54  	ssl.keymanager.algorithm = SunX509
+16:03:54  	ssl.keystore.location = null
+16:03:54  	ssl.keystore.password = null
+16:03:54  	ssl.keystore.type = JKS
+16:03:54  	ssl.protocol = TLS
+16:03:54  	ssl.provider = null
+16:03:54  	ssl.secure.random.implementation = null
+16:03:54  	ssl.trustmanager.algorithm = PKIX
+16:03:54  	ssl.truststore.location = null
+16:03:54  	ssl.truststore.password = null
+16:03:54  	ssl.truststore.type = JKS
+16:03:54  
+16:03:54  2022-07-13 10:33:54.817  INFO 6259 --- [           main] o.a.k.c.u.AppInfoParser                  : Kafka version: 2.3.1
+16:03:54  2022-07-13 10:33:54.817  INFO 6259 --- [           main] o.a.k.c.u.AppInfoParser                  : Kafka commitId: 18a913733fb71c01
+16:03:54  2022-07-13 10:33:54.818  INFO 6259 --- [           main] o.a.k.c.u.AppInfoParser                  : Kafka startTimeMs: 1657708434814
+16:03:55  2022-07-13 10:33:55.177  INFO 6259 --- [           main] i.c.n.s.w.SplunkResourceTest             : Started SplunkResourceTest in 8.709 seconds (JVM running for 11.798)
+16:03:56  2022-07-13 10:33:55.770  INFO 6259 --- [           main] i.c.n.s.w.SplunkResource                 : Publishing with Splunk API.
+16:03:56  
+16:03:56  MockHttpServletRequest:
+16:03:56        HTTP Method = POST
+16:03:56        Request URI = /api/v1/splunk
+16:03:56         Parameters = {}
+16:03:56            Headers = [Content-Type:"application/json;charset=UTF-8", Authorization:"Basic bmc5MTEtc3BsdW5rOm5nOTExQHNwbHVuay4yMDIx", Content-Length:"576"]
+16:03:56               Body = {
+16:03:56    "stamp" : 1625614198,
+16:03:56    "data" : [ {
+16:03:56      "ngcscore" : null,
+16:03:56      "busorg" : "3-GWJFCSTRBT",
+16:03:56      "city" : "Sacramento",
+16:03:56      "county" : "Sacramento",
+16:03:56      "state" : "CA",
+16:03:56      "footprint" : "SoCal",
+16:03:56      "metrics" : {
+16:03:56        "calls_received" : "5",
+16:03:56        "calls_missed" : "5"
+16:03:56      },
+16:03:56      "device_name" : "ca103-oeslab-mspsbc1",
+16:03:56      "ingress_account" : null,
+16:03:56      "trunkgroup_name" : null,
+16:03:56      "ingress_trunk_group_name" : null,
+16:03:56      "customer_name" : "CA-CAL OES NG9-1-1 LAB",
+16:03:56      "psap_id" : "CA/EVXR/103/PN",
+16:03:56      "inventory_type" : "PSAP",
+16:03:56      "enterprise_id" : "11959257"
+16:03:56    } ]
+16:03:56  }
+16:03:56      Session Attrs = {}
+16:03:56  
+16:03:56  Handler:
+16:03:56               Type = io.ctl.ng911.splunk.web.SplunkResource
+16:03:56             Method = io.ctl.ng911.splunk.web.SplunkResource#create(SplunkTimeSeries)
+16:03:56  
+16:03:56  Async:
+16:03:56      Async started = false
+16:03:56       Async result = null
+16:03:56  
+16:03:56  Resolved Exception:
+16:03:56               Type = null
+16:03:56  
+16:03:56  ModelAndView:
+16:03:56          View name = null
+16:03:56               View = null
+16:03:56              Model = null
+16:03:56  
+16:03:56  FlashMap:
+16:03:56         Attributes = null
+16:03:56  
+16:03:56  MockHttpServletResponse:
+16:03:56             Status = 204
+16:03:56      Error message = null
+16:03:56            Headers = []
+16:03:56       Content type = null
+16:03:56               Body = 
+16:03:56      Forwarded URL = null
+16:03:56     Redirected URL = null
+16:03:56            Cookies = []
+16:03:56  2022-07-13 10:33:55.856  WARN 6259 --- [           main] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public org.springframework.http.ResponseEntity<java.lang.Void> io.ctl.ng911.splunk.web.SplunkResource.create(io.ctl.ng911.splunk.model.SplunkTimeSeries)]
+16:03:56  [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.972 s - in io.ctl.ng911.splunk.web.SplunkResourceTest
+16:03:56  [INFO] Running io.ctl.ng911.splunk.adapter.DGraphAdapterTest
+16:03:56  [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.525 s - in io.ctl.ng911.splunk.adapter.DGraphAdapterTest
+16:03:56  [INFO] Running io.ctl.ng911.splunk.ThanosReceiverTest
+16:03:56  2022-07-13 10:33:56.651  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Inventory: PSAP and Metrics: {calls_received=5, calls_missed=5}
+16:03:56  2022-07-13 10:33:56.652  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : device name:ca103-oeslab-mspsbc1
+16:03:56  2022-07-13 10:33:56.770  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Inventory: PSAP and Metrics: {calls_received=40, calls_missed=15}
+16:03:56  2022-07-13 10:33:56.772  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : device name:fl097-sumcbu-mspsbc1
+16:03:56  2022-07-13 10:33:56.838  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Thanos Receiver started.
+16:03:56  2022-07-13 10:33:56.840  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Thanos Request.
+16:03:57  2022-07-13 10:33:56.840  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : timeseries {
+16:03:57    labels {
+16:03:57      name: "__name__"
+16:03:57      value: "calls_received"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "device_name"
+16:03:57      value: "FL097-SUMCBU-MSPSBC1"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "footprint"
+16:03:57      value: "SUMTER"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "inventory_type"
+16:03:57      value: "PSAP"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "source"
+16:03:57      value: "splunk"
+16:03:57    }
+16:03:57    samples {
+16:03:57      value: 40.0
+16:03:57      timestamp: 1657708436000
+16:03:57    }
+16:03:57  }
+16:03:57  timeseries {
+16:03:57    labels {
+16:03:57      name: "__name__"
+16:03:57      value: "calls_missed"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "device_name"
+16:03:57      value: "FL097-SUMCBU-MSPSBC1"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "footprint"
+16:03:57      value: "SUMTER"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "inventory_type"
+16:03:57      value: "PSAP"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "source"
+16:03:57      value: "splunk"
+16:03:57    }
+16:03:57    samples {
+16:03:57      value: 15.0
+16:03:57      timestamp: 1657708436000
+16:03:57    }
+16:03:57  }
+16:03:57  
+16:03:57  2022-07-13 10:33:56.999  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : response status code :200
+16:03:57  2022-07-13 10:33:57.021  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Inventory: PSAP and Metrics: {calls_received=40, calls_missed=15}
+16:03:57  2022-07-13 10:33:57.021  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : device name:fl097-sumcbu-mspsbc1
+16:03:57  2022-07-13 10:33:57.050  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Inventory: INGRESS and Metrics: {call_failures=4, calls_received=4, calls_delivered=0}
+16:03:57  2022-07-13 10:33:57.052  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : device name:chv1msng911
+16:03:57  2022-07-13 10:33:57.063  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Thanos Receiver started.
+16:03:57  2022-07-13 10:33:57.064  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Thanos Request.
+16:03:57  2022-07-13 10:33:57.064  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : timeseries {
+16:03:57    labels {
+16:03:57      name: "__name__"
+16:03:57      value: "call_failures"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "device_name"
+16:03:57      value: "CHV1MSNG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_id"
+16:03:57      value: "11985545"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_name"
+16:03:57      value: "FL NG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "footprint"
+16:03:57      value: "SOCAL"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_device"
+16:03:57      value: "CH91ILGSX08"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_name"
+16:03:57      value: "Chicago Gateway"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_type"
+16:03:57      value: "GSX"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "inventory_type"
+16:03:57      value: "INGRESS"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "source"
+16:03:57      value: "splunk"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_name"
+16:03:57      value: "Chicago Gateway"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_unit"
+16:03:57      value: "ingress"
+16:03:57    }
+16:03:57    samples {
+16:03:57      value: 4.0
+16:03:57      timestamp: 1657708437000
+16:03:57    }
+16:03:57  }
+16:03:57  timeseries {
+16:03:57    labels {
+16:03:57      name: "__name__"
+16:03:57      value: "call_failures"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "device_name"
+16:03:57      value: "CHV1MSNG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_id"
+16:03:57      value: "11959257"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_name"
+16:03:57      value: "CA NG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "footprint"
+16:03:57      value: "SOCAL"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_device"
+16:03:57      value: "CHV1MSNG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_name"
+16:03:57      value: "Chicago SBC"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_type"
+16:03:57      value: "SBC"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "inventory_type"
+16:03:57      value: "INGRESS"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "source"
+16:03:57      value: "splunk"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_name"
+16:03:57      value: "Chicago SBC"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_unit"
+16:03:57      value: "ingress"
+16:03:57    }
+16:03:57    samples {
+16:03:57      value: 4.0
+16:03:57      timestamp: 1657708437000
+16:03:57    }
+16:03:57  }
+16:03:57  timeseries {
+16:03:57    labels {
+16:03:57      name: "__name__"
+16:03:57      value: "call_failures"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "device_name"
+16:03:57      value: "CHV1MSNG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_id"
+16:03:57      value: "11959257"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_name"
+16:03:57      value: "CA NG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "footprint"
+16:03:57      value: "SOCAL"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_device"
+16:03:57      value: "HRV1MSNG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_name"
+16:03:57      value: "Highlands Ranch SBC"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_type"
+16:03:57      value: "SBC"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "inventory_type"
+16:03:57      value: "INGRESS"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "source"
+16:03:57      value: "splunk"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_name"
+16:03:57      value: "Highlands Ranch SBC"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_unit"
+16:03:57      value: "ingress"
+16:03:57    }
+16:03:57    samples {
+16:03:57      value: 4.0
+16:03:57      timestamp: 1657708437000
+16:03:57    }
+16:03:57  }
+16:03:57  timeseries {
+16:03:57    labels {
+16:03:57      name: "__name__"
+16:03:57      value: "call_failures"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "device_name"
+16:03:57      value: "CHV1MSNG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_id"
+16:03:57      value: "11959257"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_name"
+16:03:57      value: "CA NG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "footprint"
+16:03:57      value: "SOCAL"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_device"
+16:03:57      value: "HR91COGSX22"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_name"
+16:03:57      value: "Highlands Ranch Gateway"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_type"
+16:03:57      value: "GSX"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "inventory_type"
+16:03:57      value: "INGRESS"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "source"
+16:03:57      value: "splunk"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_name"
+16:03:57      value: "Highlands Ranch Gateway"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_unit"
+16:03:57      value: "ingress"
+16:03:57    }
+16:03:57    samples {
+16:03:57      value: 4.0
+16:03:57      timestamp: 1657708437000
+16:03:57    }
+16:03:57  }
+16:03:57  timeseries {
+16:03:57    labels {
+16:03:57      name: "__name__"
+16:03:57      value: "call_failures"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "device_name"
+16:03:57      value: "CHV1MSNG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_id"
+16:03:57      value: "11985545"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_name"
+16:03:57      value: "FL NG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "footprint"
+16:03:57      value: "SOCAL"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_device"
+16:03:57      value: "HS91TXGSX08"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_name"
+16:03:57      value: "Houston Gateway"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_type"
+16:03:57      value: "GSX"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "inventory_type"
+16:03:57      value: "INGRESS"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "source"
+16:03:57      value: "splunk"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_name"
+16:03:57      value: "Houston Gateway"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_unit"
+16:03:57      value: "ingress"
+16:03:57    }
+16:03:57    samples {
+16:03:57      value: 4.0
+16:03:57      timestamp: 1657708437000
+16:03:57    }
+16:03:57  }
+16:03:57  timeseries {
+16:03:57    labels {
+16:03:57      name: "__name__"
+16:03:57      value: "calls_received"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "device_name"
+16:03:57      value: "CHV1MSNG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_id"
+16:03:57      value: "11985545"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_name"
+16:03:57      value: "FL NG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "footprint"
+16:03:57      value: "SOCAL"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_device"
+16:03:57      value: "CH91ILGSX08"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_name"
+16:03:57      value: "Chicago Gateway"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_type"
+16:03:57      value: "GSX"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "inventory_type"
+16:03:57      value: "INGRESS"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "source"
+16:03:57      value: "splunk"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_name"
+16:03:57      value: "Chicago Gateway"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_unit"
+16:03:57      value: "ingress"
+16:03:57    }
+16:03:57    samples {
+16:03:57      value: 4.0
+16:03:57      timestamp: 1657708437000
+16:03:57    }
+16:03:57  }
+16:03:57  timeseries {
+16:03:57    labels {
+16:03:57      name: "__name__"
+16:03:57      value: "calls_received"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "device_name"
+16:03:57      value: "CHV1MSNG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_id"
+16:03:57      value: "11959257"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_name"
+16:03:57      value: "CA NG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "footprint"
+16:03:57      value: "SOCAL"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_device"
+16:03:57      value: "CHV1MSNG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_name"
+16:03:57      value: "Chicago SBC"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_type"
+16:03:57      value: "SBC"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "inventory_type"
+16:03:57      value: "INGRESS"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "source"
+16:03:57      value: "splunk"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_name"
+16:03:57      value: "Chicago SBC"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_unit"
+16:03:57      value: "ingress"
+16:03:57    }
+16:03:57    samples {
+16:03:57      value: 4.0
+16:03:57      timestamp: 1657708437000
+16:03:57    }
+16:03:57  }
+16:03:57  timeseries {
+16:03:57    labels {
+16:03:57      name: "__name__"
+16:03:57      value: "calls_received"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "device_name"
+16:03:57      value: "CHV1MSNG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_id"
+16:03:57      value: "11959257"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_name"
+16:03:57      value: "CA NG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "footprint"
+16:03:57      value: "SOCAL"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_device"
+16:03:57      value: "HRV1MSNG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_name"
+16:03:57      value: "Highlands Ranch SBC"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_type"
+16:03:57      value: "SBC"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "inventory_type"
+16:03:57      value: "INGRESS"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "source"
+16:03:57      value: "splunk"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_name"
+16:03:57      value: "Highlands Ranch SBC"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_unit"
+16:03:57      value: "ingress"
+16:03:57    }
+16:03:57    samples {
+16:03:57      value: 4.0
+16:03:57      timestamp: 1657708437000
+16:03:57    }
+16:03:57  }
+16:03:57  timeseries {
+16:03:57    labels {
+16:03:57      name: "__name__"
+16:03:57      value: "calls_received"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "device_name"
+16:03:57      value: "CHV1MSNG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_id"
+16:03:57      value: "11959257"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_name"
+16:03:57      value: "CA NG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "footprint"
+16:03:57      value: "SOCAL"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_device"
+16:03:57      value: "HR91COGSX22"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_name"
+16:03:57      value: "Highlands Ranch Gateway"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_type"
+16:03:57      value: "GSX"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "inventory_type"
+16:03:57      value: "INGRESS"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "source"
+16:03:57      value: "splunk"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_name"
+16:03:57      value: "Highlands Ranch Gateway"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_unit"
+16:03:57      value: "ingress"
+16:03:57    }
+16:03:57    samples {
+16:03:57      value: 4.0
+16:03:57      timestamp: 1657708437000
+16:03:57    }
+16:03:57  }
+16:03:57  timeseries {
+16:03:57    labels {
+16:03:57      name: "__name__"
+16:03:57      value: "calls_received"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "device_name"
+16:03:57      value: "CHV1MSNG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_id"
+16:03:57      value: "11985545"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_name"
+16:03:57      value: "FL NG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "footprint"
+16:03:57      value: "SOCAL"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_device"
+16:03:57      value: "HS91TXGSX08"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_name"
+16:03:57      value: "Houston Gateway"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_type"
+16:03:57      value: "GSX"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "inventory_type"
+16:03:57      value: "INGRESS"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "source"
+16:03:57      value: "splunk"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_name"
+16:03:57      value: "Houston Gateway"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_unit"
+16:03:57      value: "ingress"
+16:03:57    }
+16:03:57    samples {
+16:03:57      value: 4.0
+16:03:57      timestamp: 1657708437000
+16:03:57    }
+16:03:57  }
+16:03:57  timeseries {
+16:03:57    labels {
+16:03:57      name: "__name__"
+16:03:57      value: "calls_delivered"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "device_name"
+16:03:57      value: "CHV1MSNG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_id"
+16:03:57      value: "11985545"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_name"
+16:03:57      value: "FL NG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "footprint"
+16:03:57      value: "SOCAL"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_device"
+16:03:57      value: "CH91ILGSX08"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_name"
+16:03:57      value: "Chicago Gateway"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_type"
+16:03:57      value: "GSX"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "inventory_type"
+16:03:57      value: "INGRESS"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "source"
+16:03:57      value: "splunk"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_name"
+16:03:57      value: "Chicago Gateway"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_unit"
+16:03:57      value: "ingress"
+16:03:57    }
+16:03:57    samples {
+16:03:57      timestamp: 1657708437000
+16:03:57    }
+16:03:57  }
+16:03:57  timeseries {
+16:03:57    labels {
+16:03:57      name: "__name__"
+16:03:57      value: "calls_delivered"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "device_name"
+16:03:57      value: "CHV1MSNG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_id"
+16:03:57      value: "11959257"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_name"
+16:03:57      value: "CA NG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "footprint"
+16:03:57      value: "SOCAL"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_device"
+16:03:57      value: "CHV1MSNG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_name"
+16:03:57      value: "Chicago SBC"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_type"
+16:03:57      value: "SBC"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "inventory_type"
+16:03:57      value: "INGRESS"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "source"
+16:03:57      value: "splunk"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_name"
+16:03:57      value: "Chicago SBC"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_unit"
+16:03:57      value: "ingress"
+16:03:57    }
+16:03:57    samples {
+16:03:57      timestamp: 1657708437000
+16:03:57    }
+16:03:57  }
+16:03:57  timeseries {
+16:03:57    labels {
+16:03:57      name: "__name__"
+16:03:57      value: "calls_delivered"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "device_name"
+16:03:57      value: "CHV1MSNG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_id"
+16:03:57      value: "11959257"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_name"
+16:03:57      value: "CA NG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "footprint"
+16:03:57      value: "SOCAL"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_device"
+16:03:57      value: "HRV1MSNG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_name"
+16:03:57      value: "Highlands Ranch SBC"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_type"
+16:03:57      value: "SBC"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "inventory_type"
+16:03:57      value: "INGRESS"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "source"
+16:03:57      value: "splunk"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_name"
+16:03:57      value: "Highlands Ranch SBC"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_unit"
+16:03:57      value: "ingress"
+16:03:57    }
+16:03:57    samples {
+16:03:57      timestamp: 1657708437000
+16:03:57    }
+16:03:57  }
+16:03:57  timeseries {
+16:03:57    labels {
+16:03:57      name: "__name__"
+16:03:57      value: "calls_delivered"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "device_name"
+16:03:57      value: "CHV1MSNG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_id"
+16:03:57      value: "11959257"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_name"
+16:03:57      value: "CA NG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "footprint"
+16:03:57      value: "SOCAL"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_device"
+16:03:57      value: "HR91COGSX22"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_name"
+16:03:57      value: "Highlands Ranch Gateway"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_type"
+16:03:57      value: "GSX"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "inventory_type"
+16:03:57      value: "INGRESS"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "source"
+16:03:57      value: "splunk"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_name"
+16:03:57      value: "Highlands Ranch Gateway"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_unit"
+16:03:57      value: "ingress"
+16:03:57    }
+16:03:57    samples {
+16:03:57      timestamp: 1657708437000
+16:03:57    }
+16:03:57  }
+16:03:57  timeseries {
+16:03:57    labels {
+16:03:57      name: "__name__"
+16:03:57      value: "calls_delivered"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "device_name"
+16:03:57      value: "CHV1MSNG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_id"
+16:03:57      value: "11985545"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "enterprise_name"
+16:03:57      value: "FL NG911"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "footprint"
+16:03:57      value: "SOCAL"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_device"
+16:03:57      value: "HS91TXGSX08"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_name"
+16:03:57      value: "Houston Gateway"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "ingress_type"
+16:03:57      value: "GSX"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "inventory_type"
+16:03:57      value: "INGRESS"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "source"
+16:03:57      value: "splunk"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_name"
+16:03:57      value: "Houston Gateway"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "type_unit"
+16:03:57      value: "ingress"
+16:03:57    }
+16:03:57    samples {
+16:03:57      timestamp: 1657708437000
+16:03:57    }
+16:03:57  }
+16:03:57  
+16:03:57  2022-07-13 10:33:57.083  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : response status code :200
+16:03:57  2022-07-13 10:33:57.083  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Start Splunk Heartbeat
+16:03:57  2022-07-13 10:33:57.084  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Thanos Receiver started.
+16:03:57  2022-07-13 10:33:57.084  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Thanos Request.
+16:03:57  2022-07-13 10:33:57.085  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : timeseries {
+16:03:57    labels {
+16:03:57      name: "__name__"
+16:03:57      value: "ng911_system_heartbeat"
+16:03:57    }
+16:03:57    labels {
+16:03:57      name: "source"
+16:03:57      value: "splunk"
+16:03:57    }
+16:03:57    samples {
+16:03:57      value: 1.0
+16:03:57      timestamp: 1657708437083
+16:03:57    }
+16:03:57  }
+16:03:57  
+16:03:57  2022-07-13 10:33:57.088  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : response status code :200
+16:03:57  2022-07-13 10:33:57.116  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Inventory: null and Metrics: {calls_routed_successfuly=0, total_bcf_queries=0, total_egress_bcf_calls_made=8, total_esrp_calls_received_secondary_routed=0, total_ingress_bcf_calls_received=8, total_esrp_calls_received=0, total_ldb_queries_made=0, calls_answered_by_psap=0, calls_received=0, total_esrp_calls_received_policy_routed=0}
+16:03:57  2022-07-13 10:33:57.117  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : device name:null
+16:03:57  2022-07-13 10:33:57.171  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Inventory: CORE and Metrics: {calls_routed_successfuly=0, total_bcf_queries=0, total_egress_bcf_calls_made=8, total_esrp_calls_received_secondary_routed=0, total_ingress_bcf_calls_received=8, total_esrp_calls_received=0, total_ldb_queries_made=0, calls_answered_by_psap=0, calls_received=0, total_esrp_calls_received_policy_routed=0}
+16:03:57  2022-07-13 10:33:57.171  INFO 6259 --- [           main] i.c.n.s.ThanosReceiverConsumer           : device name:null
+16:03:57  [INFO] Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.784 s - in io.ctl.ng911.splunk.ThanosReceiverTest
+16:03:57  [INFO] Running io.ctl.ng911.splunk.resources.AppConfigTest
+16:03:57  [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.055 s - in io.ctl.ng911.splunk.resources.AppConfigTest
+16:03:57  [INFO] Running io.ctl.ng911.splunk.ApplicationTest
+16:03:57  [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.033 s - in io.ctl.ng911.splunk.ApplicationTest
+16:03:57  [INFO] Running io.ctl.ng911.splunk.model.DgraphObjectTest
+16:03:57  [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 s - in io.ctl.ng911.splunk.model.DgraphObjectTest
+16:03:57  [INFO] Running io.ctl.ng911.splunk.service.DGraphServiceTest
+16:03:57  2022-07-13 10:33:57.406  INFO 6259 --- [           main] i.c.n.s.s.DGraphService                  : Dgraph Request: CORE and filter: STI:CHI1 and enterprise Id: 11959257
+16:03:57  2022-07-13 10:33:57.407  INFO 6259 --- [           main] i.c.n.s.s.DGraphService                  : Dgraph Response Success
+16:03:57  2022-07-13 10:33:57.414  INFO 6259 --- [           main] i.c.n.s.s.DGraphService                  : Dgraph Request: INGRESS and filter: CHV1MSNG911 and enterprise Id: 11959257
+16:03:57  2022-07-13 10:33:57.415  INFO 6259 --- [           main] i.c.n.s.s.DGraphService                  : Dgraph Response Success
+16:03:57  2022-07-13 10:33:57.453  INFO 6259 --- [           main] i.c.n.s.s.DGraphService                  : Dgraph Request: CORE and filter: STI:CHI2 and enterprise Id: 11985545
+16:03:57  2022-07-13 10:33:57.454  INFO 6259 --- [           main] i.c.n.s.s.DGraphService                  : Dgraph Response Success
+16:03:57  2022-07-13 10:33:57.463  INFO 6259 --- [           main] i.c.n.s.s.DGraphService                  : Dgraph Request: INGRESS and filter: CH91ILGSX08 and enterprise Id: 11985545
+16:03:57  2022-07-13 10:33:57.463  INFO 6259 --- [           main] i.c.n.s.s.DGraphService                  : Dgraph Response Success
+16:03:57  2022-07-13 10:33:57.469  INFO 6259 --- [           main] i.c.n.s.s.DGraphService                  : Dgraph Request: PSAP and filter: CA/EVXR/103/PN and enterprise Id: 11959257
+16:03:57  2022-07-13 10:33:57.470  INFO 6259 --- [           main] i.c.n.s.s.DGraphService                  : Dgraph Response Success
+16:03:57  2022-07-13 10:33:57.477  INFO 6259 --- [           main] i.c.n.s.s.DGraphService                  : Dgraph Request: PSAP and filter: FL/EVXR/095/NW and enterprise Id: 11985545
+16:03:57  2022-07-13 10:33:57.477  INFO 6259 --- [           main] i.c.n.s.s.DGraphService                  : Dgraph Response Success
+16:03:57  [INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.181 s - in io.ctl.ng911.splunk.service.DGraphServiceTest
+16:03:57  2022-07-13 10:33:57.525  INFO 6259 --- [extShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+16:03:57  2022-07-13 10:33:57.826  INFO 6259 --- [extShutdownHook] o.e.c.EhcacheManager                     : Cache 'dgraph' removed from EhcacheManager.
+16:03:58  [INFO] 
+16:03:58  [INFO] Results:
+16:03:58  [INFO] 
+16:03:58  [INFO] Tests run: 38, Failures: 0, Errors: 0, Skipped: 0
+16:03:58  [INFO] 
+16:03:58  [INFO] 
+16:03:58  [INFO] --- jacoco-maven-plugin:0.8.5:report (post-unit-test) @ ng911-splunk-api ---
+16:03:58  [INFO] Loading execution data file /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/jacoco.exec
+16:03:58  [INFO] Analyzed bundle 'ng911-splunk-api' with 53 classes
+16:03:58  [INFO] ------------------------------------------------------------------------
+16:03:58  [INFO] BUILD SUCCESS
+16:03:58  [INFO] ------------------------------------------------------------------------
+16:03:58  [INFO] Total time:  26.018 s
+16:03:58  [INFO] Finished at: 2022-07-13T10:33:58Z
+16:03:58  [INFO] ------------------------------------------------------------------------
+[Pipeline] isUnix
+[Pipeline] sh (Set sonar properties)
+16:03:59  + set +x
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] echo
+16:03:59  Placeholder to integrate Service Now DevOps Module in  Coverage stage.
+[Pipeline] stage
+[Pipeline] { (Coverage)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] dir
+16:03:59  Running in /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master
+[Pipeline] {
+[Pipeline] findFiles
+[Pipeline] isUnix
+[Pipeline] sh (Creating daumerling)
+16:04:00  + md5sum Jenkinsfile
+[Pipeline] stash
+16:04:00  Stashed 1 file(s)
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] echo
+16:04:00  Placeholder to integrate Service Now DevOps Module in  Sonarqube stage.
+[Pipeline] stage
+[Pipeline] { (Sonarqube)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] withSonarQubeEnv
+16:04:01  Injecting SonarQube environment variables using the configuration: sonarqube
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh
+16:04:01  + mvn clean verify sonar:sonar -Dsonar.projectKey=com.lumen:splunk:master_scan -Dsonar.projectName=splunk-master -f ng911-splunk-api/pom.xml
+16:04:03  [INFO] Scanning for projects...
+16:04:03  [WARNING] 
+16:04:03  [WARNING] Some problems were encountered while building the effective model for io.ctl.gov:ng911-splunk-api:jar:0.0.9-SNAPSHOT
+16:04:03  [WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.springframework.boot:spring-boot-starter-validation:jar -> duplicate declaration of version (?) @ line 69, column 15
+16:04:03  [WARNING] 'build.plugins.plugin.version' for org.springframework.boot:spring-boot-maven-plugin is missing. @ line 193, column 12
+16:04:03  [WARNING] 
+16:04:03  [WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+16:04:03  [WARNING] 
+16:04:03  [WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+16:04:03  [WARNING] 
+16:04:03  [INFO] 
+16:04:03  [INFO] --------------------< io.ctl.gov:ng911-splunk-api >---------------------
+16:04:03  [INFO] Building ng911-splunk-api 0.0.9-SNAPSHOT
+16:04:03  [INFO] --------------------------------[ jar ]---------------------------------
+16:04:04  [INFO] 
+16:04:04  [INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ ng911-splunk-api ---
+16:04:04  [INFO] Deleting /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target
+16:04:04  [INFO] 
+16:04:04  [INFO] --- os-maven-plugin:1.6.2:detect (default) @ ng911-splunk-api ---
+16:04:04  [INFO] ------------------------------------------------------------------------
+16:04:04  [INFO] Detecting the operating system and CPU architecture
+16:04:04  [INFO] ------------------------------------------------------------------------
+16:04:04  [INFO] os.detected.name: linux
+16:04:04  [INFO] os.detected.arch: x86_64
+16:04:04  [INFO] os.detected.version: 4.15
+16:04:04  [INFO] os.detected.version.major: 4
+16:04:04  [INFO] os.detected.version.minor: 15
+16:04:04  [INFO] os.detected.release: debian
+16:04:04  [INFO] os.detected.release.version: 10
+16:04:04  [INFO] os.detected.release.like.debian: true
+16:04:04  [INFO] os.detected.classifier: linux-x86_64
+16:04:04  [INFO] 
+16:04:04  [INFO] --- jacoco-maven-plugin:0.8.5:prepare-agent (default) @ ng911-splunk-api ---
+16:04:04  [INFO] argLine set to -javaagent:/root/.m2/repository/org/jacoco/org.jacoco.agent/0.8.5/org.jacoco.agent-0.8.5-runtime.jar=destfile=/var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/jacoco.exec,append=true,excludes=*MethodAccess
+16:04:04  [INFO] 
+16:04:04  [INFO] --- protobuf-maven-plugin:0.6.1:compile (default) @ ng911-splunk-api ---
+16:04:04  [INFO] Compiling 1 proto file(s) to /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/generated-sources/protobuf/java
+16:04:05  [INFO] 
+16:04:05  [INFO] --- protobuf-maven-plugin:0.6.1:compile-custom (default) @ ng911-splunk-api ---
+16:04:05  [INFO] Compiling 1 proto file(s) to /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/generated-sources/protobuf/grpc-java
+16:04:05  [INFO] 
+16:04:05  [INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ ng911-splunk-api ---
+16:04:05  [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+16:04:05  [INFO] Copying 4 resources
+16:04:05  [INFO] Copying 1 resource
+16:04:05  [INFO] Copying 1 resource
+16:04:05  [INFO] 
+16:04:05  [INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ ng911-splunk-api ---
+16:04:05  [INFO] Changes detected - recompiling the module!
+16:04:05  [WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+16:04:05  [INFO] Compiling 13 source files to /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/classes
+16:04:10  [INFO] /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/generated-sources/protobuf/java/io/ctl/gov/ng911/thanos/adapter/prometheus/Prometheus.java: /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/generated-sources/protobuf/java/io/ctl/gov/ng911/thanos/adapter/prometheus/Prometheus.java uses or overrides a deprecated API.
+16:04:10  [INFO] /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/generated-sources/protobuf/java/io/ctl/gov/ng911/thanos/adapter/prometheus/Prometheus.java: Recompile with -Xlint:deprecation for details.
+16:04:10  [INFO] 
+16:04:10  [INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ ng911-splunk-api ---
+16:04:10  [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+16:04:10  [INFO] Copying 17 resources
+16:04:10  [INFO] 
+16:04:10  [INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ ng911-splunk-api ---
+16:04:10  [INFO] Changes detected - recompiling the module!
+16:04:10  [WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+16:04:10  [INFO] Compiling 7 source files to /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/test-classes
+16:04:13  [INFO] /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/src/test/java/io/ctl/ng911/splunk/service/DGraphServiceTest.java: /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/src/test/java/io/ctl/ng911/splunk/service/DGraphServiceTest.java uses unchecked or unsafe operations.
+16:04:13  [INFO] /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/src/test/java/io/ctl/ng911/splunk/service/DGraphServiceTest.java: Recompile with -Xlint:unchecked for details.
+16:04:13  [INFO] 
+16:04:13  [INFO] --- maven-surefire-plugin:3.0.0-M4:test (default-test) @ ng911-splunk-api ---
+16:04:13  [INFO] 
+16:04:13  [INFO] -------------------------------------------------------
+16:04:13  [INFO]  T E S T S
+16:04:13  [INFO] -------------------------------------------------------
+16:04:15  [INFO] Running io.ctl.ng911.splunk.web.SplunkResourceTest
+16:04:17  
+16:04:17    .   ____          _            __ _ _
+16:04:17   /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+16:04:17  ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+16:04:17   \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+16:04:17    '  |____| .__|_| |_|_| |_\__, | / / / /
+16:04:17   =========|_|==============|___/=/_/_/_/
+16:04:17   :: Spring Boot ::        (v2.2.4.RELEASE)
+16:04:17  
+16:04:17  2022-07-13 10:34:17.678  INFO 6381 --- [           main] i.c.n.s.w.SplunkResourceTest             : Starting SplunkResourceTest on jenkins-85f5bd7965-4wcr2 with PID 6381 (started by root in /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api)
+16:04:17  2022-07-13 10:34:17.694  INFO 6381 --- [           main] i.c.n.s.w.SplunkResourceTest             : No active profile set, falling back to default profiles: default
+16:04:23  2022-07-13 10:34:23.153  INFO 6381 --- [           main] o.e.c.EhcacheManager                     : Cache 'dgraph' created in EhcacheManager.
+16:04:23  2022-07-13 10:34:23.176  INFO 6381 --- [           main] o.e.j.Eh107CacheManager                  : Registering Ehcache MBean javax.cache:type=CacheStatistics,CacheManager=urn.X-ehcache.jsr107-default-config,Cache=dgraph
+16:04:23  2022-07-13 10:34:23.660  INFO 6381 --- [           main] o.e.j.Eh107CacheManager                  : Registering Ehcache MBean javax.cache:type=CacheStatistics,CacheManager=urn.X-ehcache.jsr107-default-config,Cache=dgraph
+16:04:24  2022-07-13 10:34:24.214  INFO 6381 --- [           main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
+16:04:24  2022-07-13 10:34:24.389  INFO 6381 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+16:04:24  2022-07-13 10:34:24.390  INFO 6381 --- [           main] o.s.t.w.s.TestDispatcherServlet          : Initializing Servlet ''
+16:04:24  2022-07-13 10:34:24.407  INFO 6381 --- [           main] o.s.b.a.e.w.EndpointLinksResolver        : Exposing 2 endpoint(s) beneath base path '/actuator'
+16:04:24  2022-07-13 10:34:24.481  INFO 6381 --- [           main] o.s.t.w.s.TestDispatcherServlet          : Completed initialization in 91 ms
+16:04:24  2022-07-13 10:34:24.557  INFO 6381 --- [           main] o.a.k.c.a.AdminClientConfig              : AdminClientConfig values: 
+16:04:24  	bootstrap.servers = [192.168.253.148:9093, 192.168.253.113:9093, 192.168.253.79:9093]
+16:04:24  	client.dns.lookup = default
+16:04:24  	client.id = 
+16:04:24  	connections.max.idle.ms = 300000
+16:04:24  	metadata.max.age.ms = 300000
+16:04:24  	metric.reporters = []
+16:04:24  	metrics.num.samples = 2
+16:04:24  	metrics.recording.level = INFO
+16:04:24  	metrics.sample.window.ms = 30000
+16:04:24  	receive.buffer.bytes = 65536
+16:04:24  	reconnect.backoff.max.ms = 1000
+16:04:24  	reconnect.backoff.ms = 50
+16:04:24  	request.timeout.ms = 120000
+16:04:24  	retries = 5
+16:04:24  	retry.backoff.ms = 100
+16:04:24  	sasl.client.callback.handler.class = null
+16:04:24  	sasl.jaas.config = null
+16:04:24  	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+16:04:24  	sasl.kerberos.min.time.before.relogin = 60000
+16:04:24  	sasl.kerberos.service.name = null
+16:04:24  	sasl.kerberos.ticket.renew.jitter = 0.05
+16:04:24  	sasl.kerberos.ticket.renew.window.factor = 0.8
+16:04:24  	sasl.login.callback.handler.class = null
+16:04:24  	sasl.login.class = null
+16:04:24  	sasl.login.refresh.buffer.seconds = 300
+16:04:24  	sasl.login.refresh.min.period.seconds = 60
+16:04:24  	sasl.login.refresh.window.factor = 0.8
+16:04:24  	sasl.login.refresh.window.jitter = 0.05
+16:04:24  	sasl.mechanism = GSSAPI
+16:04:24  	security.protocol = PLAINTEXT
+16:04:24  	send.buffer.bytes = 131072
+16:04:24  	ssl.cipher.suites = null
+16:04:24  	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+16:04:24  	ssl.endpoint.identification.algorithm = https
+16:04:24  	ssl.key.password = null
+16:04:24  	ssl.keymanager.algorithm = SunX509
+16:04:24  	ssl.keystore.location = null
+16:04:24  	ssl.keystore.password = null
+16:04:24  	ssl.keystore.type = JKS
+16:04:24  	ssl.protocol = TLS
+16:04:24  	ssl.provider = null
+16:04:24  	ssl.secure.random.implementation = null
+16:04:24  	ssl.trustmanager.algorithm = PKIX
+16:04:24  	ssl.truststore.location = null
+16:04:24  	ssl.truststore.password = null
+16:04:24  	ssl.truststore.type = JKS
+16:04:24  
+16:04:25  2022-07-13 10:34:24.880  INFO 6381 --- [           main] o.a.k.c.u.AppInfoParser                  : Kafka version: 2.3.1
+16:04:25  2022-07-13 10:34:24.880  INFO 6381 --- [           main] o.a.k.c.u.AppInfoParser                  : Kafka commitId: 18a913733fb71c01
+16:04:25  2022-07-13 10:34:24.882  INFO 6381 --- [           main] o.a.k.c.u.AppInfoParser                  : Kafka startTimeMs: 1657708464877
+16:04:25  2022-07-13 10:34:25.278  INFO 6381 --- [           main] i.c.n.s.w.SplunkResourceTest             : Started SplunkResourceTest in 8.764 seconds (JVM running for 11.799)
+16:04:25  2022-07-13 10:34:25.812  INFO 6381 --- [           main] i.c.n.s.w.SplunkResource                 : Publishing with Splunk API.
+16:04:25  
+16:04:25  MockHttpServletRequest:
+16:04:25        HTTP Method = POST
+16:04:25        Request URI = /api/v1/splunk
+16:04:25         Parameters = {}
+16:04:25            Headers = [Content-Type:"application/json;charset=UTF-8", Authorization:"Basic bmc5MTEtc3BsdW5rOm5nOTExQHNwbHVuay4yMDIx", Content-Length:"576"]
+16:04:25               Body = {
+16:04:25    "stamp" : 1625614198,
+16:04:25    "data" : [ {
+16:04:25      "ngcscore" : null,
+16:04:25      "busorg" : "3-GWJFCSTRBT",
+16:04:25      "city" : "Sacramento",
+16:04:25      "county" : "Sacramento",
+16:04:25      "state" : "CA",
+16:04:25      "footprint" : "SoCal",
+16:04:25      "metrics" : {
+16:04:25        "calls_received" : "5",
+16:04:25        "calls_missed" : "5"
+16:04:25      },
+16:04:25      "device_name" : "ca103-oeslab-mspsbc1",
+16:04:25      "ingress_account" : null,
+16:04:25      "trunkgroup_name" : null,
+16:04:25      "ingress_trunk_group_name" : null,
+16:04:25      "customer_name" : "CA-CAL OES NG9-1-1 LAB",
+16:04:25      "psap_id" : "CA/EVXR/103/PN",
+16:04:25      "inventory_type" : "PSAP",
+16:04:25      "enterprise_id" : "11959257"
+16:04:25    } ]
+16:04:25  }
+16:04:25      Session Attrs = {}
+16:04:25  
+16:04:25  Handler:
+16:04:25               Type = io.ctl.ng911.splunk.web.SplunkResource
+16:04:25             Method = io.ctl.ng911.splunk.web.SplunkResource#create(SplunkTimeSeries)
+16:04:25  
+16:04:25  Async:
+16:04:25      Async started = false
+16:04:25       Async result = null
+16:04:25  
+16:04:25  Resolved Exception:
+16:04:25               Type = null
+16:04:25  
+16:04:25  ModelAndView:
+16:04:25          View name = null
+16:04:25               View = null
+16:04:25              Model = null
+16:04:25  
+16:04:25  FlashMap:
+16:04:25         Attributes = null
+16:04:25  
+16:04:25  MockHttpServletResponse:
+16:04:25             Status = 204
+16:04:25      Error message = null
+16:04:25            Headers = []
+16:04:25       Content type = null
+16:04:25               Body = 
+16:04:25      Forwarded URL = null
+16:04:25     Redirected URL = null
+16:04:25            Cookies = []
+16:04:25  2022-07-13 10:34:25.876  WARN 6381 --- [           main] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public org.springframework.http.ResponseEntity<java.lang.Void> io.ctl.ng911.splunk.web.SplunkResource.create(io.ctl.ng911.splunk.model.SplunkTimeSeries)]
+16:04:26  [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.888 s - in io.ctl.ng911.splunk.web.SplunkResourceTest
+16:04:26  [INFO] Running io.ctl.ng911.splunk.adapter.DGraphAdapterTest
+16:04:26  [INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.579 s - in io.ctl.ng911.splunk.adapter.DGraphAdapterTest
+16:04:26  [INFO] Running io.ctl.ng911.splunk.ThanosReceiverTest
+16:04:26  2022-07-13 10:34:26.731  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Inventory: PSAP and Metrics: {calls_received=5, calls_missed=5}
+16:04:26  2022-07-13 10:34:26.732  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : device name:ca103-oeslab-mspsbc1
+16:04:27  2022-07-13 10:34:26.857  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Inventory: PSAP and Metrics: {calls_received=40, calls_missed=15}
+16:04:27  2022-07-13 10:34:26.857  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : device name:fl097-sumcbu-mspsbc1
+16:04:27  2022-07-13 10:34:27.080  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Thanos Receiver started.
+16:04:27  2022-07-13 10:34:27.082  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Thanos Request.
+16:04:27  2022-07-13 10:34:27.082  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : timeseries {
+16:04:27    labels {
+16:04:27      name: "__name__"
+16:04:27      value: "calls_received"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "device_name"
+16:04:27      value: "FL097-SUMCBU-MSPSBC1"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "footprint"
+16:04:27      value: "SUMTER"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "inventory_type"
+16:04:27      value: "PSAP"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "source"
+16:04:27      value: "splunk"
+16:04:27    }
+16:04:27    samples {
+16:04:27      value: 40.0
+16:04:27      timestamp: 1657708466000
+16:04:27    }
+16:04:27  }
+16:04:27  timeseries {
+16:04:27    labels {
+16:04:27      name: "__name__"
+16:04:27      value: "calls_missed"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "device_name"
+16:04:27      value: "FL097-SUMCBU-MSPSBC1"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "footprint"
+16:04:27      value: "SUMTER"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "inventory_type"
+16:04:27      value: "PSAP"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "source"
+16:04:27      value: "splunk"
+16:04:27    }
+16:04:27    samples {
+16:04:27      value: 15.0
+16:04:27      timestamp: 1657708466000
+16:04:27    }
+16:04:27  }
+16:04:27  
+16:04:27  2022-07-13 10:34:27.274  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : response status code :200
+16:04:27  2022-07-13 10:34:27.296  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Inventory: PSAP and Metrics: {calls_received=40, calls_missed=15}
+16:04:27  2022-07-13 10:34:27.297  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : device name:fl097-sumcbu-mspsbc1
+16:04:27  2022-07-13 10:34:27.314  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Inventory: INGRESS and Metrics: {call_failures=4, calls_received=4, calls_delivered=0}
+16:04:27  2022-07-13 10:34:27.314  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : device name:chv1msng911
+16:04:27  2022-07-13 10:34:27.323  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Thanos Receiver started.
+16:04:27  2022-07-13 10:34:27.324  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Thanos Request.
+16:04:27  2022-07-13 10:34:27.324  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : timeseries {
+16:04:27    labels {
+16:04:27      name: "__name__"
+16:04:27      value: "call_failures"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "device_name"
+16:04:27      value: "CHV1MSNG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_id"
+16:04:27      value: "11985545"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_name"
+16:04:27      value: "FL NG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "footprint"
+16:04:27      value: "SOCAL"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_device"
+16:04:27      value: "CH91ILGSX08"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_name"
+16:04:27      value: "Chicago Gateway"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_type"
+16:04:27      value: "GSX"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "inventory_type"
+16:04:27      value: "INGRESS"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "source"
+16:04:27      value: "splunk"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_name"
+16:04:27      value: "Chicago Gateway"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_unit"
+16:04:27      value: "ingress"
+16:04:27    }
+16:04:27    samples {
+16:04:27      value: 4.0
+16:04:27      timestamp: 1657708467000
+16:04:27    }
+16:04:27  }
+16:04:27  timeseries {
+16:04:27    labels {
+16:04:27      name: "__name__"
+16:04:27      value: "call_failures"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "device_name"
+16:04:27      value: "CHV1MSNG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_id"
+16:04:27      value: "11959257"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_name"
+16:04:27      value: "CA NG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "footprint"
+16:04:27      value: "SOCAL"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_device"
+16:04:27      value: "CHV1MSNG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_name"
+16:04:27      value: "Chicago SBC"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_type"
+16:04:27      value: "SBC"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "inventory_type"
+16:04:27      value: "INGRESS"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "source"
+16:04:27      value: "splunk"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_name"
+16:04:27      value: "Chicago SBC"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_unit"
+16:04:27      value: "ingress"
+16:04:27    }
+16:04:27    samples {
+16:04:27      value: 4.0
+16:04:27      timestamp: 1657708467000
+16:04:27    }
+16:04:27  }
+16:04:27  timeseries {
+16:04:27    labels {
+16:04:27      name: "__name__"
+16:04:27      value: "call_failures"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "device_name"
+16:04:27      value: "CHV1MSNG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_id"
+16:04:27      value: "11959257"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_name"
+16:04:27      value: "CA NG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "footprint"
+16:04:27      value: "SOCAL"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_device"
+16:04:27      value: "HRV1MSNG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_name"
+16:04:27      value: "Highlands Ranch SBC"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_type"
+16:04:27      value: "SBC"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "inventory_type"
+16:04:27      value: "INGRESS"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "source"
+16:04:27      value: "splunk"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_name"
+16:04:27      value: "Highlands Ranch SBC"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_unit"
+16:04:27      value: "ingress"
+16:04:27    }
+16:04:27    samples {
+16:04:27      value: 4.0
+16:04:27      timestamp: 1657708467000
+16:04:27    }
+16:04:27  }
+16:04:27  timeseries {
+16:04:27    labels {
+16:04:27      name: "__name__"
+16:04:27      value: "call_failures"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "device_name"
+16:04:27      value: "CHV1MSNG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_id"
+16:04:27      value: "11959257"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_name"
+16:04:27      value: "CA NG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "footprint"
+16:04:27      value: "SOCAL"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_device"
+16:04:27      value: "HR91COGSX22"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_name"
+16:04:27      value: "Highlands Ranch Gateway"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_type"
+16:04:27      value: "GSX"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "inventory_type"
+16:04:27      value: "INGRESS"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "source"
+16:04:27      value: "splunk"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_name"
+16:04:27      value: "Highlands Ranch Gateway"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_unit"
+16:04:27      value: "ingress"
+16:04:27    }
+16:04:27    samples {
+16:04:27      value: 4.0
+16:04:27      timestamp: 1657708467000
+16:04:27    }
+16:04:27  }
+16:04:27  timeseries {
+16:04:27    labels {
+16:04:27      name: "__name__"
+16:04:27      value: "call_failures"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "device_name"
+16:04:27      value: "CHV1MSNG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_id"
+16:04:27      value: "11985545"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_name"
+16:04:27      value: "FL NG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "footprint"
+16:04:27      value: "SOCAL"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_device"
+16:04:27      value: "HS91TXGSX08"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_name"
+16:04:27      value: "Houston Gateway"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_type"
+16:04:27      value: "GSX"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "inventory_type"
+16:04:27      value: "INGRESS"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "source"
+16:04:27      value: "splunk"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_name"
+16:04:27      value: "Houston Gateway"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_unit"
+16:04:27      value: "ingress"
+16:04:27    }
+16:04:27    samples {
+16:04:27      value: 4.0
+16:04:27      timestamp: 1657708467000
+16:04:27    }
+16:04:27  }
+16:04:27  timeseries {
+16:04:27    labels {
+16:04:27      name: "__name__"
+16:04:27      value: "calls_received"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "device_name"
+16:04:27      value: "CHV1MSNG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_id"
+16:04:27      value: "11985545"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_name"
+16:04:27      value: "FL NG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "footprint"
+16:04:27      value: "SOCAL"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_device"
+16:04:27      value: "CH91ILGSX08"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_name"
+16:04:27      value: "Chicago Gateway"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_type"
+16:04:27      value: "GSX"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "inventory_type"
+16:04:27      value: "INGRESS"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "source"
+16:04:27      value: "splunk"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_name"
+16:04:27      value: "Chicago Gateway"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_unit"
+16:04:27      value: "ingress"
+16:04:27    }
+16:04:27    samples {
+16:04:27      value: 4.0
+16:04:27      timestamp: 1657708467000
+16:04:27    }
+16:04:27  }
+16:04:27  timeseries {
+16:04:27    labels {
+16:04:27      name: "__name__"
+16:04:27      value: "calls_received"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "device_name"
+16:04:27      value: "CHV1MSNG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_id"
+16:04:27      value: "11959257"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_name"
+16:04:27      value: "CA NG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "footprint"
+16:04:27      value: "SOCAL"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_device"
+16:04:27      value: "CHV1MSNG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_name"
+16:04:27      value: "Chicago SBC"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_type"
+16:04:27      value: "SBC"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "inventory_type"
+16:04:27      value: "INGRESS"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "source"
+16:04:27      value: "splunk"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_name"
+16:04:27      value: "Chicago SBC"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_unit"
+16:04:27      value: "ingress"
+16:04:27    }
+16:04:27    samples {
+16:04:27      value: 4.0
+16:04:27      timestamp: 1657708467000
+16:04:27    }
+16:04:27  }
+16:04:27  timeseries {
+16:04:27    labels {
+16:04:27      name: "__name__"
+16:04:27      value: "calls_received"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "device_name"
+16:04:27      value: "CHV1MSNG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_id"
+16:04:27      value: "11959257"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_name"
+16:04:27      value: "CA NG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "footprint"
+16:04:27      value: "SOCAL"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_device"
+16:04:27      value: "HRV1MSNG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_name"
+16:04:27      value: "Highlands Ranch SBC"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_type"
+16:04:27      value: "SBC"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "inventory_type"
+16:04:27      value: "INGRESS"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "source"
+16:04:27      value: "splunk"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_name"
+16:04:27      value: "Highlands Ranch SBC"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_unit"
+16:04:27      value: "ingress"
+16:04:27    }
+16:04:27    samples {
+16:04:27      value: 4.0
+16:04:27      timestamp: 1657708467000
+16:04:27    }
+16:04:27  }
+16:04:27  timeseries {
+16:04:27    labels {
+16:04:27      name: "__name__"
+16:04:27      value: "calls_received"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "device_name"
+16:04:27      value: "CHV1MSNG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_id"
+16:04:27      value: "11959257"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_name"
+16:04:27      value: "CA NG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "footprint"
+16:04:27      value: "SOCAL"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_device"
+16:04:27      value: "HR91COGSX22"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_name"
+16:04:27      value: "Highlands Ranch Gateway"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_type"
+16:04:27      value: "GSX"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "inventory_type"
+16:04:27      value: "INGRESS"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "source"
+16:04:27      value: "splunk"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_name"
+16:04:27      value: "Highlands Ranch Gateway"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_unit"
+16:04:27      value: "ingress"
+16:04:27    }
+16:04:27    samples {
+16:04:27      value: 4.0
+16:04:27      timestamp: 1657708467000
+16:04:27    }
+16:04:27  }
+16:04:27  timeseries {
+16:04:27    labels {
+16:04:27      name: "__name__"
+16:04:27      value: "calls_received"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "device_name"
+16:04:27      value: "CHV1MSNG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_id"
+16:04:27      value: "11985545"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_name"
+16:04:27      value: "FL NG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "footprint"
+16:04:27      value: "SOCAL"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_device"
+16:04:27      value: "HS91TXGSX08"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_name"
+16:04:27      value: "Houston Gateway"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_type"
+16:04:27      value: "GSX"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "inventory_type"
+16:04:27      value: "INGRESS"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "source"
+16:04:27      value: "splunk"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_name"
+16:04:27      value: "Houston Gateway"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_unit"
+16:04:27      value: "ingress"
+16:04:27    }
+16:04:27    samples {
+16:04:27      value: 4.0
+16:04:27      timestamp: 1657708467000
+16:04:27    }
+16:04:27  }
+16:04:27  timeseries {
+16:04:27    labels {
+16:04:27      name: "__name__"
+16:04:27      value: "calls_delivered"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "device_name"
+16:04:27      value: "CHV1MSNG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_id"
+16:04:27      value: "11985545"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_name"
+16:04:27      value: "FL NG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "footprint"
+16:04:27      value: "SOCAL"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_device"
+16:04:27      value: "CH91ILGSX08"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_name"
+16:04:27      value: "Chicago Gateway"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_type"
+16:04:27      value: "GSX"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "inventory_type"
+16:04:27      value: "INGRESS"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "source"
+16:04:27      value: "splunk"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_name"
+16:04:27      value: "Chicago Gateway"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_unit"
+16:04:27      value: "ingress"
+16:04:27    }
+16:04:27    samples {
+16:04:27      timestamp: 1657708467000
+16:04:27    }
+16:04:27  }
+16:04:27  timeseries {
+16:04:27    labels {
+16:04:27      name: "__name__"
+16:04:27      value: "calls_delivered"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "device_name"
+16:04:27      value: "CHV1MSNG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_id"
+16:04:27      value: "11959257"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_name"
+16:04:27      value: "CA NG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "footprint"
+16:04:27      value: "SOCAL"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_device"
+16:04:27      value: "CHV1MSNG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_name"
+16:04:27      value: "Chicago SBC"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_type"
+16:04:27      value: "SBC"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "inventory_type"
+16:04:27      value: "INGRESS"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "source"
+16:04:27      value: "splunk"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_name"
+16:04:27      value: "Chicago SBC"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_unit"
+16:04:27      value: "ingress"
+16:04:27    }
+16:04:27    samples {
+16:04:27      timestamp: 1657708467000
+16:04:27    }
+16:04:27  }
+16:04:27  timeseries {
+16:04:27    labels {
+16:04:27      name: "__name__"
+16:04:27      value: "calls_delivered"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "device_name"
+16:04:27      value: "CHV1MSNG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_id"
+16:04:27      value: "11959257"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_name"
+16:04:27      value: "CA NG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "footprint"
+16:04:27      value: "SOCAL"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_device"
+16:04:27      value: "HRV1MSNG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_name"
+16:04:27      value: "Highlands Ranch SBC"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_type"
+16:04:27      value: "SBC"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "inventory_type"
+16:04:27      value: "INGRESS"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "source"
+16:04:27      value: "splunk"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_name"
+16:04:27      value: "Highlands Ranch SBC"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_unit"
+16:04:27      value: "ingress"
+16:04:27    }
+16:04:27    samples {
+16:04:27      timestamp: 1657708467000
+16:04:27    }
+16:04:27  }
+16:04:27  timeseries {
+16:04:27    labels {
+16:04:27      name: "__name__"
+16:04:27      value: "calls_delivered"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "device_name"
+16:04:27      value: "CHV1MSNG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_id"
+16:04:27      value: "11959257"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_name"
+16:04:27      value: "CA NG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "footprint"
+16:04:27      value: "SOCAL"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_device"
+16:04:27      value: "HR91COGSX22"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_name"
+16:04:27      value: "Highlands Ranch Gateway"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_type"
+16:04:27      value: "GSX"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "inventory_type"
+16:04:27      value: "INGRESS"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "source"
+16:04:27      value: "splunk"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_name"
+16:04:27      value: "Highlands Ranch Gateway"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_unit"
+16:04:27      value: "ingress"
+16:04:27    }
+16:04:27    samples {
+16:04:27      timestamp: 1657708467000
+16:04:27    }
+16:04:27  }
+16:04:27  timeseries {
+16:04:27    labels {
+16:04:27      name: "__name__"
+16:04:27      value: "calls_delivered"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "device_name"
+16:04:27      value: "CHV1MSNG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_id"
+16:04:27      value: "11985545"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "enterprise_name"
+16:04:27      value: "FL NG911"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "footprint"
+16:04:27      value: "SOCAL"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_device"
+16:04:27      value: "HS91TXGSX08"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_name"
+16:04:27      value: "Houston Gateway"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "ingress_type"
+16:04:27      value: "GSX"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "inventory_type"
+16:04:27      value: "INGRESS"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "source"
+16:04:27      value: "splunk"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_name"
+16:04:27      value: "Houston Gateway"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "type_unit"
+16:04:27      value: "ingress"
+16:04:27    }
+16:04:27    samples {
+16:04:27      timestamp: 1657708467000
+16:04:27    }
+16:04:27  }
+16:04:27  
+16:04:27  2022-07-13 10:34:27.368  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : response status code :200
+16:04:27  2022-07-13 10:34:27.369  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Start Splunk Heartbeat
+16:04:27  2022-07-13 10:34:27.369  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Thanos Receiver started.
+16:04:27  2022-07-13 10:34:27.370  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Thanos Request.
+16:04:27  2022-07-13 10:34:27.370  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : timeseries {
+16:04:27    labels {
+16:04:27      name: "__name__"
+16:04:27      value: "ng911_system_heartbeat"
+16:04:27    }
+16:04:27    labels {
+16:04:27      name: "source"
+16:04:27      value: "splunk"
+16:04:27    }
+16:04:27    samples {
+16:04:27      value: 1.0
+16:04:27      timestamp: 1657708467369
+16:04:27    }
+16:04:27  }
+16:04:27  
+16:04:27  2022-07-13 10:34:27.373  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : response status code :200
+16:04:27  2022-07-13 10:34:27.392  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Inventory: null and Metrics: {calls_routed_successfuly=0, total_bcf_queries=0, total_egress_bcf_calls_made=8, total_esrp_calls_received_secondary_routed=0, total_ingress_bcf_calls_received=8, total_esrp_calls_received=0, total_ldb_queries_made=0, calls_answered_by_psap=0, calls_received=0, total_esrp_calls_received_policy_routed=0}
+16:04:27  2022-07-13 10:34:27.410  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : device name:null
+16:04:27  2022-07-13 10:34:27.470  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : Inventory: CORE and Metrics: {calls_routed_successfuly=0, total_bcf_queries=0, total_egress_bcf_calls_made=8, total_esrp_calls_received_secondary_routed=0, total_ingress_bcf_calls_received=8, total_esrp_calls_received=0, total_ldb_queries_made=0, calls_answered_by_psap=0, calls_received=0, total_esrp_calls_received_policy_routed=0}
+16:04:27  2022-07-13 10:34:27.471  INFO 6381 --- [           main] i.c.n.s.ThanosReceiverConsumer           : device name:null
+16:04:27  [INFO] Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.006 s - in io.ctl.ng911.splunk.ThanosReceiverTest
+16:04:27  [INFO] Running io.ctl.ng911.splunk.resources.AppConfigTest
+16:04:27  [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 s - in io.ctl.ng911.splunk.resources.AppConfigTest
+16:04:27  [INFO] Running io.ctl.ng911.splunk.ApplicationTest
+16:04:27  [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.034 s - in io.ctl.ng911.splunk.ApplicationTest
+16:04:27  [INFO] Running io.ctl.ng911.splunk.model.DgraphObjectTest
+16:04:27  [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 s - in io.ctl.ng911.splunk.model.DgraphObjectTest
+16:04:27  [INFO] Running io.ctl.ng911.splunk.service.DGraphServiceTest
+16:04:27  2022-07-13 10:34:27.691  INFO 6381 --- [           main] i.c.n.s.s.DGraphService                  : Dgraph Request: CORE and filter: STI:CHI1 and enterprise Id: 11959257
+16:04:27  2022-07-13 10:34:27.692  INFO 6381 --- [           main] i.c.n.s.s.DGraphService                  : Dgraph Response Success
+16:04:27  2022-07-13 10:34:27.699  INFO 6381 --- [           main] i.c.n.s.s.DGraphService                  : Dgraph Request: INGRESS and filter: CHV1MSNG911 and enterprise Id: 11959257
+16:04:27  2022-07-13 10:34:27.700  INFO 6381 --- [           main] i.c.n.s.s.DGraphService                  : Dgraph Response Success
+16:04:27  2022-07-13 10:34:27.706  INFO 6381 --- [           main] i.c.n.s.s.DGraphService                  : Dgraph Request: CORE and filter: STI:CHI2 and enterprise Id: 11985545
+16:04:27  2022-07-13 10:34:27.707  INFO 6381 --- [           main] i.c.n.s.s.DGraphService                  : Dgraph Response Success
+16:04:27  2022-07-13 10:34:27.712  INFO 6381 --- [           main] i.c.n.s.s.DGraphService                  : Dgraph Request: INGRESS and filter: CH91ILGSX08 and enterprise Id: 11985545
+16:04:27  2022-07-13 10:34:27.713  INFO 6381 --- [           main] i.c.n.s.s.DGraphService                  : Dgraph Response Success
+16:04:27  2022-07-13 10:34:27.752  INFO 6381 --- [           main] i.c.n.s.s.DGraphService                  : Dgraph Request: PSAP and filter: CA/EVXR/103/PN and enterprise Id: 11959257
+16:04:27  2022-07-13 10:34:27.752  INFO 6381 --- [           main] i.c.n.s.s.DGraphService                  : Dgraph Response Success
+16:04:27  2022-07-13 10:34:27.760  INFO 6381 --- [           main] i.c.n.s.s.DGraphService                  : Dgraph Request: PSAP and filter: FL/EVXR/095/NW and enterprise Id: 11985545
+16:04:27  2022-07-13 10:34:27.760  INFO 6381 --- [           main] i.c.n.s.s.DGraphService                  : Dgraph Response Success
+16:04:27  [INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.168 s - in io.ctl.ng911.splunk.service.DGraphServiceTest
+16:04:27  2022-07-13 10:34:27.780  INFO 6381 --- [extShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+16:04:28  2022-07-13 10:34:28.020  INFO 6381 --- [extShutdownHook] o.e.c.EhcacheManager                     : Cache 'dgraph' removed from EhcacheManager.
+16:04:28  [INFO] 
+16:04:28  [INFO] Results:
+16:04:28  [INFO] 
+16:04:28  [INFO] Tests run: 38, Failures: 0, Errors: 0, Skipped: 0
+16:04:28  [INFO] 
+16:04:28  [INFO] 
+16:04:28  [INFO] --- jacoco-maven-plugin:0.8.5:report (post-unit-test) @ ng911-splunk-api ---
+16:04:28  [INFO] Loading execution data file /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/jacoco.exec
+16:04:28  [INFO] Analyzed bundle 'ng911-splunk-api' with 53 classes
+16:04:29  [INFO] 
+16:04:29  [INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ ng911-splunk-api ---
+16:04:29  [INFO] Building jar: /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/ng911-splunk-api-0.0.9-SNAPSHOT.jar
+16:04:29  [INFO] 
+16:04:29  [INFO] --- spring-boot-maven-plugin:2.7.1:repackage (default) @ ng911-splunk-api ---
+16:04:30  [INFO] Replacing main artifact with repackaged archive
+16:04:30  [INFO] 
+16:04:30  [INFO] --------------------< io.ctl.gov:ng911-splunk-api >---------------------
+16:04:30  [INFO] Building ng911-splunk-api 0.0.9-SNAPSHOT
+16:04:30  [INFO] --------------------------------[ jar ]---------------------------------
+16:04:30  [INFO] 
+16:04:30  [INFO] --- sonar-maven-plugin:3.9.1.2184:sonar (default-cli) @ ng911-splunk-api ---
+16:04:30  [INFO] User cache: /root/.sonar/cache
+16:04:30  [INFO] SonarQube version: 8.2.0
+16:04:30  [INFO] Default locale: "en_US", source code encoding: "UTF-8" (analysis is platform dependent)
+16:04:30  [WARNING] SonarScanner will require Java 11 to run starting in SonarQube 8.x
+16:04:30  [INFO] Load global settings
+16:04:30  [INFO] Load global settings (done) | time=102ms
+16:04:30  [INFO] Server id: BF41A1F2-AXUh7UbahiLDxjRSKFfT
+16:04:30  [INFO] User cache: /root/.sonar/cache
+16:04:30  [INFO] Load/download plugins
+16:04:30  [INFO] Load plugins index
+16:04:31  [INFO] Load plugins index (done) | time=62ms
+16:04:31  [INFO] Load/download plugins (done) | time=77ms
+16:04:31  [INFO] Process project properties
+16:04:31  [INFO] Process project properties (done) | time=11ms
+16:04:31  [INFO] Project key: com.lumen:splunk:master_scan
+16:04:31  [INFO] Base dir: /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api
+16:04:31  [INFO] Working dir: /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/sonar
+16:04:31  [INFO] Load project settings for component key: 'com.lumen:splunk:master_scan'
+16:04:31  [INFO] Load project settings for component key: 'com.lumen:splunk:master_scan' (done) | time=17ms
+16:04:31  [INFO] Load quality profiles
+16:04:32  [INFO] Load quality profiles (done) | time=376ms
+16:04:32  [INFO] Detected Jenkins
+16:04:32  [INFO] Load active rules
+16:04:32  [INFO] Load active rules (done) | time=556ms
+16:04:32  [INFO] Indexing files...
+16:04:32  [INFO] Project configuration:
+16:04:32  [INFO] 20 files indexed
+16:04:32  [INFO] 0 files ignored because of scm ignore settings
+16:04:32  [INFO] Quality profile for java: Sonar way
+16:04:32  [INFO] ------------- Run sensors on module splunk-master
+16:04:32  [INFO] Load metrics repository
+16:04:32  [INFO] Load metrics repository (done) | time=22ms
+16:04:33  [INFO] Sensor JavaSquidSensor [java]
+16:04:33  [INFO] Configured Java source version (sonar.java.source): 8
+16:04:33  [INFO] JavaClasspath initialization
+16:04:33  [INFO] JavaClasspath initialization (done) | time=16ms
+16:04:33  [INFO] JavaTestClasspath initialization
+16:04:33  [INFO] JavaTestClasspath initialization (done) | time=6ms
+16:04:33  [INFO] Java Main Files AST scan
+16:04:33  [INFO] 12 source files to be analyzed
+16:04:33  [INFO] Load project repositories
+16:04:33  [INFO] Load project repositories (done) | time=25ms
+16:04:37  [INFO] 12/12 source files have been analyzed
+16:04:37  [INFO] Java Main Files AST scan (done) | time=3608ms
+16:04:37  [INFO] Java Test Files AST scan
+16:04:37  [INFO] 7 source files to be analyzed
+16:04:37  [INFO] 7/7 source files have been analyzed
+16:04:37  [INFO] Java Test Files AST scan (done) | time=914ms
+16:04:37  [INFO] Java Generated Files AST scan
+16:04:37  [INFO] 0 source files to be analyzed
+16:04:37  [INFO] Java Generated Files AST scan (done) | time=1ms
+16:04:37  [INFO] 0/0 source files have been analyzed
+16:04:37  [INFO] Sensor JavaSquidSensor [java] (done) | time=4829ms
+16:04:37  [INFO] Sensor JaCoCo XML Report Importer [jacoco]
+16:04:37  [INFO] 'sonar.coverage.jacoco.xmlReportPaths' is not defined. Using default locations: target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml
+16:04:37  [INFO] Importing 1 report(s). Turn your logs in debug mode in order to see the exhaustive list.
+16:04:38  [INFO] Sensor JaCoCo XML Report Importer [jacoco] (done) | time=173ms
+16:04:38  [INFO] Sensor SurefireSensor [java]
+16:04:38  [INFO] parsing [/var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/surefire-reports]
+16:04:38  [INFO] Sensor SurefireSensor [java] (done) | time=58ms
+16:04:38  [INFO] Sensor JavaXmlSensor [java]
+16:04:38  [INFO] 1 source files to be analyzed
+16:04:38  [INFO] Sensor JavaXmlSensor [java] (done) | time=239ms
+16:04:38  [INFO] 1/1 source files have been analyzed
+16:04:38  [INFO] ------------- Run sensors on project
+16:04:38  [INFO] Sensor Zero Coverage Sensor
+16:04:38  [INFO] Sensor Zero Coverage Sensor (done) | time=1ms
+16:04:38  [INFO] Sensor Java CPD Block Indexer
+16:04:38  [INFO] Sensor Java CPD Block Indexer (done) | time=42ms
+16:04:38  [INFO] CPD Executor 3 files had no CPD blocks
+16:04:38  [INFO] CPD Executor Calculating CPD for 9 files
+16:04:38  [INFO] CPD Executor CPD calculation finished (done) | time=32ms
+16:04:38  [INFO] Analysis report generated in 60ms, dir size=157 KB
+16:04:38  [INFO] Analysis report compressed in 85ms, zip size=61 KB
+16:04:38  [INFO] Analysis report uploaded in 34ms
+16:04:38  [INFO] ANALYSIS SUCCESSFUL, you can browse http://10.120.33.16:32170/dashboard?id=com.lumen%3Asplunk%3Amaster_scan
+16:04:38  [INFO] Note that you will be able to access the updated dashboard once the server has processed the submitted analysis report
+16:04:38  [INFO] More about the report processing at http://10.120.33.16:32170/api/ce/task?id=AYH3IAC_hJnN92Wj28Ka
+16:04:38  [INFO] Analysis total time: 7.622 s
+16:04:38  [INFO] ------------------------------------------------------------------------
+16:04:38  [INFO] BUILD SUCCESS
+16:04:38  [INFO] ------------------------------------------------------------------------
+16:04:38  [INFO] Total time:  35.907 s
+16:04:38  [INFO] Finished at: 2022-07-13T10:34:38Z
+16:04:38  [INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // withSonarQubeEnv
+[Pipeline] dir
+16:04:39  Running in /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master
+[Pipeline] {
+[Pipeline] findFiles
+[Pipeline] isUnix
+[Pipeline] sh (Creating daumerling)
+16:04:39  + md5sum Jenkinsfile
+[Pipeline] stash
+16:04:39  Stashed 1 file(s)
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] echo
+16:04:39  Placeholder to integrate Service Now DevOps Module in  Quality Gate stage.
+[Pipeline] stage
+[Pipeline] { (Quality Gate)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh
+16:04:40  + sleep 60
+[Pipeline] timeout
+16:05:48  Timeout set to expire in 5 min 0 sec
+[Pipeline] {
+[Pipeline] waitForQualityGate
+16:05:48  Checking status of SonarQube task 'AYH3IAC_hJnN92Wj28Ka' on server 'sonarqube'
+16:05:48  SonarQube task 'AYH3IAC_hJnN92Wj28Ka' status is 'SUCCESS'
+16:05:48  SonarQube task 'AYH3IAC_hJnN92Wj28Ka' completed. Quality gate is 'OK'
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] dir
+16:05:48  Running in /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master
+[Pipeline] {
+[Pipeline] findFiles
+[Pipeline] isUnix
+[Pipeline] sh (Creating daumerling)
+16:05:48  + md5sum Jenkinsfile
+[Pipeline] stash
+16:05:48  Stashed 1 file(s)
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] echo
+16:05:49  Placeholder to integrate Service Now DevOps Module in  Build stage.
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh
+16:05:50  + mvn clean install -DskipTests
+16:05:51  [INFO] Scanning for projects...
+16:05:52  [WARNING] 
+16:05:52  [WARNING] Some problems were encountered while building the effective model for io.ctl.gov:ng911-splunk-api:jar:0.0.9-SNAPSHOT
+16:05:52  [WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.springframework.boot:spring-boot-starter-validation:jar -> duplicate declaration of version (?) @ line 69, column 15
+16:05:52  [WARNING] 'build.plugins.plugin.version' for org.springframework.boot:spring-boot-maven-plugin is missing. @ line 193, column 12
+16:05:52  [WARNING] 
+16:05:52  [WARNING] Some problems were encountered while building the effective model for io.ctl.gov:ng911-splunk-poller:jar:0.0.9-SNAPSHOT
+16:05:52  [WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: io.micrometer:micrometer-registry-prometheus:jar -> duplicate declaration of version (?) @ line 115, column 21
+16:05:52  [WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.projectlombok:lombok:jar -> duplicate declaration of version (?) @ line 119, column 21
+16:05:52  [WARNING] 
+16:05:52  [WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+16:05:52  [WARNING] 
+16:05:52  [WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+16:05:52  [WARNING] 
+16:05:52  [INFO] ------------------------------------------------------------------------
+16:05:52  [INFO] Reactor Build Order:
+16:05:52  [INFO] 
+16:05:52  [INFO] ng911-splunk                                                       [pom]
+16:05:52  [INFO] ng911-splunk-api                                                   [jar]
+16:05:52  [INFO] ng911-splunk-poller                                                [jar]
+16:05:52  [INFO] 
+16:05:52  [INFO] ----------------------< io.ctl.gov:ng911-splunk >-----------------------
+16:05:52  [INFO] Building ng911-splunk 0.0.9-SNAPSHOT                               [1/3]
+16:05:52  [INFO] --------------------------------[ pom ]---------------------------------
+16:05:52  [INFO] 
+16:05:52  [INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ ng911-splunk ---
+16:05:52  [INFO] 
+16:05:52  [INFO] --- jacoco-maven-plugin:0.8.5:prepare-agent (default) @ ng911-splunk ---
+16:05:52  [INFO] argLine set to -javaagent:/root/.m2/repository/org/jacoco/org.jacoco.agent/0.8.5/org.jacoco.agent-0.8.5-runtime.jar=destfile=/var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/target/jacoco.exec,append=true,excludes=*MethodAccess
+16:05:52  [INFO] 
+16:05:52  [INFO] --- jacoco-maven-plugin:0.8.5:report (post-unit-test) @ ng911-splunk ---
+16:05:52  [INFO] Skipping JaCoCo execution due to missing execution data file.
+16:05:52  [INFO] 
+16:05:52  [INFO] --- maven-install-plugin:2.4:install (default-install) @ ng911-splunk ---
+16:05:52  [INFO] Installing /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/pom.xml to /root/.m2/repository/io/ctl/gov/ng911-splunk/0.0.9-SNAPSHOT/ng911-splunk-0.0.9-SNAPSHOT.pom
+16:05:52  [INFO] 
+16:05:52  [INFO] --------------------< io.ctl.gov:ng911-splunk-api >---------------------
+16:05:52  [INFO] Building ng911-splunk-api 0.0.9-SNAPSHOT                           [2/3]
+16:05:52  [INFO] --------------------------------[ jar ]---------------------------------
+16:05:53  [INFO] 
+16:05:53  [INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ ng911-splunk-api ---
+16:05:53  [INFO] Deleting /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target
+16:05:53  [INFO] 
+16:05:53  [INFO] --- os-maven-plugin:1.6.2:detect (default) @ ng911-splunk-api ---
+16:05:53  [INFO] ------------------------------------------------------------------------
+16:05:53  [INFO] Detecting the operating system and CPU architecture
+16:05:53  [INFO] ------------------------------------------------------------------------
+16:05:53  [INFO] os.detected.name: linux
+16:05:53  [INFO] os.detected.arch: x86_64
+16:05:53  [INFO] os.detected.version: 4.15
+16:05:53  [INFO] os.detected.version.major: 4
+16:05:53  [INFO] os.detected.version.minor: 15
+16:05:53  [INFO] os.detected.release: debian
+16:05:53  [INFO] os.detected.release.version: 10
+16:05:53  [INFO] os.detected.release.like.debian: true
+16:05:53  [INFO] os.detected.classifier: linux-x86_64
+16:05:53  [INFO] 
+16:05:53  [INFO] --- jacoco-maven-plugin:0.8.5:prepare-agent (default) @ ng911-splunk-api ---
+16:05:53  [INFO] argLine set to -javaagent:/root/.m2/repository/org/jacoco/org.jacoco.agent/0.8.5/org.jacoco.agent-0.8.5-runtime.jar=destfile=/var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/jacoco.exec,append=true,excludes=*MethodAccess
+16:05:53  [INFO] 
+16:05:53  [INFO] --- protobuf-maven-plugin:0.6.1:compile (default) @ ng911-splunk-api ---
+16:05:53  [INFO] Compiling 1 proto file(s) to /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/generated-sources/protobuf/java
+16:05:53  [INFO] 
+16:05:53  [INFO] --- protobuf-maven-plugin:0.6.1:compile-custom (default) @ ng911-splunk-api ---
+16:05:53  [INFO] Compiling 1 proto file(s) to /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/generated-sources/protobuf/grpc-java
+16:05:53  [INFO] 
+16:05:53  [INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ ng911-splunk-api ---
+16:05:54  [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+16:05:54  [INFO] Copying 4 resources
+16:05:54  [INFO] Copying 1 resource
+16:05:54  [INFO] Copying 1 resource
+16:05:54  [INFO] 
+16:05:54  [INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ ng911-splunk-api ---
+16:05:54  [INFO] Changes detected - recompiling the module!
+16:05:54  [WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+16:05:54  [INFO] Compiling 13 source files to /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/classes
+16:05:59  [INFO] /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/generated-sources/protobuf/java/io/ctl/gov/ng911/thanos/adapter/prometheus/Prometheus.java: /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/generated-sources/protobuf/java/io/ctl/gov/ng911/thanos/adapter/prometheus/Prometheus.java uses or overrides a deprecated API.
+16:05:59  [INFO] /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/generated-sources/protobuf/java/io/ctl/gov/ng911/thanos/adapter/prometheus/Prometheus.java: Recompile with -Xlint:deprecation for details.
+16:05:59  [INFO] 
+16:05:59  [INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ ng911-splunk-api ---
+16:05:59  [WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+16:05:59  [INFO] Copying 17 resources
+16:05:59  [INFO] 
+16:05:59  [INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ ng911-splunk-api ---
+16:05:59  [INFO] Changes detected - recompiling the module!
+16:05:59  [WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+16:05:59  [INFO] Compiling 7 source files to /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/test-classes
+16:06:01  [INFO] /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/src/test/java/io/ctl/ng911/splunk/service/DGraphServiceTest.java: /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/src/test/java/io/ctl/ng911/splunk/service/DGraphServiceTest.java uses unchecked or unsafe operations.
+16:06:01  [INFO] /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/src/test/java/io/ctl/ng911/splunk/service/DGraphServiceTest.java: Recompile with -Xlint:unchecked for details.
+16:06:01  [INFO] 
+16:06:01  [INFO] --- maven-surefire-plugin:3.0.0-M4:test (default-test) @ ng911-splunk-api ---
+16:06:01  [INFO] Tests are skipped.
+16:06:01  [INFO] 
+16:06:01  [INFO] --- jacoco-maven-plugin:0.8.5:report (post-unit-test) @ ng911-splunk-api ---
+16:06:01  [INFO] Skipping JaCoCo execution due to missing execution data file.
+16:06:01  [INFO] 
+16:06:01  [INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ ng911-splunk-api ---
+16:06:01  [INFO] Building jar: /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/ng911-splunk-api-0.0.9-SNAPSHOT.jar
+16:06:01  [INFO] 
+16:06:01  [INFO] --- spring-boot-maven-plugin:2.7.1:repackage (default) @ ng911-splunk-api ---
+16:06:02  [INFO] Replacing main artifact with repackaged archive
+16:06:02  [INFO] 
+16:06:02  [INFO] --- maven-install-plugin:2.4:install (default-install) @ ng911-splunk-api ---
+16:06:02  [INFO] Installing /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/target/ng911-splunk-api-0.0.9-SNAPSHOT.jar to /root/.m2/repository/io/ctl/gov/ng911-splunk-api/0.0.9-SNAPSHOT/ng911-splunk-api-0.0.9-SNAPSHOT.jar
+16:06:02  [INFO] Installing /var/jenkins_home/workspace/GUARDIAN_ng911-splunk-api_master/ng911-splunk-api/pom.xml to /root/.m2/repository/io/ctl/gov/ng911-splunk-api/0.0.9-SNAPSHOT/ng911-splunk-api-0.0.9-SNAPSHOT.pom
+16:06:02  [INFO] 
+16:06:02  [INFO] -------------------< io.ctl.gov:ng911-splunk-poller >-------------------
+16:06:02  [INFO] Building ng911-splunk-poller 0.0.9-SNAPSHOT                        [3/3]
+16:06:02  [INFO] --------------------------------[ jar ]---------------------------------
+16:06:03  Downloading from central: https://repo.maven.apache.org/maven2/io/ctl/eis/cf-operator-core/1.0.0/cf-operator-core-1.0.0.pom
+16:06:03  [WARNING] The POM for io.ctl.eis:cf-operator-core:jar:1.0.0 is missing, no dependency information available
+16:06:03  Downloading from central: https://repo.maven.apache.org/maven2/io/ctl/eis/cf-operator-core/1.0.0/cf-operator-core-1.0.0.jar
+16:06:03  [INFO] ------------------------------------------------------------------------
+16:06:03  [INFO] Reactor Summary for ng911-splunk 0.0.9-SNAPSHOT:
+16:06:03  [INFO] 
+16:06:03  [INFO] ng911-splunk ....................................... SUCCESS [  0.816 s]
+16:06:03  [INFO] ng911-splunk-api ................................... SUCCESS [  9.742 s]
+16:06:03  [INFO] ng911-splunk-poller ................................ FAILURE [  1.199 s]
+16:06:03  [INFO] ------------------------------------------------------------------------
+16:06:03  [INFO] BUILD FAILURE
+16:06:03  [INFO] ------------------------------------------------------------------------
+16:06:03  [INFO] Total time:  12.410 s
+16:06:03  [INFO] Finished at: 2022-07-13T10:36:03Z
+16:06:03  [INFO] ------------------------------------------------------------------------
+16:06:03  [ERROR] Failed to execute goal on project ng911-splunk-poller: Could not resolve dependencies for project io.ctl.gov:ng911-splunk-poller:jar:0.0.9-SNAPSHOT: Could not find artifact io.ctl.eis:cf-operator-core:jar:1.0.0 in central (https://repo.maven.apache.org/maven2) -> [Help 1]
+16:06:03  [ERROR] 
+16:06:03  [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+16:06:03  [ERROR] Re-run Maven using the -X switch to enable full debug logging.
+16:06:03  [ERROR] 
+16:06:03  [ERROR] For more information about the errors and possible solutions, please read the following articles:
+16:06:03  [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/DependencyResolutionException
+16:06:03  [ERROR] 
+16:06:03  [ERROR] After correcting the problems, you can resume the build with the command
+16:06:03  [ERROR]   mvn <args> -rf :ng911-splunk-poller
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] echo
+16:06:04  Fallback to Adoption Stats
+[Pipeline] catchError
+[Pipeline] {
+[Pipeline] }
+16:06:04  ERROR: ⚠️⚠️⚠️⚠️ PLEASE CHECK Build CONSOLE LOGS FOR MORE DETAILS ⚠️⚠️⚠️⚠️
+16:06:04  ERROR: script returned exit code 1
+[Pipeline] // catchError
+[Pipeline] echo
+16:06:04  Placeholder to integrate Service Now DevOps Module in  Adoption Stats stage.
+[Pipeline] stage
+[Pipeline] { (Adoption Stats)
+[Pipeline] tool
+[Pipeline] envVarsForTool
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+16:06:05  Moving to Unified Jenkins
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] echo
+16:06:05  Placeholder to integrate Service Now DevOps Module in  Declarative: Post Actions stage.
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+16:06:05  Failed
+[Pipeline] cleanWs
+16:06:05  [WS-CLEANUP] Deleting project workspace...
+16:06:05  [WS-CLEANUP] Deferred wipeout is used...
+16:06:05  [WS-CLEANUP] done
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+
+GitHub has been notified of this commit’s build result
+
+ERROR: script returned exit code 1
+Finished: FAILURE
+REST API
+Jenkins 2.280

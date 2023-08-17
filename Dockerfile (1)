@@ -1,0 +1,10 @@
+FROM nexusprod.corp.intranet:4567/devbaseimages/development_base_images/tomcat9:2021Q1
+RUN rm -rf /temp/
+
+ARG WAR_FILE
+ADD ${WAR_FILE} mbsgui.war
+
+
+RUN cp -rf mbsgui.war /opt/tomcat/webapps/
+EXPOSE 8080
+CMD ["catalina.sh", "run"] 

@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis-cluster-sandeep
+spec:
+  replicas: 6
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: redis-cluster-sandeep
+  serviceName: redis-cluster-sandeep
+  template:
+    metadata:
+      labels:
+        app: redis-cluster-sandeep
+    spec:
+      initContainers:
+      - name: config
+        env:
+        - name: POD_PVC_PATH    # env Variable name
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name    # assign pod name to env varaibles, ie, redis-0, redis-1 etc
+        image: redis:7.0.0-alpine
+        command: [ "sh", "-c" ]
+        args:
+          - |
+            if [ -f "/conf/redis.conf" ]; then
+              echo "config exists /conf/redis.conf .. not creating new"
+              if [ -f "/tmp/startup/redis-startup.sh" ];then
+                cp /tmp/startup/redis-startup.sh /conf/redis-startup.sh
+              fi
+            else
+              echo "config doesn't exist copying to /conf/redis.conf"
+              cp /tmp/conf/redis.conf /conf/redis.conf
+            fi
+        volumeMounts:
+        - name: conf
+          subPathExpr: $(POD_PVC_PATH)-conf   # dedicated sub directory for conf
+          mountPath: /conf
+        - name: conf
+          mountPath: /tmp/conf/
+      containers:
+      - command:
+        - /conf/update-node.sh
+        - redis-server
+        - /conf/redis.conf
+        env:
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.podIP
+        image: nexusprod.corp.intranet:4567/devbaseimages/development_base_images/redis7:2023Q2
+        imagePullPolicy: IfNotPresent
+        name: redis-cluster-sandeep
+        ports:
+        - containerPort: 6379
+          name: redis-cluster-sandeep
+          protocol: TCP
+        - containerPort: 16379
+          name: gossip
+          protocol: TCP
+        resources:
+          limits:
+            memory: 500Mi
+          requests:
+            memory: 100Mi
+        volumeMounts:
+        - mountPath: /conf
+          name: conf
+      volumes:
+      - configMap:
+          defaultMode: 0755
+          name: redis-cluster-sandeep
+        name: conf
+      imagePullSecrets:
+        - name: "nexus-reg-secret"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-service-sandeep
+  namespace: rtns-dev
+spec:
+  clusterIP: None
+  ports:
+  - port: 6379
+    targetPort: 6379
+    name: redis-cluster-sandeep
+  selector:
+    app: redis-cluster-sandeep

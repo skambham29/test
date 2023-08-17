@@ -1,0 +1,118 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: 'pc360-quantumhc-svcs-test'
+  namespace: 'pc360-dev'
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
+    nginx.org/proxy-connect-timeout: 120s
+  labels:
+    project: 'pc360-quantumhc-svcs'
+    commit: '204cc9c'
+    role: java
+    environment: test
+spec:
+  rules:
+    - host: pc360-quantumhc-svcs-test.kubeodc-test.corp.intranet
+      http:
+        paths:
+          - backend:
+              service:
+                name: 'pc360-quantumhc-svcs-test'
+                port:
+                  number: 8080
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+      - 'pc360-quantumhc-svcs-test.kubeodc-test.corp.intranet'
+      secretName: managed-tls-secret
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'pc360-quantumhc-svcs-test'
+  namespace: 'pc360-dev'
+  labels:
+    project: 'pc360-quantumhc-svcs'
+    commit: '204cc9c'
+    role: java
+    environment: test
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    project: 'pc360-quantumhc-svcs'
+    commit: '204cc9c'
+    role: java
+    environment: test
+  type: ClusterIP
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'pc360-quantumhc-svcs-test'
+  labels:
+    project: 'pc360-quantumhc-svcs'
+    commit: '204cc9c'
+    role: java
+    environment: test
+spec:
+  selector:
+    matchLabels:
+      project: 'pc360-quantumhc-svcs'
+      role: java
+      environment: test
+  replicas: 6
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'pc360-quantumhc-svcs'
+        commit: '204cc9c'
+        role: java
+        environment: test
+    spec:
+      containers:
+        - name: java
+          image: 'nexusprod.corp.intranet:4567/pc360/pc360-quantumhc-svcs:develop'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            limits:
+              memory: 1500Mi
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: test
+            - name: APPDYNAMICS_CONTROLLER_HOST_NAME
+              value: 'centurylink-nonprod.saas.appdynamics.com'
+            - name: APPDYNAMICS_CONTROLLER_PORT
+              value: '443'
+            - name: APPDYNAMICS_CONTROLLER_SSL_ENABLED
+              value: 'true'
+            - name: APPDYNAMICS_AGENT_APPLICATION_NAME
+              value: 'PC360-PERFORMANCE CHECK 360 (TEST) - SYSGEN787662162'
+            - name: APPDYNAMICS_AGENT_TIER_NAME
+              value: 'pc360-quantumhc-svcs'
+            - name: APPDYNAMICS_AGENT_ACCOUNT_NAME
+              value: 'centurylink-nonprod'
+            - name: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: appdynamic-secret
+                  key: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+      imagePullSecrets:
+        - name: pc360-quantumhc-svcs-develop
+---
+---

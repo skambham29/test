@@ -1,0 +1,1318 @@
+Sep 22, 2022 9:46:52 PM com.centurylink.dimension.poc.core.DimensionToGitMain main
+INFO: LOG CREATED ********** 
+Sep 22, 2022 9:46:52 PM com.centurylink.dimension.poc.core.DimensionToGitMain main
+INFO: Fetching DimenisonsDetails ************* 
+Sep 22, 2022 9:46:52 PM com.centurylink.dimension.poc.core.DimensionToGitMain setRequiredDetailsForCMConnection
+INFO: Establishing the Connection to Dimension Server:
+Sep 22, 2022 9:47:03 PM com.centurylink.dimension.poc.core.DimensionToGitMain setRequiredDetailsForCMConnection
+INFO: Establishing the Connection to Dimension Server: SUCESSFULL  
+Sep 22, 2022 9:47:03 PM com.centurylink.dimension.poc.core.DimensionToGitMain main
+INFO: Code call
+Sep 22, 2022 9:47:03 PM com.centurylink.dimension.poc.core.DimensionToGitMain main
+INFO: new repository for code call
+Sep 22, 2022 9:47:04 PM com.centurylink.dimension.poc.core.DimensionToGitMain removeGitRepo
+INFO: Response is : C:\Dimns2Git>RMDIR C:\Dimns2Git\CodeHere\DBS /S /Q 
+Sep 22, 2022 9:47:04 PM com.centurylink.dimension.poc.core.DimensionToGitMain removeGitRepo
+INFO: Any Error's ? : You Can Ignore this 
+Sep 22, 2022 9:47:08 PM com.centurylink.dimension.poc.core.DimensionToGitMain initializeGitRepo
+INFO: Response is : C:\Dimns2Git>md C:\Dimns2Git\CodeHere\DBS C:\Dimns2Git>cd C:\Dimns2Git\CodeHere\DBS C:\Dimns2Git\CodeHere\DBS>git init Initialized empty Git repository in C:/Dimns2Git/CodeHere/DBS/.git/C:\Dimns2Git\CodeHere\DBS>git config user.email NeerajArunkumar.Choudhary@lumen.com C:\Dimns2Git\CodeHere\DBS>git config user.name NeerajChoudhary2493 C:\Dimns2Git\CodeHere\DBS>git remote add origin https://NeerajChoudhary2493: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@github.com/CenturyLink/DBSGATEWAY.git 
+Sep 22, 2022 9:47:08 PM com.centurylink.dimension.poc.core.DimensionToGitMain initializeGitRepo
+INFO: Error is: 
+Sep 22, 2022 9:47:08 PM com.centurylink.dimension.poc.core.DimensionToGitMain main
+INFO: Assume InitializeGitRepo ************* 
+Sep 22, 2022 9:47:08 PM com.centurylink.dimension.poc.core.DimensionToGitMain getCodeToLocal
+INFO: getDimenisonsDetails() Begin
+Sep 22, 2022 9:47:08 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO: Starting of getListOfAllItems method 
+Sep 22, 2022 9:47:08 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  FileDetails POJO : FileDetails [project=DBS:QXGDBS_02_00_00_WS, projDir=QXGDBS_02_00_00_WS, userDir=C:\Dimns2Git\CodeHere\DBS, userDirTag=C:\Dimns2Git\TagHere, noMetaDatal=true, baseLine=null]
+Sep 22, 2022 9:47:09 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  localProject : DBS:QXGDBS_02_00_00_WS
+Sep 22, 2022 9:47:09 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  Dimensions Related Object Size : 631
+Sep 22, 2022 9:47:09 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  bulk : com.serena.dmclient.api.BulkOperatorImpl@13518f37
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV BUILD XML--111168698.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CLASSPATH--1734653153.A-SRC;5
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CLASSPATH--1734653153.A-SRC;4
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CLASSPATH--1734653153.A-SRC;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CLASSPATH--1734653153.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CLASSPATH--1734653153.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:DBS ECL--1262198183.A-PROJECT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DMIGNORE-750334786.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV POM XML-2141612074.A-SRC;19
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV POM XML-2141612074.A-SRC;18
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV POM XML-2141612074.A-SRC;17
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV POM XML-2141612074.A-SRC;16
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV POM XML-2141612074.A-SRC;15
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV POM XML-2141612074.A-SRC;14
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV POM XML-2141612074.A-SRC;13
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV POM XML-2141612074.A-SRC;12
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV POM XML-2141612074.A-SRC;11
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV POM XML-2141612074.A-SRC;10
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV POM XML-2141612074.A-SRC;9
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV POM XML-2141612074.A-SRC;8
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV POM XML-2141612074.A-SRC;7
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV POM XML-2141612074.A-SRC;6
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV POM XML-2141612074.A-SRC;5
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV POM XML-2141612074.A-SRC;4
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV POM XML-2141612074.A-SRC;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV POM XML-2141612074.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV POM XML-2141612074.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV PROJECT-86573407.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV PROJECT-86573407.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ORG ECLIPSE CORE RESOURCES PREFS-1994262598.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ORG ECLIPSE JDT CORE PREFS-1994262598.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ORG ECLIPSE M2E CORE PREFS-1994262598.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV TAR ASSEMBLY XML-976791044.A-SRC;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV TAR ASSEMBLY XML-976791044.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV TAR ASSEMBLY XML-976791044.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DBSLOGGER JAVA--541014101.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBEAN JAVA-1827890890.A-SRC;19
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBEAN JAVA-1827890890.A-SRC;18
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBEAN JAVA-1827890890.A-SRC;17
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBEAN JAVA-1827890890.A-SRC;16
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBEAN JAVA-1827890890.A-SRC;15
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBEAN JAVA-1827890890.A-SRC;14
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBEAN JAVA-1827890890.A-SRC;13
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBEAN JAVA-1827890890.A-SRC;12
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBEAN JAVA-1827890890.A-SRC;11
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBEAN JAVA-1827890890.A-SRC;10
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBEAN JAVA-1827890890.A-SRC;9
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBEAN JAVA-1827890890.A-SRC;8
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBEAN JAVA-1827890890.A-SRC;7
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBEAN JAVA-1827890890.A-SRC;6
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBEAN JAVA-1827890890.A-SRC;5
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBEAN JAVA-1827890890.A-SRC;4
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBEAN JAVA-1827890890.A-SRC;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBEAN JAVA-1827890890.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBEAN JAVA-1827890890.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETMESSAGES JAVA--1351411871.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETMESSAGESUTILBEAN JAVA--1351411871.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV NOSUCHENDPOINTBEAN JAVA--1107065645.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV POLLINGCONSUMERBEAN JAVA--2082605485.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV SENDTODIRECTV JAVA--1010856693.A-SRC;4
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV SENDTODIRECTV JAVA--1010856693.A-SRC;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV SENDTODIRECTV JAVA--1010856693.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV SENDTODIRECTV JAVA--1010856693.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV MIGRATIONCSV JAVA--130854545.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV MIGRATIONDAT JAVA--1232949836.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV MIGRATIONHEADER JAVA--1232949836.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV MIGRATIONTRAILER JAVA--1232949836.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV BUSCONTROLLER JAVA--299777768.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV BUSPROCESSOR JAVA--1493416820.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV BUSRESPONDERALARMUTIL JAVA--1348301978.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV BUSRESPONDERCONSTANTS JAVA--79798301.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV BUSRESPONDERINITIALIZATIONSTATUS JAVA--887086178.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV BUSRESPONDERTHREAD JAVA-976791044.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CLOSUREMARK JAVA-86573407.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV BUSENDPOINTEXCEPTION JAVA--1107065645.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV BUSSERVICETIMEOUTEXCEPTION JAVA-86573407.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV BUSSERVICEUNAVAILABLEEXCEPTION JAVA--541014101.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV IBUSPROCESSOR JAVA--111168698.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ITIBRVREQUESTOR JAVA--541014101.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV PROPERTYCONSTANTS JAVA--887086178.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV PROPERTYNOTFOUNDEXCEPTION JAVA-976791044.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QXGBUSRESPONDER JAVA--1954123439.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QXGBUSRESPONDER JAVA--1954123439.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QXGFBUSPROCESSORIMPL JAVA-1827890890.A-SRC;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QXGFBUSPROCESSORIMPL JAVA-1827890890.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QXGFBUSPROCESSORIMPL JAVA-1827890890.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QXGSERVICEEXCEPTION JAVA--1107065645.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV TIBRVCOMPONENT JAVA--541014101.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV TIBRVCONSUMER JAVA--2080725231.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV TIBRVENDPOINT JAVA--2080725231.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV TIBRVPRODUCER JAVA--1273437353.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV TIBRVREQUESTORIMPL JAVA--154662926.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV TIBRVRESPONDERIMPL JAVA--79798301.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV TIBRVTESTHANDOFF JAVA--1445713497.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV WORKQUEUE JAVA--1954123439.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV AUDITEVENTNOTIFIER JAVA--836426914.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DECRYPTIONEXCEPTION JAVA-1945151357.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ENCRYPTIONEXCEPTION JAVA-1945151357.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV AESKEYGEN JAVA--154662926.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV KEYSTOREFILEEXCEPTION JAVA--1107065645.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QWBYTEARRAYTOBASE64 JAVA--1273437353.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QWENCRYPTIONKEYSTORE JAVA-144795574.A-SRC;4
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QWENCRYPTIONKEYSTORE JAVA-144795574.A-SRC;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QWENCRYPTIONKEYSTORE JAVA-144795574.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QWENCRYPTIONKEYSTORE JAVA-144795574.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QWENCRYPTOR JAVA--1273437353.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QWPLAINENCRYPTOR JAVA-144795574.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV BDWMDUFILEFILTER JAVA-1562793649.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DECRYPTIONKICKSTARTFILEFILTER JAVA--1795146339.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FROMCTLDIRECTVFILEFILTER JAVA--971468978.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FROMDIRECTVFILEFILTER JAVA--1156176887.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV TELCOMIGRATIONFILEFILTER JAVA--327297353.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV SENTRYALARM JAVA-1656421486.A-SRC;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV SENTRYALARM JAVA-1656421486.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV SENTRYALARM JAVA-1656421486.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV EVENTLOGGER JAVA--1734653153.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV HEADERTXTLOGGER JAVA--1734653153.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV MESSAGETXTLOGGER JAVA--541014101.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV MESSAGEXMLLOGGER JAVA--541014101.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV MESSAGEXMLLOGGER JAVA--541014101.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV PROPERTYLOGGER JAVA--541014101.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV TRANSACTIONLABELER JAVA--2080725231.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEPLOYMENTEVENTLISTENER JAVA--887086178.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV HTTPCONTENTBASEDROUTE JAVA--299777768.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV HTTPCONTENTBASEDROUTE JAVA--299777768.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV INTERNALPROCESSROUTE JAVA--2080725231.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV MYROUTE JAVA--541014101.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QXGROUTE JAVA-1827890890.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV AUTHSSLINITIALIZATIONERROR JAVA--1010856693.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV AUTHSSLPROTOCOLSOCKETFACTORY JAVA-1139800968.A-SRC;4
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV AUTHSSLPROTOCOLSOCKETFACTORY JAVA-1139800968.A-SRC;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV AUTHSSLPROTOCOLSOCKETFACTORY JAVA-1139800968.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV AUTHSSLPROTOCOLSOCKETFACTORY JAVA-1139800968.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV AUTHSSLX509TRUSTMANAGER JAVA-1139800968.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DYNAMICPROPERTYPROPERTIESCOMPONENT JAVA--79798301.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GNUPG JAVA--1200080064.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GWCONSTANTS JAVA--887086178.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV SSLXMLSUBMITTER JAVA--2100268122.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV VERSION HTML-1994262598.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;25
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;24
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;23
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;22
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;21
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;20
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;19
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;18
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;17
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;16
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;15
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;14
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;13
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;12
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;11
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;10
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;9
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;8
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;7
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;6
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;5
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;4
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV APPVERSION TXT-1994262598.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;26
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;25
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;24
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;23
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;22
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;21
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;20
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;19
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;18
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;17
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;16
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;15
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;14
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;13
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;12
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;11
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;10
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;9
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;8
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;7
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;6
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;5
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;4
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CAMELCONTEXT XML--154662926.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CONTEXT XML--111168698.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CONTEXT XML--111168698.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CONTEXT XML E2E--111168698.A-DAT;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CONTEXT XML E2E--111168698.A-DAT;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CONTEXT XML E2E--111168698.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CONTEXT XML INT1--1445713497.A-DAT;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CONTEXT XML INT1--1445713497.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CONTEXT XML ITV1--111168698.A-DAT;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CONTEXT XML ITV1--111168698.A-DAT;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CONTEXT XML ITV1--111168698.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CONTEXT XML ITV2--111168698.A-DAT;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CONTEXT XML ITV2--111168698.A-DAT;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CONTEXT XML ITV2--111168698.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CONTEXT XML ITV3--205510617.A-DAT;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CONTEXT XML ITV3--205510617.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CONTEXT XML PROD--111168698.A-DAT;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CONTEXT XML PROD--111168698.A-DAT;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CONTEXT XML PROD--111168698.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV 4E9D116173CA41767E JSON--1056988374.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;77
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;76
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;75
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;74
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;73
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;72
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;71
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;70
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;69
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;68
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;67
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;66
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;65
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;64
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;63
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;62
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;61
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;60
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;59
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;58
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;57
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;56
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;55
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;54
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;53
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;52
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;51
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;50
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;49
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;48
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;47
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;46
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;45
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;44
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;43
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;42
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;41
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;40
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;39
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;38
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;37
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;36
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;35
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;34
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;33
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;32
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;31
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;30
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;29
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;28
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;27
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;26
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;25
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;24
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;23
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;22
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;21
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;20
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;19
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;18
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;17
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;16
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;15
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;14
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;13
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;12
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;11
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;10
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;9
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;8
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;7
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;6
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;5
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;4
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT PROPERTIES XML--1493416820.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT ROUTE PROFILES TEMPLATES XML--2080725231.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DEFAULT ROUTE PROFILES XML--887086178.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GPG CONF-965618837.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV PUBRING GPG-965618837.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV RANDOM SEED-1945151357.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV SECRING GPG-965618837.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV TRUSTDB GPG-965618837.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV KNOWN HOSTS PROD-1490112822.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV KNOWN HOSTS TEST-1490112822.A-DAT;4
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV KNOWN HOSTS TEST-1490112822.A-DAT;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV KNOWN HOSTS TEST-1490112822.A-DAT;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV KNOWN HOSTS TEST-1490112822.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ID DSA QXGDBS INT--951248728.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ID DSA QXGDBS INT PP--951248728.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ID DSA QXGDBS PROD--227654557.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ID DSA QXGDBS PROD PP--948838640.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ID DSA QXGDBS TEST-1745026705.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ID DSA QXGDBS TEST PP--710480276.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QWSTRINGENCRYPTIONKEY--1107065645.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QXGAPP CERTS JKS--154662926.A-DAT;4
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QXGAPP CERTS JKS--154662926.A-DAT;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QXGAPP CERTS JKS--154662926.A-DAT;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QXGAPP CERTS JKS--154662926.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DBPASSWORDCHECK XML-2007274128.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;39
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;38
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;37
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;36
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;35
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;34
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;33
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;32
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;31
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;30
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;29
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;28
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;27
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;26
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;25
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;24
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;23
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;22
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;21
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;20
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;19
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;18
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;17
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;16
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;15
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;14
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;13
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;12
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;11
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;10
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;9
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;8
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;7
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;6
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;5
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;4
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVBUSROUTE XML--154662926.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVRESPONSETIMEROUTE XML--695732726.A-SRC;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVRESPONSETIMEROUTE XML--695732726.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVRESPONSETIMEROUTE XML--695732726.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ERROREMAILNOTIFICATIONROUTE XML-2098983676.A-SRC;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ERROREMAILNOTIFICATIONROUTE XML-2098983676.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ERROREMAILNOTIFICATIONROUTE XML-2098983676.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;27
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;26
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;25
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;24
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;23
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;22
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;21
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;20
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;19
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;18
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;17
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;16
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;15
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;14
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;13
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;12
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;11
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;10
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;9
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;8
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;7
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;6
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;5
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;4
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILEROUTES XML--1232949836.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;33
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;32
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;31
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;30
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;29
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;28
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;27
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;26
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;25
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;24
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;23
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;22
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;21
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;20
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;19
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;18
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;17
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;16
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;15
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;14
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;13
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;12
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;11
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;10
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;9
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;8
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;7
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;6
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;5
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;4
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FTPROUTES XML-965618837.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV IDLESOCKETCONNECTIONCLOSETIMER XML--1366337406.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV TESTMAIL XML--2094834070.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV UTILITIESROUTES XML--2080725231.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DTVSOAPREQUESTENVELOPE VM-1994262598.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QWESTRESPONSEENVELOPE VM--541014101.A-DAT;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QWESTRESPONSEENVELOPE VM--541014101.A-DAT;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QWESTRESPONSEENVELOPE VM--541014101.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV UPDATEFALLOUTORDERREQUEST VM-1583088214.A-DAT;4
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV UPDATEFALLOUTORDERREQUEST VM-1583088214.A-DAT;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV UPDATEFALLOUTORDERREQUEST VM-1583088214.A-DAT;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV UPDATEFALLOUTORDERREQUEST VM-1583088214.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV BASICELEMENTDEFINITIONS XSD~01--1662023161.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV BROADBANDPRODUCTINFORMATION XSD~01-1719662213.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CATSTYPES XSD~01--1493416820.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV COMMONCOMPLEXTYPES XSD~01-1719662213.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CORELISTS XSD~01--1954123439.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CORETYPES XSD~01--299777768.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CUSTOMERINFORMATION XSD~01-1439305082.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV EBILLTYPES XSD~01--1954123439.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ENTITIES XSD~01--1445713497.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GAMETYPES XSD~01--1348301978.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ORDERDEFINITIONS XSD~01-1719662213.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV PRODUCTINFORMATION XSD~01-144795574.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV PROGRAMMINGPRODUCTINFORMATION XSD~01--1493416820.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV TARGETINFORMATION XSD~01-2141612074.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ENVELOPE XSD~02-2141612074.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV COMMONENTITIES XSD~01--299777768.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV VALIDATEPARTNERELIGIBILITY WSDL~01--1348301978.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV VALIDATEPARTNERELIGIBILITY XSD~01--1348301978.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV VALIDATEPARTNERELIGIBILITY WSDL--379256801.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV VALIDATEPARTNERELIGIBILITY XSD~03--154662926.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CALCULATETAXENTITIES XSD~01-1753026266.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CALCULATETAX WSDL-1753026266.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CALCULATETAX XSD~01--2080725231.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CANCELORDER WSDL-1753026266.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CANCELORDER XSD~01--379256801.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CREATEORDER WSDL-1753026266.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CREATEORDER XSD~01-144795574.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETAVAILABLEDATES WSDL-1753026266.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETAVAILABLEDATES XSD~01-1827890890.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV MODIFYORDER WSDL-1753026266.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV MODIFYORDER XSD~01-1719662213.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV OSORDERDEFINITIONS XSD~03-2141612074.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV SCHEDULEINSTALL WSDL-1753026266.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV SCHEDULEINSTALL XSD~01--1273437353.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV BOMPROFILE XSD~01--1493416820.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CONFIGUREDBOM XSD~01--299777768.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GENERATEBOM WSDL~01--379256801.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GENERATEBOM XSD~01--1445713497.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETELIGIBLEOFFERS WSDL~01-1753026266.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETELIGIBLEOFFERS XSD~01--111168698.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV OFFERCONFIGURATIONDETAILS XSD~01--1954123439.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV OSORDERDEFINITIONS XSD~02-2141612074.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV PROFILEENTITIES XSD~01--1273437353.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV VALIDATECONFIGURATION WSDL~01--1348301978.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV VALIDATECONFIGURATION XSD~01--1734653153.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GENERATEBOM WSDL-144795574.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GENERATEBOM XSD~03-1439305082.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETELIGIBLEOFFERS WSDL--379256801.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETELIGIBLEOFFERS XSD~03-1439305082.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV VALIDATECONFIGURATION WSDL--379256801.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV VALIDATECONFIGURATION XSD~03-1439305082.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETORDER WSDL--379256801.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETORDER XSD~01-1827890890.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ALARMSLIST XML--1273437353.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ENCRYPTEDIPOSMSG XML--1967311053.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ENCRYPTEDIPOSMSG XML--1967311053.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ERRORLIST XML-1827890890.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ARTISINFO V02 02 XSD--1348301978.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV AUTHENTICATIONINFO V02 00 XSD--1445713497.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV AUTHORIZATIONINFO V02 01 XSD--2080725231.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV COMMONPATTERNCONSTRUCTS V02 00 XSD--1445713497.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CPLUSSERVICEINCLUDES V02 00 XSD--1734653153.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV MESSAGECONSTRUCTS V02 00 XSD-144795574.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV MESSAGEELEMENTS V02 00 XSD-1827890890.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV MESSAGE V02 01 XSD--154662926.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV COMMON V01 00 XSD--887086178.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DIRECTVACTIVITYCOMMON V02 00 XSD--887086178.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QWESTENVELOPE V02 00 XSD-1827890890.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV BASICELEMENTDEFINITIONS XSD--1662023161.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV BROADBANDPRODUCTINFORMATION XSD-1719662213.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CATSTYPES XSD--1493416820.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV COMMONCOMPLEXTYPES XSD-1719662213.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CORELISTS XSD--1954123439.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CORETYPES XSD--299777768.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CUSTOMERINFORMATION XSD-1719662213.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV EBILLTYPES XSD--1954123439.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ENTITIES XSD--1445713497.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GAMETYPES XSD--1348301978.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ORDERDEFINITIONS XSD-1719662213.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV PRODUCTINFORMATION XSD-144795574.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV PROGRAMMINGPRODUCTINFORMATION XSD--1493416820.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV TARGETINFORMATION XSD-2141612074.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ENVELOPE XSD~01--1493416820.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV COMMONENTITIES XSD--299777768.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV VALIDATEPARTNERELIGIBILITY XSD--1348301978.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV VALIDATEPARTNERELIGIBILITY XSD~02--154662926.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CALCULATETAXENTITIES XSD-1753026266.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CALCULATETAX XSD--2080725231.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CANCELORDER XSD--379256801.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CREATEORDER XSD-144795574.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETAVAILABLEDATES XSD--1273437353.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV MODIFYORDER XSD-1719662213.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV OSORDERDEFINITIONS XSD~01-2141612074.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV SCHEDULEINSTALL XSD--1273437353.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV BOMPROFILE XSD--1493416820.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CONFIGUREDBOM XSD--299777768.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GENERATEBOM XSD--1445713497.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETELIGIBLEOFFERS XSD--111168698.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV OFFERCONFIGURATIONDETAILS XSD--1954123439.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV OSORDERDEFINITIONS XSD-2141612074.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV PROFILEENTITIES XSD--79798301.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV VALIDATECONFIGURATION XSD--1734653153.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GENERATEBOM XSD~02-1439305082.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETELIGIBLEOFFERS XSD~02-1439305082.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV VALIDATECONFIGURATION XSD~02-1439305082.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETORDER XSD-1827890890.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV MDU QWESTACTDISC XSD-1562793649.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CANCELORDERREQUESTBODY XSL-2142390121.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CANCELORDERRESPONSEBODY XSL-2142390121.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETQWESTCREATEORDERREQUESTBODY XSL--883707163.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CREATEORDERRESPONSEBODY XSL-2142390121.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ERRORRESPONSETEMPLATE XSL--79798301.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GENERATEBOMREQUESTBODY XSL--964632567.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETARTISREQUESTHEADER XSL-86573407.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETAVAILABLEDATESREQUESTBODY XSL-2142390121.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETAVAILABLEDATESRESPONSEBODY XSL-2142390121.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETDIRECTVSVCNAMEVALUEPAIRS XSL-86573407.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETDIRECTVSVCNAMEVALUEPAIRS XSL-86573407.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETELIGIBLEOFFERSREQUESTBODY XSL--1352136310.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETQWESTREQUESTBODY XSL-86573407.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETQWESTREQUESTBODY XSL-86573407.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETORDERREQUESTBODY XSL--587952594.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETORDERREQUESTBODY XSL--587952594.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETORDERRESPONSEBODY XSL-2142390121.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETQWESTREQUESTBODYOLD XSL-2142390121.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETQWESTREQUESTBODY XSL-2007326976.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETQWESTREQUESTEI XSL-86573407.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETSOAPBODYNEW XSL-97193233.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETSOAPBODYNEW XSL-97193233.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETSOAPBODY XSL--1107065645.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETSOAPHEADER XSL-86573407.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV GETQWESTMODIFYORDERREQUESTBODY XSL--883707163.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV MODIFYORDERRESPONSEBODY XSL-2081222372.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV SCHEDULEINSTALLREQUESTBODY XSL-2081222372.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV SCHEDULEINSTALLRESPONSEBODY XSL-2081222372.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV SCHEDULEINSTALLRESPONSEBODY XSL-2081222372.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV VALIDATECONFIGURATIONREQUESTBODY XSL-2049735232.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV ENDPOINTS JSP--1445713497.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV INDEX JSP-1994262598.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV WEB XML--79798301.A-SRC;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV WEB XML--79798301.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV WEB XML--79798301.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DATABASE PASSWORDS TXT-1085001660.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILE ACCESS HOWTO TXT--238212080.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILE ACCESS HOWTO TXT--238212080.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILES TXT--801138020.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV FILES TXT--801138020.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QXGDBSPRODSERVERPUBKEY-1489680118.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QXGDBSTESTSERVERPUBKEY--1093088246.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QXGDBS RDD 1 0 0 DOC--1583219718.A-DAT;4
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QXGDBS RDD 1 0 0 DOC--1583219718.A-DAT;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QXGDBS RDD 1 0 0 DOC--1583219718.A-DAT;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QXGDBS RDD 1 0 0 DOC--1583219718.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DELETE UNUSED TABLES SQL-1829087739.A-DAT;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV DELETE UNUSED TABLES SQL-1829087739.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES-976791044.A-SRC;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES-976791044.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES E2E-976791044.A-DAT;6
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES E2E-976791044.A-DAT;5
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES E2E-976791044.A-DAT;4
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES E2E-976791044.A-DAT;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES E2E-976791044.A-DAT;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES E2E-976791044.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES INT1-976791044.A-DAT;5
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES INT1-976791044.A-DAT;4
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES INT1-976791044.A-DAT;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES INT1-976791044.A-DAT;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES INT1-976791044.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES ITV1-976791044.A-DAT;6
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES ITV1-976791044.A-DAT;5
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES ITV1-976791044.A-DAT;4
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES ITV1-976791044.A-DAT;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES ITV1-976791044.A-DAT;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES ITV1-976791044.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES ITV2-976791044.A-DAT;6
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES ITV2-976791044.A-DAT;5
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES ITV2-976791044.A-DAT;4
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES ITV2-976791044.A-DAT;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES ITV2-976791044.A-DAT;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES ITV2-976791044.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES ITV3--1734653153.A-DAT;6
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES ITV3--1734653153.A-DAT;5
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES ITV3--1734653153.A-DAT;4
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES ITV3--1734653153.A-DAT;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES ITV3--1734653153.A-DAT;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES ITV3--1734653153.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES PROD--1734653153.A-DAT;7
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES PROD--1734653153.A-DAT;6
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES PROD--1734653153.A-DAT;5
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES PROD--1734653153.A-DAT;4
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES PROD--1734653153.A-DAT;3
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES PROD--1734653153.A-DAT;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV LOG4J PROPERTIES PROD--1734653153.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV HAWTIO DEFAULT OFFLINE 1 4 39 WAR--232665160.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV HTTPCONTENTBASEDROUTETEST JAVA--154662926.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV SAMPLETEST JAVA--1107065645.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV JUNITROUTEPROFILES XML--1445713497.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV SAMPLEOUTBOUNDREQUEST XML--1107065645.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV STUBPARTNERRESPONSE XML-1994262598.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV STUBPARTNERRESPONSE XSL-86573407.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV CEN 62859 DEALERQUICKPAY 20131001 TXT--1987779267.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV QWESTDAILYOPTIN123456 TXT--902940434.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV TEST LOG4J PROPERTIES--1107065645.A-SRC;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV TOMCATPLUGIN-976791044.A-DAT;2
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO:  itemSpec info : DBS:1FDCWV TOMCATPLUGIN-976791044.A-DAT;1
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.GetDimensionRevision getListOfAllItems
+INFO: end of the getListOfAllItems method & fileSize : 0
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.DimensionToGitMain getCodeToLocal
+INFO: factory in main class: com.serena.dmclient.api.DimensionsObjectFactoryImpl@4d722ac9
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.DimensionToGitMain getCodeToLocal
+INFO: noOfRevisions:77
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.DimensionToGitMain getCodeToLocal
+INFO: Git Push Invokig*****
+Sep 22, 2022 9:47:20 PM com.centurylink.dimension.poc.core.DimensionToGitMain gitPush
+INFO: Git Push Started
+Sep 22, 2022 9:47:22 PM com.centurylink.dimension.poc.core.DimensionToGitMain gitPush
+INFO: Response is : C:\Dimns2Git>cd C:\Dimns2Git\CodeHere\DBS//QXGDBS_02_00_00_WS C:\Dimns2Git>git push origin master --force 
+Sep 22, 2022 9:47:22 PM com.centurylink.dimension.poc.core.DimensionToGitMain gitPush
+INFO: Error is: The system cannot find the path specified.fatal: Not a git repository (or any of the parent directories): .git
+Sep 22, 2022 9:47:22 PM com.centurylink.dimension.poc.core.DimensionToGitMain gitPush
+INFO: Git Push Ended
+Sep 22, 2022 9:47:22 PM com.centurylink.dimension.poc.core.DimensionToGitMain getCodeToLocal
+INFO: getDimenisonsDetails() End
+Sep 22, 2022 9:47:22 PM com.centurylink.dimension.poc.core.DimensionToGitMain main
+INFO: Baseline Procedure starts from here : 
+Sep 22, 2022 9:47:22 PM com.centurylink.dimension.poc.core.DimensionToGitMain main
+INFO: Total Time Taken for this Process: 30 Seconds

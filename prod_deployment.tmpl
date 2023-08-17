@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: '${KUBERNETES_PREFIX}-${JENKINSPREFIX}-${CONTAINERTYPE}-${APP_ACTIVE_PROFILE}'
+  labels:
+    project: '${PROJECT_NAME}'
+    branch: '${BRANCH_NAME}'
+    commit: '${COMMIT_ID}'
+    role: ${CONTAINERTYPE}
+    environment: '${APP_ACTIVE_PROFILE}'
+spec:
+  selector:
+    matchLabels:
+      project: '${PROJECT_NAME}'
+      branch: '${BRANCH_NAME}'
+      role: ${CONTAINERTYPE}
+      environment: '${APP_ACTIVE_PROFILE}'
+  replicas: 3
+  revisionHistoryLimit: 1
+  template:
+    metadata:
+      labels:
+        project: '${PROJECT_NAME}'
+        branch: '${BRANCH_NAME}'
+        commit: '${COMMIT_ID}'
+        role: ${CONTAINERTYPE}
+        environment: '${APP_ACTIVE_PROFILE}'
+    spec:
+      containers:
+        - name: ${CONTAINERTYPE}-${JENKINSPREFIX}-prod
+          image: '${DOCKER_REGISTRY_HOST}/${DOCKER_REPO}/${IMAGENAME}:${IMAGETAG}'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8086
+              protocol: TCP
+          resources:
+            limits:
+              memory: 850Mi
+              cpu: 250m
+            requests:
+              memory: 650Mi
+              cpu: 200m
+          env:
+            - name: APPDYNAMICS_CONTROLLER_HOST_NAME
+              value: '${APPDYNAMICS_CONTROLLER_HOST_NAME}'
+            - name: APPDYNAMICS_CONTROLLER_PORT
+              value: '${APPDYNAMICS_CONTROLLER_PORT}'
+            - name: APPDYNAMICS_CONTROLLER_SSL_ENABLED
+              value: '${APPDYNAMICS_CONTROLLER_SSL_ENABLED}'
+            - name: APPDYNAMICS_AGENT_APPLICATION_NAME
+              value: 'OE-TRANSFORM - Order Entry Message Transformation (SYSGEN788110060)'
+            - name: APPDYNAMICS_AGENT_TIER_NAME
+              value: 'OE-Transform-Customer'
+            - name: APPDYNAMICS_AGENT_ACCOUNT_NAME
+              value: '${APPDYNAMICS_AGENT_ACCOUNT_NAME}'
+            - name: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+              value: '${APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY}'
+            - name: APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME
+              value: '${APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME}'
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+      imagePullSecrets:
+        - name: ${IMAGEPULLSECRET}
+---

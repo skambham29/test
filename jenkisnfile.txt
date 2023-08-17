@@ -1,0 +1,368 @@
+try {
+    library(
+      identifier: 'jsl-jenkins-shared-library-local@stable',
+      retriever: modernSCM(
+        [
+          $class: 'GitSCMSource',
+          remote: "/app/jenkins/git/jsl-jenkins-shared-library.git",
+          extensions: [[$class: 'WipeWorkspace']]
+        ]
+     )
+   ) _
+} catch (Exception Ex) {
+   library(
+     identifier: 'jsl-jenkins-shared-library@stable',
+     retriever: modernSCM(
+       [
+         $class: 'GitSCMSource',
+         remote: "https://github.com/CenturyLink/jsl-jenkins-shared-library.git",
+         credentialsId: 'GITHUB_APP_CREDENTIALS',
+         extensions: [[$class: 'WipeWorkspace']]
+       ]
+     )
+   ) _
+}
+
+// Label for the Jenkins Windows build agent.
+WINDOWS_BUILD_AGENT = 'JenkWin'
+
+String getProjectMajorVersion() {
+    // TODO: Where do we pull the verison from?
+    major_version = '1.0'
+    return major_version
+}
+
+String getProjectMinorVersion() {
+    // TODO: Where do we pull the verison from?
+    minor_version = '0'
+    return minor_version
+}
+
+pipeline {
+    agent {
+      label 'Docker-enabled'
+    }
+  options {
+      buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '10'))
+      timestamps ()
+      timeout(time: 1, unit: 'HOURS')
+      preserveStashes(buildCount: 10)
+      disableConcurrentBuilds()
+    }
+
+    environment {
+		// Github token, jenkinsuser password credential.
+        GITHUB_TOKEN_CREDENTIALS = 'GITHUB_APP_CREDENTIALS'
+		
+		// Github ssh private key, jenkins private key credential.
+		// SCMAUTO_SSH_DEVOPS_PIPELINE contains the SSH key from SCMAuto user, which needs to have access to the repository.
+		GITHUB_SSH_CREDENTIALS = 'SCMAUTO_SSH_DEVOPS_PIPELINE'
+		
+		// Docker access info, jenkins secret file credential with environment variables to export.
+        DOCKER_CREDENTIALS = 'nexus-secrets-file'
+		
+		// Sonarqube access info, jenkins secret text
+        SONARQUBE_CREDENTIALS = 'sonarcicdent'
+		
+		// Jira access info, jenkins secret file credential with environment variables to export
+        JIRA_CREDENTIALS = 'jira-credentials'
+		
+		// MORPHEUS_CREDENTIALS
+		MORPHEUS_CREDENTIALS = 'morpheus-secret'
+		
+		// Credentials to gather all the contract validation gates expected to be crossed.
+        QUALITY_GATE_CREDENTIALS = 'qg-creds'
+		
+		// The MAL of the project
+        PROJECT_MAL = 'FEDPRT'
+		
+		//Informational variables
+        BRANCH_NAME = GIT_BRANCH.split('/')[-1].trim().toLowerCase()
+        COMMIT_ID = GIT_COMMIT.substring(0,7).trim().toLowerCase()
+        PROJECT_NAME = 'fedprt-eis'
+
+        DOCKERFILE_PATH = './Dockerfile'
+        DOCKER_REGISTRY = 'nexusprod.corp.intranet:4567'
+        DOCKER_REPO = 'fedprt-eis'
+        IMAGE_NAME = "${env.PROJECT_NAME}"
+        IMAGE_REPO = "${DOCKER_REGISTRY}/${DOCKER_REPO}/${IMAGE_NAME}"
+
+        BUILD_CONFIGURATION = 'Debug'
+        APPLICATION_NAME = 'fedprt-eis'
+        SOLUTION_FILE = "${SRC_CODE_DIR}/CenturyLink.EIS.sln"
+        PROJECT_FILE = "${SRC_CODE_DIR}/CenturyLink.EIS.Web/CenturyLink.EIS.Web.csproj"
+
+        // used by jsl
+        SCAN_BRANCH = 'development'
+        SRC_CODE_DIR = 'CenturyLink.EIS'
+
+        HELM_TEMPLATES_PATH = './helm/'
+        NUGET_REPO = 'http://l3nexus.level3.com/nexus/service/local/nuget/SM-NuGet/'
+		
+		//MAJOR_VERSION = getProjectMajorVersion()
+		//MINOR_VERSION = getProjectMinorVersion()
+		//PROJECT_FULL_VERSION = "${MAJOR_VERSION}.${MINOR_VERSION}"
+		
+		MAJOR_VERSION = '2.8.0'
+		MINOR_VERSION = "${env.BUILD_NUMBER}"
+		PROJECT_FULL_VERSION = "${MAJOR_VERSION}.${MINOR_VERSION}"
+		
+		SONARQUBE_PROPERTIES_FILE_PATH = './cicd/sonarqube/sonar-project.properties'
+		NEXUS_PROD_URL = 'https://nexusprod.corp.intranet:8443'
+		
+		// ETS variables
+		//ETS_NEXUS_URL = ''
+		ETS_APPLICATION_NAME = 'FEDPRT'
+		//ETS_REPOSITORY = 'CTLRaw'
+		ETS_REPOSITORY='manual-builds'
+		ETS_ENVIRONMENT = jslETSGetEnvironment()
+		ETS_FILE_PATH = './cicd/payloads/ets'
+		ETS_AAT_FILE = "${ETS_FILE_PATH}/${env.PROJECT_MAL}_AAT_${env.MAJOR_VERSION}.xlsx"
+		ETS_RDD_FILE = "${ETS_FILE_PATH}/${env.PROJECT_MAL}_RDD_${env.MAJOR_VERSION}.docx"
+		//ETS_VERSION = "${env.ETS_MAJOR_VERSION}.3" // to be made dynamic
+		ETS_URL = 'http://vlodjumpts00.dev.qintra.com:8085'
+		
+		// Name of production branch
+		//DEV_BRANCH = 'development'
+		TEST_BRANCH = 'release/2023-05--Test1'
+		
+		// MS Teams access info, jenkins secret text
+		MSTEAMS_CREDENTIALS = 'teams-secret'
+		
+		// Informational variables
+		GITHUB_REPO_OWNER = jslGitGetRepoOwner()
+		GITHUB_REPO_NAME = jslGitGetRepoName()
+    }
+    stages { 
+	stage('DevSecOps'){
+            steps {
+              script {
+                /* Contract validation gate */
+                jslGitHubSecurityAlert()
+              }
+            }
+		}
+		stage('Build') {
+          agent {
+            label "JenkWin"
+          }
+          steps {
+				script {
+					 dir("${SRC_CODE_DIR}") {
+					bat('if exist target rmdir target /q /s')
+					powershell("""Invoke-WebRequest https://dist.nuget.org/win-x86-commandline/latest/nuget.exe -OutFile nuget.exe """)
+					bat "dotnet restore ${workspace}\\${SOLUTION_FILE}"
+					bat "\"${tool 'msbuild_2019win'}\" ..\\${SOLUTION_FILE} -p:DeployOnBuild=true;DeployDefaultTarget=WebPublish;WebPublishMethod=FileSystem;SkipInvalidConfigurations=true;publishUrl=..\\project1 -t:build"					
+					
+					stash name: "TARGET", includes: "project1/**"
+					}
+				}
+			}
+        }
+		stage('Test') {
+			stages {
+			    stage('Unit Testing') {
+					  agent {
+						 label "JenkWin"
+					  }
+					  steps {
+						script {
+						 /* Contract validation gate */
+						 
+						//bat "dotnet restore ${workspace}\\${SOLUTION_FILE}"
+						//bat "\"${tool 'msbuild_2019win'}\" ${workspace}\\${SOLUTION_FILE} -p:DeployOnBuild=true;DeployDefaultTarget=WebPublish;WebPublishMethod=FileSystem;SkipInvalidConfigurations=true;publishUrl=..\\target1;OutDir=..\\project1 -t:build"	
+						//bat('"E:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe" /Logger:html;LogFileName=TestResults.html /EnableCodeCoverage "CenturyLink.EIS\\UnitTests\\CenturyLink.EIS.Business.Tests\\bin\\Debug\\CenturyLink.EIS.Business.Tests.dll"')
+						//stash name: "TEST", includes: "TestResults/TestResults.html"
+						//stash name: "TESTS", includes: "TestTemp/TestResults.html"
+						
+						  echo('Unit testing currently not implemented. Generating mock test result...')
+						  unit_test_results_file = 'hook_unit_tests_results.xml'
+						  jslGenerateManualTestReport("Version Created", "Check Version", PROJECT_FULL_VERSION, true, 1.0, "${unit_test_results_file}")
+						  jslPublishTestResults(unit_test_results_file, false)
+						  stash name: 'UNIT_TEST_RESULTS_FILE_STASH', includes: unit_test_results_file
+						}
+					}
+				}
+			}
+		}
+		stage('Coverage') {
+		  agent {
+			label WINDOWS_BUILD_AGENT
+		  }
+		  steps {
+			script {
+			  /* Contract Validation Gate */
+			  jslQualityGateCodeCoverage(SONARQUBE_PROPERTIES_FILE_PATH)
+			}
+		  }
+		}
+		stage('Sonarqube') {
+		  agent {
+			label WINDOWS_BUILD_AGENT
+		  }
+		  steps {
+			script {
+			  /* Contract validation gate */
+			  build_command = "\"${tool 'msbuild_2019win'}\" \"${SOLUTION_FILE}\" -t:build -restore"
+
+			  // MS Scanner commands for the application to be scanned. Default value.
+			  msb_scanner = 'sonarscanner'
+
+			  //  MS build commands to build the application to be scanned. Default values.
+			  msb_options = ''
+			  msb_scanner_commands = ''
+
+			  // Path for the report output. Default value.
+			  report_path = 'sonarqubeReport'
+
+			  // Running this command directly due to a bug in the jsl with Windows builds.
+			  jslSonarQubeStaticAnalysis(
+				SONARQUBE_PROPERTIES_FILE_PATH,
+				SONARQUBE_CREDENTIALS,
+				env.SCAN_BRANCH,
+				build_command,
+				msb_options,
+				msb_scanner,
+				msb_scanner_commands,
+				NEXUS_PROD_URL,
+				DOCKER_CREDENTIALS,
+				report_path,
+				GITHUB_TOKEN_CREDENTIALS)
+			}
+		  }
+		}
+		stage('Quality Gate') {
+			  agent {
+				docker {
+				  image 'nexusprod.corp.intranet:4567/jsl-docker-standard-images/dotnet_agent:latest'
+				  label 'Docker-enabled'
+				  alwaysPull true
+				}
+			  }
+			  steps {
+				script {
+				  /* Contract validation gate */
+				  // This uses linux specific commands. Needs to run on Linux.
+				  jslQualityGate()
+				}
+			  }
+		}
+		stage('Push to Nexus') {
+		when {
+			beforeAgent true
+			anyOf {
+				branch TEST_BRANCH
+			}
+		  }
+		  agent {
+			label WINDOWS_BUILD_AGENT
+		  }
+		  steps {
+			script {
+			  timestamp = "${currentBuild.startTimeInMillis}"
+			  upload_path = "${ETS_APPLICATION_NAME}/${PROJECT_FULL_VERSION}"
+			  artifact = "${ETS_APPLICATION_NAME}"+".baspx-"+"${PROJECT_FULL_VERSION}.zip"
+			  deployment_dir = 'project1'
+			  sha256file = "${artifact}.sha256"
+
+			  // Unstash build
+			  unstash name: 'TARGET'
+			  
+			  dir("${deployment_dir}") {
+				bat("7za.exe a -tzip ${artifact} .")
+        	      		bat("certUtil -hashfile ${artifact} SHA256 > ${sha256file}")		
+                	    ETS_NEXUS_URL = jslUploadFileToNexus(artifact, upload_path, ETS_REPOSITORY, env.NEXUS_PROD_URL, env.DOCKER_CREDENTIALS, false)
+			    jslUploadFileToNexus(sha256file, upload_path, ETS_REPOSITORY, env.NEXUS_PROD_URL, env.DOCKER_CREDENTIALS, false)	
+			  }
+
+			  // Write Nexus info to devops scorecard
+			  jslDeploymentContractValidationWrite(BRANCH_NAME)
+
+			  // Generate SOE report
+			  echo('Generating SOECheckerLib report with a placeholder')
+			  if (env.BUILD_TRIGGER_BY == 'Branch indexing') {
+				soe_test_user = 'Webhook Build'
+			  }
+			  else {
+				soe_test_user = env.BUILD_TRIGGER_BY
+			  }
+
+			  // Upload AAT and RDD files to Nexus
+			  jslUploadFileToNexus(ETS_AAT_FILE, upload_path, ETS_REPOSITORY, env.NEXUS_PROD_URL, env.DOCKER_CREDENTIALS, false)
+			  jslUploadFileToNexus(ETS_RDD_FILE, upload_path, ETS_REPOSITORY, env.NEXUS_PROD_URL, env.DOCKER_CREDENTIALS, false)
+			}
+		  }
+		}
+		stage('Deploy') {
+		when {
+			beforeAgent true
+			anyOf {
+				branch TEST_BRANCH
+			}
+		  }
+		  agent {
+			label WINDOWS_BUILD_AGENT
+		  }
+		   steps {
+        script {
+			  unstash name: "TARGET"
+			  env.ETS_ENVIRONMENT = jslETSGetEnvironment()
+			  env.ETS_RELEASE_TARGET = jslETSGetReleaseTarget()
+
+			  if(env.BRANCH_NAME == 'release/prod'){
+				def path = "${ETS_APPLICATION_NAME}/${PROJECT_FULL_VERSION}"
+				def artifact = "${ETS_APPLICATION_NAME}"+".baspx-"+"${PROJECT_FULL_VERSION}.zip"
+				def repo='manual-builds' // Nexus Repo: manual-builds, devOps_deploy, or CTLRaw
+				def nexus_url='https://nexusprod.corp.intranet:8443'
+				env.ETS_NEXUS_URL = "${nexus_url}" + "/repository/" + "${repo}/" + "${path}/" + "${artifact}"
+				jslLoginMorpheus()
+				jslMorpheusWorkflow(env.ETS_NEXUS_URL, 'prod', env.PROJECT_MAL)
+			  } else if (env.ETS_ENVIRONMENT == 'Dev1') {
+				jslLoginMorpheus()
+				jslMorpheusWorkflow(env.ETS_NEXUS_URL, env.ETS_ENVIRONMENT, env.PROJECT_MAL)
+			  } else {
+				echo('Generating ETS ticket')
+				  
+				def path = "${ETS_APPLICATION_NAME}/${PROJECT_FULL_VERSION}"
+				def artifact = "${ETS_APPLICATION_NAME}"+".baspx-"+"${PROJECT_FULL_VERSION}.zip"
+				def repo='manual-builds' // Nexus Repo: manual-builds, devOps_deploy, or CTLRaw
+				def nexus_url='https://nexusprod.corp.intranet:8443'
+				env.ETS_NEXUS_URL = "${nexus_url}" + "/repository/" + "${repo}/" + "${path}/" + "${artifact}"
+				
+				def now = new Date()
+				def requested_date = now.format("yyyy-MM-dd HH:mm:ss", TimeZone.getTimeZone('UTC'))
+				def ticket_number = jslETSCreateDeployRequest(env.PROJECT_FULL_VERSION, env.ETS_ENVIRONMENT, env.ETS_RELEASE_TARGET, 'cicd/payloads/ets/ets.json', requested_date, env.ETS_NEXUS_URL)
+				echo ('Ticket Result: ' + ticket_number)
+			  }
+			}
+		}
+	}		
+	stage('Adoption Stats') {
+		  agent {
+			docker {
+			  image 'nexusprod.corp.intranet:4567/jsl-docker-standard-images/jira_agent:latest'
+			  label 'Docker-enabled'
+			}
+		  }
+		  steps {
+			script {
+			  unstash name: 'UNIT_TEST_RESULTS_FILE_STASH'
+
+			  /* Contract validation gate */
+			  jslAdoptionMain('hook_*.xml')
+			}
+		  }
+		}
+	}
+	post {
+		success {
+		 jslNotification('success')
+		}
+		failure {
+		 jslNotification('failure')
+		}
+		unstable {
+		 jslNotification('unstable')
+		}
+	}
+}

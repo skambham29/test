@@ -1,0 +1,163 @@
+try {
+  library(
+    identifier: 'jsl-jenkins-shared-library-local@release/20220502',
+    retriever: modernSCM(
+      [
+        $class: 'GitSCMSource',
+        remote: "/app/jenkins/git/jsl-jenkins-shared-library.git",
+        extensions: [
+          [$class: 'WipeWorkspace']
+        ]
+      ]
+    )
+  )
+} catch (Exception Ex) {
+  library(
+    identifier: 'jsl-jenkins-shared-library@release/20220502',
+    retriever: modernSCM(
+      [
+        $class: 'GitSCMSource',
+        remote: "https://github.com/CenturyLink/jsl-jenkins-shared-library.git",
+        credentialsId: 'GITHUB_APP_CREDENTIALS',
+        extensions: [
+          [$class: 'WipeWorkspace']
+        ]
+      ]
+    )
+  )
+}
+
+pipeline {
+
+  environment {
+
+    /*
+      Credentials:
+      GITHUB_TOKEN_CREDENTIALS github token, jenkins user password credential
+      GITHUB_SSH_CREDENTIALS github ssh private key, jenkins private key credential.
+      DOCKER_CREDENTIALS Docker access info, jenkins secret file credential with environment variables to export
+      KUBE_CREDENTIALS Kubernetes access info, jenkins secret file credential with environment variables to export
+      AMAZON_CREDENTIALS AWS access info, jenkins secret file credential with environment variables to export
+      SONARQUBE_CREDENTIALS Sonarqube access info, jenkins secret file credential with environment variables to export
+      GCP_CREDENTIALS GCP access info, jenkins secret file credential with environment variables to export
+      JIRA_CREDENTIALS Jira access info, jenkins secret file credential with environment variables to export
+      MSTEAMS_CREADENTIALS MS Teams access info, jenkins secret file credential with environment variables to export
+    */
+
+    // GITHUB_TOKEN_CREDENTIALS = 'GITHUB_APP_CREDENTIALS'
+    GITHUB_TOKEN_CREDENTIALS = 'GITHUB_APP_CREDENTIALS'
+    GITHUB_SSH_CREDENTIALS = 'SCMAUTO_SSH_DEVOPS_PIPELINE'
+    DOCKER_CREDENTIALS = 'nexus-secret'
+    SONARQUBE_CREDENTIALS = 'sonar-secrets'
+    QUALITY_GATE_CREDENTIALS = 'qualitygate-secret'
+    JIRA_CREDENTIALS = 'jira-credentials'
+
+    PROJECT_MAL = 'DWOPS'
+    MSTEAMS_CREDENTIALS = 'teams-secret'
+
+    //Deployment control credentialsId
+    AUTHORIZED_USERS = 'authorized_users'
+    DEPLOY_AUTH_TOKEN = 'deploy_auth_token'
+
+    // Custom project variables
+    BRANCH_NAME = GIT_BRANCH.split('/')[-1].trim().toLowerCase().replaceAll('_', '-')
+    COMMIT_ID = GIT_COMMIT.substring(0, 7).trim().toLowerCase()
+    PULL_REQUEST = "pr-${env.CHANGE_ID}"
+    PROJECT_NAME = 'SDSA-dwops-wfadi'
+    GITHUB_TOKEN = 'git-hub-token'
+SQL_CREDENTIALS='SQL_Cred'
+	  TEST_MACHINE_CREDENTIALS = 'dwopsapp_lxdenvmtc206'
+  }
+
+  /*
+  https://www.jenkins.io/doc/book/pipeline/syntax/#agent
+  Add agent sections in stages/stage if needed.
+  */
+  agent {
+    label 'Docker-enabled'
+  }
+
+  options {
+    /*
+    https://www.jenkins.io/doc/book/pipeline/syntax/#options
+    */
+    timestamps()
+    timeout(time: 1, unit: 'HOURS')
+    buildDiscarder(logRotator(numToKeepStr: '10', daysToKeepStr: '30'))
+    preserveStashes(buildCount: 10)
+    disableConcurrentBuilds()
+  }
+
+  /*
+  https://www.jenkins.io/doc/book/pipeline/syntax/#triggers
+  */
+ triggers {
+  cron('00 00 12-23 * 1-6')
+ } 
+
+  stages {
+    stage('Static Code Analysis') {
+      stages {
+        stage('DevSecOps') {
+          steps {
+            script {
+              /* Contract validation gate */
+              jslGitHubSecurityAlert()
+            }
+          }
+        }
+      }
+    }
+
+    stage('Check Date') {
+      steps {
+          script {
+
+            def now = new Date()
+            def date = now.format("dd-MMM-yy", TimeZone.getTimeZone('America/Denver')).toString().toLowerCase();
+            def date_section = now.format("yyyy-MM", TimeZone.getTimeZone('America/Denver'))
+            TODAY_DATE = date_section+"-01"
+            TODAY_DATE1 = date_section
+            YYYY_MM = now.format("yyyy_MM", TimeZone.getTimeZone('America/Denver'))
+            
+                       withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: env.GITHUB_TOKEN,
+                              usernameVariable: 'GHUSERNAME', passwordVariable: 'GHTOKEN']]) {
+			               withCredentials([sshUserPrivateKey(credentialsId: "dwopsapp_lxdenvmtc206", keyFileVariable: 'keyfile')]) {
+                               sh script: """
+                               git log --pretty=format: --name-only --since='$TODAY_DATE' | sort | uniq | grep -v "metadata-item" > list.txt
+                                if [ -s list.txt ] ; then
+                               tar czvf WFADI_${YYYY_MM}.tar.gz -T list.txt || true
+                               ssh -o StrictHostKeyChecking=no -i ${keyfile} dwopsapp_lxdenvmtc206.dev.qintra.com 'mkdir -p :/u/dwopsapp/release/WFADI_${YYYY_MM}' || true
+                               scp -r -o StrictHostKeyChecking=no -i ${keyfile} WFADI_${YYYY_MM}.tar.gz dwopsapp_lxdenvmtc206.dev.qintra.com:/u/dwopsapp/release/WFADI_${YYYY_MM}
+			       ssh -o StrictHostKeyChecking=no -i ${keyfile} dwopsapp_lxdenvmtc206.dev.qintra.com 'tar -xvzf /u/dwopsapp/release/WFADI_${YYYY_MM}/WFADI_${YYYY_MM}.tar.gz' || true
+			        ssh -o StrictHostKeyChecking=no -i ${keyfile} dwopsapp_lxdenvmtc206.dev.qintra.com 'chmod -R 775 /u/dwopsapp/release/WFADI_${YYYY_MM}/*' || true
+                               fi
+                                  """, label: 'Pull new files from git'
+                                                                                                                                     }
+                                                                                 	       }
+                            }
+
+		                     }
+                       }
+                  }
+}
+
+
+  post {
+    success {
+      jslNotification('success')
+      cleanWs()
+    }
+    failure {
+      jslNotification('failure')
+      cleanWs()
+    }
+    unstable {
+      jslNotification('unstable')
+      cleanWs()
+    }
+    always {
+        jslEmailNotification('prakashkumar.pandey@lumen.com', 'prakashkumar.pandey@lumen.com','Job Name:${JOB_NAME} BuildNo:${BUILD_NUMBER} Status:${BUILD_STATUS}','Build Url : ${BUILD_URL}')
+     } 
+  }
+

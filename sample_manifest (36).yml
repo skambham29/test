@@ -1,0 +1,122 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'topologyviewer-async-development-dev2'
+  namespace: 'topologyviewer-dev'
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  labels:
+    project: 'topologyviewer-async'
+    branch: 'development'
+    commit: '8ab267a'
+    role: java
+    environment: dev2
+spec:
+  rules:
+    - host: topologyviewer-async-dev2.kubeodc-test.corp.intranet
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: 'topologyviewer-async-development-dev2'
+              servicePort: 8090
+  tls:
+    - hosts:
+      - 'topologyviewer-async-dev2.kubeodc-test.corp.intranet'
+      secretName: managed-tls-secret
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'topologyviewer-async-development-dev2'
+  namespace: 'topologyviewer-dev'
+  labels:
+    project: 'topologyviewer-async'
+    branch: 'development'
+    commit: '8ab267a'
+    role: java
+    environment: dev2
+spec:
+  ports:
+    - port: 8090
+      targetPort: 8090
+      protocol: TCP
+  selector:
+    project: 'topologyviewer-async'
+    branch: 'development'
+    commit: '8ab267a'
+    role: java
+    environment: dev2
+  type: ClusterIP
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'topologyviewer-async-development-dev2'
+  labels:
+    project: 'topologyviewer-async'
+    branch: 'development'
+    commit: '8ab267a'
+    role: java
+    environment: dev2
+spec:
+  selector:
+    matchLabels:
+      project: 'topologyviewer-async'
+      branch: 'development'
+      role: java
+      environment: dev2
+  replicas: 2
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'topologyviewer-async'
+        branch: 'development'
+        commit: '8ab267a'
+        role: java
+        environment: dev2
+    spec:
+      containers:
+        - name: topologyviewer-async-dev2
+          image: 'nexusprod.corp.intranet:4567/topologyviewer/topologyviewer-async/topologyviewer-async:dev2_20220407'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8090
+              protocol: TCP
+          resources:
+            limits:
+              memory: 8Gi
+            requests:
+              memory: 6000Mi
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: cloud-dev2
+            - name: APP_SPACE
+              value: BRANCH
+            - name: APPDYNAMICS_CONTROLLER_HOST_NAME
+              value: 'centurylink-nonprod.saas.appdynamics.com'
+            - name: APPDYNAMICS_CONTROLLER_PORT
+              value: '443'
+            - name: APPDYNAMICS_CONTROLLER_SSL_ENABLED
+              value: 'true'
+            - name: APPDYNAMICS_AGENT_APPLICATION_NAME
+              value: 'TOPOLOGYVIEWER (DEV2) - SYSGEN787584643'
+            - name: APPDYNAMICS_AGENT_TIER_NAME
+              value: 'topologyviewer-async'
+            - name: APPDYNAMICS_AGENT_ACCOUNT_NAME
+              value: 'centurylink-nonprod'
+            - name: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: appdynamic-secret
+                  key: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+      imagePullSecrets:
+        - name: topologyviewer-async-pr-null
+---
+---

@@ -1,0 +1,312 @@
+try {
+  library(
+    identifier: 'jsl-jenkins-shared-library-local@stable',
+    retriever: modernSCM(
+    [
+      $class: 'GitSCMSource',
+      remote: "/app/jenkins/git/jsl-jenkins-shared-library.git",
+      extensions: [[$class: 'WipeWorkspace']]
+     ]
+    )
+  ) _
+} catch (Exception Ex) {
+  library(
+    identifier: 'jsl-jenkins-shared-library@stable',
+    retriever: modernSCM(
+    [
+      $class: 'GitSCMSource',
+      remote: "https://github.com/CenturyLink/jsl-jenkins-shared-library.git",
+      credentialsId: 'GITHUB_APP_CREDENTIALS',
+      extensions: [[$class: 'WipeWorkspace']]
+    ]
+   )
+  ) _
+}
+
+pipeline {
+
+    environment {
+        GITHUB_TOKEN_CREDENTIALS = 'GITHUB_APP_CREDENTIALS'
+        GITHUB_SSH_CREDENTIALS = 'SCMAUTO_SSH_DEVOPS_PIPELINE'
+        DOCKER_CREDENTIALS = 'nexus-secrets-file'
+        SONARQUBE_CREDENTIALS = 'sonartokenprod'
+        JIRA_CREDENTIALS = 'jira-credentials'
+        QUALITY_GATE_CREDENTIALS = 'qualitygate-secret'
+        PROJECT_MAL = 'SLED-CX'
+        MSTEAMS_CREDENTIALS = 'SLED_TEAMS_URL'
+
+        PROJECT_NAME = 'sled-cx-api'
+        DOCKER_REGISTRY = 'nexusprod.corp.intranet:4567'
+        DOCKER_REPO ='sled'
+        IMAGE_NAME = "${env.PROJECT_NAME}"
+        //IMAGE_TAG = '1.0.0'
+        DOCKERFILE_PATH = './Dockerfile'
+        IMAGE_REPO = "${DOCKER_REGISTRY}/${DOCKER_REPO}/${IMAGE_NAME}"
+        HELM_TEMPLATES_PATH = './helm/'
+
+        // ACR parameters
+        ACR_CREDENTIALS = 'sled-acr-dev'
+        ACR_REGISTRY = 'uspsimages.azurecr.io'
+        ACR_CREDENTIALS_PROD = 'sled-acr-prod'
+        ACR_REGISTRY_PROD = 'uspsimages.azurecr.us'
+        ACR_REPO = "sled"
+
+        BRANCH_NAME = GIT_BRANCH.split('/')[-1].trim().toLowerCase()
+        SCAN_BRANCH = 'main'
+        COMMIT_ID = GIT_COMMIT.substring(0,7).trim().toLowerCase()
+        PULL_REQUEST="pr-${env.CHANGE_ID}"
+        PKG_ACCESS_TOKEN = credentials('PKG_ACCESS_TOKEN')
+        NODE_PRESERVE_SYMLINKS = '1'
+
+    }
+
+    parameters {
+      choice(name: 'DEPLOY_ENV', choices: ['it-dev', 'it-test', 'dev', 'cert', 'prod'], description: 'deploy environment')
+      string(name: 'IMAGE_TAG', defaultValue: '', description: 'IMAGE TAG for CERT/PROD Environment')
+    }
+
+    agent {
+      label 'Docker-enabled'
+    }
+
+    options {
+      timestamps ()
+      timeout(time: 1, unit: 'HOURS')
+      buildDiscarder(logRotator(numToKeepStr:'10', daysToKeepStr: '30'))
+      disableConcurrentBuilds()
+    }
+
+    stages {
+      stage('Static Code Analysis') {
+        parallel {
+          stage('Linting') {
+            agent {
+              dockerfile {
+                filename 'Dockerfile'
+                dir 'cicd/docker/node-sonar'
+                label 'Docker-enabled'
+              }
+            }
+            steps {
+              script {
+                withCredentials([string(credentialsId: 'PKG_ACCESS_TOKEN', variable: 'PKG_ACCESS_TOKEN')]) {
+                  /* Contract validation gate */
+                  echo "Placeholder for now...."
+                  sh script: """
+                    export NPM_TOKEN=${PKG_ACCESS_TOKEN}
+                    npm install
+                    npm run lint
+                  """, label: "NPM Linting"
+                }
+              }
+            }
+          }
+          stage('DevSecOps'){
+            steps {
+              script {
+                /* Contract validation gate */
+                jslGitHubSecurityAlert()
+              }
+            }
+          }
+        }
+      }
+
+      stage('Build') {
+        agent {
+          dockerfile {
+            filename 'Dockerfile'
+            dir 'cicd/docker/node-sonar'
+            label 'Docker-enabled'
+          }
+        }
+        steps {
+          script {
+            withCredentials([string(credentialsId: 'PKG_ACCESS_TOKEN', variable: 'PKG_ACCESS_TOKEN')]) {
+              /* Contract validation gate */
+              sh script: """
+                export NPM_TOKEN=${PKG_ACCESS_TOKEN}
+                export SNAPI_CONFIG_DIR=config/dev
+                npm install
+                npm run build
+              """, label: "NPM Build"
+              script{
+                env.PACKAGE_VERSION = sh (script: '''node -e "console.log(require('./package.json').version)"''', returnStdout: true).trim()
+              }
+              echo PACKAGE_VERSION
+              stash name: "DIST", includes: "dist/**"
+            }
+          }
+        }
+      }
+
+      stage('Docker') {
+        steps {
+          script {
+            withCredentials([string(credentialsId: 'PKG_ACCESS_TOKEN', variable: 'PKG_ACCESS_TOKEN')]) {
+              def dockerfile_path = "${env.DOCKERFILE_PATH}"
+
+              unstash name: "DIST"
+              echo "version:- ${env.PACKAGE_VERSION}"
+              sh "export NPM_TOKEN=${PKG_ACCESS_TOKEN}"
+
+              // Set image tag
+              if ("${params.DEPLOY_ENV}" ==~ /(cert|prod)/) {
+                env.IMAGE_TAG="${params.IMAGE_TAG}"
+              } else {
+                if (env.BRANCH_NAME == 'main') {
+                  env.IMAGE_TAG = env.PACKAGE_VERSION;
+                } else {
+                   env.IMAGE_TAG = PACKAGE_VERSION + "_dev"
+                }
+              }
+
+              echo "IMAGE_TAG:- ${env.IMAGE_TAG}"
+
+              if ("${params.DEPLOY_ENV}" ==~ /(cert|prod)/) {
+                env.IMAGE_TAG="${params.IMAGE_TAG}"
+                withCredentials([usernamePassword(credentialsId: "${env.ACR_CREDENTIALS_PROD}", usernameVariable: 'ACRUSER', passwordVariable: 'ACRPASS')]) {
+                  sh "docker login -u $ACRUSER -p $ACRPASS ${env.ACR_REGISTRY_PROD}"
+                  sh "docker build -t ${env.ACR_REGISTRY_PROD}/${env.ACR_REPO}/${env.PROJECT_NAME}:${env.IMAGE_TAG} -f ${DOCKERFILE_PATH} --build-arg PKG_ACCESS_TOKEN=${PKG_ACCESS_TOKEN} ."
+                  sh "docker push ${env.ACR_REGISTRY_PROD}/${env.ACR_REPO}/${env.PROJECT_NAME}:${env.IMAGE_TAG}"
+                }
+              } else if ("${params.DEPLOY_ENV}" ==~ /(dev)/) {
+                withCredentials([usernamePassword(credentialsId: "${env.ACR_CREDENTIALS}", usernameVariable: 'ACRUSER', passwordVariable: 'ACRPASS')]) {
+                  sh "docker login -u $ACRUSER -p $ACRPASS ${env.ACR_REGISTRY}"
+                  sh "docker build -t ${env.ACR_REGISTRY}/${env.ACR_REPO}/${env.PROJECT_NAME}:${env.IMAGE_TAG} -f ${DOCKERFILE_PATH} --build-arg PKG_ACCESS_TOKEN=${PKG_ACCESS_TOKEN} ."
+                  sh "docker push ${env.ACR_REGISTRY}/${env.ACR_REPO}/${env.PROJECT_NAME}:${env.IMAGE_TAG}"
+                }
+              } else {
+                env.ARGUMENT = '--build-arg PKG_ACCESS_TOKEN=${PKG_ACCESS_TOKEN}'
+                echo "ARGUMENT :: ${env.ARGUMENT}"
+                jslDirectBuildAndPushToNexus(dockerfile_path, env.IMAGE_TAG, env.IMAGE_NAME, env.DOCKER_REPO, env.DOCKER_CREDENTIALS, env.ARGUMENT)
+                jslCleanPath(dockerfile_path)
+                }
+              }
+            }
+          }
+        }
+
+      stage('Test') {
+        stages {
+
+          stage('Unit / E2E / Sonar') {
+            agent {
+              dockerfile {
+                filename 'Dockerfile'
+                dir 'cicd/docker/node-sonar'
+                label 'Docker-enabled'
+              }
+            }
+            steps {
+              script {
+                withCredentials([string(credentialsId: 'PKG_ACCESS_TOKEN', variable: 'PKG_ACCESS_TOKEN')]) {
+                  sh script: """
+                    export NPM_TOKEN=${PKG_ACCESS_TOKEN}
+                    export SNAPI_CONFIG_DIR=config/sonar-dev
+                    export SNAPI_FORCE_DB_LOAD=true
+                    rm -rf node_modules dist coverage coverage_unit coverage_e2e .nyc_output .nyc_output_unit .nyc_output_e2e
+                    npm install
+                    npm run build
+                    npm run test
+                  """, label: "NPM Test"
+                  sh "sleep 5" // let coverage output be generated
+                  echo "Unit and E2E Tests completed"
+                  // jslPublishTestResults('reports_unit/*xml')
+                  // stash name: "REPORTS_UNIT", includes: "reports_unit/**"
+                  jslPublishHTMLTestResults('index.html','coverage/', 'Coverage Report')
+                  /* Contract validation gate */
+                  jslQualityGateCodeCoverage('./cicd/conf/sonarqube/sonar-project.properties')
+                  /* Contract validation gate */
+                  jslSonarQubeStaticAnalysis('./cicd/conf/sonarqube/sonar-project.properties')
+                }
+              }
+            }
+          }
+          stage('Quality Gate') {
+            agent {
+              dockerfile {
+                filename 'Dockerfile'
+                dir 'cicd/docker/node-sonar'
+                label 'Docker-enabled'
+              }
+            }
+            steps {
+              script {
+                /* Contract validation gate */
+                jslQualityGate()
+              }
+            }
+          }
+        }
+      }
+
+      stage('Deploy') {
+          when {
+            allOf{
+              not { changeRequest() }
+              expression { !("${params.DEPLOY_ENV}" ==~ /(dev|cert|prod)/) }
+            }
+          }
+          agent {
+            dockerfile {
+              filename 'Dockerfile'
+              dir 'cicd/docker/mvn'
+              label 'Docker-enabled'
+            }
+          }
+          steps {
+            script {
+              withCredentials([file(credentialsId: 'sled-cx.kubeconfig', variable: 'KUBECONFIG')]) {
+                sh 'mkdir -p ~/.kube && cat $KUBECONFIG > ~/.kube/config'
+                if("${params.DEPLOY_ENV}" ==~ /(it-test)/) {
+                  env.ENVIRONMENT = "${params.DEPLOY_ENV}"
+                  env.K8S_NAMESPACE = 'sled-cx-test'
+                  env.INGRESS_DOMAIN = 'kubeodc-test.corp.intranet'
+                  sh("helm upgrade --install ${env.PROJECT_NAME}-${env.ENVIRONMENT} --kube-context=${env.K8S_NAMESPACE} --namespace=${env.K8S_NAMESPACE} --set branch=${env.BRANCH_NAME} --set image.tag=${env.IMAGE_TAG} --set environment=${env.ENVIRONMENT} --set ingress.domain=${env.INGRESS_DOMAIN} --set image.repository=${env.IMAGE_REPO} --set timestamp=${BUILD_ID} ${env.HELM_TEMPLATES_PATH}")
+                } else if("${params.DEPLOY_ENV}" ==~ /(it-dev)/) {
+                  env.ENVIRONMENT = "${params.DEPLOY_ENV}"
+                  env.K8S_NAMESPACE = 'sled-cx-dev'
+                  env.INGRESS_DOMAIN = 'kubeodc-test.corp.intranet'
+                  sh("cp config/dev/snapi.yaml helm/snapi.yaml") // ConfigMap needs the correct snapi.yaml config file
+                  sh("helm upgrade --install ${env.PROJECT_NAME}-${env.ENVIRONMENT} --kube-context=${env.K8S_NAMESPACE} --namespace=${env.K8S_NAMESPACE} --set branch=${env.BRANCH_NAME} --set image.tag=${env.IMAGE_TAG} --set environment=${env.ENVIRONMENT} --set ingress.domain=${env.INGRESS_DOMAIN} --set image.repository=${env.IMAGE_REPO} --set timestamp=${BUILD_ID} ${env.HELM_TEMPLATES_PATH}")
+                }
+              }
+            }
+          }
+      }
+
+      stage('Adoption Stats') {
+        agent {
+          dockerfile {
+            filename 'Dockerfile'
+            dir 'cicd/docker/jira'
+            label 'Docker-enabled'
+          }
+        }
+        steps {
+          script {
+            sh "echo 'TODO: Adoption Stats'"
+          }
+          // unstash name: "REPORTS_UNIT"
+          // jslAdoptionMain('tests/unit/reports/*xml')
+          // jslAdoptionMain('hook_*xml')
+        }
+      }
+    }
+
+    post {
+      success {
+        jslNotification('success')
+        cleanWs()
+      }
+      failure {
+        jslNotification('failure')
+        cleanWs()
+      }
+      unstable {
+        jslNotification('unstable')
+        cleanWs()
+      }
+    }
+}

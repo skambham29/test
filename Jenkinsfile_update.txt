@@ -1,0 +1,182 @@
+/*
+ Library declaration.
+  Notes:
+  identifier includes the version of the library (git tag / branch)
+  remote includes the repository git url
+  credentialsId needs to be of the type SSH key in Jenkins
+  _ at the end of the declaration loads the whole library
+  This section always runs in the master jenkins.
+*/
+try {
+  library(
+    identifier: 'jsl-jenkins-shared-library-local@stable',
+    retriever: modernSCM(
+    [
+      $class: 'GitSCMSource',
+      remote: "/app/jenkins/git/jsl-jenkins-shared-library.git",
+      extensions: [[$class: 'WipeWorkspace']]
+     ]
+    )
+  ) _
+} catch (Exception Ex) {
+  library(
+    identifier: 'jsl-jenkins-shared-library@stable',
+    retriever: modernSCM(
+    [
+      $class: 'GitSCMSource',
+      remote: "git@github.com:CenturyLink/jsl-jenkins-shared-library.git",
+      credentialsId: 'FedAutoBot-SSH',
+      extensions: [[$class: 'WipeWorkspace']]
+    ]
+    )
+  ) _
+}
+
+pipeline {
+
+
+    environment {
+
+      /*
+          Credentials:
+          GITHUB_TOKEN_CREDENTIALS - github token, jenkins user password credential
+          GITHUB_SSH_CREDENTIALS - github ssh private key, jenkins private key credential.
+          DOCKER_CREDENTIALS - Nexus access info, jenkins secret file credential with environment variables to export
+          KUBE_CREDENTIALS Kubernetes access info, jenkins secret file credential with environment variables to export
+          SONARQUBE_CREDENTIALS - Sonarqube access info, jenkins secret text credential
+          JIRA_CREDENTIALS - Jira access info, jenkins secret file credential with environment variables to export
+          QUALITY_GATE_CREDENTIALS - Validation gates bredcrumbs, jenkins secret file credential
+          MSTEAMS_CREADENTIALS - MS Teams channel webhook URL, jenkins secret text credential
+          AUTHORIZED_USERS - List of CUIDs who will deploy to production environment, seperated by comma(,) & space, jenkins secret text credential
+          DEPLOY_AUTH_TOKEN - Production deployment password, which will be asked at the time if production deployment, jenkins secret text credential
+        */
+
+     // GITHUB_TOKEN_CREDENTIALS = 'SCMAUTO_GITHUB'
+      GITHUB_TOKEN_CREDENTIALS = 'GITHUB_APP_CREDENTIALS'
+      GITHUB_SSH_CREDENTIALS = 'SCMAUTO_SSH_DEVOPS_PIPELINE'
+      DOCKER_CREDENTIALS = 'nexus-secret'
+      SONARQUBE_CREDENTIALS = 'sonar-secrets'
+      JIRA_CREDENTIALS = 'jira-credentials'
+      QUALITY_GATE_CREDENTIALS = 'qualitygate-secret'
+
+      PROJECT_MAL = 'MBS'
+      MSTEAMS_CREDENTIALS = 'teams-secret'
+
+      //Deployment control credentialsId
+      AUTHORIZED_USERS = 'authorized_users'
+      DEPLOY_AUTH_TOKEN = 'deploy_auth_token'
+
+      // Custom project variables
+      BRANCH_NAME = GIT_BRANCH.split('/')[-1].trim().toLowerCase().replaceAll('_','-')
+      COMMIT_ID = GIT_COMMIT.substring(0,7).trim().toLowerCase()
+      PULL_REQUEST="pr-${env.CHANGE_ID}"
+      PROJECT_NAME = 'mbs-app-batch'
+
+ parameters {
+      //      https://www.jenkins.io/doc/book/pipeline/syntax/#parameters
+      choice(name: 'APP_ACTIVE_PROFILE', choices: ['dev','test', 'prod'], description: 'APP_ACTIVE_PROFILE')
+    }
+
+    }
+
+    agent {
+      label 'Docker-enabled'
+    }
+
+    options {
+      /*
+      https://www.jenkins.io/doc/book/pipeline/syntax/#options
+      */
+      timestamps ()
+      timeout(time: 1, unit: 'HOURS')
+      buildDiscarder(logRotator(numToKeepStr:'10', daysToKeepStr: '30'))
+      preserveStashes(buildCount: 10)
+      disableConcurrentBuilds()
+    }
+
+    /*
+    https://www.jenkins.io/doc/book/pipeline/syntax/#triggers
+    triggers {
+      issueCommentTrigger('.*test this please.*')
+    }
+   */
+
+
+    stages {
+      stage('Deploy on dev server') {
+        when { not { changeRequest() } }
+        steps {
+          script{
+
+
+
+if (params.APP_ACTIVE_PROFILE ==~ /(prod)/ ) {
+
+
+            def now = new Date()
+            def date_section = now.format("yyyy_MM", TimeZone.getTimeZone('UTC'))
+            TODAY_DATE = date_section
+
+
+             SERVER_NAME='mbstest01.corp.intranet'
+              sh script: """
+              ssh -o StrictHostKeyChecking=no  mbsuser@${SERVER_NAME} 'mkdir /home/mbsuser/proj/mbs/prod/batch/${TODAY_DATE}/' || true
+              ssh -o StrictHostKeyChecking=no  mbsuser@${SERVER_NAME} 'mv /home/mbsuser/proj/mbs/prod/batch/java/*.jar ../${TODAY_DATE}/' || true
+              scp -r -o StrictHostKeyChecking=no  TARGET/*.jar mbsuser@${SERVER_NAME}:/home/mbsuser/proj/mbs/prod/batch/java
+              """, label: "Deploy to server ${SERVER_NAME}"
+}else if (params.APP_ACTIVE_PROFILE ==~ /(test)/ ) {
+ 
+ 
+            def now = new Date()
+            def date_section = now.format("yyyy_MM", TimeZone.getTimeZone('UTC'))
+            TODAY_DATE = date_section
+
+
+             SERVER_NAME='mbstest01.corp.intranet'
+              sh script: """
+              ssh -o StrictHostKeyChecking=no  mbsuser@${SERVER_NAME} 'mkdir /proj/mbs/test/batch/${TODAY_DATE}/' || true
+              ssh -o StrictHostKeyChecking=no  mbsuser@${SERVER_NAME} 'mv /proj/mbs/test/batch/java/*.jar ../${TODAY_DATE}/' || true
+              scp -r -o StrictHostKeyChecking=no  TARGET/*.jar mbsuser@${SERVER_NAME}:/proj/mbs/test/batch/java
+              """, label: "Deploy to server ${SERVER_NAME}"
+ 
+ }else if (params.APP_ACTIVE_PROFILE ==~ /(dev)/ ){
+ 
+ 
+            def now = new Date()
+            def date_section = now.format("yyyy_MM", TimeZone.getTimeZone('UTC'))
+            TODAY_DATE = date_section
+
+
+             SERVER_NAME='mbsdev01.dev.intranet'
+              sh script: """
+              ssh -o StrictHostKeyChecking=no  mbsuser@${SERVER_NAME} 'mkdir /proj/mbs/batch/${TODAY_DATE}/' || true
+              ssh -o StrictHostKeyChecking=no  mbsuser@${SERVER_NAME} 'mv /proj/mbs/batch/java/*.jar ../${TODAY_DATE}/' || true
+              scp -r -o StrictHostKeyChecking=no  TARGET/*.jar mbsuser@${SERVER_NAME}:/proj/mbs/batch/java/
+              """, label: "Deploy to server ${SERVER_NAME}"
+ }
+            
+
+          }
+        }
+      }
+	}
+
+	 post {
+      success {
+         jslNotification('success')
+         cleanWs()
+      }
+      failure {
+        jslNotification('failure')
+        cleanWs()
+      }
+      unstable {
+        jslNotification('unstable')
+        cleanWs()
+      }
+    }
+
+
+
+
+}

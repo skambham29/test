@@ -1,0 +1,94 @@
+QCNMAP links:
+Standalone link:http://qcnmap-int.dev.qintra.com/qcnmap/				
+Networx Portal link:https://controlnetworx-int2.lumen.com/portal/site/networxInternal/		
+
+------------------------------------------------------------------------------------------------------
+project deployment path is : /prod/qcnmap/int/user_projects/qcnmapDomain/Qwest/scripts
+qcnmap code lies in this path :/proj/qcnmap/track1/projects/qwestControl/qcnmapApp
+------------------------------------------------------------------------------------
+Regarding Server access:
+Service Now link to riase the access: https://mysupportdesk.service-now.com/msd?id=msd_index
+Path how to raise a RITm for server access:on serviceNow goto Technology Services ->Server->Request Unix Access Support
+RITMs raised by me for server access:RITM3668058, RITM3666856
+
+--------------------------------------------------------------------------------------------------------------------------------------
+3.Logs file in the folder
+
+cd /prod/qcnmap/int/user_projects/qcnmapDomain/servers/qcnmap1/logs
+ file :tail -f console.log
+
+Path where projects reside in 324 server :
+/prod/qcnmap/int/user_projects/qcnmapDomain/Qwest/scripts
+
+CVS Path -> /opt/cvs/home/repository/qwestControl
+
+Tar file path -> /proj/qcnmap/track1/projects/qwestControl/qcnmapApp/qcnmap/dist
+
+Ear file path -> /proj/qcnmap/track1/projects/qwestControl/qcnmapApp/qcnmap/dist/Qwest/applications
+-------------------------------------------------------------------------------------------------------
+
+Deployment Steps on weblogic:
+1 .Run the build using below command
+
+./buildcc.ksh ----> compiling the build file after going to path /proj/qcnmap/track1/projects/qwestControl/qcnmapApp where
+this file exist
+
+./buildcc.ksh  package   ----> creating the ear package
+
+After the package creation stop the admin server then stop the managed1 server. 
+(always stop the admin server first then managed server and always start the admin server first then managed server)
+
+(qtdenvmdt323 - Admin server name)
+
+cd /prod/qcnmap/int/user_projects/qcnmapDomain/Qwest/scripts  -->(always goto scripts path to start and stop any server)
+
+./wctrl stop qcnmapAdmin  ------>(to stop the admin server)
+
+cd /prod/qcnmap/int/user_projects/qcnmapDomain/Qwest/applications  -->(path contains the ear file)
+
+cp /proj/qcnmap/track1/projects/qwestControl/qcnmapApp/qcnmap/dist/Qwest/applications/qcnmap.ear .  ---->
+(copy the ear to this path)
+After copied the file then go to scripts path
+cd ../scripts  ---> always start and stop the server after going to the scripts folder
+qcnmapAdmin ----> the name for admin server
+./wctrl start qcnmapAdmin
+
+The admin server will take 1 min to start. After admin server starts then start managed1
+
+2 .qtdenvmdt324 ---> is the managed server, Now managed server work starts
+
+cd /prod/qcnmap/int/user_projects/qcnmapDomain/Qwest/scripts
+qcnmap1 ---> the name for managed server
+./wctrl stop qcnmap1
+
+Delete the tmp and stage directory from the below path
+
+cd /prod/qcnmap/int/user_projects/qcnmapDomain/servers/qcnmap1
+
+rm -rf tmp stage
+
+cd /prod/qcnmap/int/user_projects/qcnmapDomain/Qwest/applications
+
+cp /proj/qcnmap/track1/projects/qwestControl/qcnmapApp/qcnmap/dist/Qwest/applications/qcnmap.ear .
+cd ../scripts
+./wctrl start qcnmap1
+
+
+
+-------------------------------------------------------------------------------------------------------------------
+The below servers are dev integration server and you can raise unix access for these machines.
+
+qtdenvmdt323.dev.qintra.com
+qtdenvmdt324.dev.qintra.com
+qtdenvmdt325.dev.qintra.com
+
+Mirror id: rjayaba
+application: qcnmap
+
+Need sudo access for this command
+
+sudo su - qcnmapop
+
+Project code is in this folder
+
+/proj/qcnmap/

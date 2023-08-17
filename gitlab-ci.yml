@@ -1,0 +1,123 @@
+image: latest
+services:
+  - docker:dind
+
+variables:
+  DOCKER_DRIVER: "overlay"
+
+  APP_NAME: "mbsgui"
+  APP_VERSION: "0.0.12"
+  APP_API_NAME: "${APP_NAME}-${APP_SPACE}"
+  APP_OWNER_CUID: "ab95776"
+  APP_OWNER_EMAIL: "pradeepkarthik.s@centurylink.com"
+  #USERNAME: "gitlab-ci-token"
+  USERNAME: "Jhkrkt73"
+  #REG_BASE_URI: "ne1itcprhas62.ne1.savvis.net:4567"
+  REG_BASE_URI: "nexusprod.corp.intranet:4567"  
+  REG_GROUP_NAME: "mbs_dev"
+  REG_IMAGE: "${REG_BASE_URI}/${REG_GROUP_NAME}/${APP_NAME}:${APP_VERSION}"
+  #REG_TOKEN: "iccVy-nyzoYX4nmBr5zy"
+  REG_TOKEN: "3U7KExBbQOZi_r-dvhMhTlTtHg8vaD5EK7Hk0bgtdKc6"
+  #ING_K8S_DOMAIN: "kubeodc-test.corp.intranet"
+  ING_K8S_DOMAIN: "kubeodc-prod.corp.intranet"
+  K8S_CLUSTER_URL: "https://kubeapiodc-test.corp.intranet"
+  #K8S_CLUSTER_URL: "https://kubeapiodc-prod.corp.intranet"
+  
+  TARGET: target/*.war
+
+stages:
+  - build
+  - push
+  - k8s
+
+maven-build1:
+  tags:
+    - hyperion
+  image: nexusprod.corp.intranet:4567/devbaseimages/development_base_images/ctlgitci-mvnkube:1.0.0
+  stage: build
+  only: 
+    - master
+  script: 
+    - "mvn clean install -DskipTests"
+  artifacts: 
+    name: "${CI_BUILD_ID}_${CI_BUILD_STAGE}_${CI_BUILD_REF_NAME}"
+    paths:
+      - "${TARGET}"
+ 
+  when : manual
+
+      
+docker-build:
+  tags:
+    - hyperion
+  image: nexusprod.corp.intranet:4567/devbaseimages/development_base_images/ctlgitci-docker:1.0.0
+  stage: push
+  only: 
+    - master
+  script:
+    - docker login -u  ${USERNAME} -p ${REG_TOKEN} ${REG_BASE_URI}
+    - docker build --no-cache -t ${REG_IMAGE} --build-arg WAR_FILE=target/mbsgui.war .    
+    - docker push  ${REG_IMAGE}
+  when : manual
+
+  
+deploy-k8s-dev1:
+  #using below image because it contains envsubst
+  #image: marcuswelz/gitlabci-docker-git-gcloud
+  tags:
+    - hyperion
+  image: nexusprod.corp.intranet:4567/devbaseimages/development_base_images/ctlgitci-mvnkube:1.0.0
+  variables:
+      APP_SPACE: "dev"
+      #APP_SPACE: "test"
+      #APP_SPACE: "pp"
+      #APP_SPACE: "prod"
+      APP_API_NAME: "${APP_NAME}-${APP_SPACE}"
+      APP_REPLICAS: "1"
+      REG_SECRET: "reg-secret"
+      SECRET_NAME: "tls-kubeodc-test.corp.intranet"
+      #SECRET_NAME: "tls-kubeodc-prod.corp.intranet"
+      K8S_CLUSTER_URL: "https://kubeapiodc-test.corp.intranet"
+      #K8S_CLUSTER_URL: "https://kubeapiodc-prod.corp.intranet"
+      K8S_NAMESPACE: "mbs-dev"
+      #K8S_NAMESPACE: "mbs-test"
+      #K8S_NAMESPACE: "mbs-pp"
+      #K8S_NAMESPACE: "mbs"
+      APP_MEMORY_MB: "1024"
+      APP_MEMORY: "512"
+      APP_MEMORY_XMS: "512"
+      APP_MEMORY_XMX: "1024"
+      JMX_OPTS: "-Duser.timezone=America/Chicago"
+      K8S_TOKEN: "eyJhbGciOiJSUzI1NiIsImtpZCI6IjYxY2VkZDRiZjkxMTg1ZmRmNDExYmI0NmZjYmI4YjJjZjk3MzllZDAifQ.eyJpc3MiOiJodHRwczovL2RleC5rdWJlb2RjLXByb2QuY29ycC5pbnRyYW5ldC8iLCJzdWIiOiJDaTUxYVdROVlXSTVOVGMzTml4dmRUMVFaVzl3YkdVc1pHTTliVzVsZEN4a1l6MXhhVzUwY21Fc1pHTTlZMjl0RWdSc1pHRnciLCJhdWQiOiJvZGMiLCJleHAiOjE2MTc3MTQ4MTIsImlhdCI6MTYxNzYyODQxMiwiYXRfaGFzaCI6IjFCUy0yN3ItZ3NyZmFPUGlWT1c2UmciLCJlbWFpbCI6IlByYWRlZXBrYXJ0aGlrLlNAY2VudHVyeWxpbmsuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJQcmFkZWVwa2FydGhpay5TQGNlbnR1cnlsaW5rLmNvbSJ9.JXxh_AJfvlw3NUMpzSAx-tW5V4BoL8TkPZSrkvpm8v0yB3T-0jB4p08kVubwF0wvHMwhiHqtZTAPURMBoXz_0X8E_SpbeSKgzbmNgGiHz9RfG_9krxbwZsdJwjwcfyTLenAhlQSI2PL4VIRfLT1PMpJcCiUzkDNFT_jHViTDgdIntKhTQV_seY7Evm7YQ_-cSkko_zAJirrZGnELF-jbfLqokXzGTH5afIrvwoZypxrY3Zhby0tRpAkZn_4e9bl-buBHPURpS-TFTcZVt1IFUiQQmGOBuY9gmA_UF6DKx6HOo8ka6XuBLCABh6mEzUVaL1WSfo0bXs1gowoI66cODw"
+  stage: k8s
+  only: 
+    - master
+  script:
+      
+      #set kubernetes credentials 
+    - kubectl config set-cluster mine --server=${K8S_CLUSTER_URL} --insecure-skip-tls-verify=true
+    - kubectl config set-credentials mine --token=${K8S_TOKEN}
+    - kubectl config set-context mine --cluster=mine --user=mine --namespace=${K8S_NAMESPACE}
+    - kubectl config use-context mine
+      
+      #kube secret to access docker registry 
+    - kubectl delete secret ${REG_SECRET} -n ${K8S_NAMESPACE} || true
+    - kubectl create secret docker-registry ${REG_SECRET} --docker-server=${REG_BASE_URI} --docker-username=${USERNAME} --docker-password=${REG_TOKEN} --docker-email=${APP_OWNER_EMAIL} -n ${K8S_NAMESPACE}
+    
+      #kubernetes won't allow variables in the yaml files so using envsubst workaround so we can use them 
+    - env envsubst < deployment.tmpl > deployment.yaml
+    - env envsubst < service.tmpl > service.yaml
+    - env envsubst < ingress.tmpl > ingress.yaml
+
+      #using delete/create on deployment to force docker deployment with :latest image version
+    - kubectl delete -f deployment.yaml || true
+    #- kubectl delete -f service.yaml || true
+    #- kubectl delete -f ingress.yaml || true
+    - kubectl create -f deployment.yaml --validate=false
+    #- kubectl create -f service.yaml --validate=false
+    #- kubectl create -f ingress.yaml --validate=false
+    - kubectl apply -f service.yaml -f ingress.yaml --validate=false
+    - kubectl -n ${K8S_NAMESPACE} describe ingress ${APP_API_NAME}
+   
+  when : manual
+

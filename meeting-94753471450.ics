@@ -1,0 +1,123 @@
+BEGIN:VCALENDAR
+PRODID:-//zoom.us//iCalendar Event//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+CLASS:PUBLIC
+BEGIN:VTIMEZONE
+TZID:Europe/London
+LAST-MODIFIED:20201011T015911Z
+TZURL:http://tzurl.org/zoneinfo-outlook/Europe/London
+X-LIC-LOCATION:Europe/London
+BEGIN:DAYLIGHT
+TZNAME:BST
+TZOFFSETFROM:+0000
+TZOFFSETTO:+0100
+DTSTART:19700329T010000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZNAME:GMT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0000
+DTSTART:19701025T020000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTAMP:20210906T134051Z
+DTSTART;TZID=Europe/London:20210907T083000
+DTEND;TZID=Europe/London:20210907T103000
+SUMMARY:OCOC Session 1 for APAC\, EMEA and India
+UID:20210906T134051Z-94753471450@fe80:0:0:0:852:b3ff:fe06:12fdens5
+TZID:Europe/London
+DESCRIPTION:HR Shared Services is inviting you to a scheduled Zoom meetin
+ g.\n\nJoin Zoom Meeting\nhttps://lumen.zoom.us/w/94753471450?tk=qdAaTyUR
+ zaFpLuu_peAuNUBKTgD9h-Kb5JK68v0KD3A.DQMAAAAWD7872hZrOFNGVlFOVlRzS3B6QXBL
+ UGd5MlRBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n\nMeeting ID: 947 5347 1450\nPas
+ scode: 639392\nOne tap mobile\n+13126266799\,\,94753471450#\,\,\,\,*6393
+ 92# US (Chicago)\n+13462487799\,\,94753471450#\,\,\,\,*639392# US (Houst
+ on)\n\nDial by your location\n        +1 312 626 6799 US (Chicago)\n    
+     +1 346 248 7799 US (Houston)\n        +1 669 900 6833 US (San Jose)\
+ n        +1 929 436 2866 US (New York)\n        +1 253 215 8782 US (Taco
+ ma)\n        +1 301 715 8592 US (Washington DC)\n        +61 2 8015 6011
+  Australia\n        +61 3 7018 2005 Australia\n        +61 7 3185 3730 A
+ ustralia\n        +61 8 6119 3900 Australia\n        +61 8 7150 1149 Aus
+ tralia\n        +43 120 609 3072 Austria\n        +43 12 535 501 Austria
+ \n        +43 12 535 502 Austria\n        +43 670 309 0165 Austria\n    
+     +43 72 011 5988 Austria\n        +32 2 585 5574 Belgium\n        +32
+  2 588 4188 Belgium\n        +32 2 788 0172 Belgium\n        +32 2 788 0
+ 173 Belgium\n        +32 1579 5132 Belgium\n        +32 2 290 9360 Belgi
+ um\n        +359 2 492 5688 Bulgaria\n        +359 3 257 1633 Bulgaria\n
+         +385 1300 0988 Croatia\n        +385 1777 6333 Croatia\n        
+ +357 2 200 0888 Cyprus\n        +357 2 505 4777 Cyprus\n        +420 5 3
+ 889 0161 Czech Republic\n        +420 2 2888 2388 Czech Republic\n      
+   +420 2 3901 8272 Czech Republic\n        +45 32 72 80 10 Denmark\n    
+     +45 32 72 80 11 Denmark\n        +45 47 37 25 75 Denmark\n        +4
+ 5 89 88 37 88 Denmark\n        +45 32 70 12 06 Denmark\n        +45 32 7
+ 1 31 57 Denmark\n        +372 660 1699 Estonia\n        +372 880 1188 Es
+ tonia\n        +358 9 7252 2471 Finland\n        +358 3 4109 2129 Finlan
+ d\n        +358 9 4245 1488 Finland\n        +33 1 7037 2246 France\n   
+      +33 1 7037 9729 France\n        +33 1 7095 0103 France\n        +33
+  1 7095 0350 France\n        +33 1 8699 5831 France\n        +49 69 5050
+  0951 Germany\n        +49 69 5050 0952 Germany\n        +49 695 050 259
+ 6 Germany\n        +49 69 7104 9922 Germany\n        +49 69 3807 9883 Ge
+ rmany\n        +49 69 3807 9884 Germany\n        +30 211 198 4488 Greece
+ \n        +30 231 118 0599 Greece\n        +36 1 779 9126 Hungary\n     
+    +36 1 408 8456 Hungary\n        +36 1 701 0488 Hungary\n        +353 
+ 1 653 3895 Ireland\n        +353 1 653 3897 Ireland\n        +353 1 653 
+ 3898 Ireland\n        +353 6 163 9031 Ireland\n        +353 1 240 8941 I
+ reland\n        +353 1 536 9320 Ireland\n        +39 069 480 6488 Italy\
+ n        +39 020 066 7245 Italy\n        +39 021 241 28 823 Italy\n     
+    +81 524 564 439 Japan\n        +81 3 4578 1488 Japan\n        +81 363
+  628 317 Japan\n        +82 2 3143 9611 Korea\, Republic of\n        +82
+  2 3143 9612 Korea\, Republic of\n        +371 6303 1808 Latvia\n       
+  +371 6303 1888 Latvia\n        +370 3799 9260 Lithuania\n        +370 5
+ 214 1488 Lithuania\n        +352 342 080 9265 Luxembourg\n        +352 2
+ 786 1188 Luxembourg\n        +352 2786 4277 Luxembourg\n        +60 3 77
+ 24 4080 Malaysia\n        +60 3 9212 1727 Malaysia\n        +60 3 3099 2
+ 229 Malaysia\n        +60 3 7724 4079 Malaysia\n        +356 2776 1777 M
+ alta\n        +356 2778 1288 Malta\n        +31 20 794 6519 Netherlands\
+ n        +31 20 794 6520 Netherlands\n        +31 20 794 7345 Netherland
+ s\n        +31 707 006 526 Netherlands\n        +31 20 241 0288 Netherla
+ nds\n        +31 20 794 0854 Netherlands\n        +64 9 884 6780 New Zea
+ land\n        +64 3 659 0603 New Zealand\n        +64 4 886 0026 New Zea
+ land\n        +47 2400 4735 Norway\n        +47 2400 4736 Norway\n      
+   +48 22 398 7356 Poland\n        +48 22 306 5342 Poland\n        +48 22
+  307 3488 Poland\n        +40 31 630 1088 Romania\n        +40 37 170 04
+ 18 Romania\n        +65 3158 7288 Singapore\n        +65 3165 1065 Singa
+ pore\n        +386 1600 3102 Slovenia\n        +386 1888 8788 Slovenia\n
+         +421 233 056 888 Slovakia\n        +421 233 418 515 Slovakia\n  
+       +34 917 873 431 Spain\n        +34 84 368 5025 Spain\n        +34 
+ 91 787 0058 Spain\n        +46 8 5050 0828 Sweden\n        +46 8 5050 08
+ 29 Sweden\n        +46 8 5052 0017 Sweden\n        +46 850 539 728 Swede
+ n\n        +46 8 4468 2488 Sweden\n        +46 8 5016 3827 Sweden\n     
+    +41 31 528 09 88 Switzerland\n        +41 43 210 70 42 Switzerland\n 
+        +41 43 210 71 08 Switzerland\n        +41 44 529 92 72 Switzerlan
+ d\n        +41 22 591 00 05 Switzerland\n        +41 22 591 01 56 Switze
+ rland\n        +90 850 390 4915 Turkey\n        +90 850 390 4913 Turkey\
+ n        +90 850 390 4914 Turkey\n        +44 330 088 5830 United Kingdo
+ m\n        +44 131 460 1196 United Kingdom\n        +44 203 481 5237 Uni
+ ted Kingdom\n        +44 203 481 5240 United Kingdom\n        +44 203 90
+ 1 7895 United Kingdom\n        +44 208 080 6591 United Kingdom\n        
+ +44 208 080 6592 United Kingdom\nMeeting ID: 947 5347 1450\nPasscode: 63
+ 9392\nFind your local number: https://lumen.zoom.us/u/aQWBskWd5\n\nJoin 
+ by SIP\n94753471450@zoomcrc.com\n\nJoin by H.323\n162.255.37.11 (US West
+ )\n162.255.36.11 (US East)\n115.114.131.7 (India Mumbai)\n115.114.115.7 
+ (India Hyderabad)\n213.19.144.110 (Amsterdam Netherlands)\n213.244.140.1
+ 10 (Germany)\n103.122.166.55 (Australia Sydney)\n103.122.167.55 (Austral
+ ia Melbourne)\n149.137.40.110 (Singapore)\n64.211.144.160 (Brazil)\n149.
+ 137.68.253 (Mexico)\n69.174.57.160 (Canada Toronto)\n65.39.152.160 (Cana
+ da Vancouver)\n207.226.132.110 (Japan Tokyo)\n149.137.24.110 (Japan Osak
+ a)\nMeeting ID: 947 5347 1450\nPasscode: 639392\n\nJoin by Skype for Bus
+ iness\nhttps://lumen.zoom.us/skype/94753471450\n\n
+LOCATION:https://lumen.zoom.us/w/94753471450?tk=qdAaTyURzaFpLuu_peAuNUBKT
+ gD9h-Kb5JK68v0KD3A.DQMAAAAWD7872hZrOFNGVlFOVlRzS3B6QXBLUGd5MlRBAAAAAAAAA
+ AAAAAAAAAAAAAAAAAAAAA
+BEGIN:VALARM
+TRIGGER:-PT10M
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+END:VCALENDAR

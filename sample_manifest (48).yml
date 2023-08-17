@@ -1,0 +1,142 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'digi-custcare-test-master-e2e-java'
+  namespace: 'digi-custcare-test'
+  annotations:
+    kubernetes.io/ingress.allow-http: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+	nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.org/ssl-services: 'digi-custcare-test-e2e-java'
+  labels:
+    project: 'dss-custcare-service'
+    branch: 'master'
+    commit: '71e46d1'
+    role: java
+    env: e2e
+spec:
+  rules:
+    - host: dss-custcare-service-e2e.kubeodc-test.corp.intranet
+      http:
+        paths:
+          - path: "/"
+            backend:
+              serviceName: 'digi-custcare-test-e2e-java'
+              servicePort: 8080
+	- host: dssr-e2e.lumen.com
+      http:
+        paths:
+          - path: "/custcare"
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: 'digi-custcare-test-e2e-java'
+              servicePort: 8080
+	- host: dssr-e2e.test.intranet
+      http:
+        paths:
+          - path: "/custcare"
+            pathType: ImplementationSpecific
+            backend:
+              serviceName: 'digi-custcare-test-e2e-java'
+              servicePort: 8080
+  tls:
+    - hosts:
+      - dss-custcare-service-e2e.kubeodc-test.corp.intranet
+      secretName: managed-tls-secret
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'digi-custcare-test-e2e-java'
+  namespace: 'digi-custcare-test'
+  labels:
+    project: 'dss-custcare-service'
+    branch: 'master'
+    commit: '71e46d1'
+    role: java
+    env: e2e
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    project: 'dss-custcare-service'
+    branch: 'master'
+    commit: '71e46d1'
+    role: java
+    env: e2e
+  type: ClusterIP
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'digi-custcare-test-master-java-e2e'
+  labels:
+    project: 'dss-custcare-service'
+    branch: 'master'
+    commit: '71e46d1'
+    role: java
+    env: e2e
+spec:
+  selector:
+    matchLabels:
+      project: 'dss-custcare-service'
+      branch: 'master'
+      role: java
+  replicas: 1
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'dss-custcare-service'
+        branch: 'master'
+        commit: '71e46d1'
+        role: java
+        env: e2e
+    spec:
+      containers:
+        - name: java-master
+          image: 'nexusprod.corp.intranet:4567/dss-custcare-service/dss-custcare-service:master'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: java
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1000Mi
+            requests:
+              cpu: 1000m
+              memory: 1000Mi
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: 'e2e'
+            - name: APPDYNAMICS_CONTROLLER_HOST_NAME
+              value: 'centurylink-nonprod.saas.appdynamics.com'
+            - name: APPDYNAMICS_CONTROLLER_PORT
+              value: '443'
+            - name: APPDYNAMICS_CONTROLLER_SSL_ENABLED
+              value: 'true'
+            - name: APPDYNAMICS_AGENT_APPLICATION_NAME
+              value: 'DIGI-CUSTCARE (Test) CUSTCARE - SYSGEN787781698'
+            - name: APPDYNAMICS_AGENT_TIER_NAME
+              value: 'digicustcare'
+            - name: APPDYNAMICS_AGENT_ACCOUNT_NAME
+              value: 'centurylink-nonprod'
+            - name: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+              value: 'yjrtnfaze8uk'
+            - name: APPDYNAMICS_JAVA_AGENT_REUSE_NODE_NAME
+              value: 'true'
+            - name: JASYPT_PWD
+              valueFrom:
+               secretKeyRef:
+                name: custcare-secret
+                key: JASYPT_PWD
+      imagePullSecrets:
+        - name: dss-custcare-service-master
+---
+---

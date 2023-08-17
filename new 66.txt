@@ -1,0 +1,336 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: rxmicro-dev
+  namespace: rxmicro-dev
+  selfLink: /apis/apps/v1/namespaces/rxmicro-dev/deployments/rxmicro-dev
+  uid: b51c6c90-b2f4-44fc-85e9-f4aaf151e3df
+  resourceVersion: '1202368144'
+  generation: 1
+  creationTimestamp: '2022-12-19T14:08:51Z'
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    chart: rxmicro-cloud-1.0.0
+  annotations:
+    deployment.kubernetes.io/revision: '1'
+    meta.helm.sh/release-name: rxmicro-dev
+    meta.helm.sh/release-namespace: rxmicro-dev
+  managedFields:
+    - manager: helm
+      operation: Update
+      apiVersion: apps/v1
+      time: '2022-12-19T14:08:51Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:meta.helm.sh/release-name: {}
+            f:meta.helm.sh/release-namespace: {}
+          f:labels:
+            .: {}
+            f:app.kubernetes.io/managed-by: {}
+            f:chart: {}
+        f:spec:
+          f:progressDeadlineSeconds: {}
+          f:replicas: {}
+          f:revisionHistoryLimit: {}
+          f:selector:
+            f:matchLabels:
+              .: {}
+              f:app: {}
+          f:strategy:
+            f:rollingUpdate:
+              .: {}
+              f:maxSurge: {}
+              f:maxUnavailable: {}
+            f:type: {}
+          f:template:
+            f:metadata:
+              f:labels:
+                .: {}
+                f:app: {}
+            f:spec:
+              f:containers:
+                k:{"name":"rxmicro-cloud"}:
+                  .: {}
+                  f:env:
+                    .: {}
+                    k:{"name":"APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY"}:
+                      .: {}
+                      f:name: {}
+                      f:valueFrom:
+                        .: {}
+                        f:secretKeyRef:
+                          .: {}
+                          f:key: {}
+                          f:name: {}
+                    k:{"name":"APPDYNAMICS_AGENT_ACCOUNT_NAME"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"APPDYNAMICS_AGENT_APPLICATION_NAME"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"APPDYNAMICS_AGENT_TIER_NAME"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"APPDYNAMICS_CONTROLLER_HOST_NAME"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"APPDYNAMICS_CONTROLLER_PORT"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"APPDYNAMICS_CONTROLLER_SSL_ENABLED"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"ARTIFACT_NAME"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"BUILD_ID"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"JAVA_OPTS"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"SPRING_CONFIG_LOCATION"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"SPRING_CONFIG_NAME"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"SPRING_PROFILES_ACTIVE"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"spring.profiles.active"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                  f:image: {}
+                  f:imagePullPolicy: {}
+                  f:livenessProbe:
+                    .: {}
+                    f:failureThreshold: {}
+                    f:httpGet:
+                      .: {}
+                      f:path: {}
+                      f:port: {}
+                      f:scheme: {}
+                    f:initialDelaySeconds: {}
+                    f:periodSeconds: {}
+                    f:successThreshold: {}
+                    f:timeoutSeconds: {}
+                  f:name: {}
+                  f:ports:
+                    .: {}
+                    k:{"containerPort":8080,"protocol":"TCP"}:
+                      .: {}
+                      f:containerPort: {}
+                      f:protocol: {}
+                  f:readinessProbe:
+                    .: {}
+                    f:failureThreshold: {}
+                    f:httpGet:
+                      .: {}
+                      f:path: {}
+                      f:port: {}
+                      f:scheme: {}
+                    f:initialDelaySeconds: {}
+                    f:periodSeconds: {}
+                    f:successThreshold: {}
+                    f:timeoutSeconds: {}
+                  f:resources:
+                    .: {}
+                    f:limits:
+                      .: {}
+                      f:memory: {}
+                    f:requests:
+                      .: {}
+                      f:memory: {}
+                  f:terminationMessagePath: {}
+                  f:terminationMessagePolicy: {}
+                  f:volumeMounts:
+                    .: {}
+                    k:{"mountPath":"/opt/config"}:
+                      .: {}
+                      f:mountPath: {}
+                      f:name: {}
+                      f:readOnly: {}
+              f:dnsPolicy: {}
+              f:imagePullSecrets:
+                .: {}
+                k:{"name":"nexus-reg-secret"}:
+                  .: {}
+                  f:name: {}
+              f:restartPolicy: {}
+              f:schedulerName: {}
+              f:securityContext: {}
+              f:terminationGracePeriodSeconds: {}
+              f:volumes:
+                .: {}
+                k:{"name":"rxmicro-cloud-properties"}:
+                  .: {}
+                  f:emptyDir: {}
+                  f:name: {}
+    - manager: kube-controller-manager
+      operation: Update
+      apiVersion: apps/v1
+      time: '2022-12-19T14:08:51Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            f:deployment.kubernetes.io/revision: {}
+        f:status:
+          f:conditions:
+            .: {}
+            k:{"type":"Available"}:
+              .: {}
+              f:lastTransitionTime: {}
+              f:lastUpdateTime: {}
+              f:message: {}
+              f:reason: {}
+              f:status: {}
+              f:type: {}
+            k:{"type":"Progressing"}:
+              .: {}
+              f:lastTransitionTime: {}
+              f:lastUpdateTime: {}
+              f:message: {}
+              f:reason: {}
+              f:status: {}
+              f:type: {}
+          f:observedGeneration: {}
+          f:replicas: {}
+          f:unavailableReplicas: {}
+          f:updatedReplicas: {}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rxmicro-dev
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: rxmicro-dev
+    spec:
+      volumes:
+        - name: rxmicro-cloud-properties
+          emptyDir: {}
+      containers:
+        - name: rxmicro-cloud
+          image: nexusprod.corp.intranet:4567/rxmicro/rxmicro-cloud:dev_20221219
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: BUILD_ID
+              value: '17'
+            - name: spring.profiles.active
+              value: dev
+            - name: SPRING_PROFILES_ACTIVE
+              value: dev
+            - name: ARTIFACT_NAME
+              value: RxMicroCloudGateway-1.0.0
+            - name: SPRING_CONFIG_NAME
+              value: application,jbdc
+            - name: SPRING_CONFIG_LOCATION
+              value: file:////opt/rx/${ARTIFACT_NAME}/config/
+            - name: APPDYNAMICS_CONTROLLER_HOST_NAME
+              value: centurylink-nonprod.saas.appdynamics.com
+            - name: APPDYNAMICS_CONTROLLER_PORT
+              value: '443'
+            - name: APPDYNAMICS_CONTROLLER_SSL_ENABLED
+              value: 'true'
+            - name: APPDYNAMICS_AGENT_APPLICATION_NAME
+              value: RXMICRO (DEV) Repair Expert MicroServices SYSGEN787470893
+            - name: APPDYNAMICS_AGENT_TIER_NAME
+              value: rxmicro-cloud
+            - name: APPDYNAMICS_AGENT_ACCOUNT_NAME
+              value: centurylink-nonprod
+            - name: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: appdynamic-secret
+                  key: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+            - name: JAVA_OPTS
+              value: >-
+                -Xms512m -Xmx1536m -XX:MetaspaceSize=300124K
+                -XX:MaxMetaspaceSize=300124K -Xss80440K -XX:+UseParNewGC
+                -XX:+UseConcMarkSweepGC -XX:+UseConcMarkSweepGC
+          resources:
+            limits:
+              memory: 2Gi
+            requests:
+              memory: 2Gi
+          volumeMounts:
+            - name: rxmicro-cloud-properties
+              readOnly: true
+              mountPath: /opt/config
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 70
+            timeoutSeconds: 60
+            periodSeconds: 70
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 30
+            timeoutSeconds: 30
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      imagePullSecrets:
+        - name: nexus-reg-secret
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 0
+  progressDeadlineSeconds: 600
+status:
+  observedGeneration: 1
+  replicas: 1
+  updatedReplicas: 1
+  unavailableReplicas: 1
+  conditions:
+    - type: Available
+      status: 'False'
+      lastUpdateTime: '2022-12-19T14:08:51Z'
+      lastTransitionTime: '2022-12-19T14:08:51Z'
+      reason: MinimumReplicasUnavailable
+      message: Deployment does not have minimum availability.
+    - type: Progressing
+      status: 'False'
+      lastUpdateTime: '2022-12-19T14:18:52Z'
+      lastTransitionTime: '2022-12-19T14:18:52Z'
+      reason: ProgressDeadlineExceeded
+      message: ReplicaSet "rxmicro-dev-76695949f5" has timed out progressing.

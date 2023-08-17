@@ -1,0 +1,837 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  namespace: 'roadrunner-dev'
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: '18339ad'
+    role: py
+spec:
+  rules:
+    - host: py-master-request-forecasting.kubeodc-test.corp.intranet
+      http:
+        paths:
+          - path: "/"
+            backend:
+              serviceName: 'relocation-intake-portal-master-py'
+              servicePort: 8080
+  tls:
+    - hosts:
+      - 'py-master-request-forecasting.kubeodc-test.corp.intranet'
+      secretName: managed-tls-secret
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  namespace: 'roadrunner-dev'
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: '18339ad'
+    role: py
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: '18339ad'
+    role: py
+  type: ClusterIP
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: '18339ad'
+    role: py
+spec:
+  selector:
+    matchLabels:
+      project: 'request-forecasting'
+      branch: 'master'
+      role: py
+  replicas: 1
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'request-forecasting'
+        branch: 'master'
+        commit: '18339ad'
+        role: py
+    spec:
+      containers:
+        - name: py-master
+          image: 'nexusprod.corp.intranet:4567/roadrunner/request-forecasting/request-forecasting:master'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: py
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1000Mi
+      imagePullSecrets:
+        - name: request-forecasting-master
+---
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  namespace: 'roadrunner-dev'
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: 'f1d8c4f'
+    role: py
+spec:
+  rules:
+    - host: py-master-request-forecasting.kubeodc-test.corp.intranet
+      http:
+        paths:
+          - path: "/"
+            backend:
+              serviceName: 'relocation-intake-portal-master-py'
+              servicePort: 8080
+  tls:
+    - hosts:
+      - 'py-master-request-forecasting.kubeodc-test.corp.intranet'
+      secretName: managed-tls-secret
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  namespace: 'roadrunner-dev'
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: 'f1d8c4f'
+    role: py
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: 'f1d8c4f'
+    role: py
+  type: ClusterIP
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: 'f1d8c4f'
+    role: py
+spec:
+  selector:
+    matchLabels:
+      project: 'request-forecasting'
+      branch: 'master'
+      role: py
+  replicas: 1
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'request-forecasting'
+        branch: 'master'
+        commit: 'f1d8c4f'
+        role: py
+    spec:
+      containers:
+        - name: py-master
+          image: 'nexusprod.corp.intranet:4567/roadrunner/request-forecasting/request-forecasting:master'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: py
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1000Mi
+      imagePullSecrets:
+        - name: relocation-intake-portal-master
+---
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  namespace: 'roadrunner-test'
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: 'ca48ce7'
+    role: py
+spec:
+  rules:
+    - host: py-master-request-forecasting.kubeodc-test.corp.intranet
+      http:
+        paths:
+          - path: "/"
+            backend:
+              serviceName: 'relocation-intake-portal-master-py'
+              servicePort: 8080
+  tls:
+    - hosts:
+      - 'py-master-request-forecasting.kubeodc-test.corp.intranet'
+      secretName: managed-tls-secret
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  namespace: 'roadrunner-test'
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: 'ca48ce7'
+    role: py
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: 'ca48ce7'
+    role: py
+  type: ClusterIP
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: 'ca48ce7'
+    role: py
+spec:
+  selector:
+    matchLabels:
+      project: 'request-forecasting'
+      branch: 'master'
+      role: py
+  replicas: 1
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'request-forecasting'
+        branch: 'master'
+        commit: 'ca48ce7'
+        role: py
+    spec:
+      containers:
+        - name: py-master
+          image: 'nexusprod.corp.intranet:4567/roadrunner/request-forecasting/request-forecasting:master'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: py
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1000Mi
+      imagePullSecrets:
+        - name: request-forecasting-master
+---
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  namespace: 'roadrunner-test'
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: 'aadfe3c'
+    role: py
+spec:
+  rules:
+    - host: py-master-request-forecasting.kubeodc-test.corp.intranet
+      http:
+        paths:
+          - path: "/"
+            backend:
+              serviceName: 'relocation-intake-portal-master-py'
+              servicePort: 8080
+  tls:
+    - hosts:
+      - 'py-master-request-forecasting.kubeodc-test.corp.intranet'
+      secretName: managed-tls-secret
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  namespace: 'roadrunner-test'
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: 'aadfe3c'
+    role: py
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: 'aadfe3c'
+    role: py
+  type: ClusterIP
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: 'aadfe3c'
+    role: py
+spec:
+  selector:
+    matchLabels:
+      project: 'request-forecasting'
+      branch: 'master'
+      role: py
+  replicas: 1
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'request-forecasting'
+        branch: 'master'
+        commit: 'aadfe3c'
+        role: py
+    spec:
+      containers:
+        - name: py-master
+          image: 'nexusprod.corp.intranet:4567/roadrunner/request-forecasting/request-forecasting:master'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: py
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1000Mi
+      imagePullSecrets:
+        - name: request-forecasting-master
+---
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  namespace: 'roadrunner-test'
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: '2b96044'
+    role: py
+spec:
+  rules:
+    - host: py-master-request-forecasting.kubeodc-test.corp.intranet
+      http:
+        paths:
+          - path: "/"
+            backend:
+              serviceName: 'relocation-intake-portal-master-py'
+              servicePort: 8080
+  tls:
+    - hosts:
+      - 'py-master-request-forecasting.kubeodc-test.corp.intranet'
+      secretName: managed-tls-secret
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  namespace: 'roadrunner-test'
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: '2b96044'
+    role: py
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: '2b96044'
+    role: py
+  type: ClusterIP
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: '2b96044'
+    role: py
+spec:
+  selector:
+    matchLabels:
+      project: 'request-forecasting'
+      branch: 'master'
+      role: py
+  replicas: 1
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'request-forecasting'
+        branch: 'master'
+        commit: '2b96044'
+        role: py
+    spec:
+      containers:
+        - name: py-master
+          image: 'nexusprod.corp.intranet:4567/roadrunner/request-forecasting/request-forecasting:master'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: py
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1000Mi
+      imagePullSecrets:
+        - name: request-forecasting-master
+---
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  namespace: 'roadrunner-test'
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: '2b96044'
+    role: py
+spec:
+  rules:
+    - host: py-master-request-forecasting.kubeodc-test.corp.intranet
+      http:
+        paths:
+          - path: "/"
+            backend:
+              serviceName: 'relocation-intake-portal-master-py'
+              servicePort: 8080
+  tls:
+    - hosts:
+      - 'py-master-request-forecasting.kubeodc-test.corp.intranet'
+      secretName: managed-tls-secret
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  namespace: 'roadrunner-test'
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: '2b96044'
+    role: py
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: '2b96044'
+    role: py
+  type: ClusterIP
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: '2b96044'
+    role: py
+spec:
+  selector:
+    matchLabels:
+      project: 'request-forecasting'
+      branch: 'master'
+      role: py
+  replicas: 1
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'request-forecasting'
+        branch: 'master'
+        commit: '2b96044'
+        role: py
+    spec:
+      containers:
+        - name: py-master
+          image: 'nexusprod.corp.intranet:4567/roadrunner/request-forecasting/request-forecasting:master'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: py
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1000Mi
+      imagePullSecrets:
+        - name: request-forecasting-master
+---
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  namespace: 'roadrunner-test'
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: '0429850'
+    role: py
+spec:
+  rules:
+    - host: py-master-request-forecasting.kubeodc-test.corp.intranet
+      http:
+        paths:
+          - path: "/"
+            backend:
+              serviceName: 'relocation-intake-portal-master-py'
+              servicePort: 8080
+  tls:
+    - hosts:
+      - 'py-master-request-forecasting.kubeodc-test.corp.intranet'
+      secretName: managed-tls-secret
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  namespace: 'roadrunner-test'
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: '0429850'
+    role: py
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: '0429850'
+    role: py
+  type: ClusterIP
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: '0429850'
+    role: py
+spec:
+  selector:
+    matchLabels:
+      project: 'request-forecasting'
+      branch: 'master'
+      role: py
+  replicas: 1
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'request-forecasting'
+        branch: 'master'
+        commit: '0429850'
+        role: py
+    spec:
+      containers:
+        - name: py-master
+          image: 'nexusprod.corp.intranet:4567/roadrunner/request-forecasting/request-forecasting:master'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: py
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1000Mi
+      imagePullSecrets:
+        - name: request-forecasting-master
+---
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  namespace: 'roadrunner-test'
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: 'e31e958'
+    role: py
+spec:
+  rules:
+    - host: py-master-request-forecasting.kubeodc-test.corp.intranet
+      http:
+        paths:
+          - path: "/"
+            backend:
+              serviceName: 'relocation-intake-portal-master-py'
+              servicePort: 8080
+  tls:
+    - hosts:
+      - 'py-master-request-forecasting.kubeodc-test.corp.intranet'
+      secretName: managed-tls-secret
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  namespace: 'roadrunner-test'
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: 'e31e958'
+    role: py
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: 'e31e958'
+    role: py
+  type: ClusterIP
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: 'e31e958'
+    role: py
+spec:
+  selector:
+    matchLabels:
+      project: 'request-forecasting'
+      branch: 'master'
+      role: py
+  replicas: 1
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'request-forecasting'
+        branch: 'master'
+        commit: 'e31e958'
+        role: py
+    spec:
+      containers:
+        - name: py-master
+          image: 'nexusprod.corp.intranet:4567/roadrunner/request-forecasting/request-forecasting:master'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: py
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1000Mi
+      imagePullSecrets:
+        - name: request-forecasting-master
+---
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  namespace: 'roadrunner-test'
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: '58f4b92'
+    role: py
+spec:
+  rules:
+    - host: py-master-request-forecasting.kubeodc-test.corp.intranet
+      http:
+        paths:
+          - path: "/"
+            backend:
+              serviceName: 'relocation-intake-portal-master-py'
+              servicePort: 8080
+  tls:
+    - hosts:
+      - 'py-master-request-forecasting.kubeodc-test.corp.intranet'
+      secretName: managed-tls-secret
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  namespace: 'roadrunner-test'
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: '58f4b92'
+    role: py
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: '58f4b92'
+    role: py
+  type: ClusterIP
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'relocation-intake-portal-master-py'
+  labels:
+    project: 'request-forecasting'
+    branch: 'master'
+    commit: '58f4b92'
+    role: py
+spec:
+  selector:
+    matchLabels:
+      project: 'request-forecasting'
+      branch: 'master'
+      role: py
+  replicas: 1
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'request-forecasting'
+        branch: 'master'
+        commit: '58f4b92'
+        role: py
+    spec:
+      containers:
+        - name: py-master
+          image: 'nexusprod.corp.intranet:4567/roadrunner/request-forecasting/request-forecasting:master'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: py
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1000Mi
+      imagePullSecrets:
+        - name: request-forecasting-master
+---
+---

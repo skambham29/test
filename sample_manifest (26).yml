@@ -1,0 +1,126 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'topologyviewer-development-dev1'
+  namespace: 'topologyviewer-dev'
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/affinity: cookie
+    nginx.ingress.kubernetes.io/session-cookie-name: JSESSIONID
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  labels:
+    project: 'topologyviewer-ui'
+    branch: 'development'
+    commit: '21c7152'
+    role: java
+    environment: dev1
+spec:
+  rules:
+    - host: topologyviewer-ui-dev1.kubeodc-test.corp.intranet
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: 'topologyviewer-development-dev1'
+              servicePort: 8080
+  tls:
+    - hosts:
+      - 'topologyviewer-ui-dev1.kubeodc-test.corp.intranet'
+      secretName: managed-tls-secret
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'topologyviewer-development-dev1'
+  namespace: 'topologyviewer-dev'
+  labels:
+    project: 'topologyviewer-ui'
+    branch: 'development'
+    commit: '21c7152'
+    role: java
+    environment: dev1
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    project: 'topologyviewer-ui'
+    branch: 'development'
+    commit: '21c7152'
+    role: java
+    environment: dev1
+  type: ClusterIP
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'topologyviewer-development-dev1'
+  labels:
+    project: 'topologyviewer-ui'
+    branch: 'development'
+    commit: '21c7152'
+    role: java
+    environment: dev1
+spec:
+  selector:
+    matchLabels:
+      project: 'topologyviewer-ui'
+      branch: 'development'
+      role: java
+      environment: dev1
+  replicas: 2
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'topologyviewer-ui'
+        branch: 'development'
+        commit: '21c7152'
+        role: java
+        environment: dev1
+    spec:
+      containers:
+        - name: java-development
+          image: 'nexusprod.corp.intranet:4567/topologyviewer/topologyviewer/topologyviewer-ui:dev1_20220127'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            limits:
+              memory: 2Gi
+              cpu: 250m
+            requests:
+              memory: 1.5Gi
+              cpu: 100m
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: cloud-dev1
+            - name: APP_SPACE
+              value: BRANCH
+            - name: APPDYNAMICS_CONTROLLER_HOST_NAME
+              value: 'centurylink-nonprod.saas.appdynamics.com'
+            - name: APPDYNAMICS_CONTROLLER_PORT
+              value: '443'
+            - name: APPDYNAMICS_CONTROLLER_SSL_ENABLED
+              value: 'true'
+            - name: APPDYNAMICS_AGENT_APPLICATION_NAME
+              value: 'TOPOLOGYVIEWER (DEV1) - SYSGEN787584643'
+            - name: APPDYNAMICS_AGENT_TIER_NAME
+              value: 'topologyviewer'
+            - name: APPDYNAMICS_AGENT_ACCOUNT_NAME
+              value: 'centurylink-nonprod'
+            - name: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: appdynamic-secret
+                  key: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+      imagePullSecrets:
+        - name: topologyviewer-ui-pr-null
+---
+---

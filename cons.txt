@@ -1,0 +1,320 @@
+17:18:48  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+17:18:48  + set +x
+[Pipeline] withCredentials
+17:18:48  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+17:18:48  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+17:18:49  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+17:18:51  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh
+17:18:52  + set +x
+[Pipeline] isUnix
+[Pipeline] sh
+17:18:52  + set +x
+[Pipeline] withCredentials
+17:18:52  Masking supported pattern matches of $USERNAME or $ACCESS_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting last GitHub Pull Request SHA ${commitId})
+17:18:52  + set +x
+[Pipeline] readJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request info)
+17:18:53  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Getting GitHub Pull Request reviewers info)
+17:18:54  + set +x
+[Pipeline] readJSON
+[Pipeline] writeJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] isUnix
+[Pipeline] sh (Jenkins Build Json)
+17:18:56  + set +x
+17:18:56    % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+17:18:56                                   Dload  Upload   Total   Spent    Left  Speed
+17:18:56  
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  4196  100  4196    0     0   141k      0 --:--:-- --:--:-- --:--:--  141k
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Format Timestamp)
+17:18:57  + sed s/.\{3\}$//
+17:18:57  + echo 1656589510628
+17:18:57  + date=1656589510
+17:18:57  + date -d @1656589510 +%Y-%m-%d %H:%M:%S
+[Pipeline] echo
+17:18:57  CHECK ✅️: JSL jsl-jenkins-shared-library using version release/20220603 without warnings.
+[Pipeline] writeJSON
+[Pipeline] isUnix
+[Pipeline] sh
+17:18:57  + rm -rf authorize_prod_deploy
+[Pipeline] unstash
+[Pipeline] isUnix
+[Pipeline] sh (Searching Config File)
+17:18:58  + find . -name sonar-project.properties
+[Pipeline] isUnix
+[Pipeline] sh (Get PROJECT_KEY)
+17:18:58  + set +x
+[Pipeline] isUnix
+[Pipeline] sh (Get SONAR_HOST)
+17:18:58  + set +x
+[Pipeline] echo
+17:18:59  Using Default Configuration
+[Pipeline] withCredentials
+17:18:59  Masking supported pattern matches of $SONARQUBE_TOKEN
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Get Code Smells)
+17:18:59  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Get Bugs)
+17:18:59  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Get Vulnerabilities)
+17:19:00  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Get Security Hotspots)
+17:19:00  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Get Coverage)
+17:19:01  + set +x
+[Pipeline] readJSON
+[Pipeline] isUnix
+[Pipeline] sh (Get SecurityRating)
+17:19:01  + set +x
+[Pipeline] readJSON
+[Pipeline] writeJSON
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] echo
+17:19:01  Skip Prod was not requested, Continuing Stats as it is
+[Pipeline] withCredentials
+17:19:02  Masking supported pattern matches of $GIT_USERNAME or $GIT_PASSWORD
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Create mal folder)
+17:19:02  + set +x
+[Pipeline] isUnix
+[Pipeline] sh (Adding Jenkins Report. Build 73)
+17:19:03  + set +x
+[Pipeline] isUnix
+[Pipeline] sh (Adding Jira Report. Build 73)
+17:19:03  + set +x
+17:19:03  Jira report not found
+[Pipeline] isUnix
+[Pipeline] sh (Adding GitHub Report. Build 73)
+17:19:03  + set +x
+[Pipeline] isUnix
+[Pipeline] sh (Adding pipelineMtLvl Report. Build 73)
+17:19:04  + set +x
+[Pipeline] isUnix
+[Pipeline] sh (Adding Sonar Report. Build 73)
+17:19:04  + set +x
+[Pipeline] isUnix
+[Pipeline] sh (Adding Timing Report. Build 73)
+17:19:04  + set +x
+17:19:04  Timing report not found
+[Pipeline] isUnix
+[Pipeline] sh (Adding Tests Reports. Build 73)
+17:19:04  + set +x
+17:19:04  E2E report not found
+[Pipeline] isUnix
+[Pipeline] sh (Adding qa Report. Build 73)
+17:19:05  + set +x
+17:19:05  qa report not found
+[Pipeline] unstash
+[Pipeline] echo
+17:19:05  No QA reports for NG911-GUARDIAN/ng911-synergem-api/master build number73
+[Pipeline] unstash
+[Pipeline] echo
+17:19:05  No Nexus reports for NG911-GUARDIAN/ng911-synergem-api/master build number73
+[Pipeline] unstash
+[Pipeline] echo
+17:19:05  No Nexus certification reports for NG911-GUARDIAN/ng911-synergem-api/master build number73
+[Pipeline] unstash
+[Pipeline] echo
+17:19:05  No Morpheus reports for NG911-GUARDIAN/ng911-synergem-api/master build number73
+[Pipeline] unstash
+[Pipeline] echo
+17:19:06  No ITCDM reports for NG911-GUARDIAN/ng911-synergem-api/master build number73
+[Pipeline] unstash
+[Pipeline] echo
+17:19:06  No Anchore reports for NG911-GUARDIAN/ng911-synergem-api/master build number73
+[Pipeline] echo
+17:19:06  Pushing Report to Pipeline Maturity Level repository in GitHub will be done on Separate Job
+[Pipeline] isUnix
+[Pipeline] sh (Creating statsAggregate directory)
+17:19:06  + rm -rf NG911-GUARDIAN/NG911-GUARDIAN/ng911-synergem-api/master/statsAggregate
+[Pipeline] isUnix
+[Pipeline] sh (Creating statsAggregate directory)
+17:19:06  + mkdir -p NG911-GUARDIAN/NG911-GUARDIAN/ng911-synergem-api/master/statsAggregate
+[Pipeline] isUnix
+[Pipeline] sh (Generating aggregated tgz for 73)
+17:19:07  + set +x
+17:19:07  NG911-GUARDIAN/NG911-GUARDIAN/ng911-synergem-api/master/GitHub/gitHubStats-20220630-114902.json
+17:19:07  NG911-GUARDIAN/NG911-GUARDIAN/ng911-synergem-api/master/Jenkins/jenkinsStats-20220630-114902.json
+17:19:07  NG911-GUARDIAN/NG911-GUARDIAN/ng911-synergem-api/master/pipelineMtLvl/pipelineMtLvl-20220630-114902.json
+17:19:07  NG911-GUARDIAN/NG911-GUARDIAN/ng911-synergem-api/master/Sonar/sonarqubeStats-20220630-114902.json
+[Pipeline] isUnix
+[Pipeline] sh (Pushing Report to Pipeline Maturity Level repository in Nexus as Build 73)
+17:19:07  + set +x
+[Pipeline] withCredentials
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] echo
+17:19:08  Placeholder to integrate Service Now DevOps Module in  Declarative: Post Actions stage.
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] isUnix
+[Pipeline] sh
+17:19:08  + set +x
+[Pipeline] withCredentials
+17:19:09  Masking supported pattern matches of $JIRA_CREDENTIALS_FILE
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh (Getting Jira Server)
+17:19:09  + set +x
+[Pipeline] }
+[Pipeline] // withCredentials
+Error when executing failure post condition:
+java.lang.NoSuchMethodError: No such DSL method 'jiraSendBuildInfo' found among steps [archive, bat, build, catchError, checkout, compareVersions, deleteDir, dir, dockerFingerprintFrom, dockerFingerprintRun, dockerNode, echo, emailext, emailextrecipients, envVarsForTool, error, fileExists, findBuildScans, findFiles, getContext, git, input, isUnix, junit, library, libraryResource, load, lock, mail, milestone, node, nodesByLabel, office365ConnectorSend, parallel, powershell, properties, publishChecks, publishHTML, pwd, pwsh, readCSV, readFile, readJSON, readManifest, readMavenPom, readProperties, readTrusted, readYaml, resolveScm, retry, script, sh, sha1, sleep, stage, stash, step, svn, tee, timeout, timestamps, tm, tool, touch, unarchive, unstable, unstash, unzip, validateDeclarativePipeline, waitForQualityGate, waitUntil, warnError, withChecks, withContext, withCredentials, withDockerContainer, withDockerRegistry, withDockerServer, withEnv, withGradle, wrap, writeCSV, writeFile, writeJSON, writeMavenPom, writeYaml, ws, zip] or symbols [all, allBranchesSame, allOf, always, ant, antFromApache, antOutcome, antTarget, any, anyOf, apiToken, architecture, archiveArtifacts, artifactManager, attach, authorizationMatrix, batchFile, booleanParam, branch, brokenBuildSuspects, brokenTestsSuspects, buildButton, buildDiscarder, buildDiscarders, buildRetention, buildUser, buildingTag, caseInsensitive, caseSensitive, certificate, changeRequest, changelog, changeset, checkoutToSubdirectory, choice, choiceParam, cleanWs, clock, command, configFile, configFileProvider, credentials, cron, crumb, culprits, default, defaultFolderConfiguration, defaultView, demand, developers, disableConcurrentBuilds, disableResume, docker, dockerCert, dockerServer, dockerTool, dockerfile, downstream, dumb, durabilityHint, email-ext, envVars, envVarsFilter, environment, equals, executor, expression, extendedEmailPublisher, file, fileParam, filePath, fingerprint, fingerprints, frameOptions, freeStyle, freeStyleJob, fromDocker, fromScm, fromSource, git, gitBranchDiscovery, gitHubBranchDiscovery, gitHubBranchHeadAuthority, gitHubExcludeArchivedRepositories, gitHubExcludePublicRepositories, gitHubForkDiscovery, gitHubPullRequestDiscovery, gitHubSshCheckout, gitHubTagDiscovery, gitHubTopicsFilter, gitHubTrustContributors, gitHubTrustEveryone, gitHubTrustNobody, gitHubTrustPermissions, gitTagDiscovery, github, githubPush, globalConfigFiles, gradle, headRegexFilter, headWildcardFilter, hyperlink, hyperlinkToModels, inheriting, inheritingGlobal, installSource, isRestartedRun, jacoco, jdk, jdkInstaller, jgit, jgitapache, jnlp, jobBuildDiscarder, jobName, junitTestResultStorage, label, lastDuration, lastFailure, lastGrantedAuthorities, lastStable, lastSuccess, legacy, legacySCM, list, local, location, logRotator, loggedInUsersCanDoAnything, mailer, masterBuild, maven, maven3Mojos, mavenErrors, mavenGlobalConfig, mavenMojos, mavenWarnings, modernSCM, myView, namedBranchesDifferent, newContainerPerStage, node, nodeProperties, nodejs, nodejsci, nonInheriting, none, not, office365ConnectorSend, office365ConnectorWebhooks, overrideIndexTriggers, paneStatus, parallelsAlwaysFailFast, parameters, password, pattern, permanent, pipeline-model, pipeline-model-docker, pipelineTriggers, plainText, plugin, pollSCM, preserveStashes, projectNamingStrategy, proxy, pruneTags, queueItemAuthenticator, quietPeriod, rateLimit, rateLimitBuilds, recipients, requestor, resourceRoot, retainOnlyVariables, run, runParam, sSHLauncher, schedule, scmRetryCount, scriptApproval, scriptApprovalLink, search, security, shell, simpleBuildDiscarder, skipDefaultCheckout, skipStagesAfterUnstable, slave, sourceRegexFilter, sourceWildcardFilter, ssh, sshPublicKey, sshUserPrivateKey, standard, status, string, stringParam, suppressAutomaticTriggering, swapSpace, tag, teamSlugFilter, text, textParam, timestamper, timestamperConfig, timezone, tmpSpace, toolLocation, triggeredBy, unsecured, untrusted, upstream, upstreamDevelopers, userSeed, usernameColonPassword, usernamePassword, viewsTabBar, weather, withAnt, withSonarQubeEnv, workspace, x509ClientCert, zip] or globals [currentBuild, docker, env, jslAdoptionCheckMaturityLevel, jslAdoptionGitHubStats, jslAdoptionJenkinsStats, jslAdoptionJiraStats, jslAdoptionJslChecker, jslAdoptionMain, jslAdoptionNexusRead, jslAdoptionNexusSearch, jslAdoptionNexusWrite, jslAdoptionPushReportsToGithub, jslAdoptionSonarStats, jslAdoptionTimingStats, jslAgentsLintDockerfiles, jslAgentsLocalBuild, jslAgentsParallelImageBuilds, jslAgentsRemoteReTagAndPush, jslAgentsRemoteTagAndPush, jslAnchoreAnalyzeImage, jslAppComponent, jslAppComponentBatch, jslArtifactDeploymentGate, jslAuditChangelog, jslAwsCliWrapper, jslAzureWrapper, jslBMConfigProp, jslBMLibraryPipeline, jslBMOMBuildAndPushToNexus, jslBMOMDeploy, jslBMPipeline, jslBMProdClusterDeploy, jslBmEmailNotification, jslBuildAndPushToNexus, jslBuildAndPushToNexus3, jslBuildAnt, jslBuildGradle, jslBuildMaven, jslBuildNpm, jslBuildSfdx, jslBuildVlocity, jslBuildWrapperBumpWorkspaceUpdater, jslBuildYarn, jslCFamilyMakeWrapper, jslCheckQualityGates, jslCheckSonarQualityGate, jslCleanPath, jslCreateKubeConfig, jslCreateSimpleManifest, jslCreateSonarAddittionalProjects, jslDIOHelmDeploy, jslDaumerlings, jslDeleteMergedBranches, jslDeployJSL, jslDeployK8SControlKnob, jslDeployK8s, jslDeployK8sManifest, jslDeployK8sManifestWithEnv, jslDeployToMorpheus, jslDeploymentContractValidationRead, jslDeploymentContractValidationWrite, jslDeploymentControlKnob, jslDirectBuildAndPushToNexus, jslDirectoryManagerEmployees, jslDockerImageAddCrumbsForProduction, jslDockerImageExtractCrumbs, jslDockerImageValidationForProduction, jslDotNetWrapper, jslDownloadFileFromNexus, jslETSCreateDeployRequest, jslETSGenerateSOECheckerLibReport, jslETSGetEnvironment, jslETSGetReleaseTarget, jslEmailNotification, jslEmptyHook, jslExtractBranchFromDeployment, jslGCRCategoryType, jslGCRCheckApproval, jslGCRCreate, jslGCRDevOpsCheck, jslGCRDevOpsCreate, jslGCRDevOpsFallbackUpdate, jslGCRDevOpsIsAllowed, jslGCRDevOpsUpdate, jslGCRGetTagAttributes, jslGCRReadJira, jslGCRSearch, jslGCRTag, jslGCRTagCommit, jslGCRUpdate, jslGCRUpdateJira, jslGenerateApache2DockerFile, jslGenerateConfigMapFromFile, jslGenerateDotnetDockerFile, jslGenerateManifestForSimpleDotnet, jslGenerateManifestForSimpleJava, jslGenerateManifestForSimpleNginx, jslGenerateManifestFromTemplate, jslGenerateManifestFromTemplateWithAD, jslGenerateManifestFromTemplateWithEnv, jslGenerateManualTestReport, jslGenerateNginxDockerFile, jslGeneratePipelineWatermark, jslGenerateSFValidationTest, jslGetClosedPRs, jslGetInstanceMorpheus, jslGetJiraServerFromCredentials, jslGetK8sDeployments, jslGetLifecycleEnvironment, jslGetPullRequestIssue, jslGitEasyChangelog, jslGitGetFirstCommit, jslGitGetRepoName, jslGitGetRepoOwner, jslGitGetSha, jslGitHubBranchProtection, jslGitHubCloneRepo, jslGitHubCorporateEmail, jslGitHubDeploymentCreate, jslGitHubDeploymentGetId, jslGitHubDeploymentGetOrCreate, jslGitHubDeploymentGetStatus, jslGitHubDeploymentSetStatus, jslGitHubGetLastPR, jslGitHubGetTopics, jslGitHubGetWebsite, jslGitHubMessage, jslGitHubPRCreate, jslGitHubPRMerge, jslGitHubPackageVersionUpdates, jslGitHubPushRepo, jslGitHubReleaseCreate, jslGitHubReleaseGetId, jslGitHubReleaseUpdate, jslGitHubSecurityAlert, jslGitHubSetTopics, jslGitHubStatus, jslGitHubStatusChecks, jslGitHubWebhookCreate, jslGitHublGetLastPRHead, jslGradleWrapper, jslGrypeAnalyzeImage, jslHelmDeploy, jslHubWrapper, jslIsInsideDocker, jslItcdmAddStatusBuildData, jslItcdmCreateBuildConfigId, jslItcdmGenerateCustomLabel, jslItcdmGenerateDeploymentStats, jslItcdmGenerateLabel, jslItcdmGenerateTarArtifact, jslItcdmGetApplicationId, jslItcdmGetBuildConfigId, jslItcdmGetBuildData, jslItcdmGetChangeSets, jslItcdmGetChangeUser, jslItcdmGetDeploymentId, jslItcdmGetJobConsole, jslItcdmInitialConfigCheck, jslItcdmPublishBuildData, jslItcdmScriptsRetrieve, jslItcdmUploadTarArtifact, jslJavadocToMarkdown, jslJenkinsCreateCredential, jslJenkinsCreateFolder, jslJenkinsCreateJob, jslJenkinsCreateMavenSettingsConfigFile, jslJenkinsGetFolderName, jslJenkinsGetFolderPath, jslJenkinsGetFolderWithRights, jslJenkinsGetGCJobXml, jslJenkinsGetRegularJobXml, jslJenkinsGetSecretFileCredXml, jslJenkinsGetSecretTextCredXml, jslJenkinsGetUserPasswordCredXml, jslJenkinsLogs, jslJenkinsPrefix, jslJenkinsRequest, jslJiraCommand, jslJiraCompliantStatus, jslJiraPullChangeLogTestResults, jslJiraPullTestResults, jslJiraSendBuildInfo, jslJiraSendDeploymentInfo, jslJiraXrayResultImport, jslKubeconfigWrapper, jslKubectlTemplateWrapper, jslLifecycleMorpheus, jslLoginMorpheus, jslLogoutMorpheus, jslMavenGetProperties, jslMavenWrapper, jslMd5, jslMigrateRepoWithoutPRs, jslMorpheusWorkflow, jslMvnProjectVersion, jslNexusGetLastAsset, jslNexusSearchLastAsset, jslNotification, jslNotifyTeams, jslNpmGetPackageJsonVersion, jslNpmPublish, jslNpmWrapper, jslNpxWrapper, jslPAYdeployK8sManifest, jslPipelineCXS, jslPipelinePortalFrameworkMicroapp, jslPipelinePortalFrameworkMicroappPruneJob, jslPipelinePortalFrameworkMicroappPublish, jslPostQualityGate7Validation, jslPrintAnsi, jslProcessClosedPR, jslPruneDeployment, jslPrunePR, jslPublishCheckStyleReports, jslPublishCppCheckReports, jslPublishCucumberReport, jslPublishHTMLTestResults, jslPublishPylintReports, jslPublishTestResults, jslPublishTrxTestResults, jslPythonWrapper, jslQualityGate, jslQualityGate6GCRValidation, jslQualityGateCodeCoverage, jslQualityGatesValidation, jslReadSkipProdValidation, jslReconfigureInstanceMorpheus, jslSalesforceDownloadJars, jslSkipProdValidation, jslSonarAssignPermissions, jslSonarCNESReport, jslSonarQubeStaticAnalysis, jslSoxClarityProjects, jslSqlCommand, jslTerraformWrapper, jslTomBuildAndPushToNexus, jslTomDeploy, jslTriggerRemoteJob, jslUploadFileToNexus, jslValidRestartStages, jslWaitForDeployment, jslWaitForStatusMorpheus, jslWandershaft, jslYarnWrapper, jslZipUncrypt, params, pipeline, scm, sh, stage]
+	at org.jenkinsci.plugins.workflow.cps.DSL.invokeMethod(DSL.java:216)
+	at org.jenkinsci.plugins.workflow.cps.CpsScript.invokeMethod(CpsScript.java:122)
+	at sun.reflect.GeneratedMethodAccessor3245.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:93)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:325)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1213)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1022)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaClassSite.call(PogoMetaClassSite.java:42)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:48)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:113)
+	at org.kohsuke.groovy.sandbox.impl.Checker$1.call(Checker.java:163)
+	at org.kohsuke.groovy.sandbox.GroovyInterceptor.onMethodCall(GroovyInterceptor.java:23)
+	at org.jenkinsci.plugins.scriptsecurity.sandbox.groovy.SandboxInterceptor.onMethodCall(SandboxInterceptor.java:157)
+	at org.jenkinsci.plugins.scriptsecurity.sandbox.groovy.SandboxInterceptor.onMethodCall(SandboxInterceptor.java:142)
+	at org.kohsuke.groovy.sandbox.impl.Checker$1.call(Checker.java:161)
+	at org.kohsuke.groovy.sandbox.impl.Checker.checkedCall(Checker.java:165)
+	at com.cloudbees.groovy.cps.sandbox.SandboxInvoker.methodCall(SandboxInvoker.java:17)
+	at jslJiraSendBuildInfo.call(jslJiraSendBuildInfo.groovy:38)
+	at jslJiraSendBuildInfo.call(jslJiraSendBuildInfo.groovy)
+	at jslNotification.call(jslNotification.groovy:31)
+	at jslNotification.call(jslNotification.groovy)
+	at WorkflowScript.run(WorkflowScript:191)
+	at org.jenkinsci.plugins.pipeline.modeldefinition.ModelInterpreter.delegateAndExecute(ModelInterpreter.groovy:137)
+	at org.jenkinsci.plugins.pipeline.modeldefinition.ModelInterpreter.runPostConditions(ModelInterpreter.groovy:756)
+	at org.jenkinsci.plugins.pipeline.modeldefinition.ModelInterpreter.catchRequiredContextForNode(ModelInterpreter.groovy:395)
+	at org.jenkinsci.plugins.pipeline.modeldefinition.ModelInterpreter.catchRequiredContextForNode(ModelInterpreter.groovy:393)
+	at org.jenkinsci.plugins.pipeline.modeldefinition.ModelInterpreter.runPostConditions(ModelInterpreter.groovy:755)
+	at com.cloudbees.groovy.cps.CpsDefaultGroovyMethods.each(CpsDefaultGroovyMethods:2030)
+	at com.cloudbees.groovy.cps.CpsDefaultGroovyMethods.each(CpsDefaultGroovyMethods:2015)
+	at com.cloudbees.groovy.cps.CpsDefaultGroovyMethods.each(CpsDefaultGroovyMethods:2056)
+	at org.jenkinsci.plugins.pipeline.modeldefinition.ModelInterpreter.runPostConditions(ModelInterpreter.groovy:745)
+	at org.jenkinsci.plugins.pipeline.modeldefinition.ModelInterpreter.runPostConditions(ModelInterpreter.groovy)
+	at org.jenkinsci.plugins.pipeline.modeldefinition.ModelInterpreter.executePostBuild(ModelInterpreter.groovy:723)
+	at ___cps.transform___(Native Method)
+	at com.cloudbees.groovy.cps.impl.ContinuationGroup.methodCall(ContinuationGroup.java:86)
+	at com.cloudbees.groovy.cps.impl.FunctionCallBlock$ContinuationImpl.dispatchOrArg(FunctionCallBlock.java:113)
+	at com.cloudbees.groovy.cps.impl.FunctionCallBlock$ContinuationImpl.fixArg(FunctionCallBlock.java:83)
+	at sun.reflect.GeneratedMethodAccessor1134.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.cloudbees.groovy.cps.impl.ContinuationPtr$ContinuationImpl.receive(ContinuationPtr.java:72)
+	at com.cloudbees.groovy.cps.impl.CollectionLiteralBlock$ContinuationImpl.dispatch(CollectionLiteralBlock.java:55)
+	at com.cloudbees.groovy.cps.impl.CollectionLiteralBlock$ContinuationImpl.item(CollectionLiteralBlock.java:45)
+	at sun.reflect.GeneratedMethodAccessor1047.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.cloudbees.groovy.cps.impl.ContinuationPtr$ContinuationImpl.receive(ContinuationPtr.java:72)
+	at com.cloudbees.groovy.cps.impl.LocalVariableBlock$LocalVariable.get(LocalVariableBlock.java:39)
+	at com.cloudbees.groovy.cps.LValueBlock$GetAdapter.receive(LValueBlock.java:30)
+	at com.cloudbees.groovy.cps.impl.LocalVariableBlock.evalLValue(LocalVariableBlock.java:28)
+	at com.cloudbees.groovy.cps.LValueBlock$BlockImpl.eval(LValueBlock.java:55)
+	at com.cloudbees.groovy.cps.LValueBlock.eval(LValueBlock.java:16)
+	at com.cloudbees.groovy.cps.Next.step(Next.java:83)
+	at com.cloudbees.groovy.cps.Continuable$1.call(Continuable.java:174)
+	at com.cloudbees.groovy.cps.Continuable$1.call(Continuable.java:163)
+	at org.codehaus.groovy.runtime.GroovyCategorySupport$ThreadCategoryInfo.use(GroovyCategorySupport.java:129)
+	at org.codehaus.groovy.runtime.GroovyCategorySupport.use(GroovyCategorySupport.java:268)
+	at com.cloudbees.groovy.cps.Continuable.run0(Continuable.java:163)
+	at org.jenkinsci.plugins.workflow.cps.SandboxContinuable.access$001(SandboxContinuable.java:18)
+	at org.jenkinsci.plugins.workflow.cps.SandboxContinuable.run0(SandboxContinuable.java:51)
+	at org.jenkinsci.plugins.workflow.cps.CpsThread.runNextChunk(CpsThread.java:185)
+	at org.jenkinsci.plugins.workflow.cps.CpsThreadGroup.run(CpsThreadGroup.java:400)
+	at org.jenkinsci.plugins.workflow.cps.CpsThreadGroup.access$400(CpsThreadGroup.java:96)
+	at org.jenkinsci.plugins.workflow.cps.CpsThreadGroup$2.call(CpsThreadGroup.java:312)
+	at org.jenkinsci.plugins.workflow.cps.CpsThreadGroup$2.call(CpsThreadGroup.java:276)
+	at org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService$2.call(CpsVmExecutorService.java:67)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at hudson.remoting.SingleLaneExecutorService$1.run(SingleLaneExecutorService.java:139)
+	at jenkins.util.ContextResettingExecutorService$1.run(ContextResettingExecutorService.java:28)
+	at jenkins.security.ImpersonatingExecutorService$1.run(ImpersonatingExecutorService.java:68)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+
+GitHub has been notified of this commit’s build result
+
+java.lang.NullPointerException
+	at java.util.Objects.requireNonNull(Objects.java:203)
+	at com.cloudbees.plugins.credentials.CredentialsProvider.findCredentialById(CredentialsProvider.java:884)
+	at com.cloudbees.plugins.credentials.CredentialsProvider.findCredentialById(CredentialsProvider.java:862)
+	at org.jenkinsci.plugins.credentialsbinding.MultiBinding.getCredentials(MultiBinding.java:144)
+	at org.jenkinsci.plugins.credentialsbinding.impl.AbstractOnDiskBinding.bindSingle(AbstractOnDiskBinding.java:39)
+	at org.jenkinsci.plugins.credentialsbinding.Binding.bind(Binding.java:150)
+	at org.jenkinsci.plugins.credentialsbinding.impl.BindingStep$Execution2.doStart(BindingStep.java:135)
+	at org.jenkinsci.plugins.workflow.steps.GeneralNonBlockingStepExecution.lambda$run$0(GeneralNonBlockingStepExecution.java:77)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+Finished: FAILURE

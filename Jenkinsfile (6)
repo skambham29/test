@@ -1,0 +1,266 @@
+try {
+  library(
+    identifier: 'jsl-jenkins-shared-library-local@release/20210902',
+    retriever: modernSCM(
+    [
+      $class: 'GitSCMSource',
+      remote: "/app/jenkins/git/jsl-jenkins-shared-library.git",
+      extensions: [[$class: 'WipeWorkspace']]
+     ]
+    )
+  ) _
+} catch (Exception Ex) {
+  library(
+    identifier: 'jsl-jenkins-shared-library@release/20210902',
+    retriever: modernSCM(
+    [
+      $class: 'GitSCMSource',
+      remote: "git@github.com:CenturyLink/jsl-jenkins-shared-library.git",
+      credentialsId: 'SCMAUTO_SSH_DEVOPS_PIPELINE',
+      extensions: [[$class: 'WipeWorkspace']]
+    ]
+   )
+  ) _
+}
+
+pipeline {
+    agent {
+      label 'Docker-enabled'
+    }
+
+    environment {
+      /*
+          Credentials:
+          GITHUB_TOKEN_CREDENTIALS - github token, jenkins user password credential
+          GITHUB_SSH_CREDENTIALS - github ssh private key, jenkins private key credential.
+          DOCKER_CREDENTIALS - Nexus access info, jenkins secret file credential with environment variables to export
+          SONARQUBE_CREDENTIALS - Sonarqube access info, jenkins secret text credential
+          JIRA_CREDENTIALS - Jira access info, jenkins secret file credential with environment variables to export
+          MSTEAMS_CREADENTIALS - MS Teams channel webhook URL, jenkins secret text credential
+        */
+        GITHUB_TOKEN_CREDENTIALS = 'SCMAUTO_GITHUB'
+        GITHUB_SSH_CREDENTIALS = 'SCMAUTO_SSH_DEVOPS_PIPELINE'
+        DOCKER_CREDENTIALS = 'nexus-secret'
+        SONARQUBE_CREDENTIALS = 'sonar-secrets'
+        JIRA_CREDENTIALS = 'jira-credentials'
+        QUALITY_GATE_CREDENTIALS = 'qualitygate-secret'
+        PROJECT_MAL = 'HYPERSCALERS'
+        MSTEAMS_CREDENTIALS = 'teams-secret'
+
+        PROJECT_NAME = 'hyperscalers-orders'
+        DOCKER_REGISTRY = 'nexusprod.corp.intranet:4567'
+        DOCKER_REPO ='hyperscalers'
+        IMAGE_NAME = "${env.PROJECT_NAME}"
+        IMAGE_TAG_ID = '1.0.1'
+        DOCKERFILE_PATH = './Dockerfile'
+        IMAGE_REPO = "${DOCKER_REGISTRY}/${DOCKER_REPO}/${IMAGE_NAME}"
+
+        HELM_TEMPLATES_PATH = './helm/'
+        INGRESS_DOMAIN = 'kubeodc-test.corp.intranet'
+        INGRESS_DOMAIN_PROD = 'kubeodc-prod.corp.intranet'
+
+        SCAN_BRANCH = 'dev'
+        BRANCH_NAME = GIT_BRANCH.split('/')[-1].trim().toLowerCase()
+        COMMIT_ID = GIT_COMMIT.substring(0,7).trim().toLowerCase()
+        PULL_REQUEST="pr-${env.CHANGE_ID}"
+        IMAGE_TAG = "${env.BRANCH_NAME}-${env.IMAGE_TAG_ID}"
+
+    }
+
+    options {
+      timestamps ()
+      timeout(time: 1, unit: 'HOURS')
+      buildDiscarder(logRotator(numToKeepStr:'10', daysToKeepStr: '30'))
+      disableConcurrentBuilds()
+    }
+
+    stages {
+      stage('Static Code Analysis') {
+        parallel {
+          stage('Linting') {
+            agent {
+              dockerfile {
+                filename 'Dockerfile'
+                dir 'cicd/docker/mvn'
+                label 'Docker-enabled'
+              }
+            }
+            steps {
+              script {
+                /* Contract validation gate */
+                jslMavenWrapper('-f ./pom.xml checkstyle:checkstyle')
+                archiveArtifacts artifacts: 'target/checkstyle*.xml', fingerprint: true
+                }
+              }
+            }
+          stage('DevSecOps'){
+            steps {
+              script {
+                /* Contract validation gate */
+                jslGitHubSecurityAlert()
+              }
+            }
+          }
+        }
+      }
+      stage('Build') {
+        agent {
+          dockerfile {
+            filename 'Dockerfile'
+            dir 'cicd/docker/mvn'
+            label 'Docker-enabled'
+          }
+        }
+        steps {
+            jslMavenWrapper('-f ./pom.xml clean install')
+            stash name: "TARGET", includes: "target/**"
+        }
+      }
+
+      stage('Docker') {
+        steps {
+          script {
+              unstash name: "TARGET"
+              def dockerfile_path = "${env.DOCKERFILE_PATH}"
+              echo "ImageTag:- ${env.IMAGE_TAG}"
+              echo "DockerRepo:- ${env.DOCKER_REPO}"
+              echo "ImageName:- ${env.IMAGE_NAME}"
+              jslDirectBuildAndPushToNexus(dockerfile_path, env.IMAGE_TAG, env.IMAGE_NAME, env.DOCKER_REPO)
+              jslCleanPath(dockerfile_path)
+          }
+        }
+      }
+
+      stage('Test') {
+        stages {
+          stage('Unit Tests') {
+            agent {
+                dockerfile {
+                    filename 'Dockerfile'
+                    dir 'cicd/docker/mvn'
+                    label 'Docker-enabled'
+                }
+            }
+            steps {
+              script {
+                /* Contract validation gate */
+                jslMavenWrapper('-f ./pom.xml clean test')
+                jslPublishTestResults('target/surefire-reports/*.xml')
+                stash name: "TESTS", includes: "target/**"
+              }
+            }
+          }
+          stage('Coverage'){
+            steps {
+              script {
+                /* Contract validation gate */
+                unstash name: "TESTS"
+                jslPublishHTMLTestResults('index.html','target/site/jacoco/', 'Jacoco Report')
+                /* Sonar get executed only in Master Branch */
+                jslQualityGateCodeCoverage('./cicd/conf/sonarqube/sonar-project.properties')
+              }
+            }
+          }
+          stage('Sonarqube'){
+            agent {
+                dockerfile {
+                    filename 'Dockerfile'
+                    dir 'cicd/docker/sonarqube'
+                    label 'Docker-enabled'
+                }
+            }
+            steps {
+              script {
+                  unstash name: "TESTS"
+                  /* Contract validation gate */
+                  jslSonarQubeStaticAnalysis('./cicd/conf/sonarqube/sonar-project.properties')
+              }
+            }
+          }
+          stage('Quality Gate'){
+            agent {
+                dockerfile {
+                    filename 'Dockerfile'
+                    dir 'cicd/docker/sonarqube'
+                    label 'Docker-enabled'
+                }
+            }
+            steps {
+              script {
+                /* Contract validation gate */
+                jslQualityGate()
+              }
+            }
+          }
+        }
+      }
+
+      stage('Deploy') {
+          agent {
+            dockerfile {
+              filename 'Dockerfile'
+              dir 'cicd/docker/mvn'
+              label 'Docker-enabled'
+            }
+          }
+          steps {
+            script {
+              configFileProvider([configFile(fileId: 'hyperscalers.kubeconfig', variable: 'KUBECONFIG')]) {
+                switch (env.BRANCH_NAME) {
+                  case 'main':
+                    env.ENVIRONMENT = 'prod'
+                    env.K8S_NAMESPACE = 'hyperscalers'
+                    sh("helm upgrade --install ${env.PROJECT_NAME}-${env.BRANCH_NAME} --kube-context=${env.K8S_NAMESPACE} --namespace=${env.K8S_NAMESPACE} --set branch=${env.BRANCH_NAME} --set image.tag=${env.IMAGE_TAG} --set environment=${env.ENVIRONMENT} --set ingress.domain=${env.INGRESS_DOMAIN_PROD} --set image.repository=${env.IMAGE_REPO} --set timestamp=${BUILD_ID} ${env.HELM_TEMPLATES_PATH}")
+                    break
+                  case 'test':
+                    env.ENVIRONMENT = 'test'
+                    env.K8S_NAMESPACE = 'hyperscalers-test'
+                    sh("helm upgrade --install ${env.PROJECT_NAME}-${env.BRANCH_NAME} --kube-context=${env.K8S_NAMESPACE} --namespace=${env.K8S_NAMESPACE} --set branch=${env.BRANCH_NAME} --set image.tag=${env.IMAGE_TAG} --set environment=${env.ENVIRONMENT} --set ingress.domain=${env.INGRESS_DOMAIN} --set image.repository=${env.IMAGE_REPO} --set timestamp=${BUILD_ID} ${env.HELM_TEMPLATES_PATH}")
+                    break
+                  case 'dev':
+                    env.ENVIRONMENT = 'dev'
+                    env.K8S_NAMESPACE = 'hyperscalers-dev'
+                    sh("helm upgrade --install ${env.PROJECT_NAME}-${env.BRANCH_NAME} --kube-context=${env.K8S_NAMESPACE} --namespace=${env.K8S_NAMESPACE} --set branch=${env.BRANCH_NAME} --set image.tag=${env.IMAGE_TAG} --set environment=${env.ENVIRONMENT} --set ingress.domain=${env.INGRESS_DOMAIN} --set image.repository=${env.IMAGE_REPO} --set timestamp=${BUILD_ID} ${env.HELM_TEMPLATES_PATH}")
+                    break
+                  default:
+                    env.ENVIRONMENT = 'build'
+                    env.K8S_NAMESPACE = 'hyperscalers-dev'
+                    sh("helm upgrade --install ${env.PROJECT_NAME}-${env.BRANCH_NAME} --kube-context=${env.K8S_NAMESPACE} --namespace=${env.K8S_NAMESPACE} --set branch=${env.BRANCH_NAME} --set image.tag=${env.IMAGE_TAG} --set environment=${env.ENVIRONMENT} --set ingress.domain=${env.INGRESS_DOMAIN} --set image.repository=${env.IMAGE_REPO} --set timestamp=${BUILD_ID} ${env.HELM_TEMPLATES_PATH}")
+                    break                                                      
+                }
+              }
+            }
+          }
+      }
+
+      stage('Adoption Stats') {
+        agent {
+          dockerfile {
+              filename 'Dockerfile'
+              dir 'cicd/docker/jira'
+              label 'Docker-enabled'
+            }
+        }
+        steps {
+          unstash name: "TESTS"
+          /* Contract validation gate */
+          jslAdoptionMain('target/site/jacoco/jacoco.xml')
+        }
+      }
+    }
+
+    post {
+      success {
+        jslNotification('success')
+        cleanWs()
+      }
+      failure {
+        jslNotification('failure')
+        cleanWs()
+      }
+      unstable {
+        jslNotification('unstable')
+        cleanWs()
+      }
+    }
+}

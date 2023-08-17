@@ -1,0 +1,21 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <servers>
+        <server>
+            <id>ctl.nexus.thirdparty</id>
+            <username>drivrscm</username>
+            <password>YvDu^M7Z</password>
+        </server>
+        <server>
+            <id>ctl.nexus.test</id>
+            <username>drivrscm</username>
+            <password>YvDu^M7Z</password>
+        </server>		
+    </servers>
+ <repositories>
+   <repository>
+     <id>datanucleus</id>
+     <url>http://www.datanucleus.org/downloads/maven2/</url>
+   </repository>
+ </repositories>
+
+</settings>				

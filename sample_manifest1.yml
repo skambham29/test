@@ -1,0 +1,590 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'fdc-usermgmt-dpr-encryptservice-itv1-java-itv1'
+  namespace: 'fdc-test'
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: '3600'
+    nginx.ingress.kubernetes.io/proxy-read-timeout: '3600'
+    nginx.ingress.kubernetes.io/proxy-send-timeout: '3600'
+  labels:
+    project: 'dpr-encryptservice'
+    branch: 'dpr-encryptservice-itv1'
+    commit: '4862764'
+    role: java
+    environment: 'itv1'
+spec:
+  rules:
+    - host: dpr-encryptservice-itv1.kubeidc-prod.level3.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: 'fdc-usermgmt-dpr-encryptservice-itv1-java-itv1'
+              servicePort: 9097
+  tls:
+    - hosts:
+      - 'dpr-encryptservice-itv1.kubeidc-prod.level3.com'
+      secretName: managed-tls-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'fdc-usermgmt-dpr-encryptservice-itv1-java-itv1'
+  namespace: 'fdc-test'
+  labels:
+    project: 'dpr-encryptservice'
+    branch: 'dpr-encryptservice-itv1'
+    commit: '4862764'
+    role: java
+    environment: 'itv1'
+spec:
+  ports:
+    - port: 9097
+      targetPort: 9097
+      protocol: TCP
+  selector:
+    project: 'dpr-encryptservice'
+    branch: 'dpr-encryptservice-itv1'
+    commit: '4862764'
+    role: java
+    environment: 'itv1'
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'fdc-usermgmt-dpr-encryptservice-itv1-java-itv1'
+  labels:
+    project: 'dpr-encryptservice'
+    branch: 'dpr-encryptservice-itv1'
+    commit: '4862764'
+    role: java
+    environment: 'itv1'
+spec:
+  selector:
+    matchLabels:
+      project: 'dpr-encryptservice'
+      branch: 'dpr-encryptservice-itv1'
+      role: java
+      environment: 'itv1'
+  replicas: 2
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'dpr-encryptservice'
+        branch: 'dpr-encryptservice-itv1'
+        commit: '4862764'
+        role: java
+        environment: 'itv1'
+    spec:
+      containers:
+        - name: fdc-usermgmt-dpr-encryptservice-itv1-java-itv1
+          image: 'nexusprod.corp.intranet:4567/dpr-encryptservice/dpr-encryptservice:dpr-encryptservice-itv1'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9097
+              protocol: TCP
+          resources:
+            limits:
+              memory: 1000Mi
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: itv1
+            - name: JAVA_TOOL_OPTIONS
+              value: -Dqxgf.properties.instance=itv1
+            - name: APPDYNAMICS_CONTROLLER_HOST_NAME
+              value: ''
+            - name: APPDYNAMICS_CONTROLLER_PORT
+              value: ''
+            - name: APPDYNAMICS_CONTROLLER_SSL_ENABLED
+              value: ''
+            - name: APPDYNAMICS_AGENT_APPLICATION_NAME
+              value: 'dpr-encryptservice (itv1) '
+            - name: APPDYNAMICS_AGENT_TIER_NAME
+              value: 'dpr-encryptservice'
+            - name: APPDYNAMICS_AGENT_ACCOUNT_NAME
+              value: ''
+            - name: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+              value: ''
+      imagePullSecrets:
+        - name: dpr-encryptservice-dpr-encryptservice-itv1
+---
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'fdc-usermgmt-dpr-encryptservice-itv1-java-itv1'
+  namespace: 'fdc-test'
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: '3600'
+    nginx.ingress.kubernetes.io/proxy-read-timeout: '3600'
+    nginx.ingress.kubernetes.io/proxy-send-timeout: '3600'
+  labels:
+    project: 'dpr-encryptservice'
+    branch: 'dpr-encryptservice-itv1'
+    commit: '4862764'
+    role: java
+    environment: 'itv1'
+spec:
+  rules:
+    - host: dpr-encryptservice-itv1.kubeidc-prod.level3.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: 'fdc-usermgmt-dpr-encryptservice-itv1-java-itv1'
+              servicePort: 9097
+  tls:
+    - hosts:
+      - 'dpr-encryptservice-itv1.kubeidc-prod.level3.com'
+      secretName: managed-tls-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'fdc-usermgmt-dpr-encryptservice-itv1-java-itv1'
+  namespace: 'fdc-test'
+  labels:
+    project: 'dpr-encryptservice'
+    branch: 'dpr-encryptservice-itv1'
+    commit: '4862764'
+    role: java
+    environment: 'itv1'
+spec:
+  ports:
+    - port: 9097
+      targetPort: 9097
+      protocol: TCP
+  selector:
+    project: 'dpr-encryptservice'
+    branch: 'dpr-encryptservice-itv1'
+    commit: '4862764'
+    role: java
+    environment: 'itv1'
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'fdc-usermgmt-dpr-encryptservice-itv1-java-itv1'
+  labels:
+    project: 'dpr-encryptservice'
+    branch: 'dpr-encryptservice-itv1'
+    commit: '4862764'
+    role: java
+    environment: 'itv1'
+spec:
+  selector:
+    matchLabels:
+      project: 'dpr-encryptservice'
+      branch: 'dpr-encryptservice-itv1'
+      role: java
+      environment: 'itv1'
+  replicas: 2
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'dpr-encryptservice'
+        branch: 'dpr-encryptservice-itv1'
+        commit: '4862764'
+        role: java
+        environment: 'itv1'
+    spec:
+      containers:
+        - name: fdc-usermgmt-dpr-encryptservice-itv1-java-itv1
+          image: 'nexusprod.corp.intranet:4567/dpr-encryptservice/dpr-encryptservice:dpr-encryptservice-itv1'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9097
+              protocol: TCP
+          resources:
+            limits:
+              memory: 1000Mi
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: itv1
+            - name: JAVA_TOOL_OPTIONS
+              value: -Dqxgf.properties.instance=itv1
+            - name: APPDYNAMICS_CONTROLLER_HOST_NAME
+              value: ''
+            - name: APPDYNAMICS_CONTROLLER_PORT
+              value: ''
+            - name: APPDYNAMICS_CONTROLLER_SSL_ENABLED
+              value: ''
+            - name: APPDYNAMICS_AGENT_APPLICATION_NAME
+              value: 'dpr-encryptservice (itv1) '
+            - name: APPDYNAMICS_AGENT_TIER_NAME
+              value: 'dpr-encryptservice'
+            - name: APPDYNAMICS_AGENT_ACCOUNT_NAME
+              value: ''
+            - name: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+              value: ''
+      imagePullSecrets:
+        - name: dpr-encryptservice-dpr-encryptservice-itv1
+---
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'fdc-usermgmt-dpr-encryptservice-itv1-java-itv1'
+  namespace: 'fdc-test'
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: '3600'
+    nginx.ingress.kubernetes.io/proxy-read-timeout: '3600'
+    nginx.ingress.kubernetes.io/proxy-send-timeout: '3600'
+  labels:
+    project: 'dpr-encryptservice'
+    branch: 'dpr-encryptservice-itv1'
+    commit: '4862764'
+    role: java
+    environment: 'itv1'
+spec:
+  rules:
+    - host: dpr-encryptservice-itv1.kubeidc-prod.level3.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: 'fdc-usermgmt-dpr-encryptservice-itv1-java-itv1'
+              servicePort: 9097
+  tls:
+    - hosts:
+      - 'dpr-encryptservice-itv1.kubeidc-prod.level3.com'
+      secretName: managed-tls-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'fdc-usermgmt-dpr-encryptservice-itv1-java-itv1'
+  namespace: 'fdc-test'
+  labels:
+    project: 'dpr-encryptservice'
+    branch: 'dpr-encryptservice-itv1'
+    commit: '4862764'
+    role: java
+    environment: 'itv1'
+spec:
+  ports:
+    - port: 9097
+      targetPort: 9097
+      protocol: TCP
+  selector:
+    project: 'dpr-encryptservice'
+    branch: 'dpr-encryptservice-itv1'
+    commit: '4862764'
+    role: java
+    environment: 'itv1'
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'fdc-usermgmt-dpr-encryptservice-itv1-java-itv1'
+  labels:
+    project: 'dpr-encryptservice'
+    branch: 'dpr-encryptservice-itv1'
+    commit: '4862764'
+    role: java
+    environment: 'itv1'
+spec:
+  selector:
+    matchLabels:
+      project: 'dpr-encryptservice'
+      branch: 'dpr-encryptservice-itv1'
+      role: java
+      environment: 'itv1'
+  replicas: 2
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'dpr-encryptservice'
+        branch: 'dpr-encryptservice-itv1'
+        commit: '4862764'
+        role: java
+        environment: 'itv1'
+    spec:
+      containers:
+        - name: fdc-usermgmt-dpr-encryptservice-itv1-java-itv1
+          image: 'nexusprod.corp.intranet:4567/dpr-encryptservice/dpr-encryptservice:dpr-encryptservice-itv1'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9097
+              protocol: TCP
+          resources:
+            limits:
+              memory: 1000Mi
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: itv1
+            - name: JAVA_TOOL_OPTIONS
+              value: -Dqxgf.properties.instance=itv1
+            - name: APPDYNAMICS_CONTROLLER_HOST_NAME
+              value: ''
+            - name: APPDYNAMICS_CONTROLLER_PORT
+              value: ''
+            - name: APPDYNAMICS_CONTROLLER_SSL_ENABLED
+              value: ''
+            - name: APPDYNAMICS_AGENT_APPLICATION_NAME
+              value: 'dpr-encryptservice (itv1) '
+            - name: APPDYNAMICS_AGENT_TIER_NAME
+              value: 'dpr-encryptservice'
+            - name: APPDYNAMICS_AGENT_ACCOUNT_NAME
+              value: ''
+            - name: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+              value: ''
+      imagePullSecrets:
+        - name: dpr-encryptservice-dpr-encryptservice-itv1
+---
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'fdc-usermgmt-dpr-encryptservice-itv1-java-itv1'
+  namespace: 'fdc-test'
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: '3600'
+    nginx.ingress.kubernetes.io/proxy-read-timeout: '3600'
+    nginx.ingress.kubernetes.io/proxy-send-timeout: '3600'
+  labels:
+    project: 'dpr-encryptservice'
+    branch: 'dpr-encryptservice-itv1'
+    commit: '4862764'
+    role: java
+    environment: 'itv1'
+spec:
+  rules:
+    - host: dpr-encryptservice-itv1.kubeidc-prod.level3.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: 'fdc-usermgmt-dpr-encryptservice-itv1-java-itv1'
+              servicePort: 9097
+  tls:
+    - hosts:
+      - 'dpr-encryptservice-itv1.kubeidc-prod.level3.com'
+      secretName: managed-tls-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'fdc-usermgmt-dpr-encryptservice-itv1-java-itv1'
+  namespace: 'fdc-test'
+  labels:
+    project: 'dpr-encryptservice'
+    branch: 'dpr-encryptservice-itv1'
+    commit: '4862764'
+    role: java
+    environment: 'itv1'
+spec:
+  ports:
+    - port: 9097
+      targetPort: 9097
+      protocol: TCP
+  selector:
+    project: 'dpr-encryptservice'
+    branch: 'dpr-encryptservice-itv1'
+    commit: '4862764'
+    role: java
+    environment: 'itv1'
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'fdc-usermgmt-dpr-encryptservice-itv1-java-itv1'
+  labels:
+    project: 'dpr-encryptservice'
+    branch: 'dpr-encryptservice-itv1'
+    commit: '4862764'
+    role: java
+    environment: 'itv1'
+spec:
+  selector:
+    matchLabels:
+      project: 'dpr-encryptservice'
+      branch: 'dpr-encryptservice-itv1'
+      role: java
+      environment: 'itv1'
+  replicas: 2
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'dpr-encryptservice'
+        branch: 'dpr-encryptservice-itv1'
+        commit: '4862764'
+        role: java
+        environment: 'itv1'
+    spec:
+      containers:
+        - name: fdc-usermgmt-dpr-encryptservice-itv1-java-itv1
+          image: 'nexusprod.corp.intranet:4567/dpr-encryptservice/dpr-encryptservice:dpr-encryptservice-itv1'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9097
+              protocol: TCP
+          resources:
+            limits:
+              memory: 1000Mi
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: itv1
+            - name: JAVA_TOOL_OPTIONS
+              value: -Dqxgf.properties.instance=itv1
+            - name: APPDYNAMICS_CONTROLLER_HOST_NAME
+              value: ''
+            - name: APPDYNAMICS_CONTROLLER_PORT
+              value: ''
+            - name: APPDYNAMICS_CONTROLLER_SSL_ENABLED
+              value: ''
+            - name: APPDYNAMICS_AGENT_APPLICATION_NAME
+              value: 'dpr-encryptservice (itv1) '
+            - name: APPDYNAMICS_AGENT_TIER_NAME
+              value: 'dpr-encryptservice'
+            - name: APPDYNAMICS_AGENT_ACCOUNT_NAME
+              value: ''
+            - name: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+              value: ''
+      imagePullSecrets:
+        - name: dpr-encryptservice-dpr-encryptservice-itv1
+---
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'dpr-usermgmt-dpr-encryptservice-itv1-java-itv1'
+  namespace: 'fdc-test'
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.allow-http: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: '3600'
+    nginx.ingress.kubernetes.io/proxy-read-timeout: '3600'
+    nginx.ingress.kubernetes.io/proxy-send-timeout: '3600'
+  labels:
+    project: 'dpr-encryptservice'
+    branch: 'dpr-encryptservice-itv1'
+    commit: '4862764'
+    role: java
+    environment: 'itv1'
+spec:
+  rules:
+    - host: dpr-encryptservice-itv1.kubeidc-prod.level3.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: 'dpr-usermgmt-dpr-encryptservice-itv1-java-itv1'
+              servicePort: 9097
+  tls:
+    - hosts:
+      - 'dpr-encryptservice-itv1.kubeidc-prod.level3.com'
+      secretName: managed-tls-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'dpr-usermgmt-dpr-encryptservice-itv1-java-itv1'
+  namespace: 'fdc-test'
+  labels:
+    project: 'dpr-encryptservice'
+    branch: 'dpr-encryptservice-itv1'
+    commit: '4862764'
+    role: java
+    environment: 'itv1'
+spec:
+  ports:
+    - port: 9097
+      targetPort: 9097
+      protocol: TCP
+  selector:
+    project: 'dpr-encryptservice'
+    branch: 'dpr-encryptservice-itv1'
+    commit: '4862764'
+    role: java
+    environment: 'itv1'
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'dpr-usermgmt-dpr-encryptservice-itv1-java-itv1'
+  labels:
+    project: 'dpr-encryptservice'
+    branch: 'dpr-encryptservice-itv1'
+    commit: '4862764'
+    role: java
+    environment: 'itv1'
+spec:
+  selector:
+    matchLabels:
+      project: 'dpr-encryptservice'
+      branch: 'dpr-encryptservice-itv1'
+      role: java
+      environment: 'itv1'
+  replicas: 2
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'dpr-encryptservice'
+        branch: 'dpr-encryptservice-itv1'
+        commit: '4862764'
+        role: java
+        environment: 'itv1'
+    spec:
+      containers:
+        - name: dpr-usermgmt-dpr-encryptservice-itv1-java-itv1
+          image: 'nexusprod.corp.intranet:4567/dpr-encryptservice/dpr-encryptservice:dpr-encryptservice-itv1'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9097
+              protocol: TCP
+          resources:
+            limits:
+              memory: 1000Mi
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: itv1
+            - name: JAVA_TOOL_OPTIONS
+              value: -Dqxgf.properties.instance=itv1
+            - name: APPDYNAMICS_CONTROLLER_HOST_NAME
+              value: ''
+            - name: APPDYNAMICS_CONTROLLER_PORT
+              value: ''
+            - name: APPDYNAMICS_CONTROLLER_SSL_ENABLED
+              value: ''
+            - name: APPDYNAMICS_AGENT_APPLICATION_NAME
+              value: 'dpr-encryptservice (itv1) '
+            - name: APPDYNAMICS_AGENT_TIER_NAME
+              value: 'dpr-encryptservice'
+            - name: APPDYNAMICS_AGENT_ACCOUNT_NAME
+              value: ''
+            - name: APPDYNAMICS_AGENT_ACCOUNT_ACCESS_KEY
+              value: ''
+      imagePullSecrets:
+        - name: dpr-encryptservice-dpr-encryptservice-itv1
+---
+---

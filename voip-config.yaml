@@ -1,0 +1,849 @@
+$ k describe configmap ordering-config-dev
+Name:         ordering-config-dev
+Namespace:    voip-ms-dev
+Labels:       <none>
+Annotations:  <none>
+
+Data
+====
+ordering-confimap.properties:
+----
+Name:         ordering-config-dev
+Namespace:    voice-911-manager-dev
+Labels:       <none>
+Annotations:  <none>
+
+Data
+====
+application.yaml:
+----
+app:
+  datasource:
+   voipportalapp:
+       url: jdbc:oracle:thin:@vomwfst1db.dev.qintra.com:1548/vomwfst1
+       driver-class-name: oracle.jdbc.OracleDriver
+       username: voip_portal_app
+       password: vomwfst1
+
+render:
+  seats: false
+  accessory: true
+
+server:
+  port: 9090
+
+db:
+  voipportalapp:
+      url: jdbc:oracle:thin:@vomwfst1db.dev.qintra.com:1548:vomwfst1
+      username: voip_portal_app
+      password: vomwfst1
+
+bvoipwf:
+  webservice:
+    HVDSGroupAddressQuery: SELECT ADDRESS.ADDRESS_LINE1 ADDRESS_LINE1, ADDRESS.ADDRESS_LINE2 ADDRESS_LINE2,ADDRESS.CITY CITY, ADDRESS.STATE STATE, ADDRESS.ZIP ZIP FROM  ADDRESS, CUSTOMER_GROUP, CUSTOMER_GROUP_MAPPING WHERE CUSTOMER_GROUP_MAPPING.OWNER_ID = ADDRESS.ADDRESS_ID AND   CUSTOMER_GROUP_MAPPING.OWNER_TYPE = 'ADDRESS' AND   CUSTOMER_GROUP_MAPPING.CUSTOMER_GROUP_ID = CUSTOMER_GROUP.CUSTOMER_GROUP_ID AND   CUSTOMER_GROUP.GROUP_ID = ? AND   CUSTOMER_GROUP.MAPPING_CLOSE_DATE is null AND   CUSTOMER_GROUP_MAPPING.MAPPING_CLOSE_DATE IS NULL
+
+voip:
+  portal:
+    MacdOrderPersistanceQuery: INSERT INTO ORDER_DETAILS(ORDER_DETAILS_ID,ORDER_REQUEST_ID,ENTERPRISE_ID,GROUP_ID,ACTION,INVENTORY_TYPE,INVENTORY_ITEM,REQ_QUANTITY,NET_QUANTITY,VOIP_PRODUCT_TYPE,PHONE_TYPE_COMMENTS,CREATE_USER,MOD_USER,STATUS_CD,CREATE_DT,MOD_DT,COMMENTS) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+    DevicePersistanceQuery: INSERT INTO DEVICE_RMA_INFO (DEVICE_RMA_INFO_ID,ORDER_DETAILS_ID,ORDER_REQUEST_ID,VENDOR_TYPE,MAC_ADDRESS,PHONE_TYPE,CREATE_DATE) VALUES (?,?,?,?,?,?,?)
+    ShippingInfoPersistanceQuery: INSERT INTO SHIPPING_INFO (SHIPPING_ID,ORDER_DETAILS_ID,ORDER_REQUEST_ID,FIRST_NAME,LAST_NAME,PRIMARY_PHONE_NUMBER,EMAIL,ADDRESS_LINE1,ADDRESS_LINE2,COUNTRY,CITY,STATE,POSTAL_CODE,SHIPPING_ADDRESS_PID,CREATE_DATE,MOD_DATE,COMMENTS) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+    ContactInfoPersistanceQuery : INSERT INTO CONTACT_INFO (CONTACT_INFO_ID,ORDER_DETAILS_ID,ORDER_REQUEST_ID,FIRST_NAME,LAST_NAME,PRIMARY_PHONE_NUMBER,EMAIL,COMMENTS,CONTACT_TYPE,CREATE_DATE) VALUES (?,?,?,?,?,?,?,?,?,?)
+
+broadworks:
+  macd:
+    siptrunk:
+      seats: test
+
+order:
+  stacking:
+    activated:true
+
+blacklist:
+  seat:
+    feature:
+      inventory : WALMART TRUNK ICB ONLY
+
+ordering:
+  inventory:
+    phone:
+      type:
+        disabled: true
+
+
+app1: Ordering
+digest:
+  secret: AKI134042018061519504527084190
+  key: APPKEY1629332018061519504526973769
+
+glm:
+  apiAuthorization: 1082
+  uri: https://api-test2.test.intranet/glm/v2/GLMSWebServices/SearchLocationService.svc/AddressLocationQuery/v2
+  host: glmenv2
+  response:
+    error:
+      msg1: No address information returned
+
+broadworks.properties:
+----
+dev.runinfakemode=false
+# amount of time in milliseconds to wait for webs ervice to return
+broadworks.webservice.request.timeout = 30000
+# List of all nodes
+#broadworks.node.list = CLUSTER03_DBLNLABOH#CLUSTER04_DBLNLABOH#CLUSTER05_DBLNLABOH
+broadworks.node.list = CLUSTER04_DBLNLABOH#CLUSTER05_DBLNLABOH
+
+#Lab 3 for filetering the Contact Center Standard and Supervisor seats from Inventory- Seats
+broadworks.node.3 = CLUSTER03_DBLNLABOH
+
+# When we fetch the users at a group or enterprise level for viewing we want to limit to just these seat types
+broadworks.viewable.seat.list = Premium#Contact Center Basic#Contact Center Standard#Contact Center Supervisor#Standard#Basic#VoicemailOnly#SIP Basic#SIP Standard#SIP Premium#SIP Mobility#Virtual#Conference#Analog#Admin#Receptionist#Basic Cordless#Standard Cordless#Premium Cordless#Custom SIP#Hv Basic#Hv Custom SIP#Hv Premium#Hv Standard#Hv Virtual#Hv VoicemailOnly
+# Same value for all nodes
+broadworks.xsp.url = http://xspews1m-itf.ad.lab/webservice/services/ProvisioningService
+
+broadworks.xsp.node.url = https://xspews.itf.centurylink.com
+broadworks.xsp.client.application.launch.path = /servlet/ClientApplicationLaunch?application=receptionist
+broadworks.xsp.receptionist.path = /receptionist/
+
+#Same for all nodes
+broadworks.contactcenter.client.url = https://parcc.itf.centurylink.com/callcenter/
+
+# Repeating pattern per node
+broadworks.node.attributes = oci.primary.url#oci.secondary.url#xsi.primary.url#xsi.secondary.url#node.number#adminuser#adminpw#superuser#superuserpw
+
+# Broadworks golden template node
+broadworks.golden.template.node = CLUSTER04_DBLNLABOH
+#broadworks.template.specific.nodes = CLUSTER05_DBLNLABOH
+broadworks.template.specific.nodes = CLUSTER04_DBLNLABOH
+
+broadworks.template.enterprise.startswith = TEMPLATE
+broadworks.template.group.startswith = HOSTEDTEMPLATE
+
+#node three values
+CLUSTER03_DBLNLABOH.oci.primary.url = http://as6m-itf.ad.lab/webservice/services/ProvisioningService
+CLUSTER03_DBLNLABOH.oci.secondary.url = http://as5m-itf.ad.lab/webservice/services/ProvisioningService
+CLUSTER03_DBLNLABOH.xsi.primary.url = http://parwc1.itf.centurylink.com/com.broadsoft.xsi-actions/v2.0/user/
+CLUSTER03_DBLNLABOH.xsi.secondary.url = http://parwc1.itf.centurylink.com/com.broadsoft.xsi-actions/v2.0/user/
+CLUSTER03_DBLNLABOH.node.number = 3
+CLUSTER03_DBLNLABOH.adminuser = PortalAdmin_c3
+CLUSTER03_DBLNLABOH.adminpw = Temp1234!
+CLUSTER03_DBLNLABOH.superuser = PortalSuper_c3
+CLUSTER03_DBLNLABOH.superuserpw = qV3MVjh-Bo4pVrJ
+CLUSTER03_DBLNLABOH.temp.eupw = V0ip1234!
+#node four values
+CLUSTER04_DBLNLABOH.oci.primary.url = http://hobsas001p.ad.lab/webservice/services/ProvisioningService
+#CLUSTER04_DBLNLABOH.oci.secondary.url = http://pobsas001s.ad.lab/webservice/services/ProvisioningService
+CLUSTER04_DBLNLABOH.oci.secondary.url = http://hobsas001p.ad.lab/webservice/services/ProvisioningService
+CLUSTER04_DBLNLABOH.xsi.primary.url = http://parwc1.itf.centurylink.com/com.broadsoft.xsi-actions/v2.0/user/
+CLUSTER04_DBLNLABOH.xsi.secondary.url = http://parwc1.itf.centurylink.com/com.broadsoft.xsi-actions/v2.0/user/
+CLUSTER04_DBLNLABOH.node.number = 4
+CLUSTER04_DBLNLABOH.adminuser = PortalAdmin_c4
+CLUSTER04_DBLNLABOH.adminpw = Temp1234!
+CLUSTER04_DBLNLABOH.superuser = PortalSuper_c4
+CLUSTER04_DBLNLABOH.superuserpw = qV3MVjh-Bo4pVrJ
+CLUSTER04_DBLNLABOH.temp.eupw = V0ip1234!
+#node five values
+CLUSTER05_DBLNLABOH.oci.primary.url = http://hobsas002s.ad.lab/webservice/services/ProvisioningService
+CLUSTER05_DBLNLABOH.oci.secondary.url = http://hobsas002s.ad.lab/webservice/services/ProvisioningService
+CLUSTER05_DBLNLABOH.xsi.primary.url = http://parwc1.itf.centurylink.com/com.broadsoft.xsi-actions/v2.0/user/
+CLUSTER05_DBLNLABOH.xsi.secondary.url = http://parwc1.itf.centurylink.com/com.broadsoft.xsi-actions/v2.0/user/
+CLUSTER05_DBLNLABOH.node.number = 5
+CLUSTER05_DBLNLABOH.adminuser = PortalAdmin_c5
+CLUSTER05_DBLNLABOH.adminpw = Temp1234!
+CLUSTER05_DBLNLABOH.superuser = PortalSuper_c5
+CLUSTER05_DBLNLABOH.superuserpw = qV3MVjh-Bo4pVrJ
+CLUSTER05_DBLNLABOH.temp.eupw = V0ip1234!
+#node six values
+@nodesix@.oci.primary.url = @oci.primary.url.nodesix@
+@nodesix@.oci.secondary.url = @oci.secondary.url.nodesix@
+@nodesix@.xsi.primary.url = @xsi.primary.url.nodesix@
+@nodesix@.xsi.secondary.url = @xsi.secondary.url.nodesix@
+@nodesix@.node.number = @node.number.nodesix@
+@nodesix@.adminuser = @adminuser.nodesix@
+@nodesix@.adminpw = @adminpw.nodesix@
+@nodesix@.superuser = @superuser.nodesix@
+@nodesix@.superuserpw = @superuserpw.nodesix@
+@nodesix@.temp.eupw = @temp.eupw.nodesix@
+#node seven values
+@nodeseven@.oci.primary.url = @oci.primary.url.nodeseven@
+@nodeseven@.oci.secondary.url = @oci.secondary.url.nodeseven@
+@nodeseven@.xsi.primary.url = @xsi.primary.url.nodeseven@
+@nodeseven@.xsi.secondary.url = @xsi.secondary.url.nodeseven@
+@nodeseven@.node.number = @node.number.nodeseven@
+@nodeseven@.adminuser = @adminuser.nodeseven@
+@nodeseven@.adminpw = @adminpw.nodeseven@
+@nodeseven@.superuser = @superuser.nodeseven@
+@nodeseven@.superuserpw = @superuserpw.nodeseven@
+@nodeseven@.temp.eupw = @temp.eupw.nodeseven@
+#node eight values
+@nodeeight@.oci.primary.url = @oci.primary.url.nodeeight@
+@nodeeight@.oci.secondary.url = @oci.secondary.url.nodeeight@
+@nodeeight@.xsi.primary.url = @xsi.primary.url.nodeeight@
+@nodeeight@.xsi.secondary.url = @xsi.secondary.url.nodeeight@
+@nodeeight@.node.number = @node.number.nodeeight@
+@nodeeight@.adminuser = @adminuser.nodeeight@
+@nodeeight@.adminpw = @adminpw.nodeeight@
+@nodeeight@.superuser = @superuser.nodeeight@
+@nodeeight@.superuserpw = @superuserpw.nodeeight@
+@nodeeight@.temp.eupw = @temp.eupw.nodeeight@
+#node nine values
+@nodenine@.oci.primary.url = @oci.primary.url.nodenine@
+@nodenine@.oci.secondary.url = @oci.secondary.url.nodenine@
+@nodenine@.xsi.primary.url = @xsi.primary.url.nodenine@
+@nodenine@.xsi.secondary.url = @xsi.secondary.url.nodenine@
+@nodenine@.node.number = @node.number.nodenine@
+@nodenine@.adminuser = @adminuser.nodenine@
+@nodenine@.adminpw = @adminpw.nodenine@
+@nodenine@.superuser = @superuser.nodenine@
+@nodenine@.superuserpw = @superuserpw.nodenine@
+@nodenine@.temp.eupw = @temp.eupw.nodenine@
+
+#node ten values
+@nodeten@.oci.primary.url = @oci.primary.url.nodeten@
+@nodeten@.oci.secondary.url = @oci.secondary.url.nodeten@
+@nodeten@.xsi.primary.url = @xsi.primary.url.nodeten@
+@nodeten@.xsi.secondary.url = @xsi.secondary.url.nodeten@
+@nodeten@.node.number = @node.number.nodeten@
+@nodeten@.adminuser = @adminuser.nodeten@
+@nodeten@.adminpw = @adminpw.nodeten@
+@nodeten@.superuser = @superuser.nodeten@
+@nodeten@.superuserpw = @superuserpw.nodeten@
+@nodeten@.temp.eupw = @temp.eupw.nodeten@
+
+#node eleven values
+@nodeeleven@.oci.primary.url = @oci.primary.url.nodeeleven@
+@nodeeleven@.oci.secondary.url = @oci.secondary.url.nodeeleven@
+@nodeeleven@.xsi.primary.url = @xsi.primary.url.nodeeleven@
+@nodeeleven@.xsi.secondary.url = @xsi.secondary.url.nodeeleven@
+@nodeeleven@.node.number = @node.number.nodeeleven@
+@nodeeleven@.adminuser = @adminuser.nodeeleven@
+@nodeeleven@.adminpw = @adminpw.nodeeleven@
+@nodeeleven@.superuser = @superuser.nodeeleven@
+@nodeeleven@.superuserpw = @superuserpw.nodeeleven@
+@nodeeleven@.temp.eupw = @temp.eupw.nodeeleven@
+
+#node twelve values
+@nodetwelve@.oci.primary.url = @oci.primary.url.nodetwelve@
+@nodetwelve@.oci.secondary.url = @oci.secondary.url.nodetwelve@
+@nodetwelve@.xsi.primary.url = @xsi.primary.url.nodetwelve@
+@nodetwelve@.xsi.secondary.url = @xsi.secondary.url.nodetwelve@
+@nodetwelve@.node.number = @node.number.nodetwelve@
+@nodetwelve@.adminuser = @adminuser.nodetwelve@
+@nodetwelve@.adminpw = @adminpw.nodetwelve@
+@nodetwelve@.superuser = @superuser.nodetwelve@
+@nodetwelve@.superuserpw = @superuserpw.nodetwelve@
+@nodetwelve@.temp.eupw = @temp.eupw.nodetwelve@
+
+#node thirteen values
+@nodethirteen@.oci.primary.url = @oci.primary.url.nodethirteen@
+@nodethirteen@.oci.secondary.url = @oci.secondary.url.nodethirteen@
+@nodethirteen@.xsi.primary.url = @xsi.primary.url.nodethirteen@
+@nodethirteen@.xsi.secondary.url = @xsi.secondary.url.nodethirteen@
+@nodethirteen@.node.number = @node.number.nodethirteen@
+@nodethirteen@.adminuser = @adminuser.nodethirteen@
+@nodethirteen@.adminpw = @adminpw.nodethirteen@
+@nodethirteen@.superuser = @superuser.nodethirteen@
+@nodethirteen@.superuserpw = @superuserpw.nodethirteen@
+@nodethirteen@.temp.eupw = @temp.eupw.nodethirteen@
+
+#node fourteen values
+@nodefourteen@.oci.primary.url = @oci.primary.url.nodefourteen@
+@nodefourteen@.oci.secondary.url = @oci.secondary.url.nodefourteen@
+@nodefourteen@.xsi.primary.url = @xsi.primary.url.nodefourteen@
+@nodefourteen@.xsi.secondary.url = @xsi.secondary.url.nodefourteen@
+@nodefourteen@.node.number = @node.number.nodefourteen@
+@nodefourteen@.adminuser = @adminuser.nodefourteen@
+@nodefourteen@.adminpw = @adminpw.nodefourteen@
+@nodefourteen@.superuser = @superuser.nodefourteen@
+@nodefourteen@.superuserpw = @superuserpw.nodefourteen@
+@nodefourteen@.temp.eupw = @temp.eupw.nodefourteen@
+
+#node fifteen values
+@nodefifteen@.oci.primary.url = @oci.primary.url.nodefifteen@
+@nodefifteen@.oci.secondary.url = @oci.secondary.url.nodefifteen@
+@nodefifteen@.xsi.primary.url = @xsi.primary.url.nodefifteen@
+@nodefifteen@.xsi.secondary.url = @xsi.secondary.url.nodefifteen@
+@nodefifteen@.node.number = @node.number.nodefifteen@
+@nodefifteen@.adminuser = @adminuser.nodefifteen@
+@nodefifteen@.adminpw = @adminpw.nodefifteen@
+@nodefifteen@.superuser = @superuser.nodefifteen@
+@nodefifteen@.superuserpw = @superuserpw.nodefifteen@
+@nodefifteen@.temp.eupw = @temp.eupw.nodefifteen@
+
+#node sixteen values
+@nodesixteen@.oci.primary.url = @oci.primary.url.nodesixteen@
+@nodesixteen@.oci.secondary.url = @oci.secondary.url.nodesixteen@
+@nodesixteen@.xsi.primary.url = @xsi.primary.url.nodesixteen@
+@nodesixteen@.xsi.secondary.url = @xsi.secondary.url.nodesixteen@
+@nodesixteen@.node.number = @node.number.nodesixteen@
+@nodesixteen@.adminuser = @adminuser.nodesixteen@
+@nodesixteen@.adminpw = @adminpw.nodesixteen@
+@nodesixteen@.superuser = @superuser.nodesixteen@
+@nodesixteen@.superuserpw = @superuserpw.nodesixteen@
+@nodesixteen@.temp.eupw = @temp.eupw.nodesixteen@
+
+#node seventeen values
+@nodeseventeen@.oci.primary.url = @oci.primary.url.nodeseventeen@
+@nodeseventeen@.oci.secondary.url = @oci.secondary.url.nodeseventeen@
+@nodeseventeen@.xsi.primary.url = @xsi.primary.url.nodeseventeen@
+@nodeseventeen@.xsi.secondary.url = @xsi.secondary.url.nodeseventeen@
+@nodeseventeen@.node.number = @node.number.nodeseventeen@
+@nodeseventeen@.adminuser = @adminuser.nodeseventeen@
+@nodeseventeen@.adminpw = @adminpw.nodeseventeen@
+@nodeseventeen@.superuser = @superuser.nodeseventeen@
+@nodeseventeen@.superuserpw = @superuserpw.nodeseventeen@
+@nodeseventeen@.temp.eupw = @temp.eupw.nodeseventeen@
+
+#node twenty one values
+@nodetwentyone@.oci.primary.url = @oci.primary.url.nodetwentyone@
+@nodetwentyone@.oci.secondary.url = @oci.secondary.url.nodetwentyone@
+@nodetwentyone@.xsi.primary.url = @xsi.primary.url.nodetwentyone@
+@nodetwentyone@.xsi.secondary.url = @xsi.secondary.url.nodetwentyone@
+@nodetwentyone@.node.number = @node.number.nodetwentyone@
+@nodetwentyone@.adminuser = @adminuser.nodetwentyone@
+@nodetwentyone@.adminpw = @adminpw.nodetwentyone@
+@nodetwentyone@.superuser = @superuser.nodetwentyone@
+@nodetwentyone@.superuserpw = @superuserpw.nodetwentyone@
+@nodetwentyone@.temp.eupw = @temp.eupw.nodetwentyone@
+
+#node twenty two values
+@nodetwentytwo@.oci.primary.url = @oci.primary.url.nodetwentytwo@
+@nodetwentytwo@.oci.secondary.url = @oci.secondary.url.nodetwentytwo@
+@nodetwentytwo@.xsi.primary.url = @xsi.primary.url.nodetwentytwo@
+@nodetwentytwo@.xsi.secondary.url = @xsi.secondary.url.nodetwentytwo@
+@nodetwentytwo@.node.number = @node.number.nodetwentytwo@
+@nodetwentytwo@.adminuser = @adminuser.nodetwentytwo@
+@nodetwentytwo@.adminpw = @adminpw.nodetwentytwo@
+@nodetwentytwo@.superuser = @superuser.nodetwentytwo@
+@nodetwentytwo@.superuserpw = @superuserpw.nodetwentytwo@
+@nodetwentytwo@.temp.eupw = @temp.eupw.nodetwentytwo@
+
+MAX_FEATURE_ARRAY_SIZE=15
+MAX_ROWS_OF_DATA_TABLE=25
+
+# Maximum number for display count drop down in the add/edit line key
+max.linekey.display.count=8
+
+# BLF line keys threshold value to change the transport protocol to TCSOnly
+broadworks.busylampfield.linekeys.threshold.for.tcp = 9
+
+#Soft phone settings
+broadworks.softphone.device.template=IPCommunicatorStandard
+broadworks.softphone.device.type=IPCommunicator
+broadworks.softphone.phone.type.pc=PC
+broadworks.softphone.phone.type.pc.sn=PC
+broadworks.softphone.phone.type.mac=MAC
+broadworks.softphone.phone.type.mac.sn=MAC
+broadworks.softphone.phone.type.iphone=iPhone
+broadworks.softphone.phone.type.iphone.sn=iPhone
+broadworks.softphone.phone.type.ipad=iPad
+broadworks.softphone.phone.type.ipad.sn=iPad
+broadworks.softphone.phone.type.androidphone=Android Phone
+broadworks.softphone.phone.type.androidphone.sn=AndroidPhone
+broadworks.softphone.phone.type.androidtablet=Android Tablet
+broadworks.softphone.phone.type.androidtablet.sn=AndroidTablet
+broadworks.softphone.phone.type.btbc.pc = Business Communicator - PC
+broadworks.softphone.phone.type.btbc.pc.sn = BC-PC
+broadworks.softphone.device.btbc.pc.template= Business Communicator - PC
+broadworks.softphone.device.btbc.pc.imp.template= Business Communicator - PCIMP
+broadworks.softphone.phone.type.btbc.mobile = Business Communicator - Mobile
+broadworks.softphone.phone.type.btbc.mobile.sn = BC-MOBILE
+broadworks.softphone.device.btbc.mobile.template = Business Communicator - Mobile
+broadworks.softphone.device.btbc.mobile.imp.template = Business Communicator - MobileIMP
+broadworks.softphone.phone.type.btbc.tablet = Business Communicator - Tablet
+broadworks.softphone.phone.type.btbc.tablet.sn = BC-TABLET
+broadworks.softphone.device.btbc.tablet.template = Business Communicator - Tablet
+broadworks.softphone.device.btbc.tablet.imp.template = Business Communicator - TabletIMP
+#webex
+broadworks.softphone.phone.type.webex.pc = Business Communicator - PC
+broadworks.softphone.phone.type.webex.pc.sn = WX-PC
+broadworks.softphone.device.webex.pc.template= Business Communicator - PCIMP
+
+broadworks.softphone.phone.type.webex.mobile = Connect - Mobile
+broadworks.softphone.phone.type.webex.mobile.sn = WX-MOBILE
+broadworks.softphone.device.webex.mobile.template = Connect - Mobile
+
+broadworks.softphone.phone.type.webex.tablet = Connect - Tablet
+broadworks.softphone.phone.type.webex.tablet.sn = WX-TABLET
+broadworks.softphone.device.webex.tablet.template = Connect - Tablet
+
+
+
+#BroadWorks VDM SoftKey Action DropDownLabel / VDM SoftKey Action DropDownValue / VDM SoftKey Label Value
+broadworks.actionlabels.values =\
+AdminMenu>!AdminMenu>Menu#\
+BlockID>!blockid>BlockID#\
+Callers>!callers>Callers#\
+Dir>!directory>Dir#\
+Dir Call Pick w/Barge>!dircallbarge>DirBarge#\
+Directed Call Pickup>!dircallpickup>DirPick#\
+DND>!dnd>DND#\
+Forward>!callforward>Forward#\
+Page>!page>Page#\
+Park>!park>Park#\
+Pickup>!pickup>Pickup#\
+PTT>!ptt>PTT#\
+Pull>!pull>Pull#\
+Retrieve>!retrieve>Retreive#\
+Return>!return>Return#\
+To Vmail>!xfervm>To Vmail#\
+Vmail>!vmail>Vmail#
+
+
+#Broadworks ringer value / display text table
+broadworks.ringertypes.map=\
+ringer1>Silent ring#\
+ringer2>Long single A3 Db3 major warble#\
+ringer3>Short double A3 Db3 major warble#\
+ringer4>Long single C3 E3 major warble#\
+ringer5>Short double C3 E3 major warble#\
+ringer6>Long single warble 1#\
+ringer7>Short double warble 1#\
+ringer8>Long single Gb3 A4 major warble#\
+ringer9>Short double Gb3 A4 major warble#\
+ringer10>Short double E3 major#\
+ringer11>Short triple C3 E3 G3 major ramp#\
+ringer12>Short double ring back#\
+ringer13>Long single A3 Db3 major warble Precedence#\
+ringer14>Splash#
+
+
+# caching server information
+broadworks.service.cache.enabled = true
+broadworks.service.cache.maxsize = 100
+broadworks.service.cache.timelimit = 20
+broadworks.service.cache.cleanuplimit = 20
+
+broadworks.allowed.modify.multiple.users.count = 50
+broadworks.allowed.modify.rpc.monitored.users.count = 200
+broadworks.endpoints.default.chunk.size = 15
+devicemanager.reboot.default.batch.size = 15
+devicemanager.reboot.default.batch.delay.time = 10
+
+devicemanager.reboot.default.manual.delay.time = 1
+devicemanager.reboot.default.immediate.delay.time = 10
+devicemanager.reboot.default.scheduled.delay.time = 1
+
+password.reset.default.scheduled.delay.time = 1
+
+broadworks.service.response.maxsize = 1000
+
+enterprise.users.response.size.limit = 30000
+
+#Broadworks states value / display text table
+broadworks.states.map=\
+Alberta>AB#\
+Alaska>AK#\
+Alabama>AL#\
+Arkansas>AR#\
+American Samoa>AS#\
+Arizona>AZ#\
+British Columbia>BC#\
+California>CA#\
+Colorado>CO#\
+Connecticut>CT#\
+District of Columbia>DC#\
+Delaware>DE#\
+Florida>FL#\
+Fed. States of Micronesia>FM#\
+Georgia>GA#\
+Guam>GU#\
+Hawaii>HI#\
+Iowa>IA#\
+Idaho>ID#\
+Illinois>IL#\
+Indiana>IN#\
+Kansas>KS#\
+Kentucky>KY#\
+Louisiana>LA#\
+Massachusetts>MA#\
+Manitoba>MB#\
+Maryland>MD#\
+Maine>ME#\
+Marshall Islands>MH#\
+Michigan>MI#\
+Minnesota>MN#\
+Missouri>MO#\
+Mississippi>MS#\
+Montana>MT#\
+New Brunswick>NB#\
+North Carolina>NC#\
+North Dakota>ND#\
+Nebraska>NE#\
+Newfoundland>NF#\
+New Hampshire>NH#\
+New Jersey>NJ#\
+New Mexico>NM#\
+Nova Scotia>NS#\
+Northwest Territories>NT#\
+Nevada>NV#\
+New York>NY#\
+Northern Mariana Is.>MP#\
+Ohio>OH#\
+Oklahoma>OK#\
+Ontario>ON#\
+Oregon>OR#\
+Pennsylvania>PA#\
+Prince Edward Island>PE#\
+Puerto Rico>PR#\
+Palau>PW#\
+Quebec>QC#\
+Rhode Island>RI#\
+South Carolina>SC#\
+South Dakota>SD#\
+Saskatchewan>SK#\
+Tennessee>TN#\
+Texas>TX#\
+Utah>UT#\
+Vermont>VT#\
+Virginia>VA#\
+Virgin Islands>VI#\
+Washington>WA#\
+West Virginia>WV#\
+Wisconsin>WI#\
+Wyoming>WY#\
+Yukon>YT#
+
+#Phone Types for End User Training
+#First item is phone type
+#second item is Training URL of the corresponding phone type
+broadworks.phones.type.training.url=\
+Polycom 321/335>http://www.youtube.com/v/JvUMV1N7eGM#\
+Polycom 450>http://www.youtube.com/v/jkS8Z3D9Ebg#\
+Polycom 550/650/650+EM/670/670+EM>http://www.youtube.com/v/jkS8Z3D9Ebg#\
+Polycom VVX300/310>http://www.youtube.com/v/6VdGI5-z_hg#\
+Polycom VVX400/410>http://www.youtube.com/v/jkS8Z3D9Ebg#\
+Polycom VVX500/VVX600>http://www.youtube.com/v/6VdGI5-z_hg#\
+Polycom VVX1500>http://www.youtube.com/embed/XGSy3_Czz8k#\
+Polycom 6000>http://www.youtube.com/v/jkS8Z3D9Ebg#\
+Polycom 7000>http://www.youtube.com/v/6VdGI5-z_hg#
+
+broadworks.portal.training.url = http://www.youtube.com/v/jkS8Z3D9Ebg
+
+#BraodWorks Digit Manipulations
+broadworks.dialplan.digit.manipulations=\
+None>None#\
+Position>Position#\
+Trim>Trim#\
+Left Trim>Left Trim#\
+Delete>Delete#\
+Replace All>Replace All#\
+Overwrite>Overwrite#\
+Append>Append#\
+Prepend>Prepend#\
+Insert>Insert#\
+End>End#\
+Right Trim>Right Trim#\
+Move>Move#
+
+broadworks.sip.seats=SIP Basic#SIP Standard#SIP Premium#SIP Mobility
+
+broadworks.non.sip.seats=Admin#Analog#Basic#Basic Cordless#Conference#Contact Center Basic#Contact Center Standard#\
+Contact Center Supervisor#Premium#Premium Cordless#Receptionist#Standard#Standard Cordless#Virtual#\
+HV BASIC SEAT#HV PREMIUM SEAT#HV STANDARD SEAT#HV VIRTUAL SEAT#HV Basic#HV Standard#HV Premium#HV Virtual
+
+broadworks.911enabled.seats=Premium#Contact Center Basic#Contact Center Standard#Contact Center Supervisor#Standard#Basic#Conference#Analog#Admin#Receptionist#Custom SIP
+
+#Feature based seat list
+#Feature based seat list
+broadworks.huntgroup.feature.seat.list = Premium#Contact Center Basic#Contact Center Standard#Contact Center Supervisor#Standard#Basic#SIP Basic#SIP Standard#SIP Premium#SIP Mobility#Virtual#Conference#Analog#Admin#Receptionist#Basic Cordless#Premium Cordless#Standard Cordless#Custom SIP
+broadworks.callpark.feature.seat.list = Premium#Contact Center Basic#Contact Center Standard#Contact Center Supervisor#Standard#Basic#SIP Basic#SIP Standard#SIP Premium#SIP Mobility#Virtual#Conference#Analog#Admin#Receptionist#Basic Cordless#Premium Cordless#Standard Cordless#Custom SIP
+broadworks.callpickup.feature.seat.list = Premium#Contact Center Basic#Contact Center Standard#Contact Center Supervisor#Standard#Basic#SIP Basic#SIP Standard#SIP Premium#SIP Mobility#Virtual#Conference#Analog#Admin#Receptionist#Basic Cordless#Premium Cordless#Standard Cordless#Custom SIP
+broadworks.instantgroupcall.seat.list = Premium#Contact Center Basic#Contact Center Standard#Contact Center Supervisor#Standard#Basic#SIP Basic#SIP Standard#SIP Premium#SIP Mobility#Virtual#Conference#Analog#Admin#Receptionist#Basic Cordless#Premium Cordless#Standard Cordless#Custom SIP
+
+#Modify multiple user caller id.
+broadworks.allowed.modify.multiple.users.callerid.count = 500
+
+# caching broad works device meta data
+broadworks.product.cache.enabled = true
+broadworks.product.cache.maxsize = 100
+broadworks.product.cache.timelimit = 720
+broadworks.product.cache.cleanuplimit = 720
+
+##Seats-UserId Mapping
+broadworks.seats.user.mapping = \
+ADMIN=Admin#Analog=Analog#Basic=Basic#\
+CONFERENCE=Conference#Premium=Premium#\
+RECEPTIONIST=Receptionist#SIP Basic=SIPBasic#\
+SIP E911=SIPE911#SIP Mobility=SIPMobility#\
+SIP Pilot Basic=SIPPilotBasic#SIP Pilot Standard=StandardPilot#\
+SIP Premium=SIPPremium#SIP Standard=SIPStandard#\
+Standard=Standard#Virtual=Virtual#\
+Contact Center Basic=ContactCenterBasic#\
+Contact Center Standard=ContactCenterStandard#\
+Contact Center Supervisor=ContactCenterSupervisor#\
+Basic Cordless=BasicCordless#\
+Standard Cordless=StandardCordless#\
+Premium Cordless=PremiumCordless#\
+Custom SIP=CustomSIP
+
+##AddON -UserId Mapping
+broadworks.addon.user.mapping = Business Communicator Collaboration=BusinessCommunicatorCollaboration#Business Communicator Voice/Video=BusinessCommunicatorVoice/Video#HV Contact Center Basic=HVContactCenterBasic#HV Contact Center Standard=HVContactCenterStandard#HV Contact Center Supervisor=HVContactCenterSupervisor
+
+# Seats that are not allowed for Activate Phone Numbers
+broadworks.not.applicable.seats.for.activate.phone.numbers=SIP Pilot Basic#SIP Pilot Standard
+
+# BroadWorks Pilot seats
+broadworks.pilot.seats=SIP Pilot Basic#SIP Pilot Standard
+
+# BroadWorks MACDs and SIP trunk only
+broadworks.macd.siptrunk.seats =
+
+# Broad Works seat types that require contact center client urls to be displayed
+contactcenter.clent.seat.types = Contact Center Standard#Contact Center Supervisor
+
+# BroadWorks applicable seats for custom caller id
+broadworks.applicable.seats.for.custom.caller.id=Admin#Analog#Basic#Basic Cordless#Conference#Contact Center Basic#Contact Center Standard#\
+Contact Center Supervisor#Custom SIP#Premium#Premium Cordless#Receptionist#Standard#Standard Cordless#Virtual#\
+HV BASIC SEAT#HV PREMIUM SEAT#HV STANDARD SEAT#HV CUSTOM SIP SEAT#HV VIRTUAL SEAT#HV Basic#HV Custom SIP#HV Standard#HV Premium#HV Virtual
+
+# BroadWorks applicable seats for Primary Device
+broadworks.applicable.seats.for.primary.device=Admin#Analog#Basic#Basic Cordless#Conference#Contact Center Basic#Contact Center Standard#\
+Contact Center Supervisor#Custom SIP#Premium#Premium Cordless#Receptionist#SIP Basic#SIP Mobility#SIP Premium#SIP Standard#Standard#Standard Cordless#\
+HV BASIC SEAT#HV PREMIUM SEAT#HV STANDARD SEAT#HV CUSTOM SIP SEAT#HV Basic#HV Custom SIP#HV Standard#HV Premium
+
+# BroadWorks applicable seats for device of Primary Device
+broadworks.applicable.seats.for.primary.device.device=Admin#Analog#Basic#Basic Cordless#Conference#Contact Center Basic#Contact Center Standard#\
+Contact Center Supervisor#Custom SIP#Premium#Premium Cordless#Receptionist#Standard#Standard Cordless#\
+HV BASIC SEAT#HV PREMIUM SEAT#HV STANDARD SEAT#HV Basic#HV Standard#HV Premium
+
+# BroadWorks applicable seats for Secure SIP
+broadworks.applicable.seats.for.secure.sip=Admin#Analog#Basic#Basic Cordless#Conference#Contact Center Basic#Contact Center Standard#\
+Contact Center Supervisor#Premium#Premium Cordless#Receptionist#Standard#Standard Cordless#SIP Mobility#SIP Premium#Virtual#\
+HV BASIC SEAT#HV PREMIUM SEAT#HV STANDARD SEAT#HV VIRTUAL SEAT#HV Basic#HV Standard#HV Premium#HV Virtual
+
+# BroadWorks applicable seats for Voice Mail
+broadworks.applicable.seats.for.voicemail=Admin#Analog#Conference#Contact Center Basic#Contact Center Standard#\
+Contact Center Supervisor#Custom SIP#Premium#Premium Cordless#Receptionist#SIP Premium#Standard#Standard Cordless#Virtual#VoicemailOnly#\
+HV PREMIUM SEAT#HV STANDARD SEAT#HV CUSTOM SIP SEAT#HV VIRTUAL SEAT#HV VOICEMAILONLY SEAT#HV Custom SIP#HV Standard#HV Premium#HV Virtual#HV VoicemailOnly
+
+
+# BroadWorks applicable seats for hvdseuvm (Voice Mail)
+broadworks.applicable.seats.for.hvdseuvm=Admin#Analog#Conference#Contact Center Basic#Contact Center Standard#\
+Contact Center Supervisor#Custom SIP#Premium#Premium Cordless#Receptionist#SIP Premium#SIP Standard#Standard#Standard Cordless#Virtual#\
+HV PREMIUM SEAT#HV STANDARD SEAT#HV CUSTOM SIP SEAT#HV VIRTUAL SEAT#HV Custom SIP#HV Standard#HV Premium#HV Virtual
+
+# Broadworks applicable seats for hvdseu (End User)
+broadworks.applicable.seats.for.hvdseu=Admin#Analog#Basic#Basic Cordless#Conference#Contact Center Basic#Contact Center Standard#\
+Contact Center Supervisor#Custom SIP#Premium#Premium Cordless#Receptionist#SIP Basic#SIP Mobility#SIP Premium#SIP Standard#Standard#Standard Cordless#Virtual#\
+HV BASIC SEAT#HV PREMIUM SEAT#HV STANDARD SEAT#HV CUSTOM SIP SEAT#HV VIRTUAL SEAT#HV Basic#HV Custom SIP#HV Standard#HV Premium#HV Virtual
+
+# Broadworks applicable seats for hvdseuremoteoffice (Remote Office)
+broadworks.applicable.seats.for.hvdseuremoteoffice=Admin#Analog#Conference#Contact Center Basic#Contact Center Standard#\
+Contact Center Supervisor#Custom SIP#Premium#Premium Cordless#Receptionist#HV PREMIUM SEAT#HV CUSTOM SIP SEAT#HV Premium#HV Custom SIP
+
+# Broadworks applicable seats for hvdseureachme (Reach Me)
+broadworks.applicable.seats.for.hvdseureachme=Admin#Analog#Conference#Contact Center Basic#Contact Center Standard#\
+Contact Center Supervisor#Custom SIP#Premium#Premium Cordless#Receptionist#Standard#Standard Cordless#HV PREMIUM SEAT#HV STANDARD SEAT#HV CUSTOM SIP SEAT#HV Premium#HV Custom SIP#HV Standard
+
+# Broadworks applicable seats for Outlook toolbar
+broadworks.applicable.seats.for.outlook=Admin#Analog#Conference#Contact Center Basic#Contact Center Standard#\
+Contact Center Supervisor#Premium#Premium Cordless#Receptionist#Standard#Standard Cordless#HV PREMIUM SEAT#HV STANDARD SEAT#HV Premium#HV Standard
+
+# The default value for Portal Access flag will be No for the below seats on create end user path.
+broadworks.applicable.seats.for.portalaccess.default.no=SIP Basic#SIP Standard
+
+#When these seats are selected in the portal then in addition to the other vendors these two vendors will be available
+#currently the seat can only be selected by a CSR user
+broadworks.seats.device.vendor.mapping = Custom SIP>CustomSIP#DataRemote
+
+# CSR Only Seats (CSR Only can order these seats)
+broadworks.csronly.seats=Custom SIP#HV CUSTOM SIP SEAT#HV Custom SIP
+
+voip.properties:
+----
+#
+#Seat/AddOn Feature Mapping in BvoipServices / Broadworks.
+# where the first value is how the field looks in Bvoip Services and
+# the second value is how the field looks in BroadWorks
+# the third value is how it looks for user in MACD Inventory
+# the fourth value is to check whether CPE is required for that seat. Yes for required and No for not required.
+# the fifth line is for sequence for displaying seats on MACD Seats/Add On Features screen in order
+# Plese make sure to maintain in alphabetical order if there is any new Seats / Features are added.
+bvoipsvc.broadworks.mapping =\
+ADMIN>Admin>Admin Seats>Yes>1#\
+ANALOG>Analog>Analog Seats>Yes>2#\
+VOIP ANYWHERE>Anywhere>Anywhere Seats>No>3#\
+AUTO ATTENDANT>AutoAttendant>Auto Attendant Seats>No>4#\
+BASIC>Basic>Basic Seats>Yes>5#\
+BASIC CORDLESS>Basic Cordless>Basic Cordless Seats>Yes>6#\
+BUSINESS COMMUNICATOR COLLABORATION>Business Communicator Collaboration>Business Communicator Collaboration>No>7#\
+BUSINESS COMMUNICATOR VOICE/VIDEO>Business Communicator Voice/Video>Business Communicator Voice/Video>No>8#\
+CALL RECORDING BASIC>Call Recording - Basic>Call Recording - Basic>No>9#\
+CALL RECORDING PREMIUM>Call Recording - Premium>Call Recording - Premium>No>10#\
+CALL RECORDING STANDARD>Call Recording - Standard>Call Recording - Standard>No>11#\
+CONFERENCE>Conference>Conference Seats>Yes>12#\
+CONTACT CENTER BASIC>Contact Center Basic>Contact Center Basic Seats>Yes>13#\
+CONTACT CENTER STANDARD>Contact Center Standard>Contact Center Standard Seats>Yes>14#\
+CONTACT CENTER SUPERVISOR>Contact Center Supervisor>Contact Center Supervisor Seats>Yes>15#\
+CUSTOM SIP>Custom SIP>Custom SIP Seats>Yes>16#\
+SOFTPHONE>Desktop SoftPhone>Desktop Softphones>No>17#\
+GROUP PAGING>GROUP PAGING>GROUP PAGING>No>18#\
+HUNT GROUP>HuntGroup>Hunt Group Seats>No>19#\
+INSTANT CALL GROUP>InstantCallGroup>Instant Call Group Seats>No>20#\
+MOBILE SOFTPHONE>Mobile SoftPhone>Mobile Softphones>No>21#\
+MONDAGO TEAMS>Team>Mondago Teams>No>22#\
+MONDAGO UNITE>Unite>Mondago Unite>No>23#\
+PREMIUM>Premium>Premium Seats>Yes>24#\
+PREMIUM COLLABORATION>Premium Collaboration>Premium Collaboration>No>25#\
+PREMIUM CORDLESS>Premium Cordless>Premium Cordless Seats>Yes>26#\
+RECEPTIONIST PC CONSOLE>ComPilotReceptionist>Receptionist Console>No>27#\
+RECEPTIONIST>Receptionist>Receptionist Seats>Yes>28#\
+SECURE SIP>Secure SIP>Secure SIP>No>29#\
+SPARE DEVICE>SpareDevice>Spare Device>Yes>30#\
+SIP BASIC>SIP Basic>SIP Basic Seats>No>31#\
+SIP E911>SIP E911>SIP E911>No>32#\
+SIP MOBILITY>SIP Mobility>SIP Mobility Seats>No>33#\
+SIP PREMIUM>SIP Premium>SIP Premium Seats>No>34#\
+SIP STANDARD>SIP Standard>SIP Standard Seats>No>35#\
+STANDARD>Standard>Standard Seats>Yes>36#\
+STANDARD COLLABORATION>Standard Collaboration>Standard Collaboration>No>37#\
+STANDARD CORDLESS>Standard Cordless>Standard Cordless Seats>Yes>38#\
+VIRTUAL>Virtual>Virtual Seats>No>39#\
+VOICE MAIL FOR HUNT GROUP>HuntGroupVoicemail>Voice Mail for Group Features>No>40#\
+VOICE MAIL ONLY>VoicemailOnly>Voice Mail Only Seats>No>41#\
+VOICE MAIL TRANSCRIPTION>VoiceMailTranscription>Voice Mail Transcription>No>42#\
+WALMART TRUNK ICB ONLY>WALMART TRUNK ICB ONLY>Walmart Trunk ICB Only>No>43#\
+ACCESSORY (ONE TIME PURCHASE ITEMS)>ACCESSORY (ONE TIME PURCHASE ITEMS)>ACCESSORY (ONE TIME PURCHASE ITEMS)>Yes>44#\
+
+# db.voipportalapp.url = jdbc:oracle:thin:@vomwfst1db.dev.qintra.com:1548:vomwfst1:vomwfst2
+# db.voipportalapp.password = wlist4_suomt998
+
+#db.voipportalapp.url = jdbc:oracle:thin:@vomwfst1db.dev.qintra.com:1548:vomwfst1
+#db.voipportalapp.password = vomwfst1
+
+#db.voipportalapp.url = jdbc:oracle:thin:@vomwfe2edb.dev.qintra.com:1549:vomwfe2e
+#db.voipportalapp.username = voip_portal_app
+#db.voipportalapp.password = vomwfe2e_suomd105
+
+db.voipportalapp.url = jdbc:oracle:thin:@vomwfst1db.dev.qintra.com:1548:vomwfst1
+db.voipportalapp.username = voip_portal_app
+db.voipportalapp.password = vomwfst1
+
+
+#render accessory
+render.accessory=true
+
+# LIMS HVDS webservice
+lims.webservice.hvds=http://lims1-itv.qintra.com:8080/axis/services/VOIPService
+lims.webservice.cod=http://lims1-itv.qintra.com:8080/axis/services/CodService
+
+
+bvoipwf.webservice.url = http://bvoipwf-test1.dev.qintra.com/BVoIPWorkflowWeb/MDWWebService
+qcordering.webservice.hvds=http://ordering-itv1.dev.qintra.com/OaWS/OaWS
+omwf.webservice.hvds = http://voipsvc-test1.test.intranet/VoIP_OMWF_WebServices/com/qwest/voip/hvds/HVDS.jws
+
+#lims.webservice.hvds=http://lims2-e2e.qintra.com:8080/axis/services/VOIPService
+#lims.webservice.cod=http://lims2-e2e.qintra.com:8080/axis/services/CodService
+#
+#bvoipwf.webservice.url = http://bvoipwf-e2e.dev.qintra.com/BVoIPWorkflowWeb/MDWWebService
+#qcordering.webservice.hvds=http://ordering-e2e.dev.qintra.com/OaWS/OaWS
+#omwf.webservice.hvds = http://voipsvc-e2e.test.intranet/VoIP_OMWF_WebServices/com/qwest/voip/hvds/HVDS.jws
+
+#lims.webservice.hvds=http://lims2-itv.qintra.com:8090/axis/services/VOIPService
+#lims.webservice.cod=http://lims2-itv.qintra.com:8090/axis/services/CodService
+#
+#bvoipwf.webservice.url = http://bvoipwf-test2.dev.qintra.com/BVoIPWorkflowWeb/MDWWebService
+#qcordering.webservice.hvds=http://ordering-itv2.dev.qintra.com/OaWS/OaWS
+#omwf.webservice.hvds = http://bvoipsvc-test2.dev.qintra.com/VoIP_OMWF_WebServices/com/qwest/voip/hvds/HVDS.jws
+
+broadworks.macd.siptrunk.seats=test
+order.stacking.activated=true
+blacklist.seat.feature.inventory = WALMART TRUNK ICB ONLY
+ordering.inventory.phone.type.disabled=true
+
+render.seats=true
+
+#BVoIPWF Query to get Group Address for a given group id
+bvoipwf.webservice.HVDSGroupAddressQuery=SELECT ADDRESS.ADDRESS_LINE1 ADDRESS_LINE1, ADDRESS.ADDRESS_LINE2 ADDRESS_LINE2, \
+      ADDRESS.CITY CITY, ADDRESS.STATE STATE, ADDRESS.ZIP ZIP \
+FROM  ADDRESS, CUSTOMER_GROUP, CUSTOMER_GROUP_MAPPING  \
+WHERE CUSTOMER_GROUP_MAPPING.OWNER_ID = ADDRESS.ADDRESS_ID \
+AND   CUSTOMER_GROUP_MAPPING.OWNER_TYPE = 'ADDRESS' \
+AND   CUSTOMER_GROUP_MAPPING.CUSTOMER_GROUP_ID = CUSTOMER_GROUP.CUSTOMER_GROUP_ID \
+AND   CUSTOMER_GROUP.GROUP_ID = ? \
+AND   CUSTOMER_GROUP.MAPPING_CLOSE_DATE is null \
+AND   CUSTOMER_GROUP_MAPPING.MAPPING_CLOSE_DATE IS NULL
+
+bvoipsvc.broadworks.screen.mapping =\
+HV AUTO ATTENDANT>AutoAttendant>HV Auto Attendant>HV Auto Attendant Seats>No>1#\
+HV BASIC SEAT>Basic>HV Basic>HV Basic Seats>Yes>2#\
+HV CALL RECORDING BASIC>Call Recording - Basic>HV Call Recording Basic>HV Call Recording Basic>No>3#\
+HV CALL RECORDING PREMIUM>Call Recording - Premium>HV Call Recording Premium>HV Call Recording Premium>No>4#\
+HV CALL RECORDING STANDARD>Call Recording - Standard>HV Call Recording Standard>HV Call Recording Standard>No>5#\
+HV CONTACT CENTER BASIC>HV Contact Center Basic>HV Contact Center Basic>HV Contact Center Basic>No>6#\
+HV CONTACT CENTER STANDARD>HV Contact Center Standard>HV Contact Center Standard>HV Contact Center Standard>No>7#\
+HV CONTACT CENTER SUPERVISOR>HV Contact Center Supervisor>HV Contact Center Supervisor>HV Contact Center Supervisor>No>8#\
+HV CUSTOM SIP SEAT>Custom SIP>HV Custom SIP>HV Custom SIP Seats>Yes>9#\
+HV HUNT GROUP>HuntGroup>HV Hunt Group>HV Hunt Group Seats>No>10#\
+HV PREMIUM SEAT>Premium>HV Premium>HV Premium Seats>Yes>11#\
+HV RECEPTIONIST CONSOLE SOFTWARE>ComPilotReceptionist>HV Receptionist Console Software>HV Receptionist Console Software>No>12#\
+HV SECURE SIP>Secure SIP>HV Secure SIP>HV Secure SIP>No>13#\
+HV STANDARD SEAT>Standard>HV Standard>HV Standard Seats>Yes>14#\
+HV VIRTUAL SEAT>Virtual>HV Virtual>HV Virtual Seats>Yes>15#\
+HV VOIP ANYWHERE>Anywhere>HV Voip Anywhere>HV Voip Anywhere>No>16#\
+HV VOICEMAIL FOR GROUP FEATURES>HuntGroupVoicemail>HV Voicemail For Group Features>HV Voicemail For Group Features>No>17#\
+HV VOICEMAIL ONLY>VoicemailOnly>HV VoicemailOnly>HV Voice Mail Only Seats>Yes>18#\
+HV VOICEMAIL TRANSCRIPTION>VoiceMailTranscription>HV Voicemail Transcription>HV Voicemail Transcription>No>19#\
+HV WEBEX BASIC COLLABORATION>Basic Collaboration>HV Webex Basic Collaboration>HV Webex Basic Collaboration>No>20#\
+HV WEBEX PREMIUM COLLABORATION>Premium Collaboration>HV Webex Premium Collaboration>HV Webex Premium Collaboration>No>21#\
+HV WEBEX SOFTPHONE ONLY>Softphone>HV Webex Softphone Only>HV Webex Softphone Only>No>22#\
+HV WEBEX STANDARD COLLABORATION>Standard Collaboration>HV Webex Standard Collaboration>HV Webex Standard Collaboration>No>23#\
+
+# LDAP
+java.naming.security.principal = cn=root
+java.naming.security.credentials = passw0rd
+user.search.base = dc=voip,dc=qwest,dc=com
+group.search.base = dc=voip,dc=qwest,dc=com
+ldap.search.context = cn=usersAndGroups,DC=VOIP,DC=QWEST,DC=COM
+
+java.naming.ldap.version = 3
+java.naming.security.authentication = Simple
+java.naming.referral = follow
+java.naming.provider.url = ldap://voipldaptest.dev.qintra.com:1389
+java.naming.factory.initial = com.sun.jndi.ldap.LdapCtxFactory
+
+TestProp=testprops
+
+qcordering.msg.mapping=\
+ 1>[Ordering Error 1] We are unable to process your order at this time due to a system error. Please try again later.#\
+ 2>[Ordering Error 2] We are unable to process your order at this time due to Order #<pending Order No> still pending. Please wait for that order to complete, and try again.#\
+ 3>[Ordering Error 3] We are unable to process your order at this time due to your previous order still being processed. Please try again later.#
+
+#Email properties
+
+hvds.default.from.address.tpc.email = VoipCustomerService@lumen.com
+hvds.email.order.confirmation.template.file = HVDSOrderSummaryEmailTemplate.vm
+hvds.order.confirmation.email.subject = Your Lumen Order Summary
+hvds.email.template.path = /templates/
+mail.transport.protocol = smtp
+mail.host = mailgate.uswc.uswest.com
+
+hvds.delete.cpe.template.file = HVDSDeleteCPEEmailTemplate.vm
+hvds.delete.cpe.email.subject = Portal RMA {1} Request ID: {0}
+hvds.delete.cpe.email.subject.salesorderid = Portal RMA {1} Request ID: {0} / CORE Sales Order ID {2}
+hvds.delete.cpe.email.to = CPEreturns@lumen.com
+#outlook properties
+
+# Tenant Client Software Download
+
+outlookintegrationclient.serialNumber = CenturyLink
+outlookintegrationclient.url = https://bvoip-itv1.dev.qintra.com/_bvoip/downloads/CenturyLinkIPVoiceOutlook.exe
+
+# URL For Telecom Service
+outlookintegrationclient.telecomUrl.1 = http://10.8.112.23:8081/soap/servlet/rpcrouter
+outlookintegrationclient.telecomUrl.2 = http://10.8.113.23:8081/soap/servlet/rpcrouter
+outlookintegrationclient.telecomUrl.3 = http://10.240.84.29/soap/servlet/rpcrouter
+outlookintegrationclient.telecomUrl.4 = http://10.240.84.25/soap/servlet/rpcrouter
+outlookintegrationclient.telecomUrl.5 = http://10.8.113.229:8081/soap/servlet/rpcrouter
+
+
+BinaryData
+====
+
+Events:  <none>
+
+
+BinaryData
+====
+
+Events:  <none>

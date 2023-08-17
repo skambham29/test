@@ -1,0 +1,110 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 'cts-savvisstation-ssp-pr-141-internal-java'
+  namespace: 'cts-savvisstation-dev'
+  annotations:
+    # nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.allow-http: "false"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  labels:
+    project: 'blue-savvisstationcustomerportal-internal'
+    branch: 'pr-141'
+    env: 'pr-141-internal'
+    commit: 'b50bad5'
+    role: java
+spec:
+  rules:
+    - host: java-pr-141-blue-savvisstationcustomerportal-internal-internal.kubeodc-test.corp.intranet    
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: 'cts-savvisstation-ssp-pr-141-internal'
+              servicePort: 80
+  tls:
+    - hosts:
+      - 'java-pr-141-blue-savvisstationcustomerportal-internal-internal.kubeodc-test.corp.intranet'
+      secretName: managed-tls-secret
+---
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'cts-savvisstation-ssp-pr-141-internal'
+  namespace: 'cts-savvisstation-dev'
+  labels:
+    project: 'blue-savvisstationcustomerportal-internal'
+    branch: 'pr-141'
+    env: 'pr-141-internal'
+    commit: 'b50bad5'
+    role: java
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    project: 'blue-savvisstationcustomerportal-internal'
+    branch: 'pr-141'
+    env: 'pr-141-internal'
+    commit: 'b50bad5'
+    role: java
+  type: ClusterIP
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'cts-savvisstation-ssp-pr-141-internal-java'
+  namespace: 'cts-savvisstation-dev'  
+  labels:
+    project: 'blue-savvisstationcustomerportal-internal'
+    branch: 'pr-141'
+    env: 'pr-141-internal'
+    commit: 'b50bad5'
+    role: java
+spec:
+  selector:
+    matchLabels:
+      project: 'blue-savvisstationcustomerportal-internal'
+      env: 'pr-141-internal'
+      branch: 'pr-141'
+      role: java
+  replicas: 1
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        project: 'blue-savvisstationcustomerportal-internal'
+        branch: 'pr-141'
+        env: 'pr-141-internal'
+        commit: 'b50bad5'
+        role: java
+    spec:
+      containers:
+        - name: java-pr-141
+          image: 'nexusprod.corp.intranet:4567/savvisstation/blue-savvisstationcustomerportal-internal/blue-savvisstationcustomerportal-internal:pr-141-b50bad5-internal'
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          resources:
+            limits:
+              cpu: "1000m"
+              memory: "1024Mi"
+            requests:
+              cpu: "500m"
+              memory: "1024Mi"
+          env:
+            - name: JAVA_OPTS
+              value: "-Xms:512M -Xmx:512M"
+            - name: PORTALNAMESPACE
+              value: "cts-savvisstation-dev"
+            - name: PORTALENV
+              value: "pr-141"              
+      imagePullSecrets:
+        - name: blue-savvisstationcustomerportal-internal-pr-141
+---
+---

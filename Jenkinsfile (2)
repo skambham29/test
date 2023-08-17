@@ -1,0 +1,224 @@
+/*
+ Library declaration.
+  Notes:
+  identifier includes the version of the library (git tag / branch)
+  remote includes the repository git url
+  credentialsId needs to be of the type SSH key in Jenkins
+  _ at the end of the declaration loads the whole library
+
+  This section always runs in the master jenkins.
+*/
+
+try {
+library(
+      identifier: 'jsl-jenkins-shared-library-local@release/20210415',
+      retriever: modernSCM(
+        [
+          $class: 'GitSCMSource',
+          remote: "/app/jenkins/git/jsl-jenkins-shared-library.git",
+          extensions: [[$class: 'WipeWorkspace']]
+        ]
+      )
+    ) _
+} catch (Exception Ex) {
+library(
+  identifier: 'jsl-jenkins-shared-library@release/20210415',
+  retriever: modernSCM(
+    [
+      $class: 'GitSCMSource',
+      remote: "git@github.com:CenturyLink/jsl-jenkins-shared-library.git",
+      credentialsId: 'SCMAUTO_SSH_DEVOPS_PIPELINE',
+      extensions: [[$class: 'WipeWorkspace']]
+    ]
+  )
+) _
+}
+pipeline {
+
+    environment {
+
+      /*
+        Credentials:
+        GITHUB_TOKEN_CREDENTIALS github token, jenkins user password credential
+        GITHUB_SSH_CREDENTIALS github ssh private key, jenkins private key credential.
+        DOCKER_CREDENTIALS Docker access info, jenkins secret file credential with environment variables to export
+        KUBE_CREDENTIALS Kubernetes access info, jenkins secret file credential with environment variables to export
+        AMAZON_CREDENTIALS AWS access info, jenkins secret file credential with environment variables to export
+        SONARQUBE_CREDENTIALS Sonarqube access info, jenkins secret file credential with environment variables to export
+        GCP_CREDENTIALS GCP access info, jenkins secret file credential with environment variables to export
+        JIRA_CREDENTIALS Jira access info, jenkins secret file credential with environment variables to export
+        MSTEAMS_CREADENTIALS MS Teams access info, jenkins secret file credential with environment variables to export
+      */
+      GITHUB_TOKEN_CREDENTIALS = 'SCMAUTO_GITHUB'
+      GITHUB_SSH_CREDENTIALS = 'SCMAUTO_SSH_DEVOPS_PIPELINE'
+      SONARQUBE_CREDENTIALS = 'sonar-secrets'
+      QUALITY_GATE_CREDENTIALS = 'qualitygate-secret'
+      JIRA_CREDENTIALS = 'jira-credentials'
+      PROJECT_MAL = 'QUANTUM-MOBILE'
+      MSTEAMS_CREDENTIALS = 'teams-notification-secret'
+
+      // Custom project variables
+      BRANCH_NAME = GIT_BRANCH.split('/')[-1].trim().toLowerCase()
+      COMMIT_ID = GIT_COMMIT.substring(0,7).trim().toLowerCase()
+      PULL_REQUEST="pr-${env.CHANGE_ID}"
+      PROJECT_NAME = 'qm-android'
+
+    }
+
+    /*
+    https://www.jenkins.io/doc/book/pipeline/syntax/#agent
+    Add agent sections in stages/stage if needed.
+    */
+    agent {
+     // label 'Docker-enabled'
+     label 'jenkinsndodc12-prod'
+    }
+
+    options {
+      /*
+      https://www.jenkins.io/doc/book/pipeline/syntax/#options
+      */
+      timestamps ()
+      timeout(time: 1, unit: 'HOURS')
+      buildDiscarder(logRotator(numToKeepStr:'10', daysToKeepStr: '30'))
+      preserveStashes(buildCount: 10)
+      disableConcurrentBuilds()
+    }
+
+    /*
+    https://www.jenkins.io/doc/book/pipeline/syntax/#triggers
+    */
+    triggers {
+      issueCommentTrigger('.*test this please.*')
+    }
+
+    stages {
+
+      stage('Static Code Analysis') {
+        parallel {
+          stage('Linting') {
+            steps {
+              script {
+                /* Contract validation gate */
+                sh './gradlew clean ktlintCheck'
+                archiveArtifacts artifacts: 'app/build/reports/ktlint/*.*', fingerprint: true
+              }
+            }
+          }
+          stage('DevSecOps'){
+            steps {
+              script {
+                /* Contract validation gate */
+                jslGitHubSecurityAlert()
+              }
+            }
+          }
+        }
+      }
+
+      stage('Build') {
+        steps {
+          script {
+            sh './gradlew clean assembleDebug'
+            stash name: "TARGET", includes: "app/build/**"
+            archiveArtifacts artifacts: 'app/build/outputs/apk/**/*.apk', fingerprint: true
+          }
+        }
+      }
+
+      stage('Test') {
+        stages {
+          stage('Unit Tests') {
+            steps {
+              script {
+                /* Contract validation gate */
+                sh './gradlew customJacocoTestReport'
+                stash name: "TESTS", includes: "app/build/**"
+                archiveArtifacts artifacts: 'app/build/**', fingerprint: true
+                jslPublishTestResults('app/build/test-results/testDevDebugUnitTest/*.xml')
+              }
+            }
+          }
+          stage('Coverage'){
+            steps {
+              script {
+                unstash name: "TESTS"
+                /* Contract validation gate */
+                jacoco(execPattern: 'app/build/jacoco/testDevDebugUnitTest.exec')
+                // jacoco(execPattern: 'target/jacoco.exec')
+                /* Sonar get executed only in Master Branch */
+                jslQualityGateCodeCoverage('./cicd/conf/sonarqube/sonar-project.properties')
+              }
+            }
+          }
+          stage('Sonarqube'){
+            agent {
+                dockerfile {
+                    filename 'Dockerfile'
+                    dir 'cicd/docker/sonarqube'
+                    label 'Docker-enabled'
+                }
+            }
+            steps {
+              script {
+                  unstash name: "TESTS"
+                  /* Contract validation gate */
+                  jslSonarQubeStaticAnalysis('./cicd/conf/sonarqube/sonar-project.properties')
+              }
+            }
+          }
+          stage('Quality Gate'){
+            agent {
+                dockerfile {
+                    filename 'Dockerfile'
+                    dir 'cicd/docker/sonarqube'
+                    label 'Docker-enabled'
+                }
+            }
+            steps {
+              script {
+                /* Contract validation gate */
+                jslQualityGate()
+              }
+            }
+          }
+        }
+      }
+      stage('Adoption Stats') {
+        agent {
+            dockerfile {
+                filename 'Dockerfile'
+                dir 'cicd/docker/jira'
+                label 'Docker-enabled'
+            }
+         }
+         steps {
+           unstash name: "TESTS"
+          /* Contract validation gate */
+          jslAdoptionMain('hook_*.xml')
+         }
+      }
+
+    }
+
+    post {
+        /*
+        https://www.jenkins.io/doc/book/pipeline/syntax/#post
+        Always post somewhere the watermark:
+        - md5sum of Jenkinsfile
+        - Output of the Jenkinsfile checker output
+        */
+      success {
+         jslNotification('success')
+         cleanWs()
+      }
+      failure {
+        jslNotification('failure')
+        cleanWs()
+      }
+      unstable {
+        jslNotification('unstable')
+        cleanWs()
+      }
+    }
+}

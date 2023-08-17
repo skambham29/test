@@ -1,0 +1,108 @@
+<settings>
+
+    <mirrors>
+        <mirror>
+            <id>nexus-mirror</id>
+            <mirrorOf>central</mirrorOf>
+            <name>Nexus Production Mirror</name>
+            <url>https://nexusprod.corp.intranet:8443/repository/maven-central/</url>
+        </mirror>
+    </mirrors>
+	
+<servers>
+        <server>
+            <id>central</id>
+            <username>9ElVp7Cb</username>
+            <password>mL6LddXuxP4cplKMePy66W4ulcZ4AnXpAKVVCNbHwW_p</password>
+        </server>
+        <server>
+            <id>nexus-releases</id>
+            <username>9ElVp7Cb</username>
+            <password>mL6LddXuxP4cplKMePy66W4ulcZ4AnXpAKVVCNbHwW_p</password>
+        </server>
+        <server>
+            <id>nexus-snapshots</id>
+            <username>9ElVp7Cb</username>
+            <password>mL6LddXuxP4cplKMePy66W4ulcZ4AnXpAKVVCNbHwW_p</password>
+        </server>
+        <server>
+            <id>central-public</id>
+            <username>9ElVp7Cb</username>
+            <password>mL6LddXuxP4cplKMePy66W4ulcZ4AnXpAKVVCNbHwW_p</password>
+        </server>
+
+                <server>
+            <id>ctl.nexus.thirdparty</id>
+            <username>9ElVp7Cb</username>
+            <password>mL6LddXuxP4cplKMePy66W4ulcZ4AnXpAKVVCNbHwW_p</password>
+        </server>
+</servers>
+    
+    <profiles>
+        <profile>
+            <id>SIMON-simonEnsembleApi</id>
+			
+			 <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <maven.wagon.http.ssl.insecure>true</maven.wagon.http.ssl.insecure>
+        <maven.wagon.http.ssl.allowall>true</maven.wagon.http.ssl.allowall>
+        <maven.wagon.http.ssl.ignore.validity.dates>true</maven.wagon.http.ssl.ignore.validity.dates>
+      </properties>
+	  
+            <repositories>
+                <repository>
+                    <id>central</id>
+                    <name>Maven Central</name>
+                    <url>https://nexusprod.corp.intranet:8443/repository/maven-central/</url>
+                </repository>
+                <repository>
+                    <id>nexus-releases</id>
+                    <name>Nexus Releases</name>
+                    <url>https://nexusprod.corp.intranet:8443/repository/maven-releases/</url>
+                </repository>
+                <repository>
+                    <id>nexus-snapshots</id>
+                    <name>Nexus Releases</name>
+                    <url>https://nexusprod.corp.intranet:8443/repository/maven-snapshots/</url>
+                </repository>
+                <repository>
+                    <id>central-public</id>
+                    <name>Maven Public</name>
+                    <url>https://nexusprod.corp.intranet:8443/repository/maven-public/</url>
+                </repository>
+                <repository>
+                    <id>ctl.nexus.thirdparty</id>
+                    <name>CenturyLink Nexus Repository - Thirdparty Releases</name>
+                    <url>https://nexusprod.corp.intranet:8443/repository/3rdParty/</url>
+                </repository>
+               
+               </repositories>
+        </profile>
+    </profiles>
+
+    <activeProfiles>
+        <activeProfile>SIMON-simonEnsembleApi</activeProfile>
+    </activeProfiles>
+
+
+</settings>
+
+        <!--
+                        <repository>
+                            <id>nexus_test</id>
+                            <name>Nexus Managed Test Repository</name>
+                            <url>http://lxomavmpc110.qintra.com:8081/nexus/content/repositories/test/</url>
+                        </repository>
+                        <repository>
+                            <id>nexus_public</id>
+                            <name>Nexus Managed Public Repository</name>
+                            <url>http://lxomavmpc110.qintra.com:8081/nexus/content/groups/public/</url>
+                        </repository>
+                        <repository>
+                            <id>nexus_thirdparty</id>
+                            <name>Nexus Managed Third Party Repository</name>
+                            <url>http://lxomavmpc110.qintra.com:8081/nexus/content/repositories/thirdparty/</url>
+                        </repository>
+        -->

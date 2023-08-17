@@ -1,0 +1,160 @@
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = "0.8.4"
+}
+
+
+def fileFilter = [
+        '**/R.class',
+        '**/R2.class',
+        '**/R$*.class',
+        '**/apidez/com/databinding/databinding/*',
+        '**/android/databinding/*',
+        '**/*$ViewInjector*.*',
+        '**/*$ViewBinder*.*',
+        '**/BuildConfig.*',
+        '**/views/**',
+        '**/viewholder/**',
+        '**/viewholders/**',
+        '**/wrapper/**',
+        '**/orientation/**',
+        '**/ktx/**',
+        '**/decorator/**',
+        '**/*ViewBinding*.*',
+        '**/*Component*.*',
+        '**/*Module*.*',
+        '**/*Injector*.*',
+        'android/**/*.*',
+        '**/InitUtilityKt*.class',
+        '**/LiveEvent*.class',
+        '**/CoroutineContextProvider*.class',
+        '**/ValidationException*.class',
+        '**/TextWatcherKt*.class',
+        '**/DateUtils*.class',
+        '**/okenServiceKt*.class',
+        '**/AuthServiceHost.DefaultImpls*.class',
+        '**/NoAuthHttpClient*.class',
+        '**/ResponseBodyWithResponse*.class',
+        '**/HttpLogger*.class',
+        '**/OAuthHttpClientKt*.class',
+        '**/io/**',
+        '**/apache/**',
+        '**/sharing/**',
+        '**/*Application*.*',
+        '**/*Component*.*',
+        '**/UiUtils.*',
+        '**/*Binding*.*',
+        '**/*Retrofit*.*',
+        '**/*BR*.*',
+        '**/*Adapter*.*',
+        '**/*Fragment*.*',
+        '**/*Activity*.*',
+        '**/*Rx*.*',
+        '**/*ViewHolder*.*',
+        '**/Manifest*.*',
+        '**/*$Lambda$*.*',
+        '**/*Module.*',
+        '**/*Dagger*.*',
+        '**/*MembersInjector*.*',
+        '**/*_Provide*Factory*.*',
+        'android/**/*.*',
+        '**/Lambda$*.class',
+        '**/Lambda.class',
+        '**/*Lambda.class',
+        '**/*Lambda*.class',
+        '**/*$*$*.*',
+        'androidTest/**/*.*',
+        'test/**/*.*',
+        '**/injector/**/*.*',
+        '**/analytics/**/*.*',
+        '**/model/**/*.*',
+        '**/widgets/**/*.*',
+        '**/mock/**/*.*',
+        '**/screens/qrcode/**/*.*',
+        '**/screens/notification/**/*.*',
+        '**/screens/plume/plumeenablebluetooth**/*.*',
+        '**/service/**/*',
+        '**/utility/**/*.*',
+        '**/event/**/*.*',
+        '**/**_ViewBinding**',
+        '**/*EventType.*',
+        '**/**Mocked',
+        '**/*Navigator.*',
+        '**/*SharedPreferencesStore.*',
+        '**/*Preferences.Companion.*',
+        '**/*BIWFApp.*',
+        '**/*ItemType*.*',
+        '**/*LiveDataObserver.*.*',
+        '**/*WebLinkUtil.Companions.*',
+        '**/*LiveDataExtensionsKt.*',
+        '**/*InitUtility.Companion.*',
+        '**/*WebLinkUtil.*',
+        '**/*InitUtility.*',
+        '**/*AppUtil.*',
+        '**/*AppUtil.Companion.*',
+        '**/*BehaviorStateFlow.*',
+        '**/*DaggerViewModelFactoryKt.*',
+        '**/*EventFlow.*',
+        '**/*PendoConstants.*',
+        '**/CustomExpandableListView.*',
+        '**/*Companion*.*',
+        '**/IntegrationServerService.DefaultImpls.*',
+        '**/IntegrationServerKt.*',
+        '**/Either.*',
+        '**/EitherKt.*',
+        '**/PasswordErrorResponse.*',
+        '**/IntegrationServerKt.*',
+        '**/AppAuthAuthService.*',
+        '**/AppAuthAuthorizationServicesKt.*',
+        '**/AppAuthTokenStorage.*',
+        '**/AppAuthAccessTokenGenerator.*',
+        '**/AppAuthResponseService.*',
+        '**/IntegrationServerKt.*',
+        '**/AppAuthTokenService.*',
+        '**/AppAuthAccessTokenGeneratorKt.*',
+        '**/AppAuthAuthServiceFactory.*',
+        '**/Preferences.*',
+        '**/AuthServiceHost.DefaultImpls.*',
+        '**/TokenStorageKt.*',
+        '**/TokenServiceKt.*',
+        '**/AuthServiceHost.DefaultImpls.*',
+        '**/LoginViewModel.Factory.*',
+        '**/BiometricPromptMessage.*',
+        '**/OAuthHttpClient.*',
+        '**/AuthServiceConfig.*',
+        '**/IntegrationServerService.DefaultImpls.*',
+        '**/AuthServiceHost.DefaultImpls*',
+        '**/Errors*',
+        '**/LiveDataObserver.DefaultImpls*',
+        '**/AuthServiceHost*',
+        '**/IntegrationServerService*',
+        '**/IntegrationServerService*',
+        '**/LiveDataObserver*',
+        '**/NotificationRepository*',
+        '**/NotificationViewModel*',
+        '**/DevicesRepository*',
+        '**/EitherCall*',
+        '**/FiberErrorConverter*'
+]
+
+// need to change devdebug to prodrelease
+def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/DevDebug", excludes: fileFilter)
+def kotlinDebugTree = fileTree(dir: "${buildDir}/tmp/kotlin-classes/devDebug", excludes: fileFilter)
+def mainSrc = "${project.projectDir}/src/main/java"
+task customJacocoTestReport(type: JacocoReport, dependsOn: 'testDevDebugUnitTest') {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+        html.destination file("${buildDir}/reports/jacoco")
+        xml.destination file("${buildDir}/reports/jacoco/test/jacocoTestReport.xml")
+    }
+    getSourceDirectories().setFrom(files([mainSrc]))
+    getClassDirectories().setFrom(files([debugTree], [kotlinDebugTree]))
+    getExecutionData().from(files("${buildDir}/jacoco/testDevDebugUnitTest.exec"))
+}
+task customJacocoTestCoverageVerification(type: JacocoCoverageVerification, dependsOn: 'customJacocoTestReport') {
+    getSourceDirectories().setFrom(files([mainSrc]))
+    getSourceDirectories().setFrom(files([debugTree], [kotlinDebugTree]))
+    getSourceDirectories().setFrom(files("${buildDir}/jacoco/testDevDebugUnitTest.exec"))
+}
